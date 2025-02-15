@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MapView, {Marker, Polyline} from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image} from 'react-native';
 import * as Location from 'expo-location';
 
 export default function App() {
@@ -8,6 +8,8 @@ export default function App() {
   const [location, setLocation] = useState(null)
   const [subscription, setTracker] = useState(null);
   const [region, setRegion] = useState(null);
+
+  //const markerImage = (require('./assets/huskie.png'));
 
   const routeCoordinates = [
     // Apple maps
@@ -30,7 +32,7 @@ export default function App() {
     { latitude: 41.006980, longitude: -76.448245 }, // last
   ];
 
-  const selectedPoints = [routeCoordinates[2], routeCoordinates[3], routeCoordinates[4]];
+  //const selectedPoints = [routeCoordinates[2], routeCoordinates[3], routeCoordinates[4]];
 
   // set up a useEffect to request permissions, fetch user location, and track location
   useEffect(() => 
@@ -101,9 +103,9 @@ export default function App() {
         
         {/* Draw the path */}
         <Polyline
-          // coordinates={routeCoordinates}
+          coordinates={routeCoordinates}
           // or, for a select group of points from the container:
-          coordinates={selectedPoints}
+          //coordinates={selectedPoints}
           strokeWidth={10}
           strokeColor="blue"
         />
@@ -113,9 +115,10 @@ export default function App() {
               coordinate={{
                 latitude: location.latitude,
                 longitude: location.longitude,
-              }}
-              icon={require('./assets/huskie.png')} // Using local image
-            />
+              }}>
+               {/* icon={{uri: markerImage.uri}} // Using local image */}
+              <Image source={require('./assets/cropped-huskie.png')} style={{height: 40, width:40 }}/>
+            </Marker>
           )}
       </MapView>
 
