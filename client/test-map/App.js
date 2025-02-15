@@ -9,8 +9,6 @@ export default function App() {
   const [subscription, setTracker] = useState(null);
   const [region, setRegion] = useState(null);
 
-  //const markerImage = (require('./assets/huskie.png'));
-
   const routeCoordinates = [
     // Apple maps
     // { latitude: 41.006960, longitude: -76.448590 }, // Point a
@@ -116,7 +114,6 @@ export default function App() {
                 latitude: location.latitude,
                 longitude: location.longitude,
               }}>
-               {/* icon={{uri: markerImage.uri}} // Using local image */}
               <Image source={require('./assets/cropped-huskie.png')} style={{height: 40, width:40 }}/>
             </Marker>
           )}
