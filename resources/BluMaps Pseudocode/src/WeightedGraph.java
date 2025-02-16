@@ -57,6 +57,14 @@ public class WeightedGraph
         }
     }
 
+    /*
+        getShortestPath uses A* algorithm - guarantee of returning the shortest path
+        from source to dest through the given Nodes. Big picture - works just like
+        Dijkstra's algorithm, except uses a "heuristic" to make smarter choices. IE,
+        the real world is not an abstract weighted graph - so we have some notion of real
+        world distance we can leverage.
+     */
+
     public ArrayList<Node> getShortestPath(Node source, Node dest) {
         Comparator<Node> orderingByDistance = Comparator.comparingInt(o -> o.f);
         PriorityQueue<Node> openList = new PriorityQueue<>(orderingByDistance);
@@ -66,8 +74,8 @@ public class WeightedGraph
         // initialize node properties
         int startG = 0;
         int startH = squaredDistance(source, dest);
-        source.parent = null;
 
+        source.parent = null;
         source.setPathFinding(startG, startH);
         openList.add(source);
 
@@ -80,30 +88,37 @@ public class WeightedGraph
             // honestly probably important enough to the efficiency of this algorithm
             // that we roll our own.
 
-            Node current = openList.poll();
+            Node current = openList.poll(); // return the node with the current smallest
+            // lower bound for a path that hasn't been checked yet.
 
             if (current.equals(dest)) {
                 return reconstructPath(current, source);
             }
 
-            closedList.add(current);
+            closedList.add(current); // don't check this node again - the fastest path
+            // can't have backtracking
 
             for (Node neighbor : current.hasEdgesTo) {
 
                 // O(1) look-up in hash table
                 if (!closedList.contains(neighbor)) {
+                    // best estimate for lower bound for a path from start to neighbor
                     int tentative =
                             current.g + WeightedGraph.squaredDistance(current,
                                     neighbor);
                     // O(n) time for searching priority Q (there is no guarantee the
                     // underlying tree is balanced)
-                    if (!openList.contains(neighbor)) {
+                    if (!openList.contains(neighbor)) { // add neighbor to be investigated
                         openList.add(neighbor);
-                    } else if (tentative >= neighbor.g) {
+                    } else if (tentative >= neighbor.g) { // only continue if this is
+                        // the shortest path found from start -> neighbor found so far
                         continue;
                     }
 
-                    neighbor.parent = current;
+                    neighbor.parent = current; // <- for path reconstruction
+                    // lower bound for path from start -> neighbor -> destination is
+                    // equal to path from start -> current + current -> neighbor +
+                    // estimate from neighbor -> destination.
                     neighbor.setPathFinding(tentative, squaredDistance(neighbor, dest));
                 }
             }
