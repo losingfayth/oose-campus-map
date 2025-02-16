@@ -1,13 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class WeightedGraph
 {
     int numVertices;
     ArrayList<Node> points;
-    List<List<int[]>> weightedConnections;
 
     /*
         Adjacency matrix is symmetric across topleft -> bottom right diagonal
@@ -49,19 +45,10 @@ public class WeightedGraph
 
         // convert adjacency matrix to weighted graph
 
-
-        weightedConnections = new ArrayList<>(numVertices);
-
-        for (int i = 0; i < numVertices; i++) {
-            weightedConnections.add(new ArrayList<>());
-        }
-
         for (int i = 1; i < numVertices; i++) {
             for (int j = 0; j < adjacencyMatrix[i].length - 1; j++) {
                 if (adjacencyMatrix[i][j] != 0) {
-                    int d = squaredDistance(vertices.get(i), vertices.get(j));
-                    weightedConnections.get(j).add(new int[]{i, d});
-                    weightedConnections.get(i).add(new int[]{j, d});
+
 
                     points.get(i).hasEdgesTo.add(points.get(j));
                     points.get(j).hasEdgesTo.add(points.get(i));
@@ -71,8 +58,10 @@ public class WeightedGraph
     }
 
     public ArrayList<Node> getShortestPath(Node source, Node dest) {
-        ArrayList<Node> openList = new ArrayList<>();
-        ArrayList<Node> closedList = new ArrayList<>();
+        Comparator<Node> orderingByDistance = Comparator.comparingInt(o -> o.f);
+        PriorityQueue<Node> openList = new PriorityQueue<>(orderingByDistance);
+
+        HashSet<Node> closedList = new HashSet<>(numVertices / 2);
 
         // initialize node properties
         int startG = 0;
@@ -83,21 +72,31 @@ public class WeightedGraph
         openList.add(source);
 
         while (!openList.isEmpty()) {
-            //priority queue implementation
-            Node current = getMin(openList);
+            // priority queue is implemented in Java with a flavor of binary heap as the
+            // underlying data structure. This gives O(log n) time to both add and
+            // remove Nodes. A self-sorting data structure is important here - we need
+            // a way to access the "minimum" Node in the openList().
+            // If C# doesn't have something like that in its standard library, it is
+            // honestly probably important enough to the efficiency of this algorithm
+            // that we roll our own.
+
+            Node current = openList.poll();
 
             if (current.equals(dest)) {
                 return reconstructPath(current, source);
             }
 
-            openList.remove(current);
             closedList.add(current);
 
             for (Node neighbor : current.hasEdgesTo) {
+
+                // O(1) look-up in hash table
                 if (!closedList.contains(neighbor)) {
                     int tentative =
                             current.g + WeightedGraph.squaredDistance(current,
                                     neighbor);
+                    // O(n) time for searching priority Q (there is no guarantee the
+                    // underlying tree is balanced)
                     if (!openList.contains(neighbor)) {
                         openList.add(neighbor);
                     } else if (tentative >= neighbor.g) {
@@ -106,7 +105,6 @@ public class WeightedGraph
 
                     neighbor.parent = current;
                     neighbor.setPathFinding(tentative, squaredDistance(neighbor, dest));
-
                 }
             }
         }
@@ -115,12 +113,22 @@ public class WeightedGraph
         return new ArrayList<>();
     }
 
-    private ArrayList<Node> reconstructPath(Node current, Node source)
+    /*
+        After running getShortestPath, we have the following situation:
+
+        source n1 <- n2 <- n3 <- destination, where each Node has an attribute pointing
+         to the previous node in the shortest path.
+        In other words, it's a singly-linked list, and it's backwards. It also doesn't
+        contain the starting node. Reconstruct path returns an ArrayList with the
+        Nodes in the order the user should traverse them, starting with the Node
+        representing their current location.
+     */
+    private ArrayList<Node> reconstructPath(Node destination, Node source)
     {
         Stack<Node> path = new Stack<>();
-        while (current.parent != null) {
-            path.push(current);
-            current = current.parent;
+        while (destination.parent != null) {
+            path.push(destination);
+            destination = destination.parent;
         }
         path.push(source);
         ArrayList<Node> inOrder = new ArrayList<>();
@@ -130,29 +138,14 @@ public class WeightedGraph
         return inOrder;
     }
 
-
-
-    private Node getMin(ArrayList<Node> openList)
-    {
-        int minF = Integer.MAX_VALUE;
-        Node best = openList.get(0);
-        for (int i = 0; i < openList.size(); i++) {
-            if (openList.get(i).f < minF) {
-                best = openList.get(i);
-                minF = openList.get(i).f;
-            }
-        }
-        return best;
-    }
-
     @Override
     public String toString()
     {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < weightedConnections.size(); i++) {
-            s.append(i).append("-> ");
-            for (int j = 0; j < weightedConnections.get(i).size(); j++) {
-                s.append("(").append(weightedConnections.get(i).get(j)[0]).append(", ").append(weightedConnections.get(i).get(j)[1]).append(") ");
+        for (Node n : points) {
+            s.append("(").append(n.coordinatesX).append(", ").append(n.coordinatesY).append(") -> ");
+            for (Node m : n.hasEdgesTo) {
+                s.append("(").append(m.coordinatesX).append(", ").append(m.coordinatesY).append("), ");
             }
             s.append("\n");
         }
@@ -161,32 +154,46 @@ public class WeightedGraph
 
     /*
     Temporary distance function - NECESSARY to have lower bound for A* path finding
-    algorithm.
+    algorithm. This function needs
+        1. to be consistent - the scale/method remains the same for any two nodes
+        2. to respect the triangle inequality |a-c| <= |a-b| + |b-c|
+        3. The value returned is a LOWER BOUND on the distance of the actual path we
+            provide to the user.
      */
     private static int squaredDistance(Node a, Node b) {
         return (int) ((int) (a.coordinatesX - b.coordinatesX) * (a.coordinatesX - b.coordinatesX) + (a.coordinatesY - b.coordinatesY) * (a.coordinatesY - b.coordinatesY));
     }
 
-
-
-
     /*
         Need to be converted from lat/lng coords
+        Unsure whether we need floats/ints/ etc.
      */
-    private static class Node {
+    public static class Node {
         float coordinatesX;
         float coordinatesY;
         ArrayList<Node> hasEdgesTo;
-        private int g;
-        private int h;
-        private int f;
+
+        // private attributes exclusively used for pathFinding algorithm -
+        // The variables g, h, and f are named that way because it's what the variables
+        // are called in all the literature on the A* algorithm. Makes matching the
+        // implementation to the general algorithm easier.
+        private int g; // can be thought of as how far this node is
+        // from the source
+        private int h; // the "heuristic" - a lower bound on how far this node is from the
+        // destination based on the squaredDistance fx
+        private int f; // g + h => distance from start to this node + estimated
+        // distance from this node to the destination = lower bound on the
+        // fastest path (found so far) from the start to the destination that passes
+        // through this node.
         private Node parent;
+        private final int hashCode;
 
         public Node(float x, float y) {
             this.coordinatesX = x;
             this.coordinatesY = y;
 
             this.hasEdgesTo = new ArrayList<>();
+            this.hashCode = Objects.hash(x, y);
         }
 
         private void setPathFinding(int g, int h) {
@@ -206,6 +213,12 @@ public class WeightedGraph
             }
             Node n = (Node) obj;
             return n.coordinatesX == this.coordinatesX && n.coordinatesY == this.coordinatesY;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return this.hashCode;
         }
     }
 
