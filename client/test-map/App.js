@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import MapView, {Marker, Polyline} from 'react-native-maps';
 import { StyleSheet, View, Image} from 'react-native';
 import * as Location from 'expo-location';
+import SearchBar from './app/components/SearchBar';
+import BarSearch from './app/components/BarSearch';
 
 export default function App() {
 
@@ -98,7 +100,6 @@ export default function App() {
           longitudeDelta: newRegion.longitudeDelta,
         })))} // update the zoom level when the user changes it
       >
-        
         {/* Draw the path */}
         <Polyline
           coordinates={routeCoordinates}
@@ -119,8 +120,15 @@ export default function App() {
           )}
       </MapView>
 
+      {/* Add search bar */}
+      {/* <Screen> */}
+          <SearchBar />
+          {/* <BarSearch /> */}
+      {/* </Screen> */}
+
     </View>
   );
+
 }
 
 const styles = StyleSheet.create ({
