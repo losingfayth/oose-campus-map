@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CampusMapApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CampusMapController : ControllerBase
 {
 
@@ -14,12 +14,12 @@ public class CampusMapController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetGreeting")]
-    public Greeting Get()
+    [HttpGet("greeting")]
+    public Greeting GetGreeting()
     {
-		return new Greeting
-		{
-			Hello = "Hello, world!"
-		};
-    }
+      return new Greeting
+        {
+          Body = "Hello, world!"
+        };
+      }
 }

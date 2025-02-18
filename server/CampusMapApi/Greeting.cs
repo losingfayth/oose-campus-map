@@ -2,5 +2,5 @@ namespace CampusMapApi;
 
 public class Greeting
 {
-	public string Hello { get; set; } = string.Empty;
+	public string Body { get; set; } = string.Empty;
 }
