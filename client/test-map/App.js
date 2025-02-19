@@ -93,7 +93,7 @@ export default function App() {
         }}
         //showsUserLocation={true}
 
-        // minZoomLevel={16}
+        minZoomLevel={16}
         onRegionChangeComplete={(newRegion) => setRegion((prev => ({
           ...prev,
           latitudeDelta: newRegion.latitudeDelta,

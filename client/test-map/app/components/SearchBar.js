@@ -13,7 +13,8 @@ import SearchFilter from "./SearchFilter";
 
 
 const SearchBar = () =>
-{
+{   
+    // create a state var: input, and a function setInput. input = ""
     const [input, setInput] = useState("");
     //console.log(input)
     return(
@@ -25,7 +26,12 @@ const SearchBar = () =>
                 placeholder="Search" 
                 clearButtonMode='always'
             />
-            <SearchFilter data={searchables} input={input} setInput={setInput}/>
+            {
+                // if search bar isn't empty, then display the data.
+                input !== "" && searchables.length > 0 && (
+                <SearchFilter data={searchables} input={input} setInput={setInput}/>
+            )}
+            
         </SafeAreaView>
     )
 }

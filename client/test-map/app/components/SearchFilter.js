@@ -3,24 +3,21 @@ import React from 'react';
 
 const SearchFilter = ({data, input, setInput}) => 
 {
+    // Filter data based on user input
+    const filteredData = data.filter(item => 
+      item.name.toLowerCase().includes(input.toLowerCase())
+    );
+  
+    // If input is not empty and no matches, render nothing
+    if (input !== "" && filteredData.length === 0) 
+    {
+      return null; 
+    }
+
   return (
     <View style={styles.container} >
-      {/* <Text>Text goes here</Text> */}
       <FlatList data={data} renderItem={({item}) => 
       {
-        if(input === "")
-        {
-          return (
-            <View style={{marginVertical: 10, marginLeft: 10}}>
-                <Text style={{fontSize: 16}}>{item.name}</Text>
-            </View>  
-          )
-        }
-        // else
-        // {
-
-        // }
-
         // if user's search in lower case === what we have in our table,
         // then update the text in the suggested word box accordingly
         if(item.name.toLowerCase().includes(input.toLowerCase()))
@@ -31,7 +28,6 @@ const SearchFilter = ({data, input, setInput}) =>
             </View>  
           )
         }
-
       }}/>
     </View>
   )

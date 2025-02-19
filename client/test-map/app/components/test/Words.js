@@ -1,5 +1,5 @@
 /**
- *  Strictly used for testing the search filter without API
+ *  Strictly used for testing the search filter without APIj
  */
 export const searchables = [
     {
@@ -15,11 +15,7 @@ export const searchables = [
         id: "3",
     },
     {
-        name: "Ben Dover",
-        id: "4",
-    },
-    {
         name: "Centennial",
-        id: "5",
+        id: "4",
     },
 ];
