@@ -1,4 +1,4 @@
-@CampusMapApi_HostAddress = http://localhost:5159
+@CampusMapApi_HostAddress = http://localhost:5161
 
 GET {{CampusMapApi_HostAddress}}/greeting/
 Accept: application/json
