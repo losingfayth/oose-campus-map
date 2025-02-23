@@ -1,5 +1,5 @@
 /**
- *  Strictly used for testing the search filter without APIj
+ *  Strictly used for testing the search filter without API
  */
 export const searchables = [
     {
