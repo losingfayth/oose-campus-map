@@ -10,8 +10,6 @@ import SearchFilter from "./SearchFilter";
 /**
  *  For testing the search bar and filtering without an API
  */
-
-
 const SearchBar = () =>
 {   
     // create a state var: input, and a function setInput. input = ""

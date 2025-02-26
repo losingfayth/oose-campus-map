@@ -29,7 +29,13 @@ export default function App() {
     { latitude: 41.007175, longitude: -76.448248 }, 
     { latitude: 41.007099, longitude: -76.448306 }, 
     { latitude: 41.006990, longitude: -76.448220 }, 
-    { latitude: 41.006980, longitude: -76.448245 }, // last
+    // { latitude: 41.006980, longitude: -76.448245 }, 
+    { latitude: 41.00695003, longitude:  -76.44821454}, 
+    { latitude: 41.00690578, longitude:  -76.44831560}, 
+    { latitude: 41.00693638, longitude:  -76.44833930}, 
+    { latitude: 41.00696368, longitude:  -76.44836176}, 
+    { latitude: 41.00703194, longitude:  -76.44841603}, 
+    { latitude: 41.00700370, longitude:  -76.44849650}, 
   ];
 
   //const selectedPoints = [routeCoordinates[2], routeCoordinates[3], routeCoordinates[4]];
