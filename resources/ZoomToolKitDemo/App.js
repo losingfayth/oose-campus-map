@@ -1,14 +1,14 @@
-import React from "react";
-import { Image, ImageBackground, useWindowDimensions } from "react-native";
-import {
-  fitContainer,
-  ResumableZoom,
-  useImageResolution,
-} from "react-native-zoom-toolkit";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Svg, Path } from "react-native-svg";
-import points from "./components/Points";
-import generatePath from "./components/PathGenerator";
+// import React from "react";
+// import { Image, ImageBackground, useWindowDimensions } from "react-native";
+// import {
+//   fitContainer,
+//   ResumableZoom,
+//   useImageResolution,
+// } from "react-native-zoom-toolkit";
+// import { GestureHandlerRootView } from "react-native-gesture-handler";
+// import { Svg, Path } from "react-native-svg";
+// import points from "./components/Points";
+// import generatePath from "./components/PathGenerator";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
@@ -28,17 +28,29 @@ import generatePath from "./components/PathGenerator";
  *  @author Ethan Broskoskie
  */
 
+import React from "react";
+import { ImageBackground, useWindowDimensions, Image } from "react-native";
+import {
+  fitContainer,
+  ResumableZoom,
+  useImageResolution,
+} from "react-native-zoom-toolkit";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Svg, Path, Circle } from "react-native-svg";
+import { points, originalImageSize } from "./components/Points";
+import generatePath from "./components/PathGenerator";
+
 const uri = Image.resolveAssetSource(require("./assets/BFB-1.jpg")).uri;
 
 const App = () => {
-  /**
-   *  Below is some boiler plate code for implementing the Resumable Zoom
-   */
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
+
   if (isFetching || resolution === undefined) {
     return null;
   }
+
+  // Get the resized image dimensions
   const size = fitContainer(resolution.width / resolution.height, {
     width,
     height,
@@ -52,15 +64,33 @@ const App = () => {
           style={{ ...size }}
           resizeMethod={"scale"}
         >
-          <Svg>
+          <Svg width={size.width} height={size.height}>
             <Path
-              d={generatePath(points)}
+              d={generatePath(points, size)}
               stroke="blue"
               strokeWidth={5}
               strokeLinejoin="round"
               strokeLinecap="round"
               fill="transparent"
+              strokeDasharray="5 10" // 5 units of stroke with 10 units of space
             />
+            {/* Add a circle at the last point */}
+            {points.length > 0 && (
+              <Circle
+                cx={points[points.length - 1].x * size.width} // Scale x position
+                cy={points[points.length - 1].y * size.height} // Scale y position
+                r={8} // Radius of the circle
+                fill="lime" // Color of the circle
+              />
+            )}
+            {points.length > 0 && (
+              <Circle
+                cx={points[0].x * size.width} // Scale x position
+                cy={points[0].y * size.height} // Scale y position
+                r={8} // Radius of the circle
+                fill="blue" // Color of the circle
+              />
+            )}
           </Svg>
         </ImageBackground>
       </ResumableZoom>

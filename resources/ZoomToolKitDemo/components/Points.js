@@ -4,10 +4,12 @@
  *
  *  @author Ethan Broskoskie
  */
+const originalImageSize = { width: 3300, height: 2550 };
+
 const points = [
-  { x: 187, y: 225 },
-  { x: 187, y: 147 },
-  { x: 300, y: 147 },
+  { x: 1494 / originalImageSize.width, y: 1787 / originalImageSize.height },
+  { x: 1494 / originalImageSize.width, y: 1182 / originalImageSize.height },
+  { x: 2436 / originalImageSize.width, y: 1182 / originalImageSize.height },
 ];
 
-export default points;
+export { points, originalImageSize };

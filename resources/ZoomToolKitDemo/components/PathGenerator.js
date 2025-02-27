@@ -9,12 +9,15 @@
  * @author Ethan Broskoskie
  */
 
-const generatePath = (points) => {
-  if (points.length === 0) return "";
+const generatePath = (points, imageSize) => {
+  if (points.length === 0 || !imageSize) return "";
+
   return points
-    .map((point, index) =>
-      index === 0 ? `M${point.x},${point.y}` : `L${point.x},${point.y}`
-    )
+    .map((point, index) => {
+      const scaledX = point.x * imageSize.width;
+      const scaledY = point.y * imageSize.height;
+      return index === 0 ? `M${scaledX},${scaledY}` : `L${scaledX},${scaledY}`;
+    })
     .join(" ");
 };
 
