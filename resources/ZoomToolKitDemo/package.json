@@ -1,0 +1,28 @@
+{
+  "name": "zoomtoolkitdemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "~52.0.37",
+    "expo-status-bar": "~2.0.1",
+    "install": "^0.13.0",
+    "npm": "^11.1.0",
+    "react": "18.3.1",
+    "react-native": "0.76.7",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-reanimated": "~3.16.1",
+    "react-native-svg": "^15.8.0",
+    "react-native-zoom-toolkit": "^4.0.1",
+    "expo-screen-orientation": "~8.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
