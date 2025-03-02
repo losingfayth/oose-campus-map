@@ -1,0 +1,49 @@
+locationCode,floor,building,name,isValidDestination
+1,1,Ben Franklin,1st Floor Entrance,true
+2,1,Ben Franklin,hallway1,false
+3,1,Ben Franklin,hallway2,false
+4,1,Ben Franklin,hallway3,false
+5,1.5,Ben Franklin,stair1,false
+6,1.5,Ben Franklin,stair2,false
+7,1,Ben Franklin,Room 103,true
+8,1,Ben Franklin,Room 113,true
+9,1,Ben Franklin,Room 114,true
+10,1,Ben Franklin,Room 115,true
+11,2,Ben Franklin,hallway4,false
+12,2,Ben Franklin,hallway5,false
+13,2,Ben Franklin,hallway6,false
+14,2,Ben Franklin,hallway7,false
+15,2,Ben Franklin,hallway8,false
+16,2,Ben Franklin,Room 235,true
+17,2,Ben Franklin,Room 236,true
+18,2,Ben Franklin,Room 237,true
+19,2,Ben Franklin,Room 238,true
+20,2,Ben Franklin,Room 239,true
+21,2,Ben Franklin,Room 240,true
+22,2,Ben Franklin,Room 204,true
+23,2,Ben Franklin,Room 205,true
+24,2,Ben Franklin,Room 206,true
+25,2,Ben Franklin,Room 207,true
+26,2,Ben Franklin,Room 208,true
+27,2,Ben Franklin,Room 209,true
+28,2,Ben Franklin,Room 210,true
+29,2,Ben Franklin,Room 211,true
+30,2,Ben Franklin,Room 212,true
+31,2,Ben Franklin,Room 229,true
+32,2,Ben Franklin,Room 228,true
+33,2,Ben Franklin,Room 227,true
+34,2,Ben Franklin,Room 226,true
+35,2,Ben Franklin,Room 225,true
+36,2,Ben Franklin,Room 224,true
+37,2,Ben Franklin,Room 223,true
+38,2,Ben Franklin,Room 222,true
+39,2,Ben Franklin,Room 218,true
+40,2,Ben Franklin,Room 219,true
+41,2,Ben Franklin,Room 220,true
+42,2,Ben Franklin,Room 214,true
+43,2,Ben Franklin,Room 215,true
+44,2,Ben Franklin,hallway9,false
+45,2,Ben Franklin,Room 217C,true
+46,2,Ben Franklin,Room 217,true
+47,2,Ben Franklin,Room 217B,true
+48,2,Ben Franklin,Room 217A,true
