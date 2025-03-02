@@ -52,3 +52,70 @@ id,locationCode,floor,building,name,isValidDestination
 51,x,0,Ben Franklin,Ground Floor North Entrance,true
 52,x,0.5,Ben Franklin,stair3,false
 53,x,0.5,Ben Franklin,stair4, false
+100,x,0,Navy,Ground Floor South Entrance,true
+101,x,0,Navy,Ground Floor North Entrance,true
+102,x,0,Navy,Ground Floor West Entrance,true
+103,x,0,Navy,hallway1,false
+104,x,0,Navy,hallway2,false
+105,x,0,Navy,hallway3,false
+106,x,0,Navy,Ground Floor Elevator,false
+107,x,0,Navy,Room 10,true
+108,x,0,Navy,Room 9,true
+109,x,0,Navy,Room 11A,true
+110,x,0,Navy,Room 12,true
+111,x,0,Navy,Room 14,true
+112,x,0,Navy,Room 15,true
+113,x,0,Navy,Room 16,true
+114,x,0,Navy,Room 19,true
+115,x,0,Navy,Room 27,true
+116,x,0,Navy,Room 28,true
+117,x,0,Navy,Room 29,true
+118,x,0,Navy,Room 30,true
+119,x,0,Navy,Room 31,true
+120,x,0,Navy,Room 11B,true
+121,x,0.5,Navy,stair1,false
+122,x,0.5,Navy,stair2,false
+123,x,1,Navy,hallway3,false
+124,x,1,Navy,hallway4,false
+125,x,1,Navy,hallway5,false
+126,x,1,Navy,First Floor Elevator,false
+127,x,1,Navy,First Floor Entrance,true
+128,x,1,Navy,hallway6,false
+129,x,1,Navy,Room 116,true
+130,x,1,Navy,Room 117,true
+131,x,1,Navy,Room 115,true
+132,x,1,Navy,Room 116A,true
+133,x,1,Navy,Room 114,true
+134,x,1,Navy,Room 112B,true
+135,x,1,Navy,hallway7,false
+136,x,0,Navy,Room 17,true
+137,x,1,Navy,Room 127,true
+138,x,1,Navy,Room 122,true
+139,x,1,Navy,Room 123,true
+140,x,1,Navy,Room 124,true
+141,x,1,Navy,Room 125,true
+142,x,1,Navy,Room 126,true
+143,x,1,Navy,hallway8,false
+144,x,1,Navy,Room 104,true
+145,x,1,Navy,Room 105,true
+146,x,1,Navy,Room 106,true
+147,x,1,Navy,Room 107,true
+148,x,1.5,Navy,stair3,false
+149,x,1.5,Navy,stair4,false
+150,x,2,Navy,hallway12,false
+151,x,2,Navy,hallway9,false
+152,x,2,Navy,hallway10,false
+153,x,2,Navy,Room 209B,true
+154,x,2,Navy,Room 209D,true
+155,x,2,Navy,Room 209C,true
+156,x,2,Navy,Room 209E,true
+157,x,2,Navy,Room 209F,true
+158,x,2,Navy,Room 207,true
+159,x,2,Navy,Room 205,true
+160,x,2,Navy,Room 220,true
+161,x,2,Navy,Room 221,true
+162,x,2,Navy,Room 223,true
+163,x,2,Navy,hallway11,false
+164,x,2,Navy,Room 216,true
+165,x,2,Navy,Room 217,true
+166,x,2,Navy,Room 218,true
