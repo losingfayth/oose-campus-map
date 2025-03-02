@@ -47,3 +47,8 @@ id,locationCode,floor,building,name,isValidDestination
 46,x,2,Ben Franklin,Room 217,true
 47,x,2,Ben Franklin,Room 217B,true
 48,x,2,Ben Franklin,Room 217A,true
+49,x,0,Ben Franklin,hallway10,false
+50,x,0,Ben Franklin,Ground Floor South Entrance,true
+51,x,0,Ben Franklin,Ground Floor North Entrance,true
+52,x,0.5,Ben Franklin,stair3,false
+53,x,0.5,Ben Franklin,stair4, false
