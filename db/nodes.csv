@@ -119,3 +119,118 @@ id,locationCode,floor,building,name,isValidDestination
 164,x,2,Navy,Room 216,true
 165,x,2,Navy,Room 217,true
 166,x,2,Navy,Room 218,true
+200,x,0,Bakeless,hallway1,false
+201,x,0,Bakeless,hallway2,false
+203,x,0,Bakeless,Ground Floor Elevator,false
+204,x,0,Bakeless,Room G4A,true
+205,x,0,Bakeless,Room G5,true
+206,x,0,Bakeless,Room G6,true
+207,x,0,Bakeless,Court Entrance,true
+208,x,0.5,Bakeless,stair1,false
+209,x,1.5,Bakeless,stair2,false
+210,x,1.5,Bakeless,stair3,false
+211,x,1,Bakeless,First Floor Elevator,false
+212,x,2,Bakeless,Second Floor Elevator,false
+213,x,3,Bakeless,Third Floor Elevator,false
+214,x,1,Bakeless,First Floor Main Entrance,true
+215,x,1,Bakeless,hallway3,false
+216,x,1,Bakeless,hallway4,false
+217,x,1,Bakeless,hallway5,false
+218,x,1,Bakeless,hallway6,false
+219,x,1,Bakeless,Room 101,true
+220,x,1,Bakeless,Room 102,true
+221,x,1,Bakeless,Room 103,true
+222,x,1,Bakeless,Room 104,true
+223,x,1,Bakeless,Room 105,true
+224,x,1,Bakeless,Room 107,true
+225,x,1,Bakeless,Room 106A,true
+226,x,1,Bakeless,Room 106D,true
+227,x,1,Bakeless,Room 106B,true
+228,x,1,Bakeless,Room 106C,true
+229,x,1,Bakeless,Room 111A,true
+230,x,1,Bakeless,Room 111B,true
+231,x,1,Bakeless,Room 110A,true
+232,x,1,Bakeless,Room 110B,true
+233,x,1,Bakeless,Room 109A,true
+234,x,1,Bakeless,Room 109B,true
+235,x,1,Bakeless,Room 108A,true
+236,x,1,Bakeless,Room 108B,true
+237,x,1,Bakeless,Room 113A,true
+238,x,1,Bakeless,Room 113B,true
+239,x,1,Bakeless,Room 114,true
+240,x,1,Bakeless,Room 115A,true
+241,x,1,Bakeless,Room 115B,true
+242,x,1,Bakeless,Room 116A,true
+243,x,1,Bakeless,Room 116B,true
+244,x,1,Bakeless,Room 117B,true
+245,x,1,Bakeless,Room 117A,true
+246,x,1,Bakeless,Room 118,true
+247,x,1,Bakeless,Room 119A,true
+248,x,1,Bakeless,Room 119B,true
+249,x,1.5,Bakeless,stair4,false
+250,x,2.5,Bakeless,stair5,false
+251,x,1.5,Bakeless,stair6,false
+252,x,2.5,Bakeless,stair7,false
+253,x,1.5,Bakeless,stair8,false
+254,x,2.5,Bakeless,stair9,false
+255,x,1,Bakeless,First Floor West Court Entrance,true
+256,x,1,Bakeless,First Floor East Court Entrance,true
+257,x,1,Bakeless,hallway7,false
+258,x,1,Bakeless,First Floor Rear Entrance,true
+259,x,2,Bakeless,hallway8,false
+260,x,2,Bakeless,hallway9,false
+261,x,2,Bakeless,hallway10,false
+262,x,2,Bakeless,hallway11,false
+263,x,2,Bakeless,hallway12,false
+265,x,2,Bakeless,Room 213A,true
+266,x,2,Bakeless,Room 213B,true
+267,x,2,Bakeless,Room 214,true
+268,x,2,Bakeless,Room 215B,true
+269,x,2,Bakeless,Room 215A,true
+270,x,2,Bakeless,Room 216A,true
+271,x,2,Bakeless,Room 216B,true
+272,x,2,Bakeless,Room 217B,true
+273,x,2,Bakeless,Room 217A,true
+274,x,2,Bakeless,Room 218,true
+275,x,2,Bakeless,Room 219A,true
+276,x,2,Bakeless,Room 219B,true
+277,x,2,Bakeless,Room 201,true
+278,x,2,Bakeless,Room 202,true
+279,x,2,Bakeless,Room 203,true
+280,x,2,Bakeless,Room 204,true
+281,x,2,Bakeless,Room 205,true
+282,x,2,Bakeless,Room 206,true
+283,x,2,Bakeless,Room 206A,true
+284,x,2,Bakeless,Room 207,true
+285,x,2,Bakeless,Room 208,true
+286,x,2,Bakeless,Room 209,true
+287,x,2,Bakeless,Room 210,true
+288,x,2,Bakeless,Room 211,true
+289,x,3,Bakeless,hallway13,false
+290,x,3,Bakeless,hallway14,false
+291,x,3,Bakeless,hallway15,false
+292,x,3,Bakeless,hallway16,false
+293,x,3,Bakeless,hallway17,false
+295,x,3,Bakeless,Room 313B,true
+296,x,3,Bakeless,Room 313A,true
+297,x,3,Bakeless,Room 314,true
+298,x,3,Bakeless,Room 315B,true
+299,x,3,Bakeless,Room 315A,true
+300,x,3,Bakeless,Room 316B,true
+301,x,3,Bakeless,Room 316A,true
+302,x,3,Bakeless,Room 317B,true
+303,x,3,Bakeless,Room 317A,true
+304,x,3,Bakeless,Room 318,true
+305,x,3,Bakeless,Room 319B,true
+306,x,3,Bakeless,Room 319A,true
+307,x,3,Bakeless,Room 301,true
+308,x,3,Bakeless,Room 302,true
+309,x,3,Bakeless,Room 303,true
+310,x,3,Bakeless,Room 304,true
+311,x,3,Bakeless,Room 305,true
+312,x,3,Bakeless,Room 306,true
+313,x,3,Bakeless,Room 307,true
+314,x,3,Bakeless,Room 308,true
+315,x,3,Bakeless,Room 309,true
+316,x,3,Bakeless,Room 310,true
+317,x,3,Bakeless,Room 311,true
