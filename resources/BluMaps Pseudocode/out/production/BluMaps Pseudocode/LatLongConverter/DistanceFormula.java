@@ -4,7 +4,7 @@ public class DistanceFormula
 {
     public static void main(String[] args)
     {
-
+        System.out.println(degMinSecToRadians(41, 0, 27.9));
     }
 
     public static double distance(double latitude1, double longitude1, double latitude2
