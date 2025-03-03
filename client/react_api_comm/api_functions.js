@@ -28,7 +28,7 @@ const FindPath = () => {
         try {
 
             // make a POST request to the C# API endpoint for pathfinding
-            const response = await fetch('https://apibloomap.xyz/api/CampusMap/FindPath', {
+            const response = await fetch('https://apibloomap.xyz/api/CampusMap/greeting', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
