@@ -1,5 +1,5 @@
 id,locationCode,floor,building,name,isValidDestination
-1,x,1,Ben Franklin,1st Floor Entrance,true
+1,x,1,Ben Franklin,First Floor Main Entrance,true
 2,x,1,Ben Franklin,hallway1,false
 3,x,1,Ben Franklin,hallway2,false
 4,x,1,Ben Franklin,hallway3,false
@@ -234,3 +234,146 @@ id,locationCode,floor,building,name,isValidDestination
 315,x,3,Bakeless,Room 309,true
 316,x,3,Bakeless,Room 310,true
 317,x,3,Bakeless,Room 311,true
+400,x,1,Centennial,First Floor Main Entrance,true
+401,x,1,Centennial,Left Side Stair Entrance,false
+402,x,1,Centennial,Right Side Stair Entrance, false
+403,x,1,Centennial,East Side Stair Entrance,false
+404,x,1,Centennial,West Side Stair Entrance,false
+405,x,1,Centennial,East Side Hallway Entrance,false
+406,x,1,Centennial,West Side Hallway Entrance,false
+407,x,1,Centennial,East Rear Office Entrance,false
+408,x,1,Centennial,West Rear Office Entrance,false
+409,x,1,Centennial,East Rear Side Entrance,false
+410,x,1,Centennial,West Rear Side Entrance,false
+411,x,1,Centennial,Rear Entrance,true
+412,x,1.5,Centennial,stair1,false
+413,x,1.5,Centennial,stair2,false
+414,x,1.5,Centennial,stair3,false
+415,x,1.5,Centennial,stair4,false
+416,x,1,Centennial,First Floor Elevator,false
+417,x,1,Centennial,hallway1,false
+418,x,1,Centennial,hallway2,false
+419,x,1,Centennial,hallway3,false
+420,x,1,Centennial,hallway4,false
+421,x,1,Centennial,hallway5,false
+422,x,1,Centennial,hallway6,false
+423,x,1,Centennial,hallway7,false
+424,x,1,Centennial,hallway8,false
+425,x,1,Centennial,hallway9,false
+426,x,1,Centennial,hallway10,false
+427,x,1,Centennial,hallway11,false
+428,x,1,Centennial,Room 103,true
+429,x,1,Centennial,Room 108,true
+430,x,1,Centennial,Room 110,true
+431,x,1,Centennial,Room 163,true
+432,x,1,Centennial,Room 164,true
+433,x,1,Centennial,Room 170,true
+434,x,1,Centennial,Room 121,true
+435,x,1,Centennial,Room 122,true
+436,x,1,Centennial,Room 123,true
+437,x,1,Centennial,Room 124,true
+438,x,1,Centennial,Room 125,true
+439,x,1,Centennial,Room 127,true
+440,x,1,Centennial,Room 130,true
+441,x,1,Centennial,Room 131,true
+442,x,1,Centennial,Room 132,true
+443,x,1,Centennial,Room 134,true
+444,x,1,Centennial,Room 136,true
+445,x,1,Centennial,Room 140A,true
+446,x,1,Centennial,Room 135,true
+447,x,1,Centennial,Room 138,true
+448,x,1,Centennial,Room 139,true
+449,x,1,Centennial,Room 140B,true
+450,x,1,Centennial,Room 144,true
+451,x,1,Centennial,Room 142,true
+452,x,1,Centennial,Room 150,true
+453,x,1,Centennial,Room 149,true
+454,x,1,Centennial,Room 148,true
+455,x,1,Centennial,Room 153,true
+456,x,1,Centennial,Room 152,true
+457,x,1,Centennial,Room 151,true
+458,x,1,Centennial,Room 146A,true
+459,x,1,Centennial,Room 146,true
+460,x,1,Centennial,Room 113,true
+461,x,2.5,Centennial,stair5,false
+462,x,2.5,Centennial,stair6,false
+463,x,3,Centennial,Third Floor Elevator,false
+465,x,2,Centennial,Second Floor Elevator,false
+466,x,2,Centennial,hallway12,false
+467,x,2,Centennial,hallway13,false
+468,x,2,Centennial,hallway14,false
+469,x,2,Centennial,hallway15,false
+470,x,2,Centennial,hallway16,false
+471,x,2,Centennial,Room 201,true
+472,x,2,Centennial,Room 204,true
+473,x,2,Centennial,Room 205,true
+474,x,2,Centennial,Room 206,true
+475,x,2,Centennial,Room 207,true
+476,x,2,Centennial,Room 209,true
+477,x,2,Centennial,Room 212,true
+478,x,2,Centennial,Room 213,true
+479,x,2,Centennial,Room 243,true
+480,x,2,Centennial,Room 244,true
+481,x,2,Centennial,Room 245,true
+482,x,2,Centennial,Room 223,true
+483,x,2,Centennial,Room 224,true
+484,x,2,Centennial,Room 227,true
+485,x,2,Centennial,Room 226,true
+486,x,2,Centennial,Room 230,true
+487,x,2,Centennial,Room 232,true
+488,x,2,Centennial,Room 237,true
+489,x,2,Centennial,Room 236,true
+490,x,2,Centennial,Room 235,true
+491,x,2,Centennial,Room 233,true
+492,x,2,Centennial,Room 239,true
+493,x,2,Centennial,Room 217,true
+494,x,2,Centennial,Room 219,true
+495,x,2,Centennial,Room 219A,true
+496,x,2,Centennial,Room 218,true
+497,x,2,Centennial,hallway17,false
+498,x,3,Centennial,hallway18,false
+499,x,3,Centennial,hallway19,false
+500,x,3,Centennial,hallway20,false
+501,x,3,Centennial,hallway21,false
+502,x,3,Centennial,hallway22,false
+503,x,3,Centennial,hallway23,false
+504,x,3,Centennial,hallway24,false
+505,x,3,Centennial,hallway25,false
+506,x,3,Centennial,hallway26,false
+507,x,3,Centennial,Room 301,true
+508,x,3,Centennial,Room 303,true
+511,x,3,Centennial,Room 306,true
+512,x,3,Centennial,Room 352,true
+513,x,3,Centennial,Room 309,true
+514,x,3,Centennial,Room 308,true
+515,x,3,Centennial,Room 353,true
+516,x,3,Centennial,Room 354,true
+517,x,3,Centennial,hallway27,false
+518,x,3,Centennial,Room 312,true
+519,x,3,Centennial,Room 313,true
+520,x,3,Centennial,Room 314,true
+521,x,3,Centennial,Room 315,true
+522,x,3,Centennial,Room 316,true
+523,x,3,Centennial,Room 317,true
+524,x,3,Centennial,Room 318,true
+525,x,3,Centennial,Room 319,true
+526,x,3,Centennial,Room 320,true
+527,x,3,Centennial,Room 321,true
+528,x,3,Centennial,Room 322,true
+529,x,3,Centennial,Room 307,true
+530,x,3,Centennial,Room 326,true
+531,x,3,Centennial,Room 327,true
+532,x,3,Centennial,Room 328,true
+533,x,3,Centennial,Room 329,true
+534,x,3,Centennial,Room 330,true
+535,x,3,Centennial,Room 331,true
+536,x,3,Centennial,Room 332,true
+537,x,3,Centennial,Room 342,true
+538,x,3,Centennial,Room 343,true
+539,x,3,Centennial,Room 334,true
+540,x,3,Centennial,Room 335,true
+541,x,3,Centennial,Room 336,true
+542,x,3,Centennial,Room 337,true
+543,x,3,Centennial,Room 338,true
+544,x,3,Centennial,Room 339,true
+545,x,3,Centennial,Room 340,true
