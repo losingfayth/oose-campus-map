@@ -20,7 +20,7 @@ public class CampusMapController : ControllerBase
     [HttpGet("get-locations")]
     public IActionResult getLocations() {
 
-      var locations = new List<Location>();
+      var locations = new List<LocationNode>();
 
     }
 
@@ -29,7 +29,7 @@ public class CampusMapController : ControllerBase
     [HttpPost("find-path")]
     public IActionResult findPath() {
 
-      var path = new List<Location>();
+      var path = new List<LocationNode>();
 
       return Ok(path)
 

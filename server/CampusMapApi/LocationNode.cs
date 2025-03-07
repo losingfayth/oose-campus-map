@@ -1,6 +1,6 @@
 namespace CampusMapApi
 
-public class Location {
+public class LocationNode {
     public string locationCode {get; set;} = string.empty;
     public int floor {get; set;}
     public string building {get; set;} = string.empty;
