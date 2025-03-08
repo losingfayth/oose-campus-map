@@ -377,3 +377,147 @@ id,locationCode,floor,building,name,isValidDestination
 543,x,3,Centennial,Room 338,true
 544,x,3,Centennial,Room 339,true
 545,x,3,Centennial,Room 340,true
+600,x,1,Sutliff,First Floor Main Entrance,true
+601,x,1,Sutliff,hallway1,false
+602,x,1,Sutliff,hallway2,false
+603,x,1,Sutliff,hallway3,false
+604,x,1,Sutliff,hallway4,false
+605,x,1,Sutliff,First Floor Elevator,false
+606,x,2,Sutliff,Second Floor Elevator,false
+607,x,3,Sutliff,Third Floor Elevator,false
+608,x,1.5,Sutliff,stair1,false
+609,x,1.5,Sutliff,stair2,false
+610,x,1.5,Sutliff,stair3,false
+611,x,1,Sutliff,Room 102,true
+612,x,1,Sutliff,Room 105,true
+613,x,1,Sutliff,Room 106,true
+614,x,1,Sutliff,Room 107,true
+615,x,1,Sutliff,Room 110,true
+616,x,1,Sutliff,Room 111,true
+617,x,1,Sutliff,Room 112,true
+618,x,1,Sutliff,Room 113,true
+619,x,1,Sutliff,Room 114,true
+620,x,1,Sutliff,Room 115,true
+621,x,1,Sutliff,Room 120,true
+622,x,1,Sutliff,Room 123,true
+623,x,2.5,Sutliff,stair4,false
+624,x,2.5,Sutliff,stair5,false
+625,x,2.5,Sutliff,stair6,false
+626,x,2,Sutliff,hallway5,false
+627,x,2,Sutliff,hallway6,false
+628,x,2,Sutliff,hallway7,false
+629,x,2,Sutliff,hallway8,false
+630,x,2,Sutliff,hallway9,false
+631,x,2,Sutliff,hallway10,false
+632,x,2,Sutliff,hallway11,false
+633,x,2,Sutliff,Room 202,true
+634,x,2,Sutliff,Room 203,true
+635,x,2,Sutliff,Room 204,true
+636,x,2,Sutliff,Room 205,true
+637,x,2,Sutliff,Room 206,true
+638,x,2,Sutliff,Room 207,true
+639,x,2,Sutliff,Room 209,true
+640,x,2,Sutliff,Room 210,true
+641,x,2,Sutliff,Room 211,true
+642,x,2,Sutliff,Room 212,true
+643,x,2,Sutliff,Room 214,true
+644,x,2,Sutliff,Room 215,true
+645,x,2,Sutliff,Room 216,true
+646,x,2,Sutliff,Room 217,true
+647,x,2,Sutliff,Room 222,true
+648,x,2,Sutliff,Room 223,true
+649,x,2,Sutliff,Room 225,true
+650,x,2,Sutliff,Room 226,true
+651,x,2,Sutliff,Room 227,true
+652,x,2,Sutliff,Room 228,true
+653,x,2,Sutliff,Room 229,true
+654,x,2,Sutliff,Room 230,true
+655,x,2,Sutliff,Room 231,true
+656,x,2,Sutliff,Room 232,true
+657,x,2,Sutliff,Room 233,true
+658,x,2,Sutliff,Room 235,true
+659,x,2,Sutliff,Room 239,true
+660,x,2,Sutliff,Room 240,true
+661,x,2,Sutliff,Room 241,true
+662,x,2,Sutliff,Room 242,true
+663,x,2,Sutliff,Room 244,true
+664,x,2,Sutliff,Room 245,true
+665,x,2,Sutliff,Room 246,true
+667,x,2,Sutliff,Room 252,true
+668,x,2,Sutliff,Room 253,true
+669,x,2,Sutliff,Room 256,true
+670,x,2,Sutliff,Room 257,true
+671,x,2,Sutliff,Room 255,true
+672,x,3,Sutliff,hallway12,false
+673,x,3,Sutliff,hallway13,false
+674,x,3,Sutliff,hallway14,false
+675,x,3,Sutliff,hallway15,false
+676,x,3,Sutliff,hallway16,false
+677,x,3,Sutliff,hallway17,false
+678,x,3,Sutliff,hallway18,false
+679,x,3,Sutliff,hallway19,false
+680,x,3,Sutliff,Room 301,true
+681,x,3,Sutliff,Room 302,true
+682,x,3,Sutliff,Room 303,true
+683,x,3,Sutliff,Room 304,true
+684,x,3,Sutliff,Room 305,true
+685,x,3,Sutliff,Room 306,true
+686,x,3,Sutliff,Room 307,true
+687,x,3,Sutliff,Room 308,true
+688,x,3,Sutliff,Room 309,true
+689,x,3,Sutliff,Room 310,true
+690,x,3,Sutliff,Room 311,true
+691,x,3,Sutliff,Room 312,true
+692,x,3,Sutliff,Room 313,true
+693,x,3,Sutliff,Room 314,true
+694,x,3,Sutliff,Room 315,true
+695,x,3,Sutliff,Room 316,true
+696,x,3,Sutliff,Room 317,true
+697,x,3,Sutliff,Room 318,true
+698,x,3,Sutliff,Room 319,true
+699,x,3,Sutliff,Room 320,true
+700,x,3,Sutliff,Room 321,true
+701,x,3,Sutliff,Room 322,true
+702,x,3,Sutliff,Room 323,true
+703,x,3,Sutliff,Room 324,true
+704,x,3,Sutliff,Room 325,true
+705,x,3,Sutliff,Room 326,true
+706,x,3,Sutliff,Room 327,true
+707,x,3,Sutliff,Room 328,true
+708,x,3,Sutliff,Room 329,true
+709,x,3,Sutliff,Room 330,true
+710,x,3,Sutliff,Room 331,true
+711,x,3,Sutliff,Room 332,true
+712,x,3,Sutliff,Room 333,true
+713,x,3,Sutliff,Room 334,true
+714,x,3,Sutliff,Room 335,true
+715,x,3,Sutliff,Room 336,true
+716,x,3,Sutliff,Room 337,true
+717,x,3,Sutliff,Room 338,true
+718,x,3,Sutliff,Room 339,true
+719,x,3,Sutliff,Room 340,true
+720,x,3,Sutliff,Room 341,true
+721,x,3,Sutliff,Room 342,true
+722,x,3,Sutliff,Room 343,true
+723,x,3,Sutliff,Room 344,true
+724,x,3,Sutliff,Room 345,true
+725,x,3,Sutliff,Room 346,true
+726,x,3,Sutliff,Room 348,true
+727,x,3,Sutliff,Room 350,true
+728,x,3,Sutliff,Room 354,true
+729,x,3,Sutliff,Room 355,true
+730,x,3,Sutliff,Room 356,true
+731,x,3,Sutliff,Room 358,true
+732,x,3,Sutliff,Room 359,true
+733,x,3,Sutliff,Room 360,true
+734,x,3,Sutliff,Room 361,true
+735,x,3,Sutliff,Room 362,true
+736,x,3,Sutliff,Room 363,true
+737,x,3,Sutliff,Room 365,true
+738,x,3,Sutliff,Room 366,true
+739,x,3,Sutliff,Room 371,true
+740,x,3,Sutliff,Room 372,true
+741,x,3,Sutliff,Room 373,true
+742,x,3,Sutliff,Room 374,true
+743,x,3,Sutliff,Room 375,true
+744,x,3,Sutliff,Room 377,true
