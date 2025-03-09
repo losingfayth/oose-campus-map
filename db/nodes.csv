@@ -521,3 +521,149 @@ id,locationCode,floor,building,name,isValidDestination
 742,x,3,Sutliff,Room 374,true
 743,x,3,Sutliff,Room 375,true
 744,x,3,Sutliff,Room 377,true
+800,x,0,Student Services Center,Ground Floor Rear Entrance,true
+801,x,0,Student Services Center,hallway1,false
+802,x,0,Student Services Center,hallway2,false
+803,x,0,Student Services Center,hallway3,false
+804,x,0,Student Services Center,hallway4,false
+805,x,0,Student Services Center,hallway5,false
+806,x,0,Student Services Center,hallway6,false
+807,x,0,Student Services Center,hallway7,false
+808,x,0,Student Services Center,hallway8,false
+809,x,0,Student Services Center,hallway9,false
+810,x,0,Student Services Center,Ground Floor Elevator,false
+811,x,0,Student Services Center,First Floor Elevator,false
+812,x,0,Student Services Center,Second Floor Elevator,false
+813,x,0.5,Student Services Center,stair1,false
+814,x,0.5,Student Services Center,stair2,false
+815,x,0.5,Student Services Center,stair3,false
+816,x,0.5,Student Services Center,stair4,false
+817,x,0.5,Student Services Center,stair5,false
+818,x,0,Student Services Center,Room 4,true
+819,x,0,Student Services Center,Room 10,true
+820,x,0,Student Services Center,Room 10A,true
+821,x,0,Student Services Center,Room 13,true
+822,x,0,Student Services Center,Room 13B,true
+823,x,0,Student Services Center,Room 26,true
+824,x,0,Student Services Center,Room 26A,true
+825,x,0,Student Services Center,Room 27,true
+826,x,0,Student Services Center,Room 27A,true
+827,x,0,Student Services center,Room 30,true
+828,x,0,Student Services Center,Room 31,true
+829,x,0,Student Services Center,Room 32,true
+830,x,0,Student Services Center,Room 33,true
+831,x,0,Student Services Center,Room 34,true
+832,x,0,Student Services Center,Room 36,true
+833,x,0,Student Services Center,Room 37,true
+834,x,0,Student Services Center,Room 38,true
+835,x,0,Student Services Center,Room 40,true
+836,x,0,Student Services Center,Room 41,true
+837,x,0,Student Services Center,Room 42,true
+838,x,0,Student Services Center,Room 44,true
+839,x,0,Student Services Center,Room 45,true
+840,x,0,Student Services Center,Room 46,true
+841,x,0,Student Services Center,Room 47,true
+842,x,0,Student Services Center,Room 48,true
+843,x,0,Student Services Center,Room 49,true
+844,x,0,Student Services Center,Room 55,true
+845,x,0,Student Services Center,Room 58,true
+846,x,0,Student Services Center,Room 39,true
+847,x,0,Student Services Center,Room 39A,true
+848,x,0,Student Services Center,Room 39B,true
+849,x,0,Student Services Center,Room 54,true
+850,x,0,Student Services Center,Room 62,true
+851,x,0,Student Services Center,Room 63,true
+852,x,0,Student Services Center,Room 14A,true
+853,x,0,Student Services Center,Room 21,true
+854,x,0,Student Services Center,Room 22,true
+855,x,1.5,Student Services Center,stair10,false
+856,x,1.5,Student Services Center,stair6,false
+857,x,1.5,Student Services Center,stair7,false
+858,x,1.5,Student Services Center,stair8,false
+859,x,1.5,Student Services Center,stair9,false
+860,x,1,Student Services Center,First Floor Main Entrance,tru
+861,x,1,Student Services Center,hallway10,false
+862,x,1,Student Services Center,hallway11,false
+863,x,1,Student Services Center,hallway12,false
+864,x,1,Student Services Center,hallway13,false
+865,x,1,Student Services Center,hallway14,false
+866,x,1,Student Services Center,hallway15,false
+867,x,1,Student Services Center,hallway16,false
+868,x,1,Student Services Center,Room 119,true
+869,x,1,Student Services Center,hallway17,false
+870,x,1,Student Services Center,Room 102 (Information Center),true
+871,x,1,Student Services Center,Room 105,true
+872,x,1,Student Services Center,Room 107,true
+873,x,1,Student Services Center,Room 109,true
+874,x,1,Student Services Center,Room 112,true
+875,x,1,Student Services Center,Room 115,true
+876,x,1,Student Services Center,Room 116,true
+877,x,1,Student Services Center,Room 117A,true
+878,x,1,Student Services Center,Room 117B,true
+879,x,1,Student Services Center,Room 117C,true
+880,x,1,Student Services Center,Room 128,true
+881,x,1,Student Services Center,Room 124,true
+882,x,1,Student Services Center,Room 130,true
+883,x,1,Student Services Center,Room 131,true
+884,x,1,Student Services Center,Room 134,true
+885,x,1,Student Services Center,Roongo's Cafe,true
+886,x,1,Student Services Center,Room 140,true
+887,x,1,Student Services Center,Room 143,true
+888,x,1,Student Services Center,Room 144,true
+889,x,1,Student Services Center,Room 145,true
+890,x,1,Student Services Center,Room 147,true
+891,x,1,Student Services Center,Room 149,true
+892,x,1,Student Services Center,Room 152,true
+893,x,1,Student Services Center,Room 153,true
+894,x,1,Student Services Center,Room 155,true
+895,x,1,Student Services Center,Room 156,true
+896,x,1,Student Services Center,Commuter Lounge,true
+897,x,1,Student Services Center,Room 162,true
+898,x,2,Student Services Center,hallway18,false
+899,x,2,Student Services Center,hallway19,false
+900,x,2,Student Services Center,hallway20,false
+901,x,2,Student Services Center,hallway21,false
+902,x,2,Student Services Center,hallway22,false
+903,x,2,Student Services Center,hallway23,false
+904,x,2,Student Services Center,hallway24,false
+905,x,2,Student Services Center,hallway25,false
+906,x,2,Student Services Center,hallway26,false
+907,x,2,Student Services Center,Room 203,true
+908,x,2,Student Services Center,Room 204,true
+909,x,2,Student Services Center,Room 206,true
+910,x,2,Student Services Center,Room 207,true
+911,x,2,Student Services Center,Room 209,true
+912,x,2,Student Services Center,Room 211,true
+913,x,2,Student Services Center,Room 212,true
+914,x,2,Student Services Center,Room 216,true
+915,x,2,Student Services Center,Room 217,true
+916,x,2,Student Services Center,Room 218,true
+917,x,2,Student Services Center,Room 219,true
+918,x,2,Student Services Center,Room 220,true
+919,x,2,Student Services Center,Room 221,true
+920,x,2,Student Services Center,Room 222,true
+921,x,2,Student Services Center,Room 223,true
+922,x,2,Student Services Center,Room 224,true
+923,x,2,Student Services Center,Room 225,true
+924,x,2,Student Services Center,Room 228,true
+925,x,2,Student Services Center,hallway27,false
+926,x,2,Student Services Center,Room 234,true
+927,x,2,Student Services Center,Room 235,true
+928,x,2,Student Services Center,Room 238,true
+929,x,2,Student Services Center,Room 240,true
+930,x,2,Student Services Center,Room 242,true
+931,x,2,Student Services Center,Room 246,true
+932,x,2,Student Services Center,Room 247,true
+933,x,2,Student Services Center,Room 248,true
+934,x,2,Student Services Center,Room 249,true
+935,x,2,Student Services Center,Room 251,true
+936,x,2,Student Services Center,hallway28,false
+937,x,2,Student Services Center,Room 243,true
+938,x,2,Student Services Center,Room 254,true
+939,x,2,Student Services Center,Room 259,true
+940,x,2,Student Services Center,Room 261,true
+941,x,2,Student Services Center,Room 262,true
+942,x,2,Student Services Center,Room 264,true
+943,x,2,Student Services Center,Room 265,true
+944,x,2,Student Services Center,Room 266,true
+945,x,2,Student Services Center,Room 268,true
