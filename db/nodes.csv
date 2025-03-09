@@ -52,6 +52,9 @@ id,locationCode,floor,building,name,isValidDestination
 51,x,0,Ben Franklin,Ground Floor North Entrance,true
 52,x,0.5,Ben Franklin,stair3,false
 53,x,0.5,Ben Franklin,stair4, false
+54,x,0,Ben Franklin,Ground Floor Elevator,false
+55,x,1,Ben Franklin,First Floor Elevator,false
+56,x,2,Ben Franklin,Second Floor Elevator,false
 100,x,0,Navy,Ground Floor South Entrance,true
 101,x,0,Navy,Ground Floor North Entrance,true
 102,x,0,Navy,Ground Floor West Entrance,true
