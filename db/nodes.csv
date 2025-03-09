@@ -670,3 +670,102 @@ id,locationCode,floor,building,name,isValidDestination
 943,x,2,Student Services Center,Room 265,true
 944,x,2,Student Services Center,Room 266,true
 945,x,2,Student Services Center,Room 268,true
+1000,x,1,Andruss Library, First Floor Main Entrance,true
+1001,x,1,Andruss Library,First Floor Study Entrance,true
+1002,x,1,Andruss Library,Starbucks Entrance,true
+1003,x,1.5,Andruss Library,stair1,false
+1004,x,2.5,Andruss Library,stair2,false
+1005,x,3.5,Andruss Library,stair3,false
+1006,x,1,Andruss Library,First Floor Main Elevator,false
+1007,x,2,Andruss Library,Second Floor Main Elevator,false
+1008,x,3,Andruss Library,Third Floor Main Elevator,false
+1009,x,4,Andruss Library,Fourth Floor Main Elevator,false
+1010,x,1,Andruss Library,First Floor Rear Elevator,false
+1011,x,2,Andruss Library,Second Floor Rear Elevator,false
+1012,x,3,Andruss Library,Third Floor Rear Elevator,false
+1013,x,4,Andruss Library,Fourth Floor Rear Elevator,false
+1014,x,2.5,Andruss Library,stair4,false
+1015,x,3.5,Andruss Library,stair5,false
+1016,x,1.5,Andruss Library,stair6,false
+1017,x,2.5,Andruss Library,stair7,false
+1018,x,3.5,Andruss Library,stair8,false
+1019,x,1.5,Andruss Library,stair9,false
+1020,x,2.5,Andruss Library,stair10,false
+1021,x,3.5,Andruss Library,stair11,false
+1022,x,1,Andruss Library,hallway1,false
+1023,x,1,Andruss Library,hallway2,false
+1024,x,1,Andruss Library,hallway3,false
+1025,x,1,Andruss Library,hallway4,false
+1026,x,1,Andruss Library,hallway6,false
+1027,x,1,Andruss Library,Starbucks Study Lounge,true
+1028,x,1,Andruss Library,Starbucks,true
+1029,x,1,Andruss Library,Room 103,true
+1030,x,1,Andruss Library,First Floor Study Lounge Area,true
+1031,x,1,Andruss Library,Room 139,true
+1032,x,1,Andruss Library,Room 134,true
+1033,x,1,Andruss Library,Room 130,true
+1034,x,2,Andruss Library,hallway7,false
+1035,x,2,Andruss Library,hallway8,false
+1036,x,2,Andruss Library,hallway9,false
+1037,x,2,Andruss Library,hallway10,false
+1038,x,2,Andruss Library,hallway11,false
+1039,x,2,Andruss Library,hallway12,false
+1040,x,2,Andruss Library,hallway13,false
+1041,x,2,Andruss Library,hallway14,false
+1042,x,2,Andruss Library,Room 214,true
+1043,x,2,Andruss Library,Room 220,true
+1044,x,2,Andruss Library,Room 221,true
+1045,x,2,Andruss Library,Room 232,true
+1046,x,2,Andruss Library,Room 233,true
+1047,x,2,Andruss Library,Room 234,true
+1048,x,2,Andruss Library,Room 235,true
+1049,x,2,Andruss Library,Room 236,true
+1050,x,2,Andruss Library,Room 237,true
+1051,x,2,Andruss Library,Room 238,true
+1052,x,2,Andruss Library,Room 242,true
+1053,x,2,Andruss Library,Room 243,true
+1054,x,2,Andruss Library,Room 246,true
+1055,x,2,Andruss Library,Room 248,true
+1056,x,2,Andruss Library,Room 207,true
+1057,x,2,Andruss Library,Room 208,true
+1058,x,2,Andruss Library,Room 209,true
+1059,x,2,Andruss Library,Room 210,true
+1060,x,2,Andruss Library,Room 216,true
+1061,x,3,Andruss Library,hallway15,false
+1062,x,3,Andruss Library,hallway16,false
+1063,x,3,Andruss Library,hallway17,false
+1064,x,3,Andruss Library,hallway18,false
+1065,x,3,Andruss Library,hallway19,false
+1066,x,3,Andruss Library,hallway20,false
+1067,x,3,Andruss Library,Room 330,true
+1068,x,3,Andruss Library,Room 340,true
+1069,x,3,Andruss Library,Room 342,true
+1070,x,3,Andruss Library,Room 320,true
+1071,x,3,Andruss Library,Room 324,true
+1072,x,3,Andruss Library,Room 323,true
+1073,x,3,Andruss Library,Room 321,true
+1074,x,3,Andruss Library,Room 322,true
+1075,x,3,Andruss Library,Room 316,true
+1076,x,3,Andruss Library,Room 315,true
+1077,x,3,Andruss Library,Room 326,true
+1078,x,3,Andruss Library,Room 327,true
+1079,x,3,Andruss Library,Room 328,true
+1080,x,4,Andruss Library,hallway21,false
+1081,x,4,Andruss Library,hallway22,false
+1082,x,4,Andruss Library,hallway23,false
+1083,x,4,Andruss Library,hallway24,false
+1084,x,4,Andruss Library,hallway25,false
+1085,x,4,Andruss Library,hallway26,false
+1086,x,4,Andruss Library,Room 407,true
+1087,x,4,Andruss Library,Room 409,true
+1088,x,4,Andruss Library,Room 410,true
+1089,x,4,Andruss Library,Room 411,true
+1090,x,4,Andruss Library,Room 413,true
+1091,x,4,Andruss Library,Room 414,true
+1092,x,4,Andruss Library,Room 415,true
+1093,x,4,Andruss Library,Room 417,true
+1094,x,4,Andruss Library,Room 418,true
+1095,x,4,Andruss Library,Room 419,true
+1096,x,4,Andruss Library,Room 423,true
+1097,x,4,Andruss Library,Room 425,true
+1098,x,1,Andruss Library,hallway27,false
