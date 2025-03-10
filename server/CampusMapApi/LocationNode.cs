@@ -10,6 +10,6 @@ and sening back and forth between front and back ends.
         public string building {get; set;} = string.Empty;
         public string roomNumber {get; set;} = string.Empty;
         public string displayName {get; set;} = string.Empty;
-        public bool isValidDestination {get; set;};
+        public bool isValidDestination {get; set;}
     }
 }
