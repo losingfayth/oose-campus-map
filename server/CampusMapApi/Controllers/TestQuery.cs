@@ -4,7 +4,7 @@ namespace CampusMapApi {
 
   public class TestQuery {
 
-    public static async void QueryTest() {
+    public static async Task QueryTest() {
 
       // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -15,7 +15,7 @@ namespace CampusMapApi {
         
       using var driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
                 
-      await using var session = _driver.AsyncSession();
+      await using var session = driver.AsyncSession();
 
       // query to retrieve all nodes building and room number attributes
       var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
