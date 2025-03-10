@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
 
 namespace CampusMapApi.Controllers;
+
 
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
-
+  private static IDriver _driver;
     // allows controller to log messages
     private readonly ILogger<CampusMapController> _logger;
 

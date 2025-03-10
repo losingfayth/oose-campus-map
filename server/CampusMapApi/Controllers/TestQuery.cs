@@ -1,15 +1,8 @@
 using System.Threading.Tasks;
+using Neo4j.Driver;
 namespace CampusMapApi {
 
   public class TestQuery {
-    static async Task Main(string[] args) {
-
-      List<LocationNode> list = await QueryTest();
-
-      foreach (var node in list) {
-        Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
-      }
-    }
 
     public static async Task<List<LocationNode>> QueryTest() {
 
@@ -47,6 +40,7 @@ namespace CampusMapApi {
           node.displayName = formattedRoom;
 
           locations.Add(node);
+          return locations;  
         });
 
       } catch (Exception ex) {
