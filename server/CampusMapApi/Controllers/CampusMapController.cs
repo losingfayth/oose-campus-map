@@ -35,8 +35,6 @@ public class CampusMapController : ControllerBase
 
     }
 
-
-
 }
 
     // // http GET endpoint that will be accessible at GET /api/CampusMap/greeting
