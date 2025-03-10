@@ -22,7 +22,6 @@ builder.Services.AddOpenApi(); // enable OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-using CampusMapApi; // Ensure the correct namespace is used
 
 Console.WriteLine("Running TestQuery...");
 await TestQuery.QueryTest(); // This will execute the test query
