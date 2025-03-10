@@ -50,6 +50,7 @@ namespace CampusMapApi {
       //List<LocationNode> list = await Test();
 
       foreach (var node in locations) {
+        Console.WriteLine("Printing DB...");
         Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
       }
 
