@@ -11,14 +11,13 @@ public class TestQuery {
 
     foreach (var node in list) {
       Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
-      console.log(node.building, node. roomNumber, node.displayName);
     }
 
   }
 }
 
 
-public List<LocationNode> QueryTest() {
+public static async Task<List<LocationNode>> QueryTest() {
 
 // initial db connection
   var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -34,12 +33,11 @@ using var driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password
   // query to retrieve all nodes building and room number attributes
   var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
 
-  var locations;
+  var locations = new List<LocationNode>();
   
     try {
         
         var result = await session.RunAsync(query);
-        locations = new List<LocationNode>();
 
         // Process each record in the result set
         await result.ForEachAsync(record => {
@@ -59,6 +57,8 @@ using var driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password
 
     } catch (Exception ex) {
         Console.WriteLine($"Error: {ex.Message}");
-    }      
+    }
+
+    return locations;  
   }
 }
