@@ -1041,3 +1041,280 @@ id,locationCode,floor,building,name,isValidDestination
 1471,x,0,Arts & Admin,hallway72,false
 1472,x,0,Arts & Admin,Room 007,true
 1473,x,2,Arts & Admin,Room 261,true
+1501,x,-1,Hartline,Basement Entrance 1,true
+1502,x,-1,Hartline Basement Entrance 2,true
+1503,x,-1,Hartline,Basement Entrance 3,true
+1504,x,-0.5,Hartline,stair1,false
+1505,x,-0.5,Hartline,stair2,false
+1506,x,-0.5,Hartline,stair3,false
+1507,x,-0.5,Hartline,stari4,false
+1508,x,-1,Hartline,Basement West Elevator,false
+1509,x,-1,Hartline,Basement East Elevator,false
+1510,x,-1,Hartline,hallway1,false
+1511,x,-1,Hartline,hallway2,false
+1512,x,-1,Hartline,hallway3,false
+1513,x,-1,Hartline,hallway4,false
+1514,x,-1,Hartline,hallway5,false
+1515,x,-1,Hartline,hallway6,false
+1516,x,-1,Hartline,hallway7,false
+1517,x,-1,Hartline,hallway8,false
+1518,x,-1,Hartline,hallway9,false
+1519,x,-1,Hartline,hallway10,false
+1520,x,-1,Hartline,Room B6,true
+1521,x,-1,Hartline,Room B10,true
+1522,x,-1,Hartline,Room B10A,true
+1523,x,-1,Hartline,Room B11,true
+1524,x,-1,Hartline,Room B12,true
+1525,x,-1,Hartline,Room B14,true
+1526,x,-1,Hartline,Room B15,true
+1527,x,-1,Hartline,Room B16,true
+1528,x,-1,Hartline,Room B17,true
+1529,x,-1,Hartline,Room B19,true
+1530,x,-1,Hartline,Room B25,true
+1531,x,-1,Hartline,Room B26,true
+1532,x,-1,Hartline,Room B27,true
+1533,x,-1,Hartline,Room B28,true
+1534,x,-1,Hartline,Room B31,true
+1535,x,-1,Hartline,Room B33,true
+1536,x,-1,Hartline,Room B34,true
+1537,x,-1,Hartline,Room B32,true
+1538,x,-1,Hartline,Room B35,true
+1539,x,-1,Hartline,Room B36,true
+1540,x,-1,Hartline,Room B37,true
+1541,x,-1,Hartline,Room B38,true
+1542,x,-1,Hartline,Room B39,true
+1543,x,-1,Hartline,Room B40,true
+1544,x,-1,Hartline,Room B41,true
+1545,x,-1,Hartline,Room B42,true
+1546,x,-1,Hartline,Room B43,true
+1547,x,-1,Hartline,Room B44,true
+1548,x,-1,Hartline,Room B45,true
+1549,x,-1,Hartline,Room B46,true
+1550,x,-1,Hartline,Room B47,true
+1551,x,-1,Hartline,Room B47A,true
+1552,x,-1,Hartline,Room B48,true
+1553,x,-1,Hartline,Room B50,true
+1554,x,-1,Hartline,Room B52,true
+1555,x,-1,Hartline,Room B53,true
+1556,x,-1,Hartline,Room B54,true
+1557,x,-1,Hartline,Room B55,true
+1558,x,-1,Hartline,Room B56,true
+1559,x,0.5,Hartline,stair5,false
+1560,x,0.5,Hartline,stair6,false
+1561,x,0.5,Hartline,stair7,false
+1562,x,0.5,Hartline,stair8,false
+1563,x,0,Hartline,Ground Floor West Elevator,false
+1564,x,0,Hartline,Ground Floor East Elevator,false
+1565,x,0,Hartline,Ground Floor Side Entrance,true
+1566,x,0,Hartline,Ground Floor Lobby Entrance,true
+1567,x,0,Hartline,Ground Floor Stair Entrance,true
+1568,x,0,Hartline,Ground Floor Greenhouse Entrance,true
+1569,x,0.5,Hartline,stair9,false
+1570,x,0.5,Hartline,stair10,false
+1571,x,0,Hartline,hallway11,false
+1572,x,0,Hartline,hallway12,false
+1573,x,0,Hartline,hallway13,false
+1574,x,0,Hartline,hallway14,false
+1575,x,0,Hartline,hallway15,false
+1576,x,0,Hartline,hallway16,false
+1577,x,0,Hartline,hallway17,false
+1578,x,0,Hartline,hallway18,false
+1579,x,0,Hartline,hallway19,false
+1580,x,0,Hartline,hallway20,false
+1581,x,0,Hartline,hallway21,false
+1582,x,0,Hartline,hallway22,false
+1583,x,0,Hartline,Room G3,true
+1584,x,0,Hartline,Room G4,true
+1585,x,0,Hartline,Room G5,true
+1586,x,0,Hartline,Room G6,true
+1587,x,0,Hartline,Room G7,true
+1588,x,0,Hartline,Room G11,true
+1589,x,0,Hartline,Room G12,true
+1590,x,0,Hartline,Room G13,true
+1591,x,0,Hartline,Room G19,true
+1592,x,0,Hartline,Room G20,true
+1593,x,0,Hartline,Room G22,true
+1594,x,0,Hartline,Room G23,true
+1595,x,0,Hartline,Room G24,true
+1596,x,0,Hartline,Room G25,true
+1597,x,0,Hartline,Room G26,true
+1598,x,0,Hartline,Room G27,true
+1599,x,0,Hartline,Room G28,true
+1600,x,0,Hartline,Room G29,true
+1601,x,0,Hartline,Room G30,true
+1602,x,0,Hartline,Room G31,true
+1603,x,0,Hartline,Room G33,true
+1604,x,0,Hartline,Room G34,true
+1605,x,0,Hartline,Room G35,true
+1606,x,0,Hartline,Room G45,true
+1607,x,0,Hartline,Room G46,true
+1608,x,0,Hartline,Room G47,true
+1609,x,0,Hartline,Room G48,true
+1610,x,0,Hartline,Room G49,true
+1611,x,0,Hartline,Room G52,true
+1612,x,0,Hartline,Room G53,true
+1613,x,0,Hartline,Room G54,true
+1614,x,0,Hartline,Room G55,true
+1615,x,0,Hartline,Room G56,true
+1616,x,0,Hartline,Room G57,true
+1617,x,0,Hartline,Room G58,true
+1618,x,0,Hartline,Room G60,true
+1619,x,0,Hartline,Room G61,true
+1620,x,0,Hartline,Room G62,true
+1621,x,0,Hartline,Room G63,true
+1622,x,0,Hartline,Room G64,true
+1623,x,0,Hartline,Room G64A,true
+1624,x,0,Hartline,Room G64B,true
+1625,x,0,Hartline Room G67,true
+1626,x,0,Hartline,Room G69,true
+1627,x,0,Hartline,Room G70,true
+1628,x,0,Hartline,Room G71,true
+1629,x,0,Hartline,Room G72,true
+1630,x,0,Hartline,hallway23,false
+1631,x,0,Hartline,Room G38,true
+1632,x,0,Hartline,Room G40,true
+1633,x,0,Hartline,Room G42,true
+1634,x,0,Hartline,Room G39,true
+1635,x,0,Hartline,Room G41,true
+1636,x,0,Hartline,Room G50,true
+1637,x,0,Hartline,Room G51,true
+1638,x,1,Hartline,First Floor Main Entrance,true
+1639,x,1.5,Hartline,stair11,false
+1640,x,1.5,Hartline,stair12,false
+1641,x,1.5,Hartline,stair13,false
+1642,x,1.5,Hartline,stair14,false
+1643,x,1,Hartline,First Floor West Elevator,false
+1644,x,1,Hartline,First Floor East Elevator,false
+1645,x,1,Hartline,hallway24,false
+1646,x,1,Hartline,hallway25,false
+1647,x,1,Hartline,hallway26,false
+1648,x,1,Hartline,hallway27,false
+1649,x,1,Hartline,hallway28,false
+1650,x,1,Hartline,hallway29,false
+1651,x,1,Hartline,hallway30,false
+1652,x,1,Hartline,hallway31,false
+1653,x,1,Hartline,hallway32,false
+1654,x,1,Hartline,hallway33,false
+1655,x,1,Hartline,hallway34,false
+1656,x,1,Hartline,hallway35,false
+1657,x,1,Hartline,Room 101,true
+1658,x,1,Hartline,Room 102,true
+1659,x,1,Hartline,Room 103,true
+1660,x,1,Hartline,Room 114,true
+1661,x,1,Hartline,Room 115,true
+1662,x,1,Hartline,Room 116,true
+1663,x,1,Hartline,Room 117,true
+1664,x,1,Hartline,Room 118,true
+1665,x,1,Hartline,Room 119,true
+1666,x,1,Hartline,Room 120,true
+1667,x,1,Hartline,Room 121,true
+1668,x,1,Hartline,Room 122,true
+1669,x,1,Hartline,Room 123,true
+1670,x,1,Hartline,Room 124,true
+1671,x,1,Hartline,Room 125,true
+1672,x,1,Hartline,Room 126,true
+1673,x,1,Hartline,Room 127,true
+1674,x,1,Hartline,Room 128,true
+1675,x,1,Hartline,Room 129,true
+1676,x,1,Hartline,Room 130,true
+1677,x,1,Hartline,Room 131,true
+1678,x,1,Hartline,Room 133,true
+1679,x,1,Hartline,Room 134,true
+1680,x,1,Hartline,Room 135,true
+1681,x,1,Hartline,Room 136,true
+1682,x,1,Hartline,Room 137,true
+1683,x,1,Hartline,Room 138,true
+1684,x,1,Hartline,Room 139,true
+1685,x,1,Hartline,Room 140,true
+1686,x,1,Hartline,Room 143,true
+1687,x,1,Hartline,Room 144,true
+1688,x,1,Hartline,Room 145,true
+1689,x,1,Hartline,Room 146,true
+1690,x,1,Hartline,Room 147,true
+1691,x,1,Hartline,Room 148,true
+1692,x,1,Hartline,Room 149,true
+1693,x,1,Hartline,Room 150,true
+1694,x,1,Hartline,Room 151,true
+1695,x,1,Hartline,Room 152,true
+1696,x,1,Hartline,Room 154,true
+1697,x,1,Hartline,Room 155,true
+1698,x,1,Hartline,Room 156,true
+1699,x,1,Hartline,Room 157,true
+1700,x,1,Hartline,Room 158,true
+1701,x,1,Hartline,Room 160,true
+1702,x,1,Hartline,Room 161,true
+1703,x,1,Hartline,Room 162,true
+1704,x,1,Hartline,Room 163,true
+1705,x,1,Hartline,Room 164,true
+1706,x,1,Hartline,Room 166,true
+1707,x,1,Hartline,Room 169,true
+1708,x,1,Hartline,Room 171,true
+1709,x,1,Hartline,Room 174,true
+1710,x,1,Hartline,Room 175,true
+1711,x,1,Hartline,Room 176,true
+1712,x,2,Hartline,Room 172,true
+1713,x,1,Hartline,Room 173,true
+1714,x,1,Hartline,Room 177,true
+1715,x,1,Hartline,Room 178,true
+1716,x,1,Hartline,Room 97,true
+1717,x,1,Hartline,Room 98,true
+1718,x,1,Hartline,Room 99,true
+1719,x,1,Hartline,Room 100,true
+1720,x,1,Hartline,Room 108,true
+1721,x,1,Hartline,Room 109,true
+1722,x,1,Hartline,Room 11,true
+1723,x,2,Hartline,Second Floor West Elevator,false
+1724,x,2,Hartline,Second Floor East Elevator,false
+1725,x,2,Hartline,hallway36,false
+1726,x,2,Hartline,hallway37,false
+1727,x,2,Hartline,hallway38,false
+1728,x,2,Hartline,hallway39,false
+1729,x,2,Hartline,hallway40,false
+1730,x,2,Hartline,hallway41,false
+1731,x,2,Hartline,hallway42,false
+1732,x,2,Hartline,hallway43,false
+1733,x,2,Hartline,hallway44,false
+1734,x,2,Hartline,hallway45,false
+1735,x,2,Hartline,hallway46,false
+1736,x,2,Hartline,hallway47,false
+1737,x,2,Hartline,Room 206,true
+1738,x,2,Hartline,Room 209,true
+1739,x,2,Hartline,Room 210,true
+1740,x,2,Hartline,Room 211,true
+1741,x,2,Hartline,Room 215,true
+1742,x,2,Hartline,Room 216,true
+1743,x,2,Hartline,Room 217,true
+1744,x,2,Hartline,Room 218,true
+1745,x,2,Hartline,Room 219,true
+1746,x,2,Hartline,Room 220,true
+1747,x,2,Hartline,Room 221,true
+1748,x,2,Hartline,Room 222,true
+1749,x,2,Hartline,Room 223,true
+1750,x,2,Hartline,Room 224,true
+1751,x,2,Hartline,Room 225,true
+1752,x,2,Hartline,Room 226,true
+1753,x,2,Hartline,Room 227,true
+1754,x,2,Hartline,Room 229,true
+1755,x,2,Hartline,Room 231,true
+1756,x,2,Hartline,Room 232,true
+1757,x,2,Hartline,Room 233,true
+1758,x,2,Hartline,Room 236,true
+1759,x,2,Hartline,Room 237,true
+1760,x,2,Hartline,Room 238,true
+1761,x,2,Hartline,Room 239,true
+1762,x,2,Hartline,Room 240,true
+1763,x,2,Hartline,Room 241,true
+1764,x,2,Hartline,Room 230,true
+1765,x,2,Hartline,Organic Chemistry Teaching Lab,true
+1766,x,2,Hartline,Biochemistry Teaching Lab,true
+1767,x,2,Hartline,Biology Prep Lab,true
+1768,x,2,Hartline,Biotechnology Teaching Lab,true
+1769,x,2,Hartline,Cell Culture Lab,true
+1770,x,2,Hartline,Biology Storage,true
+1771,x,2,Hartline,Biology Research Lab,true
+1772,x,2,Hartline,Mineralogy/Petrology Teaching Lab,true
+1773,x,2,Hartline,Geochemistry Prep,true
+1774,x,2,Hartline,Geochemistry Teaching Lab,true
+1775,x,2,Hartline,Chemistry Research Lab,true
+1776,x,1,Hartline,Room 111,true
+1777,x,2,Hartline,Conference Room,true
