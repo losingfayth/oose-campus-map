@@ -47,7 +47,7 @@ namespace CampusMapApi {
           Console.WriteLine($"Error: {ex.Message}");
       }
 
-      L//ist<LocationNode> list = await Test();
+      //List<LocationNode> list = await Test();
 
       foreach (var node in locations) {
         Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
