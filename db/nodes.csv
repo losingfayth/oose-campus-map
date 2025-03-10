@@ -769,3 +769,275 @@ id,locationCode,floor,building,name,isValidDestination
 1096,x,4,Andruss Library,Room 423,true
 1097,x,4,Andruss Library,Room 425,true
 1098,x,1,Andruss Library,hallway27,false
+1200,x,0,Arts & Admin,Ground Floor Rear Entrance,true
+1201,x,0,Arts & Admin,Ground Floor Rear Metal Shop Entrance,true
+1202,x,0.5,Arts & Admin,stair1,false
+1203,x,0,Arts & Admin,hallway1,false
+1204,x,0,Arts & Admin,hallway2,false
+1205,x,0,Arts & Admin,hallway3,false
+1206,x,0,Arts & Admin,Ground Floor Elevator,false
+1207,x,0,Arts & Admin,hallway4,false
+1208,x,0,Arts & Admin,hallway5,false
+1209,x,0,Arts & Admin,hallway6,false
+1210,x,0,Arts & Admin,hallway7,false
+1211,x,0,Arts & Admin,hallway8,false
+1212,x,0,Arts & Admin,hallway9,false
+1213,x,0,Arts & Admin,Room 002,true
+1214,x,0,Arts & Admin,Room 003,true
+1215,x,0,Arts & Admin,Room 006,true
+1216,x,0,Arts & Admin,Room 013,true
+1217,x,0,Arts & Admin,Room 018,true
+1218,x,0,Arts & Admin,Room 019,true
+1219,x,0,Arts & Admin,Room 022,true
+1220,x,0,Arts & Admin,Room 024,true
+1221,x,0,Arts & Admin,Room 025,true
+1222,x,0,Arts & Admin,Room 023,true
+1223,x,0,Arts & Admin,Room 026,true
+1224,x,0,Arts & Admin,Room 030,true
+1225,x,0,Arts & Admin,Room 033,true
+1226,x,0,Arts & Admin,Room 036,true
+1227,x,0,Arts & Admin,Room 038,true
+1228,x,0.5,Arts & Admin,stair2,false
+1229,x,0,Arts & Admin,hallway10,false
+1230,x,0.5,Arts & Admin,stair3,false
+1231,x,0,Arts & Admin,hallway11,false
+1232,x,1,Arts & Admin,First Floor Main Entrance,true
+1233,x,1,Arts & Admin,hallway12,false
+1234,x,1,Arts & Admin,hallway13,false
+1235,x,1,Arts & Admin,hallway14,false
+1236,x,1,Arts & Admin,First Floor Elevator,false
+1237,x,1,Arts & Admin,hallway15,false
+1238,x,1,Arts & Admin,hallway16,false
+1239,x,1,Arts & Admin,hallway17,false
+1240,x,1,Arts & Admin,hallway18,false
+1241,x,1,Arts & Admin,hallway19,false
+1242,x,1,Arts & Admin,hallway20,false
+1243,x,1,Arts & Admin,hallway21,false
+1244,x,1,Arts & Admin,hallway22,false
+1245,x,1,Arts & Admin,hallway23,false
+1246,x,1,Arts & Admin,hallway24,false
+1247,x,1,Arts & Admin,hallway25,false
+1248,x,1,Arts & Admin,hallway26,false
+1249,x,1,Arts & Admin,hallway27,false
+1250,x,1,Arts & Admin,hallway28,false
+1251,x,1,Arts & Admin,hallway29,false
+1252,x,1,Arts & Admin,hallway30,false
+1253,x,1,Arts & Admin,Room 105,true
+1254,x,1,Arts & Admin,Room 109,true
+1255,x,1,Arts & Admin,Room 110,true
+1256,x,1,Arts & Admin,Room 111,true
+1257,x,1,Arts & Admin,Room 112,true
+1258,x,1,Arts & Admin,Room 113,true
+1259,x,1,Arts & Admin,Room 114,true
+1260,x,1,Arts & Admin,Room 115,true
+1261,x,1,Arts & Admin,Room 116,true
+1262,x,1,Arts & Admin,Room 118,true
+1263,x,1,Arts & Admin,Room 119,true
+1264,x,1,Arts & Admin,Room 126,true
+1265,x,1,Arts & Admin,Room 127,true
+1266,x,1,Arts & Admin,Room 128,true
+1267,x,1,Arts & Admin,Room 129,true
+1268,x,1,Arts & Admin,Room 124,true
+1269,x,1,Arts & Admin,Room 123,true
+1270,x,1,Arts & Admin,Room 130,true
+1271,x,1,Arts & Admin,Room 131,true
+1272,x,1,Arts & Admin,Room 133,true
+1273,x,1,Arts & Admin,Room 134,true
+1274,x,1,Arts & Admin,Room 140,true
+1275,x,1.5,Arts & Admin,stair4,false
+1276,x,1,Arts & Admin,Room 151,true
+1277,x,1,Arts & Admin,Room 152,true
+1278,x,1,Arts & Admin,Room 153,true
+1279,x,1,Arts & Admin,Room 147,true
+1280,x,1,Arts & Admin,Room 154,true
+1281,x,1,Arts & Admin,Room 155,true
+1282,x,1,Arts & Admin,Room 156,true
+1283,x,1,Arts & Admin,Room 157,true
+1284,x,1,Arts & Admin,Room 158,true
+1285,x,1,Arts & Admin,Room 160,true
+1286,x,1,Arts & Admin,Room 161,true
+1287,x,1,Arts & Admin,Room 162,true
+1288,x,1,Arts & Admin,Room 163,true
+1289,x,1,Arts & Admin,Room 165,true
+1290,x,1,Arts & Admin,Room 167,true
+1291,x,1,Arts & Admin,Room 168,true
+1292,x,1,Arts & Admin,Room 169,true
+1293,x,1,Arts & Admin,Room 170,true
+1294,x,1,Arts & Admin,Room 172,true
+1295,x,1,Arts & Admin,Room 174,true
+1296,x,1,Arts & Admin,Room 175,true
+1297,x,1,Arts & Admin,Room 176,true
+1298,x,1,Arts & Admin,Room 177,true
+1299,x,1,Arts & Admin,Room 178,true
+1300,x,1,Arts & Admin,Room 179,true
+1301,x,1,Arts & Admin,Room 182,true
+1302,x,1,Arts & Admin,Room 183,true
+1303,x,1,Arts & Admin,Room 185,true
+1304,x,1.5,Arts & Admin,stair5,false
+1305,x,1.5,Arts & Admin,stair6,false
+1306,x,1,Arts & Admin,Room 106,true
+1307,x,1,Arts & Admin,First Floor Side Entrance,true
+1308,x,2.5,Arts & Admin,stair7,false
+1309,x,2.5,Arts & Admin,stair8,false
+1310,x,2.5,Arts & Admin,stair9,false
+1311,x,2,Arts & Admin,hallway31,false
+1312,x,2,Arts & Admin,hallway32,false
+1313,x,2,Arts & Admin,hallway33,false
+1314,x,2,Arts & Admin,Second Floor Elevator,false
+1315,x,2,Arts & Admin,hallway34,false
+1316,x,2,Arts & Admin,hallway35,false
+1317,x,2,Arts & Admin,hallway36,false
+1318,x,2,Arts & Admin,hallway37,false
+1319,x,2,Arts & Admin,hallway38,false
+1320,x,2,Arts & Admin,hallway39,false
+1321,x,2,Arts & Admin,hallway40,false
+1322,x,2,Arts & Admin,hallway41,false
+1323,x,2,Arts & Admin,hallway42,false
+1324,x,2,Arts & Admin,hallway43,false
+1325,x,2,Arts & Admin,hallway44,false
+1326,x,2,Arts & Admin,hallway45,false
+1327,x,2,Arts & Admin,hallway46,false
+1328,x,2,Arts & Admin,hallway47,false
+1329,x,2,Arts & Admin,hallway48,false
+1330,x,2,Arts & Admin,hallway49,false
+1331,x,2,Arts & Admin,hallway50,false
+1332,x,2,Arts & Admin,Room 203,true
+1333,x,2,Arts & Admin,Room 204,true
+1334,x,2,Arts & Admin,Room 205,true
+1335,x,2,Arts & Admin,Room 206,true
+1336,x,2,Arts & Admin,Room 207,true
+1337,x,2,Arts & Admin,Room 208,true
+1338,x,2,Arts & Admin,Room 209,true
+1339,x,2,Arts & Admin,Room 210,true
+1340,x,2,Arts & Admin,Room 212,true
+1341,x,2,Arts & Admin,Room 219,true
+1342,x,2,Arts & Admin,hallway51,false
+1343,x,2,Arts & Admin,hallway52,false
+1344,x,2,Arts & Admin,Room 223,true
+1345,x,2,Arts & Admin,Room 224,true
+1346,x,2,Arts & Admin,Room 226,true
+1347,x,2,Arts & Admin,Room 227,true
+1348,x,2,Arts & Admin,Room 225,true
+1349,x,2,Arts & Admin,Room 228,true
+1350,x,2,Arts & Admin,Room 229,true
+1351,x,2,Arts & Admin,Room 230,true
+1352,x,2,Arts & Admin,Room 232,true
+1353,x,2,Arts & Admin,Room 233,true
+1354,x,2,Arts & Admin,Room 234,true
+1355,x,2,Arts & Admin,Room 236,true
+1356,x,2,Arts & Admin,Room 237,true
+1357,x,2,Arts & Admin,Room 238,true
+1358,x,2,Arts & Admin,Room 239,true
+1359,x,2,Arts & Admin,Room 240,true
+1360,x,2,Arts & Admin,Room 241,true
+1361,x,2,Arts & Admin,Room 243,true
+1362,x,2,Arts & Admin,Room 244,true
+1363,x,2,Arts & Admin,Room 245,true
+1364,x,2,Arts & Admin,Room 247,true
+1365,x,2,Arts & Admin,Room 248,true
+1366,x,2,Arts & Admin,Room 249,true
+1367,x,2,Arts & Admin,Room 250,true
+1368,x,2,Arts & Admin,Room 251,true
+1369,x,2,Arts & Admin,Room 252,true
+1370,x,2,Arts & Admin,Room 253,true
+1371,x,2,Arts & Admin,Room 254,true
+1372,x,2,Arts & Admin,Room 255,true
+1373,x,2,Arts & Admin,Room 256,true
+1374,x,2,Arts & Admin,Room 257,true
+1375,x,2,Arts & Admin,Room 258,true
+1376,x,2,Arts & Admin,Room 259,true
+1377,x,2,Arts & Admin,Room 260,true
+1378,x,2,Arts & Admin,Room 262,true
+1379,x,2,Arts & Admin,Room 263,true
+1380,x,2,Arts & Admin,Room 264,true
+1381,x,2,Arts & Admin,Room 265,true
+1382,x,2,Arts & Admin,Room 266,true
+1383,x,2,Arts & Admin,Room 267,true
+1384,x,2,Arts & Admin,Room 268,true
+1385,x,2,Arts & Admin,Room 269,true
+1386,x,2,Arts & Admin,Room 270,true
+1387,x,2,Arts & Admin,Room 276,true
+1388,x,2,Arts & Admin,Room 278,true
+1389,x,2,Arts & Admin,Room 279,true
+1390,x,2,Arts & Admin,Room 281,true
+1391,x,2,Arts & Admin,Room 283,true
+1392,x,2,Arts & Admin,Room 284,true
+1393,x,2,Arts & Admin,Room 285,true
+1394,x,2,Arts & Admin,Room 286,true
+1395,x,3,Arts & Admin,hallway53,false
+1396,x,3,Arts & Admin,hallway54,false
+1397,x,3,Arts & Admin,hallway55,false
+1398,x,3,Arts & Admin,Third Floor Elevator,false
+1399,x,3,Arts & Admin,hallway56,false
+1400,x,3,Arts & Admin,hallway57,false
+1401,x,3,Arts & Admin,hallway58,false
+1402,x,3,Arts & Admin,hallway59,false
+1403,x,3,Arts & Admin,hallway60,false
+1404,x,3,Arts & Admin,hallway61,false
+1405,x,3,Arts & Admin,hallway62,false
+1406,x,3,Arts & Admin,hallway63,false
+1407,x,3,Arts & Admin,hallway64,false
+1408,x,3,Arts & Admin,hallway65,false
+1409,x,3,Arts & Admin,hallway66,false
+1410,x,3,Arts & Admin,hallway67,false
+1411,x,3,Arts & Admin,hallway68,false
+1412,x,3,Arts & Admin,Room 303,true
+1413,x,3,Arts & Admin,Room 304,true
+1414,x,3,Arts & Admin,Room 305,true
+1415,x,3,Arts & Admin,Room 306,true
+1416,x,3,Arts & Admin,Room 307,true
+1417,x,3,Arts & Admin,Room 308,true
+1418,x,3,Arts & Admin,Room 309,true
+1419,x,3,Arts & Admin,Room 310,true
+1420,x,3,Arts & Admin,Room 314,true
+1421,x,3,Arts & Admin,Room 316,true
+1422,x,3,Arts & Admin,Room 317,true
+1423,x,3,Arts & Admin,Room 318,true
+1424,x,3,Arts & Admin,Room 320,true
+1425,x,3,Arts & Admin,Room 322,true
+1426,x,3,Arts & Admin,Room 323,true
+1427,x,3,Arts & Admin,Room 330,true
+1428,x,3,Arts & Admin,hallway69,false
+1429,x,3,Arts & Admin,Room 336,true
+1430,x,3,Arts & Admin,Room 338,true
+1431,x,3,Arts & Admin,Room 339,true
+1432,x,3,Arts & Admin,Room 340,true
+1435,x,3,Arts & Admin,Room 335,true
+1436,x,3,Arts & Admin,Room 342,true
+1437,x,3,Arts & Admin,Room 343,true
+1438,x,3,Arts & Admin,Room 344,true
+1439,x,3,Arts & Admin,Room 345,true
+1440,x,3,Arts & Admin,Room 348,true
+1441,x,3,Arts & Admin,Room 349,true
+1442,x,3,Arts & Admin,Room 350,true
+1443,x,3,Arts & Admin,Room 351,true
+1444,x,3,Arts & Admin,Room 353,true
+1445,x,3,Arts & Admin,Room 354,true
+1446,x,3,Arts & Admin,Room 357,true
+1447,x,3,Arts & Admin,Room 358,true
+1448,x,3,Arts & Admin,Room 356,true
+1449,x,3,Arts & Admin,Room 359,true
+1450,x,3,Arts & Admin,Room 360,true
+1451,x,3,Arts & Admin,Room 361,true
+1452,x,3,Arts & Admin,Room 364,true
+1453,x,3,Arts & Admin,Room 365,true
+1454,x,3,Arts & Admin,Room 366,true
+1455,x,3,Arts & Admin,Room 367,true
+1456,x,3,Arts & Admin,Room 368,true
+1457,x,3,Arts & Admin,Room 369,true
+1458,x,3,Arts & Admin,Room 372,true
+1459,x,3,Arts & Admin,Room 373,true
+1460,x,3,Arts & Admin,Room 374,true
+1461,x,3,Arts & Admin,Room 378,true
+1462,x,3,Arts & Admin,Room 376,true
+1463,x,3,Arts & Admin,hallway70,false
+1464,x,3,Arts & Admin,Room 383,true
+1465,x,3,Arts & Admin,Room 384,true
+1466,x,3,Arts & Admin,Room 385,true
+1467,x,3,Arts & Admin,Room 386,true
+1468,x,3,Arts & Admin,Room 387,true
+1469,x,3,Arts & Admin,Room 388,true
+1470,x,1,Arts & Admin,hallway71,false
+1471,x,0,Arts & Admin,hallway72,false
+1472,x,0,Arts & Admin,Room 007,true
+1473,x,2,Arts & Admin,Room 261,true
