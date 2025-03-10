@@ -28,12 +28,6 @@ builder.Services.AddSwaggerGen();
 Console.WriteLine("Running TestQuery...");
 await TestQuery.QueryTest(); // This will execute the test query
 
-List<LocationNode> list = await QueryTest();
-
-      foreach (var node in list) {
-        Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
-      }
-
 
 var app = builder.Build(); // finalize app config
 
