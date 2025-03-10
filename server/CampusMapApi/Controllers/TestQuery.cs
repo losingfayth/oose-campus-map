@@ -4,7 +4,7 @@ namespace CampusMapApi {
 
   public class TestQuery {
 
-    public static async QueryTest() {
+    public static async void QueryTest() {
 
       // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
