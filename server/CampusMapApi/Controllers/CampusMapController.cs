@@ -18,7 +18,9 @@ public class CampusMapController : ControllerBase
     // queries database for all nodes and returns a list of location objects
     // http GET endpoint accessible at GET /api/CampusMap/get-locations
     [HttpGet("get-locations")]
-    public IActionResult getLocations() {
+    public IActionResult GetLocations() {
+
+
 
       var locations = new List<LocationNode>();
 
@@ -27,7 +29,7 @@ public class CampusMapController : ControllerBase
     //
     // http POST endpoint accessible at POST /api/CampusMap/find-path
     [HttpPost("find-path")]
-    public IActionResult findPath() {
+    public IActionResult FindPath(float currLoc, float dest) {
 
       var path = new List<LocationNode>();
 
@@ -36,17 +38,5 @@ public class CampusMapController : ControllerBase
     }
 
 }
-
-    // // http GET endpoint that will be accessible at GET /api/CampusMap/greeting
-    // [HttpGet("greeting")]
-    // public Greeting GetGreeting()
-    // {
-
-    //   // returns a serialized JSON boject response
-    //   return new Greeting
-    //     {
-    //       Body = "Hello, world!"
-    //     };
-    //   }
 
 
