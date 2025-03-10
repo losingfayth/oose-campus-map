@@ -22,7 +22,7 @@ public class CampusMapController : ControllerBase
 
       var path = new List<LocationNode>();
 
-      return Ok(path)
+      return Ok(path);
 
     }
 
