@@ -8,7 +8,7 @@ namespace CampusMapApi.Controllers;
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
-  private static IDriver _driver;
+  
     // allows controller to log messages
     private readonly ILogger<CampusMapController> _logger;
 

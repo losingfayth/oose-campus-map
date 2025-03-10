@@ -4,7 +4,7 @@ namespace CampusMapApi {
 
   public class TestQuery {
 
-    public static async Task<List<LocationNode>> QueryTest() {
+    public static async QueryTest() {
 
       // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -40,14 +40,19 @@ namespace CampusMapApi {
           node.displayName = formattedRoom;
 
           locations.Add(node);
-          return locations;  
+
         });
 
       } catch (Exception ex) {
           Console.WriteLine($"Error: {ex.Message}");
       }
 
-      return locations;  
+      L//ist<LocationNode> list = await Test();
+
+      foreach (var node in locations) {
+        Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
+      }
+
     }
   }
 }
