@@ -24,7 +24,7 @@ public class CampusMapController : ControllerBase
 
       var path = new List<LocationNode>();
 
-      return Ok(path);
+      return Task.FromResult<IActionResult>(Ok(path));
 
     }
 
@@ -33,7 +33,7 @@ public class CampusMapController : ControllerBase
     [HttpGet("get-locations")]
     public Task<IActionResult> GetLocations() {
         var path = new List<LocationNode>();
-     return Ok(path);
+     return Task.FromResult<IActionResult>(Ok(path));
     }
 
 }
