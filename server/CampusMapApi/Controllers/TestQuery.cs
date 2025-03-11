@@ -18,7 +18,8 @@ namespace CampusMapApi {
       await using var session = _driver.AsyncSession();
 
       // inserting test nodes
-      CreateNodes();
+      Console.WriteLine("Inserting nodes...");
+      await CreateNodes();
 
       // query to retrieve all nodes building and room number attributes
       var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
@@ -59,7 +60,8 @@ namespace CampusMapApi {
       }
 
       // delete test nodes
-      DeleteNodes();
+      Console.WriteLine("Deleting nodes...");
+      await DeleteNodes();
     }
 
 
