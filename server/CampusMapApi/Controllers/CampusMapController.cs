@@ -33,7 +33,8 @@ public class CampusMapController : ControllerBase
     // http GET endpoint accessible at GET /api/CampusMap/get-locations
     [HttpGet("get-locations")]
     public Task<IActionResult> GetLocations() {
-        var path = new List<LocationNode>();
+        //var path = new List<LocationNode>();
+        var path = "API Endpoint Response Good!";
      return Task.FromResult<IActionResult>(Ok(path));
     }
 
