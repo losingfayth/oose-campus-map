@@ -23,7 +23,7 @@ public class CampusMapController : ControllerBase
     public Task<IActionResult> FindPath(float currLoc, float dest) {
 
       //var path = new List<LocationNode>();
-      var path = "API Endpoint Response Good!";
+      var path = new {message = "API Endpoint Response Good!"};
 
       return Task.FromResult<IActionResult>(Ok(path));
 
@@ -34,7 +34,7 @@ public class CampusMapController : ControllerBase
     [HttpGet("get-locations")]
     public Task<IActionResult> GetLocations() {
         //var path = new List<LocationNode>();
-        var path = "API Endpoint Response Good!";
+        var path = new {message = "API Endpoint Response Good!"};
      return Task.FromResult<IActionResult>(Ok(path));
     }
 
