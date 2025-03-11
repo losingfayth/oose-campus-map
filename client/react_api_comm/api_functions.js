@@ -10,7 +10,8 @@ async function getLocations() {
 
          // use fetch to make an http request to server at get-location endpoint
         const response = await fetch("https://apibloomap.xyz/get-locations");
-        return response.json();
+        console.log (response.json());
+        
 
         // throw error if fetch is unsuccessful
     } catch (error) {

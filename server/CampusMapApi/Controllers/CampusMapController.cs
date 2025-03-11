@@ -22,7 +22,8 @@ public class CampusMapController : ControllerBase
     [HttpPost("find-path")]
     public Task<IActionResult> FindPath(float currLoc, float dest) {
 
-      var path = new List<LocationNode>();
+      //var path = new List<LocationNode>();
+      var path = "API Endpoint Response Good!";
 
       return Task.FromResult<IActionResult>(Ok(path));
 
