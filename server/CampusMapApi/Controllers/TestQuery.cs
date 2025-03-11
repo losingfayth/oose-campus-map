@@ -14,8 +14,10 @@ namespace CampusMapApi {
         ?? throw new InvalidOperationException("DB_PASSWORD is not set");
         
       using var driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-                
       await using var session = driver.AsyncSession();
+
+      // inserting test nodes
+      CreateNodes();
 
       // query to retrieve all nodes building and room number attributes
       var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
@@ -49,11 +51,78 @@ namespace CampusMapApi {
 
       //List<LocationNode> list = await Test();
 
+      // print query results
       foreach (var node in locations) {
         Console.WriteLine("Printing DB...");
         Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
       }
 
+      // delete test nodes
+      DeleteNodes();
+    }
+
+
+    static async Task DeleteNodes()
+    {
+        await using var session = _driver.AsyncSession();
+
+        await session.ExecuteWriteAsync(async tx =>
+        {
+            var query = "MATCH (n) DETACH DELETE n";
+            await tx.RunAsync(query);
+        });
+    }
+
+    
+    static async Task CreateNodes()
+    {
+        await using var session = _driver.AsyncSession();
+
+        var rooms = new List<Dictionary<string, object>>
+        {
+            new() { { "building", "Ben Franklin Hall" }, { "room", "103" }, { "floor", "1" }, { "lat", 123 }, { "lon", 234 } },
+            new() { { "building", "Ben Franklin Hall" }, { "room", "113" }, { "floor", "1" }, { "lat", 124 }, { "lon", 235 } },
+            new() { { "building", "Ben Franklin Hall" }, { "room", "115" }, { "floor", "1" }, { "lat", 125 }, { "lon", 236 } }
+        };
+
+        var hallways = new List<Dictionary<string, object>>
+        {
+            new() { { "building", "Ben Franklin Hall" }, { "floor", "1" }, { "lat", 126 }, { "lon", 127 } },
+            new() { { "building", "Ben Franklin Hall" }, { "floor", "1" }, { "lat", 127 }, { "lon", 128 } },
+            new() { { "building", "Ben Franklin Hall" }, { "floor", "1" }, { "lat", 128 }, { "lon", 129 } }
+        };
+
+        await session.ExecuteWriteAsync(async tx =>
+        {
+            foreach (var room in rooms)
+            {
+                var query = @"
+                    CREATE (r:Room { 
+                        building: $building, 
+                        roomNumber: $room, 
+                        floor: $floor, 
+                        latitude: $lat, 
+                        longitude: $lon 
+                    }) RETURN r";
+                
+                var cursor = await tx.RunAsync(query, room);
+                var record = await cursor.SingleAsync();
+            }
+
+            foreach (var hallway in hallways)
+            {
+                var query = @"
+                    CREATE (h:Hallway { 
+                        building: $building, 
+                        floor: $floor, 
+                        latitude: $lat, 
+                        longitude: $lon 
+                    }) RETURN h";
+
+                var cursor = await tx.RunAsync(query, hallway);
+                var record = await cursor.SingleAsync();
+            }
+        });
     }
   }
 }
