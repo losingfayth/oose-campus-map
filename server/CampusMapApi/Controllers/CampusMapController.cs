@@ -18,22 +18,23 @@ public class CampusMapController : ControllerBase
     }
 
     
-    // // http POST endpoint accessible at POST /api/CampusMap/find-path
-    // [HttpPost("find-path")]
-    // public Task<IActionResult> FindPath(float currLoc, float dest) {
+    // http POST endpoint accessible at POST /api/CampusMap/find-path
+    [HttpPost("find-path")]
+    public Task<IActionResult> FindPath(float currLoc, float dest) {
 
-    //   var path = new List<LocationNode>();
+      var path = new List<LocationNode>();
 
-    //   return Ok(path);
+      return Ok(path);
 
-    // }
+    }
 
-    // // queries database for all nodes and returns a list of location objects
-    // // http GET endpoint accessible at GET /api/CampusMap/get-locations
-    // [HttpGet("get-locations")]
-    // public Task<IActionResult> GetLocations() {
-     
-    // }
+    // queries database for all nodes and returns a list of location objects
+    // http GET endpoint accessible at GET /api/CampusMap/get-locations
+    [HttpGet("get-locations")]
+    public Task<IActionResult> GetLocations() {
+        var path = new List<LocationNode>();
+     return Ok(path);
+    }
 
 }
 
