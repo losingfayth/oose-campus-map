@@ -4,6 +4,7 @@ namespace CampusMapApi {
 
   public class TestQuery {
 
+    private static IDriver _driver;
     public static async Task QueryTest() {
 
       // initial db connection
@@ -13,8 +14,8 @@ namespace CampusMapApi {
       var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
         ?? throw new InvalidOperationException("DB_PASSWORD is not set");
         
-      using var driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-      await using var session = driver.AsyncSession();
+      _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+      await using var session = _driver.AsyncSession();
 
       // inserting test nodes
       CreateNodes();
@@ -64,6 +65,7 @@ namespace CampusMapApi {
 
     static async Task DeleteNodes()
     {
+        await using var session = _driver.AsyncSession();
 
         await session.ExecuteWriteAsync(async tx =>
         {
@@ -75,6 +77,7 @@ namespace CampusMapApi {
     
     static async Task CreateNodes()
     {
+        await using var session = _driver.AsyncSession();
 
         var rooms = new List<Dictionary<string, object>>
         {
