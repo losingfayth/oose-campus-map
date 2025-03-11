@@ -42,7 +42,6 @@ namespace CampusMapApi {
           node.building = building;
           node.roomNumber = roomNumber;
           node.displayName = formattedRoom;
-
           locations.Add(node);
 
         });
@@ -60,11 +59,13 @@ namespace CampusMapApi {
       }
 
       // delete test nodes
-      Console.WriteLine("Deleting nodes...");
-      await DeleteNodes();
+      // Console.WriteLine("Deleting nodes...");
+      // await DeleteNodes();
     }
 
-
+    /*
+    * DANGEROUS QUERY! THIS WILL NUKE THE DATABASE
+    */
     static async Task DeleteNodes()
     {
         await using var session = _driver.AsyncSession();
