@@ -1,3 +1,4 @@
+package individual;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +30,10 @@ public class TextRemoval
 
         assert files != null;
         for (File f : files) {
-            processBuilding(f, f.toString().substring(sourceRootString.length()));
+            if (f.isDirectory()) {
+                processBuilding(f, f.toString().substring(sourceRootString.length()));
+
+            }
         }
     }
 

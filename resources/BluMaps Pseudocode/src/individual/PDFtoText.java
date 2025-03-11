@@ -1,10 +1,9 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+package individual;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -12,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PDFtoImage
+public class PDFtoText
 {
     private static String progLocation = "/usr/bin/java";
     private static String pdfBoxLocation = "/Users/dakotahkurtz/Downloads/pdfbox-app-3.0.4.jar";
     private  String sourceRootString;
     private  String destRootString;
 
-    public PDFtoImage(String sourceRoot, String destRootString) throws IOException,
+    public PDFtoText(String sourceRoot, String destRootString) throws IOException,
             InterruptedException
     {
         this.destRootString = destRootString;
@@ -60,13 +59,12 @@ public class PDFtoImage
         File[] files = sourceRoot.listFiles();
         for (File f : files) {
             String fileName = f.toString().substring(1 + sourceRoot
-                    .toString().length(), f.toString().length() - 4);
+                    .toString().length(), f.toString().length()-4);
             String outputFileName = destRootString + dirID + "/"+fileName;
-            System.out.println("Converting PDF to JPEG from " + fileName);
 
             //java -jar pdfbox-app-3.y.z.jar render [OPTIONS] -i=<infile>
             String[] arguments = new String[]{progLocation, "-jar", pdfBoxLocation,
-                    "render", "-outputPrefix="+fileName,"-i="+fileName+".pdf"};
+                    "export:text","-i="+fileName+".pdf"};
             List<String> commands = new ArrayList<>(Arrays.asList(arguments));
 
             ProcessBuilder pb = new ProcessBuilder(commands);
@@ -89,12 +87,11 @@ public class PDFtoImage
             //Check result
             if (process.waitFor() == 0) {
                 System.out.println("Success!");
-                String srcString = sourceRootString+dirID+"/"+fileName+"-1.jpg";
-                Files.move(Paths.get(srcString), Paths.get(outputFileName+".jpg"),
+                String srcString = sourceRootString+dirID+"/"+fileName+".txt";
+                Files.move(Paths.get(srcString), Paths.get(outputFileName+".txt"),
                         StandardCopyOption.REPLACE_EXISTING);
                 System.out.printf("Moving %s from %s %nto%n%s%n", fileName, srcString,
                         outputFileName);
-
             } else {
                 //Abnormal termination: Log command parameters and output and throw ExecutionException
                 System.err.println(commands);
@@ -104,6 +101,12 @@ public class PDFtoImage
 
 
         }
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException
+    {
+        PDFtoText pdFtoText = new PDFtoText(Processing.originalPDF,
+                Processing.primaryDirectory + "textOnly/");
     }
 
 
