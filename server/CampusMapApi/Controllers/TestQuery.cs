@@ -64,7 +64,6 @@ namespace CampusMapApi {
 
     static async Task DeleteNodes()
     {
-        await using var session = driver.AsyncSession();
 
         await session.ExecuteWriteAsync(async tx =>
         {
@@ -76,7 +75,6 @@ namespace CampusMapApi {
     
     static async Task CreateNodes()
     {
-        await using var session = driver.AsyncSession();
 
         var rooms = new List<Dictionary<string, object>>
         {
