@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "install",
+			"path": "client/test-map",
+			"group": "clean",
+			"problemMatcher": [],
+			"label": "npm: install - client/test-map",
+			"detail": "install dependencies from package"
+		}
+	]
+}

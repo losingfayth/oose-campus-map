@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
 
 namespace CampusMapApi.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
+
+[ApiController] // marks this class as a web API controller
+[Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
-
+  
+    // allows controller to log messages
     private readonly ILogger<CampusMapController> _logger;
 
     public CampusMapController(ILogger<CampusMapController> logger)
@@ -14,12 +17,25 @@ public class CampusMapController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("greeting")]
-    public Greeting GetGreeting()
-    {
-      return new Greeting
-        {
-          Body = "Hello, world!"
-        };
-      }
+    
+    // http POST endpoint accessible at POST /api/CampusMap/find-path
+    [HttpPost("find-path")]
+    public Task<IActionResult> FindPath(float currLoc, float dest) {
+
+      var path = new List<LocationNode>();
+
+      return Task.FromResult<IActionResult>(Ok(path));
+
+    }
+
+    // queries database for all nodes and returns a list of location objects
+    // http GET endpoint accessible at GET /api/CampusMap/get-locations
+    [HttpGet("get-locations")]
+    public Task<IActionResult> GetLocations() {
+        var path = new List<LocationNode>();
+     return Task.FromResult<IActionResult>(Ok(path));
+    }
+
 }
+
+
