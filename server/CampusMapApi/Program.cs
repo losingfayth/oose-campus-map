@@ -2,6 +2,8 @@
 
 using CampusMapApi;
 
+
+
 // creates new instance of the web application (loads configs from appsettings.json)
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,14 @@ builder.Services.AddSwaggerGen();
 Console.WriteLine("Running TestQuery...");
 await TestQuery.QueryTest(); // This will execute the test query
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 
 var app = builder.Build(); // finalize app config
 
@@ -40,6 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection(); // redirect http requests to https
+app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
 app.MapControllers(); // tell ASP.NET Core to use controller-based routes
 app.Run(); // start web server and begin listening for requests
