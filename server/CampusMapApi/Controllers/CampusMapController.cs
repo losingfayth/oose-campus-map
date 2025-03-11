@@ -33,7 +33,7 @@ public class CampusMapController : ControllerBase
     // queries database for all nodes and returns a list of location objects
     // http GET endpoint accessible at GET /api/CampusMap/get-locations
     [HttpGet("get-locations")]
-    public Task<IActionResult> GetLocations() {
+    public async Task<IActionResult> GetLocations() {
         // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
       var username = Environment.GetEnvironmentVariable("DB_USER") 
