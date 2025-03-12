@@ -30,7 +30,7 @@ Comment
 
 public class SelectorDisplay extends Application
 {
-    int maxDisplayDim = 800;
+    int maxDisplayDim = 1200;
     int controlHeight = 50;
 
     @Override
@@ -58,7 +58,14 @@ public class SelectorDisplay extends Application
 
         while (true) {
             System.out.println("Enter the image file (.png)");
+
             inputFileName = input.nextLine();
+            if (inputFileName.charAt(0) == '\'') {
+                inputFileName = inputFileName.substring(1);
+            }
+            if (inputFileName.charAt(inputFileName.length() - 1) == '\'') {
+                inputFileName = inputFileName.substring(0, inputFileName.length() - 1);
+            }
             try
             {
                 inputStream = new FileInputStream(inputFileName);
@@ -103,7 +110,17 @@ public class SelectorDisplay extends Application
         } while (!s.equals("L") && !s.equals("P"));
 
         plusCode = s.equals("P");
-
+// /Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Ben Franklin/BFB-1.png
+        /*
+        Enter plus code 1
+2H42+MMH
+Enter plus code 2
+2H42+RHF
+Enter plus code 3
+2H42+PQ3
+Enter plus code 4
+2H42+VJ9
+         */
         if (plusCode) {
             System.out.println("Enter the plus codes corresponding to where the " +
                     "blueprint exists in the real world. Begin with the coordinate that" +
@@ -182,7 +199,7 @@ public class SelectorDisplay extends Application
             }
 
             Point p = map.convert(new Point(cx, cy));
-            System.out.printf("%n%d: %s", counter.getValue(),
+            System.out.printf("%n%s",
                     OpenLocationCode.encode(p.x, p.y));
 
             Text numberLabelingText = new Text(String.valueOf(counter.getValue()));
