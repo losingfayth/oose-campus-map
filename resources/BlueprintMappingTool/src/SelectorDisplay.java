@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import mapping.*;
@@ -110,17 +111,7 @@ public class SelectorDisplay extends Application
         } while (!s.equals("L") && !s.equals("P"));
 
         plusCode = s.equals("P");
-// /Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Ben Franklin/BFB-1.png
-        /*
-        Enter plus code 1
-2H42+MMH
-Enter plus code 2
-2H42+RHF
-Enter plus code 3
-2H42+PQ3
-Enter plus code 4
-2H42+VJ9
-         */
+
         if (plusCode) {
             System.out.println("Enter the plus codes corresponding to where the " +
                     "blueprint exists in the real world. Begin with the coordinate that" +
@@ -169,6 +160,17 @@ Enter plus code 4
             }
         }
 
+        int sIndex;
+        do {
+            System.out.println("Begin marking at what index?");
+            try {
+                sIndex = input.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println(e.toString());
+            }
+        } while (true);
+
 
         CoordinateSystem javaFX = new CoordinateSystem(new Point(0, 0), new Point(displayImageWidth, 0), new Point(0, displayImageHeight), new Point(displayImageWidth, displayImageHeight));
 
@@ -178,7 +180,7 @@ Enter plus code 4
         Map map = new Map(javaFX, test);
 
         imagePane.getChildren().add(imageView);
-        Counter counter = new Counter(1);
+        Counter counter = new Counter(sIndex);
         ArrayList<Text> appliedText = new ArrayList<>();
 
         imagePane.setOnMouseClicked(event -> {
