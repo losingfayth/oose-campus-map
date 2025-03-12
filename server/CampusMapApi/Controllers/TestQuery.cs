@@ -22,7 +22,7 @@ namespace CampusMapApi {
       // await CreateNodes();
 
       // query to retrieve all nodes building and room number attributes
-      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
+      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id";
 
       var locations = new List<LocationNode>();
       
@@ -35,10 +35,12 @@ namespace CampusMapApi {
 
           string building = record["building"].As<string>();
           string roomNumber = record["roomNumber"].As<string>();
+          int id = record["id"].As<int>;
 
           string formattedRoom = $"{building} Room {roomNumber}";
 
           LocationNode node = new LocationNode();
+          node.id = id;
           node.building = building;
           node.roomNumber = roomNumber;
           node.displayName = formattedRoom;
