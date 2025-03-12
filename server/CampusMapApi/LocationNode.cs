@@ -5,7 +5,7 @@ is to store a series of attributes about locational data for serializing
 and sening back and forth between front and back ends.
 */
     public class LocationNode {
-        public string id {get; set;}
+        public string id {get; set;} = string.Empty;
         public string locationCode {get; set;} = string.Empty;
         public int floor {get; set;}
         public string building {get; set;} = string.Empty;
