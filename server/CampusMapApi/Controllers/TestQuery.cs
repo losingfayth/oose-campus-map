@@ -31,7 +31,7 @@ namespace CampusMapApi {
 
           string building = record["building"].As<string>();
           string roomNumber = record["roomNumber"].As<string>();
-          int id = record["id"].As<int>();
+          string id = record["id"].As<string>();
 
           string formattedRoom = $"{building} Room {roomNumber}";
 
