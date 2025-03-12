@@ -3,43 +3,43 @@
 using System.Reflection.Metadata;
 using System.Text;
 
-/// <summary>
-/// This class should cover all conversions between latitude/longitude to Plus code required for
-/// our project. Of note:
-/// 
-/// Latitudes/Longitude pairs are abstracted into a Coordinate - which can be created with
-/// Latitudes/Longitude, or the distinct degrees, minutes, and seconds for each, or (if the location
-/// is on Bloomsburg campus), just the minutes and seconds for lat and lng.
-/// 
-/// We say that the Coordinate is "encoded" into a Plus code. Similarly, a Plus code is "decoded" back
-/// into either a CodeArea or a Coordinate.
-/// A Plus Code refers to a rectangular bounding box - the default for this codebase is an 11 digit Plus code,
-/// which corresponds to an approximately 3x3 meter bound. A CodeArea object gives information for
-/// the north/south/east/west values of that bounding box, in latitude/longitude respectively.
-/// Decoding a Plus code to a Coordinate object gives the latitude/longitude of the CENTER of the bounds.
-/// 
-/// Much like the Coordinate objects can be created with a shorthand if they're on Bloomsburg Campus,
-/// Plus codes can be as well. An 11 digit Plus code looks like "87H52H42+WJF". By using designated 
-/// constructors/methods, that can be shortened to "2H42+WJF" - which is the exact form that Google Maps
-/// will give.
-/// 
-/// IMPORTANT -
-/// Google Maps will often give coordinates in the form "41°00'26.4"N 76°26'54.5"W". This means the latitude
-/// is 41 degrees, 0 minutes, and 26.4 seconds, and the longitude is NEGATIVE 76 degrees, NEGATIVE 26 minutes
-/// and NEGATIVE 54.5 seconds. East is positive, West is negative. If the longitude is given w.r.t. west,
-/// the Coordinate object needs to be given negative values. 
-/// 
-/// *********************
-/// 
-/// There is a static method ExampleUsage() that gives ... example usage.
-/// 
-/// Dakotah
-/// 
-/// SOURCES
-/// https://github.com/google/open-location-code
-/// Some doc comments converted to C# style by ChatGPT
-/// </summary>
-/// 
+/**
+    <summary>
+
+    This class should cover all conversions between latitude/longitude to Plus code required for our project. 
+
+    Of note:
+        - Latitudes/Longitude pairs are abstracted into a Coordinate - which can be created with Latitudes/Longitude, or the distinct degrees, minutes, and seconds for each, or (if the location is on Bloomsburg campus), just the minutes and seconds for lat and lng.
+        - We say that the Coordinate is "encoded" into a Plus code. Similarly, a Plus code is "decoded" back into either a CodeArea or a Coordinate.
+        - A Plus Code refers to a rectangular bounding box - the default for this codebase is an 11 digit Plus code, which corresponds to an approximately 3x3 meter bound. A CodeArea object gives information for
+        the north/south/east/west values of that bounding box, in latitude/longitude respectively.
+        - Decoding a Plus code to a Coordinate object gives the latitude/longitude of the CENTER of the bounds.
+    
+    Much like the Coordinate objects can be created with a shorthand if they're on Bloomsburg Campus, Plus codes can be as well.
+    An 11 digit Plus code looks like:
+        "87H52H42+WJF"
+    By using designated constructors/methods, that can be shortened to:
+        "2H42+WJF" 
+    which is the exact form that Google Maps will give.
+    
+    !! IMPORTANT
+    Google Maps will often give coordinates in the form "41°00'26.4"N 76°26'54.
+    5"W". This means the latitude is 41 degrees, 0 minutes, and 26.4 seconds,
+    and the longitude is NEGATIVE 76 degrees, NEGATIVE 26 minutes and NEGATIVE
+    54.5 seconds. East is positive, West is negative. If the longitude is given
+    w.r.t. west, the Coordinate object needs to be given negative values. 
+    
+    *********************
+    
+    There is a static method ExampleUsage() that gives ... example usage.
+
+    SOURCES
+        https://github.com/google/open-location-code
+
+    </summary>
+
+    <author> Dakotah Kurtz </author>
+*/
 
 public class CoordinateConverter
 {
@@ -895,10 +895,4 @@ public class CoordinateConverter
             }
         }
     }
-
-    // public static void Main() {
-    //     Console.WriteLine("Test");
-    // }
-
 }
-
