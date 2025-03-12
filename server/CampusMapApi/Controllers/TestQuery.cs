@@ -50,10 +50,11 @@ namespace CampusMapApi {
 
       //List<LocationNode> list = await Test();
 
+      Console.WriteLine("Printing DB...");
       // print query results
       foreach (var node in locations) {
-        Console.WriteLine("Printing DB...");
-        Console.WriteLine($"{node.building}, {node.roomNumber}, {node.displayName}");
+        
+        Console.WriteLine($"{node.id}, {node.building}, {node.roomNumber}, {node.displayName}");
       }
     }
 
