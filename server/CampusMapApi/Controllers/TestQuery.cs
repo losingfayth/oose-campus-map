@@ -35,7 +35,8 @@ namespace CampusMapApi {
 
           string building = record["building"].As<string>();
           string roomNumber = record["roomNumber"].As<string>();
-          int id = (int)record["id"];
+          int id = record["id"].As<int>();
+
           string formattedRoom = $"{building} Room {roomNumber}";
 
           LocationNode node = new LocationNode();
