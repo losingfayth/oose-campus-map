@@ -57,7 +57,7 @@ public class CampusMapController : ControllerBase
 
           string building = record["building"].As<string>();
           string roomNumber = record["roomNumber"].As<string>();
-
+          
           string formattedRoom = $"{building} Room {roomNumber}";
 
           LocationNode node = new LocationNode();
