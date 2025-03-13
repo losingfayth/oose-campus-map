@@ -1,8 +1,7 @@
-// sets yo the seb server, enables HTTPS, configures services, and starts handling incoming requests
-
+/**
+Sets up the web server, enables HTTPS, configures services, and enables controller to begin handling incoming API endpoint requests
+*/ 
 using CampusMapApi;
-
-
 
 // creates new instance of the web application (loads configs from appsettings.json)
 var builder = WebApplication.CreateBuilder(args);
@@ -25,10 +24,6 @@ builder.Services.AddControllers(); // registers MVC controllers
 builder.Services.AddOpenApi(); // enable OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
-// Console.WriteLine("Running TestQuery...");
-// await TestQuery.QueryTest(); // This will execute the test query
 
 // add support for calling api endpoints from brower
 builder.Services.AddCors(options =>
