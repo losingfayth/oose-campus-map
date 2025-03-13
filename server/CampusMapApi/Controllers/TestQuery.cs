@@ -48,28 +48,10 @@ namespace CampusMapApi {
           Console.WriteLine($"Error: {ex.Message}");
       }
 
-      //List<LocationNode> list = await Test();
-
       Console.WriteLine("Printing DB...");
-      // print query results
       foreach (var node in locations) {
-        
         Console.WriteLine($"{node.id}, {node.building}, {node.roomNumber}, {node.displayName}");
       }
     }
-
-    /*
-    * DANGEROUS QUERY! THIS WILL NUKE THE DATABASE
-    */
-    static async Task DeleteNodes()
-    {
-        await using var session = _driver.AsyncSession();
-
-        await session.ExecuteWriteAsync(async tx =>
-        {
-            var query = "MATCH (n) DETACH DELETE n";
-            await tx.RunAsync(query);
-        });
-    }    
   }
 }

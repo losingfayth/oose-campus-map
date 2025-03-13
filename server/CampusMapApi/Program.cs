@@ -27,9 +27,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-Console.WriteLine("Running TestQuery...");
-await TestQuery.QueryTest(); // This will execute the test query
+// Console.WriteLine("Running TestQuery...");
+// await TestQuery.QueryTest(); // This will execute the test query
 
+// add support for calling api endpoints from brower
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
@@ -38,8 +39,8 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-
-var app = builder.Build(); // finalize app config
+// finalize app configurations
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,7 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection(); // redirect http requests to https
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowAllOrigins"); // allow javascript to call api from browswer
 app.UseAuthorization();
 app.MapControllers(); // tell ASP.NET Core to use controller-based routes
 app.Run(); // start web server and begin listening for requests

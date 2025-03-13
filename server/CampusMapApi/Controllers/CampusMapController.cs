@@ -10,7 +10,6 @@ namespace CampusMapApi.Controllers;
 public class CampusMapController : ControllerBase
 {
   
-    // allows controller to log messages
     private readonly ILogger<CampusMapController> _logger;
 
     public CampusMapController(ILogger<CampusMapController> logger)
@@ -30,51 +29,54 @@ public class CampusMapController : ControllerBase
 
     }
 
-    // // queries database for all nodes and returns a list of location objects
-    // // http GET endpoint accessible at GET /api/CampusMap/get-locations
-    // [HttpGet("get-locations")]
-    // public async Task<IActionResult> GetLocations() {
-    //     // initial db connection
-    //   var uri = "neo4j+s://apibloomap.xyz:7687";
-    //   var username = Environment.GetEnvironmentVariable("DB_USER") 
-    //     ?? throw new InvalidOperationException("DB_USER is not set");
-    //   var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
-    //     ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+    // queries database for all nodes and returns a list of location objects
+    // http GET endpoint accessible at GET /api/CampusMap/get-locations
+    [HttpGet("get-locations")]
+    public async Task<IActionResult> GetLocations() {
         
-    //   IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-    //   await using var session = _driver.AsyncSession();
+        // initial db connection
+      var uri = "neo4j+s://apibloomap.xyz:7687";
+      var username = Environment.GetEnvironmentVariable("DB_USER") 
+        ?? throw new InvalidOperationException("DB_USER is not set");
+      var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+        ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+        
+      IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+      await using var session = _driver.AsyncSession();
 
-    //   var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
-
-    //   var locations = new List<LocationNode>();
+      // query to retrieve all nodes' building and room number attributes
+      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
+      var locations = new List<LocationNode>(); // list of locations being queried
       
-    //   try {
-            
-    //     var result = await session.RunAsync(query);
+      try {
 
-    //     // Process each record in the result set
-    //     await result.ForEachAsync(record => {
+        // run the query on the database at store result set            
+        var result = await session.RunAsync(query);
 
-    //       string building = record["building"].As<string>();
-    //       string roomNumber = record["roomNumber"].As<string>();
-          
-    //       string formattedRoom = $"{building} Room {roomNumber}";
+        // get the key attributes from each record and create a location 
+        // node with those attributes. add the node to the list
+        await result.ForEachAsync(record => {
 
-    //       LocationNode node = new LocationNode();
-    //       node.building = building;
-    //       node.roomNumber = roomNumber;
-    //       node.displayName = formattedRoom;
-    //       locations.Add(node);
+          string building = record["building"].As<string>();
+          string roomNumber = record["roomNumber"].As<string>();
+          string formattedRoom = $"{building} Room {roomNumber}";
 
-    //     });
+          LocationNode node = new LocationNode();
+          node.building = building;
+          node.roomNumber = roomNumber;
+          node.displayName = formattedRoom;
+          locations.Add(node);
 
-    //   } catch (Exception ex) {
-    //       Console.WriteLine($"Error: {ex.Message}");
-    //   }
-    //     //var path = new List<LocationNode>();
-    //     //var path = new {message = "API Endpoint Response Good!"};
-    //  return Task.FromResult<IActionResult>(Ok(locations));
-    // }
+        });
+
+        // catch and display any errors encountered
+      } catch (Exception ex) {
+          Console.WriteLine($"Error: {ex.Message}");
+      }
+
+     // return the list of location nodes and the status of the call
+     return Task.FromResult<IActionResult>(Ok(locations));
+    }
 
 }
 
