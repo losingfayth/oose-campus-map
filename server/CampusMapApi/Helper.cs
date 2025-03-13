@@ -1,3 +1,6 @@
+
+using CampusMapApi;
+
 /**
     <summary>
 
@@ -35,7 +38,7 @@ public class HelperFunctions() {
 //  Metric: The unit of distance the previous return value is in
 //  EstimateTravelTime: The estimated time to traverse the given path, in seconds.
 // </returns>
-static PathData EstimateTravelTime(List<LocationNode> path) {
+static Path EstimateTravelTime(List<LocationNode> path) {
 
     // Default metric is Feet
     CoordinateConverter.Coordinate.DistanceMetric distanceMetric = CoordinateConverter.Coordinate.DistanceMetric.Feet;
@@ -77,7 +80,7 @@ static PathData EstimateTravelTime(List<LocationNode> path) {
     double unitsPerSecond = CoordinateConverter.Coordinate.ConvertDistanceUnits(CoordinateConverter.Coordinate.DistanceMetric.Miles, distanceMetric, AVG_MPH_WALKING_SPEED) / SEC_PER_HOUR;
     travelTime += (int) Math.Floor(pathDistance / unitsPerSecond);
 
-    return new PathData {
+    return new Path {
         Distance = pathDistance,
         Metric = distanceMetric,
         EstimateTravelTime = travelTime
@@ -104,15 +107,6 @@ private static bool NodesWithinThreeMeters(string locCode1, string locCode2) {
     return string.Compare(locCode1, locCode2) == 0;
 }
 
-public class LocationNode
-    {
-    public string LocationCode {get; set;} = string.Empty;
-    public int Floor {get; set;}
-    public string Building {get; set;} = string.Empty;
-    public string DisplayName {get; set;} = string.Empty;
-    public bool IsValidDestination {get; set;} = false;
-}
-
 /// <summary>
 /// Stores data pertaining to a path (An ordered list of LocationNodes)
 /// Contains 
@@ -120,11 +114,7 @@ public class LocationNode
 /// Metric: the units of distance
 /// EstimateTravelTime: The estimated time needed to traverse the path (in seconds)
 /// </summary>
-public class PathData {
-    public double Distance {get; set;} = 0;
-    public CoordinateConverter.Coordinate.DistanceMetric Metric {get; set;} 
-    public int EstimateTravelTime {get; set;} = 0;   
-}
+
 
     public static void TravelTimeTest() {
         LocationNode ln1 = new()
@@ -148,7 +138,7 @@ public class PathData {
         };
 
         List<LocationNode> locationNodes = [ln1, ln2];
-        PathData pathData = EstimateTravelTime(locationNodes);
+        Path pathData = EstimateTravelTime(locationNodes);
         Console.WriteLine(pathData.Distance + ", " + pathData.EstimateTravelTime);
 
         locationNodes = [ln2, ln1];
@@ -160,12 +150,11 @@ public class PathData {
 
         Console.WriteLine(ln1To3[2].LocationCode);
 
-        PathData pd1 = EstimateTravelTime(ln1To3);
-        PathData pd2 = EstimateTravelTime(ln2To3);
+        Path pd1 = EstimateTravelTime(ln1To3);
+        Path pd2 = EstimateTravelTime(ln2To3);
 
         Console.WriteLine(pd1.Distance + ", " + pd1.EstimateTravelTime);
         Console.WriteLine(pd2.Distance + ", " + pd2.EstimateTravelTime);
 
     }
 }
-
