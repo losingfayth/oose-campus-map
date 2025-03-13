@@ -45,7 +45,7 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
 
       // query to retrieve all nodes' building and room number attributes
-      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber";
+      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber, n.id as id";
       var locations = new List<LocationNode>(); // list of locations being queried
       
       try {
@@ -59,12 +59,14 @@ public class CampusMapController : ControllerBase
 
           string building = record["building"].As<string>();
           string roomNumber = record["roomNumber"].As<string>();
+          string id = record["id"].As<string>();
           string formattedRoom = $"{building} Room {roomNumber}";
 
           LocationNode node = new LocationNode();
           node.building = building;
           node.roomNumber = roomNumber;
           node.displayName = formattedRoom;
+          node.id = id;
           locations.Add(node);
 
         });
