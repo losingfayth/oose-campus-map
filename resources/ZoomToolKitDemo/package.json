@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "expo": "~52.0.37",
+    "expo-screen-orientation": "~8.0.4",
     "expo-status-bar": "~2.0.1",
     "install": "^0.13.0",
     "npm": "^11.1.0",
@@ -19,7 +20,7 @@
     "react-native-reanimated": "~3.16.1",
     "react-native-svg": "^15.8.0",
     "react-native-zoom-toolkit": "^4.0.1",
-    "expo-screen-orientation": "~8.0.4"
+    "zoomtoolkitdemo": "file:"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
