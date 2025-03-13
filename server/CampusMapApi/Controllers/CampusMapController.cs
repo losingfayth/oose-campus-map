@@ -75,7 +75,8 @@ public class CampusMapController : ControllerBase
       }
 
      // return the list of location nodes and the status of the call
-     return Task.FromResult<IActionResult>(Ok(locations));
+     return Ok(locations);
+     // return Task.FromResult<IActionResult>(Ok(locations));
     }
 
 }
