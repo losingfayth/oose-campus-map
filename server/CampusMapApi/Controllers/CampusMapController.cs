@@ -45,7 +45,7 @@ public class CampusMapController : ControllerBase
       //var path = new List<LocationNode>();
       var path = new {message = "API Endpoint Response Good!"};
 
-      return Task.FromResult<IActionResult>(Ok(path));
+      return Ok(path);
 
     }
 
