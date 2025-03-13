@@ -13,13 +13,6 @@ get-locations
   on campus. Returns an IActionResult object that indicates the status of request
   completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
   node contains the previously queried data about each location on campus.
-
-find-path
-- HttpPost request that takes 2 arguments, a user's current location and destination.
-  
-
-
-
 */
 
 namespace CampusMapApi.Controllers;
