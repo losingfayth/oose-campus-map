@@ -45,7 +45,7 @@ public class CampusMapController : ControllerBase
       //var path = new List<LocationNode>();
       var path = new {message = "API Endpoint Response Good!"};
 
-      return Ok(path);
+      return Task.FromResult<IActionResult>(Ok(path));
 
     }
 
@@ -86,7 +86,7 @@ public class CampusMapController : ControllerBase
           node.building = record["building"].As<string>();
           node.roomNumber = record["roomNumber"].As<string>();
           node.id = record["id"].As<string>();
-          node.displayName = $"{building} Room {roomNumber}";
+          //node.displayName = $"{building} Room {roomNumber}";
 
           // add node to List<>
           locations.Add(node);
