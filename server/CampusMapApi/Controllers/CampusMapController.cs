@@ -1,6 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Neo4j.Driver;
+using Neo4j.Driver; // DB related functions
+
+/**
+Establishes a web API controller to handle server-side requests from front-end.
+
+**API Enpoints**
+
+get-locations
+- HttpGet request that takes no arguments. When called, does a DB query to Neo4j
+  to retrieve building name, room number, and unique id of every node for every room
+  on campus. Returns an IActionResult object that indicates the status of request
+  completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
+  node contains the previously queried data about each location on campus.
+
+find-path
+- HttpPost request that takes 2 arguments, a user's current location and destination.
+  
+
+
+
+*/
 
 namespace CampusMapApi.Controllers;
 
@@ -29,8 +49,10 @@ public class CampusMapController : ControllerBase
 
     }
 
-    // queries database for all nodes and returns a list of location objects
-    // http GET endpoint accessible at GET /api/CampusMap/get-locations
+    /** 
+    Queries database for all nodes and returns a list of location objects.
+    http GET api endpoint accessible at GET /api/CampusMap/get-locations
+    */
     [HttpGet("get-locations")]
     public async Task<IActionResult> GetLocations() {
         
@@ -57,28 +79,27 @@ public class CampusMapController : ControllerBase
         // node with those attributes. add the node to the list
         await result.ForEachAsync(record => {
 
-          string building = record["building"].As<string>();
-          string roomNumber = record["roomNumber"].As<string>();
-          string id = record["id"].As<string>();
-          string formattedRoom = $"{building} Room {roomNumber}";
-
+          // creating a new Location node
           LocationNode node = new LocationNode();
-          node.building = building;
-          node.roomNumber = roomNumber;
-          node.displayName = formattedRoom;
-          node.id = id;
+
+          // pulling data from each record and storing in node
+          node.building = record["building"].As<string>();
+          node.roomNumber = record["roomNumber"].As<string>();
+          node.id = record["id"].As<string>();
+          node.displayName = $"{building} Room {roomNumber}";
+
+          // add node to List<>
           locations.Add(node);
 
         });
 
         // catch and display any errors encountered
-      } catch (Exception ex) {
-          Console.WriteLine($"Error: {ex.Message}");
+      } catch (Exception e) {
+          Console.WriteLine($"Error: {e.Message}");
       }
 
      // return the list of location nodes and the status of the call
      return Ok(locations);
-     // return Task.FromResult<IActionResult>(Ok(locations));
     }
 
 }
