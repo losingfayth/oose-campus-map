@@ -1,12 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Neo4j.Driver; // DB related functions
+
+/**
+Establishes a web API controller to handle server-side requests from front-end.
+
+**API Enpoints**
+
+get-locations
+- HttpGet request that takes no arguments. When called, does a DB query to Neo4j
+  to retrieve building name, room number, and unique id of every node for every room
+  on campus. Returns an IActionResult object that indicates the status of request
+  completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
+  node contains the previously queried data about each location on campus.
+*/
 
 namespace CampusMapApi.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
+
+[ApiController] // marks this class as a web API controller
+[Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
-
+  
     private readonly ILogger<CampusMapController> _logger;
 
     public CampusMapController(ILogger<CampusMapController> logger)
@@ -14,12 +30,71 @@ public class CampusMapController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("greeting")]
-    public Greeting GetGreeting()
-    {
-      return new Greeting
-        {
-          Body = "Hello, world!"
-        };
+    
+    // http POST endpoint accessible at POST /api/CampusMap/find-path
+    [HttpPost("find-path")]
+    public Task<IActionResult> FindPath(float currLoc, float dest) {
+
+      //var path = new List<LocationNode>();
+      var path = new {message = "API Endpoint Response Good!"};
+
+      return Task.FromResult<IActionResult>(Ok(path));
+
+    }
+
+    /** 
+    Queries database for all nodes and returns a list of location objects.
+    http GET api endpoint accessible at GET /api/CampusMap/get-locations
+    */
+    [HttpGet("get-locations")]
+    public async Task<IActionResult> GetLocations() {
+        
+        // initial db connection
+      var uri = "neo4j+s://apibloomap.xyz:7687";
+      var username = Environment.GetEnvironmentVariable("DB_USER") 
+        ?? throw new InvalidOperationException("DB_USER is not set");
+      var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+        ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+        
+      IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+      await using var session = _driver.AsyncSession();
+
+      // query to retrieve all nodes' building and room number attributes
+      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber, n.id as id";
+      var locations = new List<LocationNode>(); // list of locations being queried
+      
+      try {
+
+        // run the query on the database at store result set            
+        var result = await session.RunAsync(query);
+
+        // get the key attributes from each record and create a location 
+        // node with those attributes. add the node to the list
+        await result.ForEachAsync(record => {
+
+          // creating a new Location node
+          LocationNode node = new LocationNode();
+
+          // pulling data from each record and storing in node
+          node.building = record["building"].As<string>();
+          node.roomNumber = record["roomNumber"].As<string>();
+          node.id = record["id"].As<string>();
+          //node.displayName = $"{building} Room {roomNumber}";
+
+          // add node to List<>
+          locations.Add(node);
+
+        });
+
+        // catch and display any errors encountered
+      } catch (Exception e) {
+          Console.WriteLine($"Error: {e.Message}");
       }
+
+     // return the list of location nodes and the status of the call
+     return Ok(locations);
+    }
+
 }
+
+
