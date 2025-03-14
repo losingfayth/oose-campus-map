@@ -8,7 +8,7 @@ public enum DistanceMetric
 	Meters
 }
 
-public static class DistanceExtensions
+public static class DistanceMetricExtensions
 {
 	public static Dictionary<DistanceMetric, float> ConversionTable()
 	{
