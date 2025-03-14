@@ -195,7 +195,7 @@ public class SelectorDisplay extends Application
                     imagePane.getChildren().clear();
                     imagePane.getChildren().add(imageView);
                     imagePane.getChildren().addAll(appliedText);
-
+                    System.out.println("Deleted: " + t.getText());
                     return;
                 }
             }
