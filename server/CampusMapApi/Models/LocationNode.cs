@@ -3,7 +3,7 @@ Class representing a Location Node data object. Purpose of this class
 is to store a series of attributes about locational data for serializing
 and sening back and forth between front and back ends.
 */
-namespace CampusMapApi {
+namespace CampusMapApi.Models {
 
     public class LocationNode {
         public string Id {get; set;} = string.Empty; // unique node identifier

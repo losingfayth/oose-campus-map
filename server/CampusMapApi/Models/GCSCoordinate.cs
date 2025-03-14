@@ -9,46 +9,49 @@ class DegreeMinuteSecond
 }
 */
 
-public class GCSCoordinate
+namespace CampusMapApi.Models
 {
-	public double Longitude { get; set; }
-	public double Latitude { get; set; }
-
-	public GCSCoordinate() {}
-	public GCSCoordinate(double longitude, double latitude)
+	public class GCSCoordinate
 	{
-		Longitude = longitude;
-		Latitude = latitude;
-	}
+		public double Longitude { get; set; }
+		public double Latitude { get; set; }
 
-	public GCSCoordinate
-	(
-		double longDeg, double longMin, double longSec,
-		double latDeg, double latMin, double latSec
-	)
-	{
-		Longitude = longDeg + (longMin / 60) + (longSec / 3600);
-		Latitude = latDeg + (latMin / 60) + (longSec / 3600);
-	}
+		public GCSCoordinate() {}
+		public GCSCoordinate(double longitude, double latitude)
+		{
+			Longitude = longitude;
+			Latitude = latitude;
+		}
 
-	public double GetLongitude() { return Longitude; }
-	public double GetLatitude() { return Latitude; }
-
-	public Tuple<double, double> Get() 
-	{ return Tuple.Create(Longitude, Latitude); }
-
-	public double GetLongitudeAsRadians()
-	{ return (Longitude / Math.PI) / 180; }
-
-	public double GetLatitudeAsRadians()
-	{ return (Latitude / Math.PI) / 180; }
-
-	public Tuple<double, double> GetAsRadians()
-	{
-		return Tuple.Create
+		public GCSCoordinate
 		(
-			(Longitude / Math.PI) / 180,
-			(Latitude / Math.PI) / 180
-		);
+			double longDeg, double longMin, double longSec,
+			double latDeg, double latMin, double latSec
+		)
+		{
+			Longitude = longDeg + (longMin / 60) + (longSec / 3600);
+			Latitude = latDeg + (latMin / 60) + (longSec / 3600);
+		}
+
+		public double GetLongitude() { return Longitude; }
+		public double GetLatitude() { return Latitude; }
+
+		public Tuple<double, double> Get() 
+		{ return Tuple.Create(Longitude, Latitude); }
+
+		public double GetLongitudeAsRadians()
+		{ return (Longitude / Math.PI) / 180; }
+
+		public double GetLatitudeAsRadians()
+		{ return (Latitude / Math.PI) / 180; }
+
+		public Tuple<double, double> GetAsRadians()
+		{
+			return Tuple.Create
+			(
+				(Longitude / Math.PI) / 180,
+				(Latitude / Math.PI) / 180
+			);
+		}
 	}
 }

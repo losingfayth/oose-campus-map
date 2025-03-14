@@ -1,50 +1,53 @@
 using CampusMapApi;
 
-public enum DistanceMetric
+namespace CampusMapApi.Models
 {
-	Miles,
-	Feet,
-	Kilometer,
-	Meters
-}
-
-public static class DistanceMetricExtensions
-{
-	public static Dictionary<DistanceMetric, float> ConversionTable()
+	public enum DistanceMetric
 	{
-		return new Dictionary<DistanceMetric, float>
-        {
-            { DistanceMetric.Miles, 1 },
-            { DistanceMetric.Feet, 5280 },
-            { DistanceMetric.Kilometer, (float)1.60934 },
-            { DistanceMetric.Meters, (float)1609.34 }
-        };
+		Miles,
+		Feet,
+		Kilometer,
+		Meters
 	}
 
-	public static double Convert(DistanceMetric from, DistanceMetric to, double value)
+	public static class DistanceMetricExtensions
 	{
-		Dictionary<DistanceMetric, float> conversionTable = ConversionTable();
+		public static Dictionary<DistanceMetric, float> ConversionTable()
+		{
+			return new Dictionary<DistanceMetric, float>
+			{
+				{ DistanceMetric.Miles, 1 },
+				{ DistanceMetric.Feet, 5280 },
+				{ DistanceMetric.Kilometer, (float)1.60934 },
+				{ DistanceMetric.Meters, (float)1609.34 }
+			};
+		}
 
-		double inMiles = value / conversionTable[from];
-		return inMiles * conversionTable[to];
-	}
+		public static double Convert(DistanceMetric from, DistanceMetric to, double value)
+		{
+			Dictionary<DistanceMetric, float> conversionTable = ConversionTable();
 
-	public static double GetDistanceMetric(GCSCoordinate start,
-		GCSCoordinate end, DistanceMetric metric)
-	{
-		int radiusOfEarth = 3956; // in miles
+			double inMiles = value / conversionTable[from];
+			return inMiles * conversionTable[to];
+		}
 
-		double deltaLng = start.GetLongitudeAsRadians() - end.GetLongitudeAsRadians();
-		double deltaLat = start.GetLatitudeAsRadians() - end.GetLatitudeAsRadians();
+		public static double GetDistanceMetric(GCSCoordinate start,
+			GCSCoordinate end, DistanceMetric metric)
+		{
+			int radiusOfEarth = 3956; // in miles
 
-		double a = Math.Pow(Math.Sin(deltaLat / 2), 2)
-			+ Math.Cos(start.Latitude) * Math.Cos(end.Latitude)
-			* Math.Pow(Math.Sin(deltaLng) / 2, 2);
+			double deltaLng = start.GetLongitudeAsRadians() - end.GetLongitudeAsRadians();
+			double deltaLat = start.GetLatitudeAsRadians() - end.GetLatitudeAsRadians();
 
-		Dictionary<DistanceMetric, float> conversionTable = ConversionTable();
+			double a = Math.Pow(Math.Sin(deltaLat / 2), 2)
+				+ Math.Cos(start.Latitude) * Math.Cos(end.Latitude)
+				* Math.Pow(Math.Sin(deltaLng) / 2, 2);
 
-		return radiusOfEarth 
-			* conversionTable[metric] 
-			* Math.Asin(Math.Sqrt(a));
+			Dictionary<DistanceMetric, float> conversionTable = ConversionTable();
+
+			return radiusOfEarth 
+				* conversionTable[metric] 
+				* Math.Asin(Math.Sqrt(a));
+		}
 	}
 }
