@@ -14,7 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "config": {
+      "config": 
+      {
         "googleMapsApiKey": "AIzaSyB7ETOwK6NMmiPXlHUAThIjfDbCxXq_A6c"
       }
     },
@@ -27,14 +28,7 @@
         "googleMaps": {
           "apiKey": "AlzaSyLTZ7Ce0joL5eMD0n0w2BpMprLBBXQcpOp"
         }
-      },
-      "permissions": [
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
-      ],
-      "package": "com.fdq16476.testmap"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

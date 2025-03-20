@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -18,8 +18,7 @@
     "react-native": "0.76.7",
     "react-native-fast-image": "^8.6.3",
     "react-native-maps": "1.18.0",
-    "react-native-vector-icons": "^10.2.0",
-    "test-map": "file:"
+    "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

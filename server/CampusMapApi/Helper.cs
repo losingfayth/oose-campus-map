@@ -1,19 +1,14 @@
-/**
-    <summary>
-
-    Provides static Helper functions for totaling Path distance and estimating travel times.
-
-        - Requires Node data to be in the form described by Jess, namely with
-        location described by Plus Codes in the LocationCode attribute and
-        floor information in the Floor attribute. 
-        - Assumes average walking speed, and that each subsequent stairwell
-        climbed is climbed slower than the previous.
-        - Default behavior is to return the total distance of a path in Feet and
-        estimated travel time in seconds.
-
-    </summary>
-    <author> Dakotah Kurtz </author>
-*/
+/// <summary>
+/// Provides static Helper functions for totaling Path distance and estimating travel times.
+/// Requires Node data to be in the form described by Jess, namely with location described by Plus Codes in
+/// the LocationCode attribute and floor information in the Floor attribute. 
+/// 
+/// Assumes average walking speed, and that each subsequent stairwell climbed is climbed slower than the previous.
+/// 
+/// Default behavior is to return the total distance of a path in Feet and estimated travel time in seconds.
+/// 
+/// Dakotah
+/// </summary>
 public class HelperFunctions() {
 
     static readonly int AVG_MPH_WALKING_SPEED = 3;
