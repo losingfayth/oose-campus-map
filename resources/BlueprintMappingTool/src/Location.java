@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Location extends Text
 {
-        static int STARTING_ID = 2000;
+        static int STARTING_ID = 3000;
         int id;
         ArrayList<Location> edges;
         String locationCode;

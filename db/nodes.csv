@@ -1318,3 +1318,40 @@ id,locationCode,floor,building,name,isValidDestination
 1775,x,2,Hartline,Chemistry Research Lab,TRUE
 1776,x,1,Hartline,Room 111,TRUE
 1777,x,2,Hartline,Conference Room,TRUE
+3027,87H52H53+C46,0,Outside,McCormick Center Main Entrance,TRUE
+3028,87H52H53+MM3,0,Outside,Waller Admin Main Entrance,TRUE
+3029,87H52H53+CV9,0,Outside,Arts & Admin Main Entrance,TRUE
+3030,87H52H53+7FX,0,Outside,Center for Hearing and Balance??? Main Entrance,TRUE
+3031,87H52H53+JR7,0,Outside,Andruss Library Main Entrance,TRUE
+3032,87H52H53+46V,0,Outside,Sutliff Hall Main Entrance,TRUE
+3033,87H52H52+5XC,0,Outside,Student Services Main Entrance,TRUE
+3034,87H52H52+2XG,0,Outside,Hartline Main Entrance,TRUE
+3001,87H52H52+7V8,0,Outside,Sidewalk,FALSE
+3035,87H52H53+25C,,,Sutliff Hall Side Entrance,TRUE
+3036,87H52H53+3MG,,,Center for Hearing and Balance??? Side Entrance,TRUE
+3002,87H52H52+7WP,,,Sidewalk,FALSE
+3003,87H52H53+82X,,,Sidewalk,FALSE
+3004,87H52H53+C66,,,Sidewalk,FALSE
+3005,87H52H53+GC3,,,Sidewalk,FALSE
+3006,87H52H53+JMG,,,Sidewalk,FALSE
+3007,87H52H53+MQG,,,Sidewalk,FALSE
+3008,87H52H54+Q3V,,,Sidewalk,FALSE
+3009,87H52H54+M58,,,Sidewalk,FALSE
+3010,87H52H54+RGH,,,Sidewalk,FALSE
+3011,87H52H53+GVH,,,Sidewalk,FALSE
+3012,87H52H53+FRX,,,Sidewalk,FALSE
+3013,87H52H53+CRV,,,Sidewalk,FALSE
+3014,87H52H53+9MG,,,Sidewalk,FALSE
+3015,87H52H53+8HJ,,,Sidewalk,FALSE
+3016,87H52H53+7CP,,,Sidewalk,FALSE
+3017,87H52H53+69Q,,,Sidewalk,FALSE
+3018,87H52H53+57P,,,Sidewalk,FALSE
+3019,87H52H53+435,,,Sidewalk,FALSE
+3020,87H52H53+32P,,,Sidewalk,FALSE
+3021,87H52H52+3X2,,,Sidewalk,FALSE
+3022,87H52H53+9XF,,,Sidewalk,FALSE
+3023,87H52H54+54P,,,Sidewalk,FALSE
+3024,87H52H53+3V7,,,Sidewalk,FALSE
+3025,87H52H53+3M5,,,Sidewalk,FALSE
+3026,87H52H43+XHW,,,Sidewalk,FALSE
+3035,87H52H53+25C,,,Sidewalk,FALSE

@@ -41,15 +41,6 @@ public class ExteriorSelectorDisplay extends Application
     boolean deleteEdgeMode = false;
 
 
-//    Color pointsColorFX = Color.BLUE;
-//    java.awt.Color pointsColorAWT = java.awt.Color.BLUE;
-
-//    Color entranceColorFX = Color.RED;
-//    java.awt.Color entranceColorAWT = java.awt.Color.RED;
-//
-//    Color sideColorFX = Color.YELLOW;
-//    java.awt.Color sideColorAWT = java.awt.Color.YELLOW;
-
     @Override
     public void start(Stage stage) throws Exception
     {
@@ -322,7 +313,7 @@ L
 
         stage.setTitle("");
         stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
+        stage.setAlwaysOnTop(false);
         stage.show();
 
         scene.setOnKeyPressed(event -> {
@@ -537,21 +528,25 @@ L
         String previous = enteredLocations.nodes.get(0).type;
         System.out.println("\n" + previous + "\n");
         for (Location l : enteredLocations.nodes) {
-            System.out.println(l.id + " " + l.locationCode);
             if (!l.type.equals(previous)) {
                 previous = l.type;
                 System.out.println("\n"+previous+"\n");
             }
+            System.out.println(l.id + " " + l.locationCode);
         }
 
+        System.out.println("********\nTotal # of nodes: " + enteredLocations.nodes.size() + " **********\n");
+
         System.out.println("\n***********Edges************\n");
+        int tot = 0;
         for (Location l : enteredLocations.nodes) {
             int n1 = l.id;
             for (Location to : l.edges) {
+                tot++;
                 System.out.printf("%n%d %d", n1, to.id);
             }
-            System.out.println();
         }
+        System.out.println("\nTotal # of Edges: " + tot);
     }
 
 
