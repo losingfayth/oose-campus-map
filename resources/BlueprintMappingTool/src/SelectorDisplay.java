@@ -129,7 +129,7 @@ public class SelectorDisplay extends Application
         }
 
 
-        Point[] points = new Point[4];
+        Point[] points = new Point[3];
 
         if (plusCode) {
             String code;
@@ -160,6 +160,11 @@ public class SelectorDisplay extends Application
             }
         }
 
+
+
+
+
+
         int sIndex;
         do {
             System.out.println("Begin marking at what index?");
@@ -172,12 +177,12 @@ public class SelectorDisplay extends Application
         } while (true);
 
 
-        CoordinateSystem javaFX = new CoordinateSystem(new Point(0, 0), new Point(displayImageWidth, 0), new Point(0, displayImageHeight), new Point(displayImageWidth, displayImageHeight));
+        CoordinateSystem javaFXCoordinateSystem = new CoordinateSystem(new Point(0, 0), new Point(displayImageWidth, 0), new Point(0, displayImageHeight));
 
-        CoordinateSystem test = new CoordinateSystem(points[0], points[1], points[2],
-                points[3]);
 
-        Map map = new Map(javaFX, test);
+        CoordinateSystem test = new CoordinateSystem(points[0], points[1], points[2]);
+
+        Map map = new Map(javaFXCoordinateSystem, test);
 
         imagePane.getChildren().add(imageView);
         Counter counter = new Counter(sIndex);
@@ -230,7 +235,7 @@ public class SelectorDisplay extends Application
         saveButton.setOnMouseClicked(event -> {
             try
             {
-                saveImage(javaFX, new File(finalFilename), appliedText, finalSaveLocation);
+                saveImage(javaFXCoordinateSystem, new File(finalFilename), appliedText, finalSaveLocation);
             }
             catch (Exception e)
             {
@@ -240,14 +245,15 @@ public class SelectorDisplay extends Application
 
     }
 
+
+
     private void saveImage(CoordinateSystem javaFXCoordinateSystem, File in,
                            ArrayList<Text> appliedText, String saveLocation) throws Exception
     {
         BufferedImage image = ImageIO.read(in);
 
         CoordinateSystem imageCoordinateSystem = new CoordinateSystem(new Point(0, 0),
-                new Point(image.getWidth(), 0), new Point(0, image.getHeight()),
-                new Point(image.getWidth(), image.getHeight()));
+                new Point(image.getWidth(), 0), new Point(0, image.getHeight()));
 
         Map map = new Map(javaFXCoordinateSystem, imageCoordinateSystem);
         Graphics2D g2d = image.createGraphics();
