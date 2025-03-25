@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { StyleSheet, View, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import * as Location from "expo-location";
 import SearchBar from "./app/components/SearchBar";
 import BarSearch from "./app/components/BarSearch";
@@ -16,6 +22,7 @@ export default function App() {
     longitudeDelta: 0.00421,
   });
   const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
+  const [isTyping, setIsTyping] = useState(false);
 
   const routeCoordinates = [
     // Apple maps
@@ -132,15 +139,40 @@ export default function App() {
       {/* Add search bar with first being for building and second for room number */}
       <SearchBar
         searchFilterData={searchables}
-        searchFilterStyles={{ left: "14.5%", width: "84%" }}
+        customStyles={{ left: "5%", width: "60%" }}
+        placeholderText="From"
+        onTypingChange={setIsTyping} // Add this prop
       />
       <SearchBar
         customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
         showIcon={false}
         searchFilterData={roomNumbers}
         searchFilterStyles={{ width: "100%" }}
-        placeholderText="Room"
+        placeholderText="Room #"
+        onTypingChange={setIsTyping} // Add this prop
       />
+
+      {!isTyping && (
+        <>
+          <SearchBar
+            searchFilterData={searchables}
+            customStyles={{ top: "17%", left: "5%", width: "60%" }}
+            placeholderText="To"
+          />
+          <SearchBar
+            customStyles={{
+              top: "17%",
+              width: "31%",
+              left: "64%",
+              borderColor: "black",
+            }}
+            showIcon={false}
+            searchFilterData={roomNumbers}
+            searchFilterStyles={{ width: "100%" }}
+            placeholderText="Room #"
+          />
+        </>
+      )}
     </View>
   );
 }
