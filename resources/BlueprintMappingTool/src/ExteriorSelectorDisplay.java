@@ -1,7 +1,9 @@
+import fixed.Edge;
+import fixed.Location;
+import fixed.LocationGraph;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -14,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mapping.CoordinateSystem;
+import mapping.*;
 import mapping.Map;
 import mapping.Point;
 import mapping.Vector;
@@ -50,7 +52,8 @@ public class ExteriorSelectorDisplay extends Application
         Pane imagePane = new Pane();
         root.setCenter(imagePane);
 
-        HBox controlPane = new HBox();
+
+        HBox controlPane = getButtons();
         root.setBottom(controlPane);
 
         Button saveButton = new Button("saveImage");
@@ -82,11 +85,10 @@ public class ExteriorSelectorDisplay extends Application
             System.out.println("Place edges");
         });
 
-
-        String saveLocation = "";
-
         controlPane.getChildren().addAll(saveButton, pointsToggle, entranceToggle,
                 sideToggle, nodes, edges);
+
+        String saveLocation = "";
 
         FileInputStream inputStream;
         String inputFileName = "";
@@ -162,14 +164,14 @@ L
 
             if (mapGenerated[0]) {
                 if (nodes.isSelected()) {
-                    for (Location l : enteredLocations.nodes) {
+                    for (Location l : enteredLocations.getNodes()) {
                         if (l.contains(cx, cy)) {
 
                             enteredLocations.removeLocation(l);
                             counter.decrement();
                             imagePane.getChildren().clear();
                             imagePane.getChildren().add(imageView);
-                            imagePane.getChildren().addAll(enteredLocations.nodes);
+                            imagePane.getChildren().addAll(enteredLocations.getNodes());
                             System.out.println("Deleted: " + l.getText());
                             return;
                         }
@@ -214,7 +216,7 @@ L
                     if (rootSelectMode) {
                         boolean rootSelected = enteredLocations.setCurrentRoot(cx, cy);
                         if (rootSelected) {
-                            System.out.println("Selected Root node ID: " + enteredLocations.currentRoot.id);
+                            System.out.println("Selected Root node ID: " + enteredLocations.getCurrentRoot().getKeyID());
                         }
                     } else {
                         if (enteredLocations.isInGraph(cx, cy)) {
@@ -224,19 +226,19 @@ L
                                 imagePane.getChildren().clear();
 
                                 imagePane.getChildren().add(imageView);
-                                imagePane.getChildren().addAll(enteredLocations.nodes);
+                                imagePane.getChildren().addAll(enteredLocations.getNodes());
                                 imagePane.getChildren().addAll(lines);
                             } else {
-                                if (enteredLocations.currentRoot != null && !clicked.equals(enteredLocations.currentRoot)) {
-                                    enteredLocations.currentRoot.addEdge(clicked);
-                                    clicked.addEdge(enteredLocations.currentRoot);
+                                if (enteredLocations.getCurrentRoot() != null && !clicked.equals(enteredLocations.getCurrentRoot())) {
+                                    enteredLocations.getCurrentRoot().addEdge(clicked);
+                                    clicked.addEdge(enteredLocations.getCurrentRoot());
                                     System.out.printf("%nEdge added | %d -> %d, %d -> %d " +
-                                                    "%n", enteredLocations.currentRoot.id,
-                                            clicked.id, clicked.id,
-                                            enteredLocations.currentRoot.id);
+                                                    "%n",
+                                            enteredLocations.getCurrentRoot().getKeyID(), clicked.getKeyID(), clicked.getKeyID(), enteredLocations.getCurrentRoot().getKeyID());
+
                                     Vector v1 = new Vector(cx, cy);
-                                    Vector v2 = new Vector(enteredLocations.currentRoot.getX(),
-                                            enteredLocations.currentRoot.getY());
+                                    Vector v2 = new Vector(enteredLocations.getCurrentRoot().getX(),
+                                            enteredLocations.getCurrentRoot().getY());
 
                                     double spacing = 4;
 
@@ -244,7 +246,7 @@ L
                                     v2 = Edge.scaleDown(v2, v1, spacing);
 
                                     Edge edge = new Edge(v1, v2,
-                                            enteredLocations.currentRoot, clicked);
+                                            enteredLocations.getCurrentRoot(), clicked);
 
                                     edge.getStrokeDashArray().add(2d);
                                     imagePane.getChildren().add(edge);
@@ -339,6 +341,11 @@ L
                 deleteEdgeMode = false;
             }
         });
+    }
+
+    private HBox getButtons()
+    {
+
     }
 
     private String getInputFileNameFromConsole(Scanner input) {
@@ -478,7 +485,7 @@ L
         g2d.setFont(font);
         g2d.setColor(java.awt.Color.RED);
 
-        for (Text text : enteredLocations.nodes) {
+        for (Text text : enteredLocations.getNodes()) {
             String num = text.getText();
             double x = text.getX();
             double y = text.getY();
@@ -515,38 +522,8 @@ L
             System.out.println("Error: " + e);
         }
 
-        enteredLocations.nodes.sort((o1, o2) ->
-        {
-            if (o1.type.charAt(0) != o2.type.charAt(0))
-            {
-                return o1.type.charAt(0) - o2.type.charAt(0);
-            }
-            return o1.id - o2.id;
-        });
+        enteredLocations.fancyPrint();
 
-        System.out.println("\n***********Nodes************\n");
-        String previous = enteredLocations.nodes.get(0).type;
-        System.out.println("\n" + previous + "\n");
-        for (Location l : enteredLocations.nodes) {
-            if (!l.type.equals(previous)) {
-                previous = l.type;
-                System.out.println("\n"+previous+"\n");
-            }
-            System.out.println(l.id + " " + l.locationCode);
-        }
-
-        System.out.println("********\nTotal # of nodes: " + enteredLocations.nodes.size() + " **********\n");
-
-        System.out.println("\n***********Edges************\n");
-        int tot = 0;
-        for (Location l : enteredLocations.nodes) {
-            int n1 = l.id;
-            for (Location to : l.edges) {
-                tot++;
-                System.out.printf("%n%d %d", n1, to.id);
-            }
-        }
-        System.out.println("\nTotal # of Edges: " + tot);
     }
 
 

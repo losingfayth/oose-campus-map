@@ -1,3 +1,5 @@
+package fixed;
+
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class Location extends Text
         }
 
         public void removeEdge(Location l) {
-//            for (Location loc : this.edges) {
+//            for (fixed.Location loc : this.edges) {
 //                if (loc.equals(l)) {
 //                    edges.remove(l);
 //                }
@@ -56,5 +58,14 @@ public class Location extends Text
             return l.id == this.id && super.equals(obj);
         }
 
+    public String getLocationCode()
+    {
+        return locationCode;
     }
+
+    public int getKeyID()
+    {
+        return id;
+    }
+}
 

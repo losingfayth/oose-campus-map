@@ -1,3 +1,5 @@
+package fixed;
+
 import javafx.scene.shape.Line;
 import mapping.Vector;
 
