@@ -14,8 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "config": 
-      {
+      "config": {
         "googleMapsApiKey": "AIzaSyB7ETOwK6NMmiPXlHUAThIjfDbCxXq_A6c"
       }
     },
@@ -39,7 +38,8 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
-      ]
+      ],
+      "expo-router"
     ]
   }
 }

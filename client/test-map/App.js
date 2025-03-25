@@ -152,6 +152,7 @@ export default function App() {
         onTypingChange={setIsTyping} // Add this prop
       />
 
+      {/* Second set of two search bars. Check if user is typing in top two and if so, hide below bars */}
       {!isTyping && (
         <>
           <SearchBar
