@@ -135,7 +135,7 @@ export default function App() {
         searchFilterStyles={{ left: "14.5%", width: "84%" }}
       />
       <SearchBar
-        customStyles={{ width: "30%", left: "64%", borderColor: "black" }}
+        customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
         showIcon={false}
         searchFilterData={roomNumbers}
         searchFilterStyles={{ width: "100%" }}
