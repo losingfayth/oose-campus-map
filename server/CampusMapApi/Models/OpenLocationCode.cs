@@ -16,6 +16,12 @@ namespace CampusMapApi.Models
 			Code = code;
 		}
 
+		public OpenLocationCode(GCSCoordinate coordinate, int length)
+		{
+			length = Math.Min(length, GlobalVars.MaxDigitCount);
+			Code = ComputeCode(coordinate, length);
+		}
+
 		public int Length() { return Code.Length; }
     }
 
@@ -84,6 +90,37 @@ namespace CampusMapApi.Models
 			}
 
 			return count == 7;
+		}
+	}
+
+	public static string Compute(GCSCoordinate coordinate, int length)
+	{
+		double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+
+		double lng = coordinate.Longitude;
+
+		if (!(lng >= -GlobalVars.LongitudeMax) || !(lng < GlobalVars.LongitudeMax))
+		{
+			long circleDegree = 2 * GlobalVars.LongitudeMax;
+			lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
+		}
+
+		StringBuilder codeBuilder = new();
+
+		long newLat = (long) (Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
+		long newLng = (long) (Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
+
+		if (length > GlobalVars.MaxEncodingLength)
+		{
+			for (int i = 0; i < GlobalVars.GridCodeLength; i++)
+			{
+				long latDigit = newLat % GlobalVars.GridRows;
+				long lngDigit = newLng % GlobalVars.GridColumns;
+				int ndx = (int) (latDigit * GlobalVars.GridColumns + lngDigit);
+				codeBuilder.Append(GlobalVars.CodeAlphabet[ndx]);
+				newLat /= GlobalVars.GridRows;
+				newLng /= GlobalVars.GridColumns;
+			}
 		}
 	}
 }
