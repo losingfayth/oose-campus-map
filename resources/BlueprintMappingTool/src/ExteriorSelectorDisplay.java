@@ -1,7 +1,9 @@
 import fixed.Edge;
 import fixed.Location;
 import fixed.LocationGraph;
+import fixed.ScrollableImageView;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -32,29 +34,27 @@ public class ExteriorSelectorDisplay extends Application
 {
 
 
-    int maxDisplayDim = 1200;
+    int maxDisplayDim = 800;
     int controlHeight = 50;
     int displayImageHeight;
     int displayImageWidth;
-    CoordinateSystem javaFXCoordinateSystem;
-    CoordinateSystem test;
+    CoordinateSystem imageCoordinateSystem;
+    CoordinateSystem realWorldCoordinates;
     Map map;
     boolean rootSelectMode = false;
     boolean deleteEdgeMode = false;
+    ArrayList<KeyCode> list = new ArrayList<>();
 
 
     @Override
     public void start(Stage stage) throws Exception
     {
 
-        BorderPane root = new BorderPane();
-
-        Pane imagePane = new Pane();
-        root.setCenter(imagePane);
 
 
-        HBox controlPane = getButtons();
-        root.setBottom(controlPane);
+
+        HBox controlPane = new HBox();
+        controlPane.setSpacing(10);
 
         Button saveButton = new Button("saveImage");
 
@@ -62,6 +62,14 @@ public class ExteriorSelectorDisplay extends Application
         ToggleButton pointsToggle = initAndSet("Points", pointTypeGroup);
         ToggleButton entranceToggle = initAndSet("Main Entrance", pointTypeGroup);
         ToggleButton sideToggle = initAndSet("Side Entrance", pointTypeGroup);
+        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, sideToggle);
+
+        ToggleGroup nodesEdgesGroup = new ToggleGroup();
+        ToggleButton nodes =  initAndSet("Place Nodes", nodesEdgesGroup);
+        ToggleButton edges =  initAndSet("Place Edges", nodesEdgesGroup);
+        HBox nodesEdgeHBox = new HBox(nodes, edges);
+
+        controlPane.getChildren().addAll(saveButton, pointTypeHBox, nodesEdgeHBox);
 
         pointsToggle.setOnMouseClicked(event -> {
             System.out.println("Points:");
@@ -73,10 +81,6 @@ public class ExteriorSelectorDisplay extends Application
             System.out.println("Side entrances");
         });
 
-        ToggleGroup nodesEdgesGroup = new ToggleGroup();
-        ToggleButton nodes =  initAndSet("Place Nodes", nodesEdgesGroup);
-        ToggleButton edges =  initAndSet("Place Edges", nodesEdgesGroup);
-
         nodes.setOnMouseClicked(event -> {
             System.out.println("Place Nodes");
         });
@@ -85,8 +89,7 @@ public class ExteriorSelectorDisplay extends Application
             System.out.println("Place edges");
         });
 
-        controlPane.getChildren().addAll(saveButton, pointsToggle, entranceToggle,
-                sideToggle, nodes, edges);
+
 
         String saveLocation = "";
 
@@ -101,49 +104,55 @@ public class ExteriorSelectorDisplay extends Application
         saveLocation = inputFileName.substring(0, inputFileName.length() - 4) +
                 "_POINTSLABELED.png";
 
-
         System.out.println(inputFileName + " accessed.");
         Image image = new Image(inputStream);
-        ImageView imageView = new ImageView(image);
 
         double ix =  image.getWidth();
         double iy = image.getHeight();
 
+        System.out.println("Image loaded: w: "+ix + ", h: " + iy);
 
-        if (ix >= (iy)) {
+        if (ix >= (iy))
+        {
             displayImageWidth = maxDisplayDim;
-            displayImageHeight = (int) Math.floor((iy/ix) * maxDisplayDim);
-        } else {
+            displayImageHeight = (int) Math.floor((iy / ix) * maxDisplayDim);
+        } else
+        {
             displayImageHeight = maxDisplayDim;
-            displayImageWidth = (int) Math.floor((ix/iy) * maxDisplayDim);
+            displayImageWidth = (int) Math.floor((ix / iy) * maxDisplayDim);
         }
 
+        ScrollableImageView imageView = new ScrollableImageView(image,
+                displayImageWidth, displayImageHeight);
+        BorderPane root = new BorderPane();
 
+        Pane imagePane = new Pane(imageView);
+        root.setCenter(imagePane);
+        root.setBottom(controlPane);
+
+        imageView.fitWidthProperty().bind(imagePane.widthProperty());
+        imageView.fitHeightProperty().bind(imagePane.heightProperty());
+        imageView.setPreserveRatio(true);
 
         Point[] points = getPointsFromConsole(input);
 
 
 
         /*
-/Users/dakotahkurtz/Downloads/andruss.png
+/Users/dakotahkurtz/Downloads/Campus.png
 L
-41.00854, -76.44725
-41.00914, -76.44584
-41.00756, -76.44712
-1
-
+41.00786, -76.44842
+41.00908, -76.44579
+41.0066, -76.44766
          */
 
-
-
-        System.out.println("Click the four locations on the image that match the " +
+        System.out.println("Click the three locations on the image that match the " +
                 "locationCodes or latitude/longitude points entered above.");
 
         int sIndex = getStartingIndexFromConsole(input);
 
         ArrayList<Point> referencePoints = new ArrayList<>();
 
-        imagePane.getChildren().add(imageView);
         SelectorDisplay.Counter counter = new SelectorDisplay.Counter(sIndex);
 
         LocationGraph enteredLocations = new LocationGraph();
@@ -151,16 +160,21 @@ L
 
         final boolean[] mapGenerated = {false};
         imagePane.setOnMouseClicked(event -> {
-            double cx = event.getX();
-            double cy = event.getY();
 
-            if (referencePoints.size() <= 2) {
-                referencePoints.add(new Point(cx, cy));
-                System.out.println("Added " + cx + ", " + cy);
+            if (list.contains(KeyCode.CONTROL))
+            {
+                return;
             }
 
+            double cx = event.getX();
+            double cy = event.getY();
+            Point2D onImage = imageView.imageViewToImage(new Point2D(cx, cy));
 
-
+            if (referencePoints.size() <= 2) {
+                referencePoints.add(new Point(onImage.getX(), onImage.getY()));
+                System.out.println("clicked " + cx + ", " + cy);
+                System.out.println("At pixel x,y: " + onImage.getX() + ", " + onImage.getY());
+            }
 
             if (mapGenerated[0]) {
                 if (nodes.isSelected()) {
@@ -177,7 +191,7 @@ L
                         }
                     }
 
-                    Point p = map.convert(new Point(cx, cy));
+                    Point p = map.convert(new Point(onImage.getX(), onImage.getY()));
                     String code = OpenLocationCode.encode(p.x, p.y);
                     System.out.printf("%n%s",
                             code);
@@ -188,13 +202,14 @@ L
                     Color c;
 
                     if (pointsToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "point", code);
+                        labelLocationText = new Location(counterValue, "point", code, onImage);
+
                         c = Color.GREEN;
                     } else if (entranceToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "main", code);
+                        labelLocationText = new Location(counterValue, "main", code, onImage);
                         c = Color.RED;
                     } else if (sideToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "side", code);
+                        labelLocationText = new Location(counterValue, "side", code, onImage);
                         c = Color.BLUE;
                     } else {
                         System.out.println("Select type of point.");
@@ -246,7 +261,9 @@ L
                                     v2 = Edge.scaleDown(v2, v1, spacing);
 
                                     Edge edge = new Edge(v1, v2,
-                                            enteredLocations.getCurrentRoot(), clicked);
+                                            enteredLocations.getCurrentRoot(), clicked,
+                                            imageView.imageViewToImage(v1),
+                                            imageView.imageViewToImage(v2));
 
                                     edge.getStrokeDashArray().add(2d);
                                     imagePane.getChildren().add(edge);
@@ -266,7 +283,7 @@ L
                 mapGenerated[0] = true;
                 try
                 {
-                    javaFXCoordinateSystem =
+                    imageCoordinateSystem =
                             new CoordinateSystem(referencePoints.get(0),
                                     referencePoints.get(1), referencePoints.get(2));
                 }
@@ -276,13 +293,13 @@ L
                 }
                 try
                 {
-                    test = new CoordinateSystem(points[0], points[1], points[2]);
+                    realWorldCoordinates = new CoordinateSystem(points[0], points[1], points[2]);
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-                map = new Map(javaFXCoordinateSystem, test);
+                map = new Map(imageCoordinateSystem, realWorldCoordinates);
                 System.out.println("Mapping generated.");
             }
 
@@ -305,12 +322,6 @@ L
             }
         });
 
-
-
-
-        imageView.setFitWidth(displayImageWidth);
-        imageView.setFitHeight(displayImageHeight);
-
         Scene scene = new Scene(root, displayImageWidth, displayImageHeight + controlHeight);
 
         stage.setTitle("");
@@ -328,6 +339,10 @@ L
                 System.out.println("Start: delete edge mode");
                 deleteEdgeMode = true;
             }
+            if (event.getCode() == KeyCode.CONTROL)
+            {
+                list.add(event.getCode());
+            }
         });
 
         scene.setOnKeyReleased(event -> {
@@ -340,12 +355,28 @@ L
                 System.out.println("Stop: delete edge mode");
                 deleteEdgeMode = false;
             }
+            if (event.getCode() == KeyCode.CONTROL)
+            {
+                list.remove(event.getCode());
+            }
         });
-    }
 
-    private HBox getButtons()
-    {
+        imageView.setOnMouseDragged(e ->
+        {
+            if (list.contains(KeyCode.CONTROL))
+            {
+                imageView.pan(new Point2D(e.getX(), e.getY()),
+                        enteredLocations.getNodes(), lines);
 
+            }
+
+        });
+
+        imageView.setOnScroll(e ->
+        {
+            imageView.zoom(e.getX(), e.getY(), e.getDeltaY(),
+                    enteredLocations.getNodes(), lines);
+        });
     }
 
     private String getInputFileNameFromConsole(Scanner input) {
@@ -472,26 +503,25 @@ L
                            ArrayList<Edge> lines, String saveLocation) throws Exception
     {
         BufferedImage image = ImageIO.read(in);
+//
+//        CoordinateSystem displayCoordinateSystem = new CoordinateSystem(new Point(0, 0)
+//                , new Point(displayImageWidth, 0), new Point(0, displayImageHeight));
+//        CoordinateSystem imageCoordinateSystem = new CoordinateSystem(new Point(0, 0),
+//                new Point(image.getWidth(), 0), new Point(0, image.getHeight()));
 
-        CoordinateSystem displayCoordinateSystem = new CoordinateSystem(new Point(0, 0)
-                , new Point(displayImageWidth, 0), new Point(0, displayImageHeight));
-        CoordinateSystem imageCoordinateSystem = new CoordinateSystem(new Point(0, 0),
-                new Point(image.getWidth(), 0), new Point(0, image.getHeight()));
-
-        Map map = new Map(displayCoordinateSystem, imageCoordinateSystem);
+//        Map map = new Map(displayCoordinateSystem, imageCoordinateSystem);
         Graphics2D g2d = image.createGraphics();
 
         java.awt.Font font = new java.awt.Font("Arial", Font.BOLD, 20);
         g2d.setFont(font);
         g2d.setColor(java.awt.Color.RED);
 
-        for (Text text : enteredLocations.getNodes()) {
-            String num = text.getText();
-            double x = text.getX();
-            double y = text.getY();
-            Point p = map.convert(new Point(x, y));
+        for (Location l : enteredLocations.getNodes()) {
+            String num = l.getText();
+            Point2D p = l.getFixedPoint();
+//            Point p = map.convert(new Point(x, y));
 
-            g2d.drawString(num, (float) p.x, (float) p.y);
+            g2d.drawString(num, (float) p.getX(), (float) p.getY());
         }
 
         g2d.setColor(java.awt.Color.BLACK);
@@ -500,11 +530,13 @@ L
                 BasicStroke.JOIN_MITER, 1.0f, dashingPattern1, 2.0f);
 
         g2d.setStroke(stroke1);
-        for (Line line : lines) {
-            Point p1 = map.convert(new Point(line.getStartX(), line.getStartY()));
-            Point p2 = map.convert(new Point(line.getEndX(), line.getEndY()));
+        for (Edge e : lines) {
+//            Point p1 = map.convert(new Point(line.getStartX(), line.getStartY()));
+//            Point p2 = map.convert(new Point(line.getEndX(), line.getEndY()));
+            Point2D p1 = e.getFixedStart();
+            Point2D p2 = e.getFixedEnd();
 
-            g2d.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
+            g2d.draw(new Line2D.Double(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
         }
 
         g2d.dispose();
