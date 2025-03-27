@@ -11,6 +11,7 @@ const SearchBar = ({
   searchFilterStyles,
   placeholderText = "Search",
   onTypingChange, // New prop to notify App.js when typing starts or stops
+  onSelect, // Add onSelect prop
 }) => {
   const [input, setInput] = useState("");
   const [showList, setShowList] = useState(false); // Control visibility of FlatList
@@ -44,10 +45,13 @@ const SearchBar = ({
           input={input}
           setInput={(text) => {
             setInput(text);
+            onSelect(text);
+            console.log("Text---->", text);
             setShowList(false); // Hide list when an item is selected
             onTypingChange && onTypingChange(false); // Notify parent that typing has stopped
           }}
           customStyles={searchFilterStyles}
+          //onSelect={handleSelect} // Pass handleSelect to SearchFilter
         />
       )}
     </SafeAreaView>
