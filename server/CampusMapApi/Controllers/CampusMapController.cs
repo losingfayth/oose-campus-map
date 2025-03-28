@@ -65,7 +65,7 @@ public class CampusMapController : ControllerBase
             YIELD nodeIds
             RETURN [node IN nodeIds | gds.util.asNode(node).name] AS path";
 
-        var result = await session.RunAsync(query, new { startName, endName });
+        var result = await session.RunAsync(query, new { currLoc, dest });
 
         var records = await result.ToListAsync();
         return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
