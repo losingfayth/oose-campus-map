@@ -1318,18 +1318,170 @@ id,locationCode,floor,building,name,isValidDestination
 1775,x,2,Hartline,Chemistry Research Lab,TRUE
 1776,x,1,Hartline,Room 111,TRUE
 1777,x,2,Hartline,Conference Room,TRUE
-3045,87H52H53+25C,0,,Sutliff Side Entrance,FALSE
-3046,87H52H42+RRM,0,,Hartline Side Entrance,FALSE
-3047,87H52H43+P22,0,,Hartline Side Entrance,FALSE
-3048,87H52H52+3M5,0,,Student Services Side Entrance,FALSE
-3049,87H52H52+9RH,0,,Bakeless Side Entrance,FALSE
-3068,87H52H52+7MV,0,,Bakeless Side Entrance,FALSE
-3079,87H52H52+3CM,0,,Navy Hall Side Entrance,FALSE
-3080,87H52H52+67Q,0,,Navy HallSide Entrance,FALSE
-3092,87H52H42+QH8,0,,Ben Franklin Side Entrance,FALSE
-3097,87H52H42+H8J,0,,Holtz Side Entrance,FALSE
-3102,87H52H42+FC9,0,,Holtz Side Entrance,FALSE
-3103,87H52H42+G9M,0,,Holtz Side Entrance,FALSE
-3114,87H52H52+93V,0,,Hass Center Side Entrance,FALSE
-3025,87H52H53+3MG,0,,Centennial Side Entrance,FALSE
-3028,87H52H53+4FM,0,,Centennial Side Entrance,FALSE
+3045,87H52H53+25C,0,Outside,Sutliff Side Entrance,FALSE
+3046,87H52H42+RRM,0,Outside,Hartline Side Entrance,FALSE
+3047,87H52H43+P22,0,Outside,Hartline Side Entrance,FALSE
+3048,87H52H52+3M5,0,Outside,Student Services Side Entrance,FALSE
+3049,87H52H52+9RH,0,Outside,Bakeless Side Entrance,FALSE
+3068,87H52H52+7MV,0,Outside,Bakeless Side Entrance,FALSE
+3079,87H52H52+3CM,0,Outside,Navy Hall Side Entrance,FALSE
+3080,87H52H52+67Q,0,Outside,Navy HallSide Entrance,FALSE
+3092,87H52H42+QH8,0,Outside,Ben Franklin Side Entrance,FALSE
+3097,87H52H42+H8J,0,Outside,Holtz Side Entrance,FALSE
+3102,87H52H42+FC9,0,Outside,Holtz Side Entrance,FALSE
+3103,87H52H42+G9M,0,Outside,Holtz Side Entrance,FALSE
+3114,87H52H52+93V,0,Outside,Haas Center Side Entrance,FALSE
+3025,87H52H53+3MG,0,Outside,Centennial Side Entrance,FALSE
+3028,87H52H53+4FM,0,Outside,Centennial Side Entrance,FALSE
+3042,87H52H53+422,0,Outside,Stairs Outside,FALSE
+3043,87H52H53+42X,0,Outside,Stairs Outside,FALSE
+3044,87H52H53+624,0,Outside,Stairs Outside,FALSE
+3024,87H52H43+XH9,0,Outside,Stairs Outside,FALSE
+3076,87H52H42+WJ5,0,Outside,Stairs Outside,FALSE
+3077,87H52H42+VH7,0,Outside,Stairs Outside,FALSE
+3078,87H52H52+3F8,0,Outside,Stairs Outside,FALSE
+3095,87H52H42+J7P,0,Outside,Stairs Outside,FALSE
+3120,87H52H42+RQ2,0,Outside,Stairs Outside,FALSE
+3135,87H52G4X+PR4,0,Outside,Stairs Outside,FALSE
+3136,87H52H42+Q2W,0,Outside,Stairs Outside,FALSE
+3160,87H52H42+H44,0,Outside,Stairs Outside,FALSE
+3010,87H52H53+JR7,0,Outside,Andruss Library Main Entrance,TRUE
+3011,87H52H53+MM2,0,Outside,Waller Administration Main Entrance,TRUE
+3012,87H52H53+FV3,0,Outside,Arts & Admin Main Entrance,TRUE
+3018,87H52H53+7GR,0,Outside,Centennial Main Entrance,TRUE
+3039,87H52H53+C39,0,Outside,McCormick Main Entrance,TRUE
+3040,87H52H52+5XC,0,Outside,Main Entrance,TRUE
+3041,87H52H53+46V,0,Outside,Sutliff Main Entrance,TRUE
+3069,87H52H52+7PP,0,Outside,Bakeless Main Entrance,TRUE
+3070,87H52H52+2X8,0,Outside,Hartline Main Entrance,TRUE
+3075,87H52H42+QPM,0,Outside,Ben Franklin Main Entrance,TRUE
+3081,87H52H52+5CM,0,Outside,Navy Main Entrance,TRUE
+3093,87H52H42+Q96,0,Outside,Luzerne Hall Main Entrance,TRUE
+3094,87H52H42+MC7,0,Outside,Holtz Main Entrance,TRUE
+3104,87H52H42+W6R,0,Outside,Main Entrance,TRUE
+3115,87H52H52+9F6,0,Outside,Haas Center Main Entrance,TRUE
+3119,87H52H52+52R,0,Outside,Columbia Main Entrance,TRUE
+3137,87H52G4X+MVH,0,Outside,Kehr Union Main Entrance,TRUE
+3159,87H52G4X+CWH,0,Outside,Scranton Commons Main Entrance,TRUE
+3001,87H52H54+R32,0,Outside,Sidewalk Outside,FALSE
+3002,87H52H54+M58,0,Outside,Sidewalk Outside,FALSE
+3003,87H52H53+GVH,0,Outside,Sidewalk Outside,FALSE
+3004,87H52H53+MQF,0,Outside,Sidewalk Outside,FALSE
+3005,87H52H53+JMP,0,Outside,Sidewalk Outside,FALSE
+3006,87H52H53+FRX,0,Outside,Sidewalk Outside,FALSE
+3007,87H52H53+CRV,0,Outside,Sidewalk Outside,FALSE
+3008,87H52H53+9MG,0,Outside,Sidewalk Outside,FALSE
+3009,87H52H53+9XM,0,Outside,Sidewalk Outside,FALSE
+3013,87H52H53+GC6,0,Outside,Sidewalk Outside,FALSE
+3014,87H52H53+C66,0,Outside,Sidewalk Outside,FALSE
+3015,87H52H53+69X,0,Outside,Sidewalk Outside,FALSE
+3016,87H52H53+7CP,0,Outside,Sidewalk Outside,FALSE
+3017,87H52H53+8HJ,0,Outside,Sidewalk Outside,FALSE
+3019,87H52H54+54P,0,Outside,Sidewalk Outside,FALSE
+3020,87H52H53+3V7,0,Outside,Sidewalk Outside,FALSE
+3021,87H52H53+3M5,0,Outside,Sidewalk Outside,FALSE
+3022,87H52H43+XHW,0,Outside,Sidewalk Outside,FALSE
+3023,87H52H43+WJR,0,Outside,Sidewalk Outside,FALSE
+3026,87H52H53+7Q2,0,Outside,Sidewalk Outside,FALSE
+3029,87H52H53+57P,0,Outside,Sidewalk Outside,FALSE
+3030,87H52H53+447,0,Outside,Sidewalk Outside,FALSE
+3031,87H52H53+43M,0,Outside,Sidewalk Outside,FALSE
+3032,87H52H53+538,0,Outside,Sidewalk Outside,FALSE
+3033,87H52H53+82X,0,Outside,Sidewalk Outside,FALSE
+3034,87H52H52+7WP,0,Outside,Sidewalk Outside,FALSE
+3035,87H52H52+7V8,0,Outside,Sidewalk Outside,FALSE
+3036,87H52H53+62V,0,Outside,Sidewalk Outside,FALSE
+3037,87H52H53+32G,0,Outside,Sidewalk Outside,FALSE
+3038,87H52H52+3X2,0,Outside,Sidewalk Outside,FALSE
+3050,87H52H43+X63,0,Outside,Sidewalk Outside,FALSE
+3051,87H52H43+R82,0,Outside,Sidewalk Outside,FALSE
+3052,87H52H43+Q53,0,Outside,Sidewalk Outside,FALSE
+3053,87H52H43+P4M,0,Outside,Sidewalk Outside,FALSE
+3054,87H52H43+P34,0,Outside,Sidewalk Outside,FALSE
+3055,87H52H43+M2M,0,Outside,Sidewalk Outside,FALSE
+3056,87H52H42+MX3,0,Outside,Sidewalk Outside,FALSE
+3057,87H52H42+JWW,0,Outside,Sidewalk Outside,FALSE
+3058,87H52H42+QV5,0,Outside,Sidewalk Outside,FALSE
+3059,87H52H42+PRX,0,Outside,Sidewalk Outside,FALSE
+3060,87H52H42+XQ7,0,Outside,Sidewalk Outside,FALSE
+3062,87H52H42+RMP,0,Outside,Sidewalk Outside,FALSE
+3063,87H52H42+WMF,0,Outside,Sidewalk Outside,FALSE
+3064,87H52H42+XHX,0,Outside,Sidewalk Outside,FALSE
+3065,87H52H52+4JW,0,Outside,Sidewalk Outside,FALSE
+3066,87H52H52+6Q8,0,Outside,Sidewalk Outside,FALSE
+3067,87H52H52+8F9,0,Outside,Sidewalk Outside,FALSE
+3071,87H52H52+CRJ,0,Outside,Sidewalk Outside,FALSE
+3072,87H52H52+CMR,0,Outside,Sidewalk Outside,FALSE
+3073,87H52H53+348,0,Outside,Sidewalk Outside,FALSE
+3074,87H52H42+WQ4,0,Outside,Sidewalk Outside,FALSE
+3082,87H52H52+2CW,0,Outside,Sidewalk Outside,FALSE
+3083,87H52H52+3GJ,0,Outside,Sidewalk Outside,FALSE
+3084,87H52H52+792,0,Outside,Sidewalk Outside,FALSE
+3085,87H52H52+67M,0,Outside,Sidewalk Outside,FALSE
+3086,87H52H42+X9J,0,Outside,Sidewalk Outside,FALSE
+3087,87H52H42+WFJ,0,Outside,Sidewalk Outside,FALSE
+3088,87H52H42+VHX,0,Outside,Sidewalk Outside,FALSE
+3089,87H52H42+RGQ,0,Outside,Sidewalk Outside,FALSE
+3090,87H52H42+QHM,0,Outside,Sidewalk Outside,FALSE
+3091,87H52H42+PGW,0,Outside,Sidewalk Outside,FALSE
+3096,87H52H42+P99,0,Outside,Sidewalk Outside,FALSE
+3098,87H52H42+GMG,0,Outside,Sidewalk Outside,FALSE
+3099,87H52H42+G8R,0,Outside,Sidewalk Outside,FALSE
+3100,87H52H42+H5F,0,Outside,Sidewalk Outside,FALSE
+3101,87H52H42+V6C,0,Outside,Sidewalk Outside,FALSE
+3105,87H52H52+663,0,Outside,Sidewalk Outside,FALSE
+3106,87H52H52+569,0,Outside,Sidewalk Outside,FALSE
+3107,87H52H52+65W,0,Outside,Sidewalk Outside,FALSE
+3108,87H52H52+848,0,Outside,Sidewalk Outside,FALSE
+3109,87H52H52+637,0,Outside,Sidewalk Outside,FALSE
+3110,87H52H52+52W,0,Outside,Sidewalk Outside,FALSE
+3111,87H52H52+34R,0,Outside,Sidewalk Outside,FALSE
+3112,87H52G5X+2XM,0,Outside,Sidewalk Outside,FALSE
+3113,87H52G5X+8WM,0,Outside,Sidewalk Outside,FALSE
+3117,87H52H52+9GX,0,Outside,Sidewalk Outside,FALSE
+3118,87H52H52+93V,0,Outside,Sidewalk Outside,FALSE
+3121,87H52H42+RQ3,0,Outside,Sidewalk Outside,FALSE
+3122,87H52H42+VPF,0,Outside,Sidewalk Outside,FALSE
+3123,87H52H42+CC4,0,Outside,Sidewalk Outside,FALSE
+3124,87H52H42+99Q,0,Outside,Sidewalk Outside,FALSE
+3125,87H52H42+W2F,0,Outside,Sidewalk Outside,FALSE
+3126,87H52G4X+WX3,0,Outside,Sidewalk Outside,FALSE
+3127,87H52H42+R2X,0,Outside,Sidewalk Outside,FALSE
+3128,87H52H42+Q3X,0,Outside,Sidewalk Outside,FALSE
+3129,87H52H42+P3Q,0,Outside,Sidewalk Outside,FALSE
+3130,87H52G4X+QXQ,0,Outside,Sidewalk Outside,FALSE
+3131,87H52G4X+PVF,0,Outside,Sidewalk Outside,FALSE
+3132,87H52G4X+MQJ,0,Outside,Sidewalk Outside,FALSE
+3133,87H52G4X+JMM,0,Outside,Sidewalk Outside,FALSE
+3134,87H52G4X+HMW,0,Outside,Sidewalk Outside,FALSE
+3138,87H52H42+G24,0,Outside,Sidewalk Outside,FALSE
+3139,87H52H42+94V,0,Outside,Sidewalk Outside,FALSE
+3141,87H52H42+84P,0,Outside,Sidewalk Outside,FALSE
+3142,87H52H42+75V,0,Outside,Sidewalk Outside,FALSE
+3144,87H52G4X+FXC,0,Outside,Sidewalk Outside,FALSE
+3145,87H52G4X+FR9,0,Outside,Sidewalk Outside,FALSE
+3146,87H52G4X+CQP,0,Outside,Sidewalk Outside,FALSE
+3148,87H52G4X+FPW,0,Outside,Sidewalk Outside,FALSE
+3149,87H52G4X+GM4,0,Outside,Sidewalk Outside,FALSE
+3150,87H52G4X+CPV,0,Outside,Sidewalk Outside,FALSE
+3151,87H52G4X+CP5,0,Outside,Sidewalk Outside,FALSE
+3152,87H52G4X+8RJ,0,Outside,Sidewalk Outside,FALSE
+3153,87H52G4X+8Q4,0,Outside,Sidewalk Outside,FALSE
+3154,87H52G4X+9JV,0,Outside,Sidewalk Outside,FALSE
+3155,87H52G4X+9J9,0,Outside,Sidewalk Outside,FALSE
+3156,87H52G4X+7HX,0,Outside,Sidewalk Outside,FALSE
+3157,87H52G4X+7J2,0,Outside,Sidewalk Outside,FALSE
+3158,87H52G4X+6Q7,0,Outside,Sidewalk Outside,FALSE
+3161,87H52G4X+5W6,0,Outside,Sidewalk Outside,FALSE
+3162,87H52G4X+4VW,0,Outside,Sidewalk Outside,FALSE
+3163,87H52G4X+4RP,0,Outside,Sidewalk Outside,FALSE
+3164,87H52G4X+CF4,0,Outside,Sidewalk Outside,FALSE
+3165,87H52G4X+FF4,0,Outside,Sidewalk Outside,FALSE
+3166,87H52G4X+CH3,0,Outside,Sidewalk Outside,FALSE
+3167,87H52G4X+PH5,0,Outside,Sidewalk Outside,FALSE
+3168,87H52G4X+PGH,0,Outside,Sidewalk Outside,FALSE
+3169,87H52G4X+J9V,0,Outside,Sidewalk Outside,FALSE
+3170,87H52G4X+QFW,0,Outside,Sidewalk Outside,FALSE
+3171,87H52G4X+RCW,0,Outside,Sidewalk Outside,FALSE
+3172,87H52G4X+RG8,0,Outside,Sidewalk Outside,FALSE
+3173,87H52H53+3FX,0,Outside,Sidewalk Outside,FALSE
