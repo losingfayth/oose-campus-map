@@ -33,7 +33,7 @@ public class CampusMapController : ControllerBase
     
     // http POST endpoint accessible at POST /api/CampusMap/find-path
     [HttpPost("find-path")]
-    public Task<IActionResult> FindPath(float currLoc, float dest) {
+    public Task<IActionResult> FindPath(int currLoc, int dest) {
 
       //var path = new List<LocationNode>();
         // initial db connection
@@ -47,7 +47,7 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
       
         var query = @"
-            MATCH (start:Location {name: $startName}), (end:Location {name: $endName})
+            MATCH (start:Location {name: $currLoc}), (end:Location {name: $dest})
             CALL gds.shortestPath.astar.stream({
               nodeProjection: 'Location',
               relationshipProjection: {
