@@ -36,7 +36,39 @@ public class CampusMapController : ControllerBase
     public Task<IActionResult> FindPath(float currLoc, float dest) {
 
       //var path = new List<LocationNode>();
-      var path = new {message = "API Endpoint Response Good!"};
+        // initial db connection
+      var uri = "neo4j+s://apibloomap.xyz:7687";
+      var username = Environment.GetEnvironmentVariable("DB_USER") 
+        ?? throw new InvalidOperationException("DB_USER is not set");
+      var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+        ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+        
+      IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+      await using var session = _driver.AsyncSession();
+      
+        var query = @"
+            MATCH (start:Location {name: $startName}), (end:Location {name: $endName})
+            CALL gds.shortestPath.astar.stream({
+              nodeProjection: 'Location',
+              relationshipProjection: {
+                CONNECTS: {
+                  type: 'CONNECTS',
+                  properties: 'distance',
+                  orientation: 'UNDIRECTED'
+                }
+              },
+              sourceNode: start,
+              targetNode: end,
+              latitudeProperty: 'latitude',
+              longitudeProperty: 'longitude'
+            })
+            YIELD nodeIds
+            RETURN [node IN nodeIds | gds.util.asNode(node).name] AS path";
+
+        var result = await session.RunAsync(query, new { startName, endName });
+
+        var records = await result.ToListAsync();
+        return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
       return Task.FromResult<IActionResult>(Ok(path));
 
@@ -49,7 +81,7 @@ public class CampusMapController : ControllerBase
     [HttpGet("get-locations")]
     public async Task<IActionResult> GetLocations() {
         
-        // initial db connection
+      // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
       var username = Environment.GetEnvironmentVariable("DB_USER") 
         ?? throw new InvalidOperationException("DB_USER is not set");
