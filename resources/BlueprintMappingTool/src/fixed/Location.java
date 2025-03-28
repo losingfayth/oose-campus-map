@@ -9,7 +9,8 @@ public class Location extends Text
 {
         static int STARTING_ID = 3000;
         int id;
-        ArrayList<Location> edges;
+        ArrayList<Location> connectedTo;
+        ArrayList<Edge> edges;
         String locationCode;
         String type;
         Point2D fixedPoint;
@@ -21,7 +22,7 @@ public class Location extends Text
             this.type = type;
             this.locationCode = code;
             this.fixedPoint = fixedPoint;
-            System.out.println("Location fixedPoint: " + fixedPoint.getX() + ", " + fixedPoint.getY());
+            connectedTo = new ArrayList<>();
             edges = new ArrayList<>();
         }
 
@@ -29,25 +30,33 @@ public class Location extends Text
             return fixedPoint;
         }
 
-        public void addEdge(Location l) {
-            edges.add(l);
+        public void markConnection(Location l) {
+            connectedTo.add(l);
         }
 
         public String getType() {
             return type;
         }
 
-        public void removeEdge(Location l) {
+        public void addEdge(Edge e) {
+            edges.add(e);
+        }
+
+        public boolean removeEdge(Edge e) {
+            return edges.remove(e);
+        }
+
+        public void removeConnection(Location l) {
 //            for (fixed.Location loc : this.edges) {
 //                if (loc.equals(l)) {
 //                    edges.remove(l);
 //                }
 //            }
-            edges.remove(l);
+            connectedTo.remove(l);
         }
 
-        public ArrayList<Location> getEdges() {
-            return edges;
+        public ArrayList<Location> getConnectedTo() {
+            return connectedTo;
         }
 
         @Override
@@ -75,6 +84,11 @@ public class Location extends Text
     public int getKeyID()
     {
         return id;
+    }
+
+    public ArrayList<Edge> getEdges()
+    {
+        return edges;
     }
 }
 

@@ -88,7 +88,6 @@ public class ScrollableImageView extends ImageView
 
             t.setX(displayPoint.getX());
             t.setY(displayPoint.getY());
-            System.out.println("Update display Locations: " + t.getText() + " | " + displayPoint.getX() + ", " + displayPoint.getY());
         }
 
         for (Edge e : fixedEdges) {

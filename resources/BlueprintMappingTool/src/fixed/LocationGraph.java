@@ -1,7 +1,5 @@
 package fixed;
 
-import fixed.Location;
-
 import java.util.ArrayList;
 
 public class LocationGraph
@@ -92,7 +90,7 @@ public class LocationGraph
         int tot = 0;
         for (Location l : getNodes()) {
             int n1 = l.getKeyID();
-            for (Location to : l.getEdges()) {
+            for (Location to : l.getConnectedTo()) {
                 tot++;
                 System.out.printf("%n%d %d", n1, to.getKeyID());
             }

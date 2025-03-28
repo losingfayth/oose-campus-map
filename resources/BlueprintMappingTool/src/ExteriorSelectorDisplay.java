@@ -9,14 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.*;
 import mapping.Map;
@@ -44,6 +41,7 @@ public class ExteriorSelectorDisplay extends Application
     boolean rootSelectMode = false;
     boolean deleteEdgeMode = false;
     ArrayList<KeyCode> list = new ArrayList<>();
+    SelectorDisplay.Counter saveCounter = new SelectorDisplay.Counter(1);
 
 
     @Override
@@ -62,7 +60,8 @@ public class ExteriorSelectorDisplay extends Application
         ToggleButton pointsToggle = initAndSet("Points", pointTypeGroup);
         ToggleButton entranceToggle = initAndSet("Main Entrance", pointTypeGroup);
         ToggleButton sideToggle = initAndSet("Side Entrance", pointTypeGroup);
-        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, sideToggle);
+        ToggleButton stairsToggle = initAndSet("Stairs", pointTypeGroup);
+        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, sideToggle, stairsToggle);
 
         ToggleGroup nodesEdgesGroup = new ToggleGroup();
         ToggleButton nodes =  initAndSet("Place Nodes", nodesEdgesGroup);
@@ -79,6 +78,9 @@ public class ExteriorSelectorDisplay extends Application
         });
         sideToggle.setOnMouseClicked(event -> {
             System.out.println("Side entrances");
+        });
+        stairsToggle.setOnMouseClicked(event ->  {
+            System.out.println("Stairs");
         });
 
         nodes.setOnMouseClicked(event -> {
@@ -102,7 +104,7 @@ public class ExteriorSelectorDisplay extends Application
         inputStream = new FileInputStream(inputFileName);
 
         saveLocation = inputFileName.substring(0, inputFileName.length() - 4) +
-                "_POINTSLABELED.png";
+                "_POINTSLABELED";
 
         System.out.println(inputFileName + " accessed.");
         Image image = new Image(inputStream);
@@ -139,7 +141,7 @@ public class ExteriorSelectorDisplay extends Application
 
 
         /*
-/Users/dakotahkurtz/Downloads/Campus.png
+/Users/dakotahkurtz/Downloads/campusUpdated.png
 L
 41.00786, -76.44842
 41.00908, -76.44579
@@ -180,12 +182,17 @@ L
                 if (nodes.isSelected()) {
                     for (Location l : enteredLocations.getNodes()) {
                         if (l.contains(cx, cy)) {
+                            for (Location connectedTo : l.getConnectedTo()) {
+                                connectedTo.removeConnection(l);
+                            }
+                            lines.removeIf(e -> e.containsNode(l));
 
                             enteredLocations.removeLocation(l);
-                            counter.decrement();
+
                             imagePane.getChildren().clear();
                             imagePane.getChildren().add(imageView);
                             imagePane.getChildren().addAll(enteredLocations.getNodes());
+                            imagePane.getChildren().addAll(lines);
                             System.out.println("Deleted: " + l.getText());
                             return;
                         }
@@ -211,7 +218,12 @@ L
                     } else if (sideToggle.isSelected()) {
                         labelLocationText = new Location(counterValue, "side", code, onImage);
                         c = Color.BLUE;
-                    } else {
+                    } else if (stairsToggle.isSelected()) {
+                        labelLocationText = new Location(counterValue, "stairs", code,
+                                onImage);
+                        c = Color.PURPLE;
+                    }
+                    else {
                         System.out.println("Select type of point.");
                         return;
                     }
@@ -238,6 +250,13 @@ L
                             Location clicked = enteredLocations.getLocation(cx, cy);
                             if (deleteEdgeMode) {
                                 lines.removeIf(e -> e.containsNode(clicked));
+                                ArrayList<Location> toRemove = new ArrayList<>();
+                                for (Location connectedTo : clicked.getConnectedTo()) {
+                                    toRemove.add(connectedTo);
+                                    connectedTo.removeConnection(clicked);
+                                }
+                                clicked.getConnectedTo().removeAll(toRemove);
+                                
                                 imagePane.getChildren().clear();
 
                                 imagePane.getChildren().add(imageView);
@@ -245,8 +264,8 @@ L
                                 imagePane.getChildren().addAll(lines);
                             } else {
                                 if (enteredLocations.getCurrentRoot() != null && !clicked.equals(enteredLocations.getCurrentRoot())) {
-                                    enteredLocations.getCurrentRoot().addEdge(clicked);
-                                    clicked.addEdge(enteredLocations.getCurrentRoot());
+                                    enteredLocations.getCurrentRoot().markConnection(clicked);
+                                    clicked.markConnection(enteredLocations.getCurrentRoot());
                                     System.out.printf("%nEdge added | %d -> %d, %d -> %d " +
                                                     "%n",
                                             enteredLocations.getCurrentRoot().getKeyID(), clicked.getKeyID(), clicked.getKeyID(), enteredLocations.getCurrentRoot().getKeyID());
@@ -314,7 +333,8 @@ L
             {
                 saveImage(new File(finalFilename),
                         enteredLocations, lines,
-                        finalSaveLocation);
+                        finalSaveLocation + String.valueOf(saveCounter.getValue()) + ".png");
+                saveCounter.increment();
             }
             catch (Exception e)
             {
@@ -503,13 +523,7 @@ L
                            ArrayList<Edge> lines, String saveLocation) throws Exception
     {
         BufferedImage image = ImageIO.read(in);
-//
-//        CoordinateSystem displayCoordinateSystem = new CoordinateSystem(new Point(0, 0)
-//                , new Point(displayImageWidth, 0), new Point(0, displayImageHeight));
-//        CoordinateSystem imageCoordinateSystem = new CoordinateSystem(new Point(0, 0),
-//                new Point(image.getWidth(), 0), new Point(0, image.getHeight()));
 
-//        Map map = new Map(displayCoordinateSystem, imageCoordinateSystem);
         Graphics2D g2d = image.createGraphics();
 
         java.awt.Font font = new java.awt.Font("Arial", Font.BOLD, 20);
@@ -519,7 +533,6 @@ L
         for (Location l : enteredLocations.getNodes()) {
             String num = l.getText();
             Point2D p = l.getFixedPoint();
-//            Point p = map.convert(new Point(x, y));
 
             g2d.drawString(num, (float) p.getX(), (float) p.getY());
         }
@@ -548,7 +561,7 @@ L
             // Writing to file taking type and path as
             ImageIO.write(image, "png", new File(saveLocation));
 
-            System.out.println("Save complete.");
+            System.out.println("\n**************Save complete: " + saveLocation + "\n\n");
         }
         catch (IOException e) {
             System.out.println("Error: " + e);
