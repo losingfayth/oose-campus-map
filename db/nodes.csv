@@ -1485,3 +1485,7 @@ id,locationCode,floor,building,name,isValidDestination
 3171,87H52G4X+RCW,0,Outside,Sidewalk Outside,FALSE
 3172,87H52G4X+RG8,0,Outside,Sidewalk Outside,FALSE
 3173,87H52H53+3FX,0,Outside,Sidewalk Outside,FALSE
+3174,2H64+3M6,0,Outside,Student Recreation Main Entrance,TRUE
+3175,2H64+3G8,0,Outside,Sidewalk Outside,FALSE
+3176,2H54+RGG,0,Outside,Sidewalk Outside,FALSE
+3177,2H42+MM9,0,Outside,Sidewalk Outside,FALSE
