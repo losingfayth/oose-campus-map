@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 
 using CampusMapApi;
+using CampusMapApi.Models;
 
 /**
     <summary>
