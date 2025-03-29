@@ -27,5 +27,7 @@ namespace CampusMapApi
 		public static readonly double CampusLongitude = 41;
 		public static readonly double CampusLatitude = -76;
 		public static readonly string CampusGridCode = "87H5";
+
+		public static readonly int EarthRadiusMi = 3956;
 	}
 }

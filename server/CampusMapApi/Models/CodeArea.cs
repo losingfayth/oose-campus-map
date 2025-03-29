@@ -2,13 +2,13 @@ using CampusMapApi;
 
 namespace CampusMapApi.Models
 {
-	class CodeArea
+	class CodeArea(double southLat, double westLng, double northLat, double eastLng, int length)
 	{
-		public double SouthLatitude { get; set; }
-		public double WestLongitude { get; set; }
-		public double NorthLatitude { get; set; }
-		public double EastLongitude { get; set; }
-		public int Length { get; set; }
+		public double SouthLatitude { get; set; } = southLat;
+		public double WestLongitude { get; set; } = westLng;
+		public double NorthLatitude { get; set; } = northLat;
+		public double EastLongitude { get; set; } = eastLng;
+		public int Length { get; set; } = length;
 
 		public double GetCenterLatitude()
 		{ return (SouthLatitude + NorthLatitude) / 2; }

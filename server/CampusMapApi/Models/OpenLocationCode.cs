@@ -12,7 +12,7 @@ namespace CampusMapApi.Models
 		{
 			if (code.Length == 8) code = GlobalVars.CampusGridCode + code;
 
-			if (!this.Validate()) throw new Exception("Invalid code entered: " + code);
+			if (!this.IsValid()) throw new Exception("Invalid code entered: " + code);
 
 			Code = code;
 		}
@@ -20,77 +20,14 @@ namespace CampusMapApi.Models
 		public OpenLocationCode(GCSCoordinate coordinate, int length)
 		{
 			length = Math.Min(length, GlobalVars.MaxDigitCount);
-			Code = ComputeCode(coordinate, length);
+			Code = Compute(coordinate, length);
 		}
 
 		public int Length() { return Code.Length; }
-    }
 
-	static class OpenLocationCodeExtension
-	{
-		
-		public static bool Validate(this OpenLocationCode codeObj)
+		public double GetDistance(OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
 		{
-			string code = codeObj.Code;
-
-			if (code == null || code.Length < 2) return false;
-
-			code = code.ToUpper();
-
-			int separatorPosition = code.IndexOf(GlobalVars.Separator);
-
-			if (separatorPosition == -1 
-				|| separatorPosition != code.LastIndexOf(GlobalVars.Separator)
-				|| separatorPosition % 2 != 0
-				|| separatorPosition > GlobalVars.SeparatorPosition
-			) return false;
-
-			if (separatorPosition == GlobalVars.SeparatorPosition
-				&& (GlobalVars.CodeAlphabet.IndexOf(code[0]) > 8) ||
-					GlobalVars.CodeAlphabet.IndexOf(code[1]) > 17)
-				return false;
-
-			bool paddingStarted = false;
-
-			for (int i = 0; i < separatorPosition; i++)
-			{
-				if (GlobalVars.CodeAlphabet.Contains(code) && code[i] != GlobalVars.PaddingCharacter) return false;
-
-				if (paddingStarted && code[i] != GlobalVars.PaddingCharacter) return false;
-				else if (code[i] == GlobalVars.PaddingCharacter)
-				{
-					paddingStarted = true;
-
-					if (separatorPosition < GlobalVars.SeparatorPosition
-					|| (i != 2 && i != 4 && i != 6)) return false;
-				}
-			}
-
-			if (code.Length > separatorPosition + 1)
-			{
-				if (paddingStarted || code.Length == separatorPosition + 2) return false;
-
-				for (int i = separatorPosition + 1; i < code.Length; i++)
-				{
-					if (!GlobalVars.CodeAlphabet.Contains(code[i])) return false;
-				}
-			}
-
-			return true;
-
-		}
-
-		private static bool ValidateBloomCode(this OpenLocationCode codeObj)
-		{
-			string code = codeObj.Code;
-			int count = 0;
-
-			for (int i = 0; i < code.Length; i++)
-			{
-				if (GlobalVars.CodeAlphabet.Contains(code[i])) count ++;
-			}
-
-			return count == 7;
+			return GCSCoordinate.GetDistance(c1.DecodeToCenter(), c2.DecodeToCenter(), metric);
 		}
 
 		public static string Compute(GCSCoordinate coordinate, int length)
@@ -144,16 +81,81 @@ namespace CampusMapApi.Models
 				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1]);
 			}
 
-			//char[] arr = new char[Math.Max(GlobalVars.SeparatorPosition + 1, length+ 1)];
-
-			//for (int i = 0; i < arr.Length; i++) arr[i] = codeBuilder[i];
-
 			return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
 		}
 
-		private static CodeArea Decode(this OpenLocationCode codeObj)
+		public static bool Validate(string code)
 		{
-			//            return _code.IndexOf(SEPARATOR) == SEPARATOR_POSITION;
+			if (code == null || code.Length < 2) return false;
+
+			code = code.ToUpper();
+
+			int separatorPosition = code.IndexOf(GlobalVars.Separator);
+
+			if (separatorPosition == -1 
+				|| separatorPosition != code.LastIndexOf(GlobalVars.Separator)
+				|| separatorPosition % 2 != 0
+				|| separatorPosition > GlobalVars.SeparatorPosition
+			) return false;
+
+			if (separatorPosition == GlobalVars.SeparatorPosition
+				&& (GlobalVars.CodeAlphabet.IndexOf(code[0]) > 8) ||
+					GlobalVars.CodeAlphabet.IndexOf(code[1]) > 17)
+				return false;
+
+			bool paddingStarted = false;
+
+			for (int i = 0; i < separatorPosition; i++)
+			{
+				if (GlobalVars.CodeAlphabet.Contains(code) && code[i] != GlobalVars.PaddingCharacter) return false;
+
+				if (paddingStarted && code[i] != GlobalVars.PaddingCharacter) return false;
+				else if (code[i] == GlobalVars.PaddingCharacter)
+				{
+					paddingStarted = true;
+
+					if (separatorPosition < GlobalVars.SeparatorPosition
+					|| (i != 2 && i != 4 && i != 6)) return false;
+				}
+			}
+
+			if (code.Length > separatorPosition + 1)
+			{
+				if (paddingStarted || code.Length == separatorPosition + 2) return false;
+
+				for (int i = separatorPosition + 1; i < code.Length; i++)
+				{
+					if (!GlobalVars.CodeAlphabet.Contains(code[i])) return false;
+				}
+			}
+
+			return true;
+		}
+    }
+
+	static class OpenLocationCodeExtension
+	{
+		
+		public static bool IsValid(this OpenLocationCode codeObj)
+		{
+			return OpenLocationCode.Validate(codeObj.Code);
+		}
+
+		private static bool ValidateBloomCode(this OpenLocationCode codeObj)
+		{
+			string code = codeObj.Code;
+			int count = 0;
+
+			for (int i = 0; i < code.Length; i++)
+			{
+				if (GlobalVars.CodeAlphabet.Contains(code[i])) count ++;
+			}
+
+			return count == 7;
+		}
+
+		public static CodeArea Decode(this OpenLocationCode codeObj)
+		{
 			if (codeObj.Code.IndexOf(GlobalVars.Separator) != GlobalVars.SeparatorPosition)
 			{
 				throw new Exception("Attempting to decode non-valid location code: " + codeObj.Code);
@@ -190,14 +192,22 @@ namespace CampusMapApi.Models
 				latVal += row * latPlaceVal;
 				lngVal += col * lngPlaceVal;
 
-				double latMin = (double) latVal / GlobalVars.LatitudeMultiplier;
-				double lngMin = (double) lngVal / GlobalVars.LongitudeMultiplier;
-
-				double latMax = (double) (latVal + latPlaceVal) / GlobalVars.LatitudeMultiplier;
-				double lngMax = (double) (lngVal + lngPlaceVal) / GlobalVars.LongitudeMultiplier;
 			}
+
+			double latMin = (double) latVal / GlobalVars.LatitudeMultiplier;
+			double lngMin = (double) lngVal / GlobalVars.LongitudeMultiplier;
+
+			double latMax = (double) (latVal + latPlaceVal) / GlobalVars.LatitudeMultiplier;
+			double lngMax = (double) (lngVal + lngPlaceVal) / GlobalVars.LongitudeMultiplier;
 
 			return new CodeArea(latMin, lngMin, latMax, lngMax, Math.Min(clean.Length, GlobalVars.MaxDigitCount));
 		}
+
+		public static GCSCoordinate DecodeToCenter(this OpenLocationCode codeObj)
+		{
+			CodeArea codeArea = Decode(codeObj);
+			return new GCSCoordinate(codeArea.GetCenterLatitude(), codeArea.GetCenterLongitude());
+		}
+
 	}
 }

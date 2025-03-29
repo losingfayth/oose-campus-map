@@ -1,14 +1,5 @@
 using CampusMapApi;
 
-/*
-class DegreeMinuteSecond
-{
-	public double Degree { get; set; }
-	public double Minute { get; set; }
-	public double Second { get; set; }
-}
-*/
-
 namespace CampusMapApi.Models
 {
 	public class GCSCoordinate
@@ -33,9 +24,6 @@ namespace CampusMapApi.Models
 			Latitude = latDeg + (latMin / 60) + (longSec / 3600);
 		}
 
-		public double GetLongitude() { return Longitude; }
-		public double GetLatitude() { return Latitude; }
-
 		public Tuple<double, double> Get() 
 		{ return Tuple.Create(Longitude, Latitude); }
 
@@ -52,6 +40,20 @@ namespace CampusMapApi.Models
 				(Longitude / Math.PI) / 180,
 				(Latitude / Math.PI) / 180
 			);
+		}
+
+		public static double GetDistance(GCSCoordinate start, GCSCoordinate end, DistanceMetric metric)
+		{
+			double deltaLng = start.GetLongitudeAsRadians() - end.GetLongitudeAsRadians();
+			double deltaLat = start.GetLatitudeAsRadians() - end.GetLatitudeAsRadians();
+
+			double a = Math.Pow(Math.Sin(deltaLat / 2), 2)
+				+ Math.Cos(start.Latitude) * Math.Cos(end.Latitude)
+				* Math.Pow(Math.Sin(deltaLng) / 2, 2);
+
+			return GlobalVars.EarthRadiusMi 
+				* metric.GetValue()
+				* Math.Asin(Math.Sqrt(a));
 		}
 	}
 }
