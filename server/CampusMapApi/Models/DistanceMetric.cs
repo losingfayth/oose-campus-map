@@ -30,5 +30,10 @@ namespace CampusMapApi.Models
 			double inMiles = value / ConversionTable[from];
 			return inMiles * ConversionTable[to];
 		}
+
+		public static double ConvertTo(this DistanceMetric from, DistanceMetric to, double value)
+		{
+			return Convert(from, to, value);
+		}
 	}
 }

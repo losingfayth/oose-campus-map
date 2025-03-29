@@ -118,6 +118,7 @@ public class CoordinateConverter
     {
         private readonly string _code;
 
+
         /// <summary>
         /// Initializes an OpenLocationCode with a given code.
         /// </summary>
@@ -267,7 +268,7 @@ public class CoordinateConverter
         {
             return new OpenLocationCode(CAMPUS_LOC_GRID + code).DecodeToCenter();
         }
-/*
+
 
         /// <summary>
         /// Decodes the Open Location Code into a CodeArea that represents the latitude/longitude bounding box.
@@ -358,7 +359,7 @@ public class CoordinateConverter
         {
             return new OpenLocationCode(code).Decode();
         }
-        */
+        
 
         private static double NormalizeLongitude(double longitude)
         {
@@ -611,6 +612,7 @@ public class CoordinateConverter
             _longitude = longitude;
         }
 
+
         /// <summary>
         /// Initializes a Coordinate object with latitude and longitude, divided into degrees, minutes,
         /// and seconds.
@@ -624,6 +626,8 @@ public class CoordinateConverter
             _latitude = DegMinSecToDegrees(latDegrees, latMinutes, latSeconds);
             _longitude = DegMinSecToDegrees(lngDegrees, lngMinutes, lngSeconds);
         }
+        
+
 
         /// <summary>
         /// Initializes a Coordinate object located on Bloomsburg campus, identifiable with only
@@ -639,7 +643,7 @@ public class CoordinateConverter
             return new Coordinate(CAMPUS_LAT_DEGREES, latMinutes, latSeconds, CAMPUS_LNG_DEGREES, lngMinutes, lngSeconds);
         }
 
-/*
+
         private static double DegMinSecToDegrees(double degrees, double minutes, double seconds)
         {
             return degrees + minutes / 60 + seconds / 3600;
@@ -778,7 +782,7 @@ public class CoordinateConverter
         return Coordinate.GetDistance(OpenLocationCode.DecodeToCenter(openLocationCode1), OpenLocationCode.DecodeToCenter(openLocationCode2), metric);
     }
     
-/*
+
     public static void ExampleUsage() {
         double latitude = 41.005471;
         double longitude = -76.447570;
@@ -904,6 +908,6 @@ public class CoordinateConverter
     // public static void Main() {
     //     Console.WriteLine("Test");
     // }
-*/
+
 }
 

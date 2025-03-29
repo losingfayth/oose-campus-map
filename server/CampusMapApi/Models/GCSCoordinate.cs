@@ -55,5 +55,35 @@ namespace CampusMapApi.Models
 				* metric.GetValue()
 				* Math.Asin(Math.Sqrt(a));
 		}
+
+		public static GCSCoordinate GetCampus(double latMin, double latSec, double lngMin, double lngSec)
+		{
+			return new GCSCoordinate(GlobalVars.CampusLat, latMin, latSec, GlobalVars.CampusLng, lngMin, lngSec);
+		}
+
+		public static double NormalizeLongitude(double lng)
+		{
+			if (lng >= -GlobalVars.LongitudeMax 
+			&& lng < GlobalVars.LongitudeMax) return lng;
+
+			long cirDeg = 2 * GlobalVars.LongitudeMax;
+			return (lng % cirDeg + cirDeg + GlobalVars.LongitudeMax) 
+					% cirDeg - GlobalVars.LongitudeMax;
+		}
+
+		public static double ClipLatitude(double lat)
+		{
+			return Math.Min(Math.Max(lat, GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+		}
+
+		public static double ComputeLatitudePrecision(int length)
+		{
+			if (length <= GlobalVars.CodePrecision)
+			{
+				return Math.Pow(GlobalVars.EncodingBase, length / -2 + 2);
+			}
+			
+			return Math.Pow(GlobalVars.EncodingBase, -3) / Math.Pow(GlobalVars.GridRows, length - GlobalVars.MaxEncodingLength);
+		}
 	}
 }

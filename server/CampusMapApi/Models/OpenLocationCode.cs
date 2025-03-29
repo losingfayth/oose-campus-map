@@ -23,6 +23,9 @@ namespace CampusMapApi.Models
 			Code = Compute(coordinate, length);
 		}
 
+		public OpenLocationCode(GCSCoordinate c)
+		{ Code = Compute(c, GlobalVars.CodePrecision); }
+
 		public int Length() { return Code.Length; }
 
 		public double GetDistance(OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
@@ -131,6 +134,11 @@ namespace CampusMapApi.Models
 
 			return true;
 		}
+
+		public static bool IsFull(string code)
+		{
+			return code.IndexOf(GlobalVars.Separator) == GlobalVars.SeparatorPosition;
+		}
     }
 
 	static class OpenLocationCodeExtension
@@ -141,7 +149,7 @@ namespace CampusMapApi.Models
 			return OpenLocationCode.Validate(codeObj.Code);
 		}
 
-		private static bool ValidateBloomCode(this OpenLocationCode codeObj)
+		private static bool IsValidCampus(this OpenLocationCode codeObj)
 		{
 			string code = codeObj.Code;
 			int count = 0;
@@ -152,6 +160,16 @@ namespace CampusMapApi.Models
 			}
 
 			return count == 7;
+		}
+
+		public static bool IsFull(this OpenLocationCode c)
+		{
+			return OpenLocationCode.IsFull(c.Code);
+		}
+
+		public static void PrependCampusPrefix(this OpenLocationCode c)
+		{
+			c.Code = GlobalVars.CampusGridCode + c;
 		}
 
 		public static CodeArea Decode(this OpenLocationCode codeObj)
