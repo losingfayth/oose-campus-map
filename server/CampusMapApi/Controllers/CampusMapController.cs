@@ -77,9 +77,9 @@
           LocationNode node = new LocationNode();
 
           // pulling data from each record and storing in node
-          node.building = record["building"].As<string>();
-          node.roomNumber = record["roomNumber"].As<string>();
-          node.id = record["id"].As<string>();
+          node.Building = record["building"].As<string>();
+          node.RoomNumber = record["roomNumber"].As<string>();
+          node.Id = record["id"].As<string>();
           //node.displayName = $"{building} Room {roomNumber}";
 
           // add node to List<>
