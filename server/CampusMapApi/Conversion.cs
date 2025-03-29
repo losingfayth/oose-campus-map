@@ -690,6 +690,8 @@ public class CoordinateConverter
     }
 
 
+/*
+
     /// <summary>
     /// Represents a rectangular area defined by latitude and longitude bounding coordinates.
 
@@ -899,6 +901,6 @@ public class CoordinateConverter
     // public static void Main() {
     //     Console.WriteLine("Test");
     // }
-
+*/
 }
 

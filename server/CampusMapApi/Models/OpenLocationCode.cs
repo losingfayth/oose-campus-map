@@ -1,3 +1,4 @@
+using System.Text;
 using CampusMapApi;
 
 
@@ -91,36 +92,112 @@ namespace CampusMapApi.Models
 
 			return count == 7;
 		}
-	}
 
-	public static string Compute(GCSCoordinate coordinate, int length)
-	{
-		double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
-
-		double lng = coordinate.Longitude;
-
-		if (!(lng >= -GlobalVars.LongitudeMax) || !(lng < GlobalVars.LongitudeMax))
+		public static string Compute(GCSCoordinate coordinate, int length)
 		{
-			long circleDegree = 2 * GlobalVars.LongitudeMax;
-			lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
+			double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+
+			double lng = coordinate.Longitude;
+
+			if (!(lng >= -GlobalVars.LongitudeMax) || !(lng < GlobalVars.LongitudeMax))
+			{
+				long circleDegree = 2 * GlobalVars.LongitudeMax;
+				lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
+			}
+
+			StringBuilder reverseCodeBuilder = new();
+
+			long newLat = (long) (Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
+			long newLng = (long) (Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
+
+			if (length > GlobalVars.MaxEncodingLength)
+			{
+				for (int i = 0; i < GlobalVars.GridCodeLength; i++)
+				{
+					long latDigit = newLat % GlobalVars.GridRows;
+					long lngDigit = newLng % GlobalVars.GridColumns;
+					int ndx = (int) (latDigit * GlobalVars.GridColumns + lngDigit);
+					reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[ndx]);
+					newLat /= GlobalVars.GridRows;
+					newLng /= GlobalVars.GridColumns;
+				}
+			}
+			else
+			{
+				newLat = (long) (newLat / Math.Pow(GlobalVars.GridRows, GlobalVars.GridCodeLength));
+				newLng = (long) (newLng / Math.Pow(GlobalVars.GridColumns, GlobalVars.GridCodeLength));
+			}
+			for (int i = 0; i < GlobalVars.MaxEncodingLength / 2; i++)
+			{
+				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLng % GlobalVars.EncodingBase)]);
+				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLng % GlobalVars.EncodingBase)]);
+
+				newLat /= GlobalVars.EncodingBase;
+				newLng /= GlobalVars.EncodingBase;
+				if (i == 0) reverseCodeBuilder.Append(GlobalVars.Separator);
+			}
+
+			StringBuilder codeBuilder = new();
+			for (int i = 0; i < reverseCodeBuilder.Length; i++)
+			{
+				if (length < GlobalVars.SeparatorPosition && i >= length) codeBuilder.Append(GlobalVars.PaddingCharacter);
+				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1]);
+			}
+
+			//char[] arr = new char[Math.Max(GlobalVars.SeparatorPosition + 1, length+ 1)];
+
+			//for (int i = 0; i < arr.Length; i++) arr[i] = codeBuilder[i];
+
+			return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
 		}
 
-		StringBuilder codeBuilder = new();
-
-		long newLat = (long) (Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
-		long newLng = (long) (Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
-
-		if (length > GlobalVars.MaxEncodingLength)
+		private static CodeArea Decode(this OpenLocationCode codeObj)
 		{
-			for (int i = 0; i < GlobalVars.GridCodeLength; i++)
+			//            return _code.IndexOf(SEPARATOR) == SEPARATOR_POSITION;
+			if (codeObj.Code.IndexOf(GlobalVars.Separator) != GlobalVars.SeparatorPosition)
 			{
-				long latDigit = newLat % GlobalVars.GridRows;
-				long lngDigit = newLng % GlobalVars.GridColumns;
-				int ndx = (int) (latDigit * GlobalVars.GridColumns + lngDigit);
-				codeBuilder.Append(GlobalVars.CodeAlphabet[ndx]);
-				newLat /= GlobalVars.GridRows;
-				newLng /= GlobalVars.GridColumns;
+				throw new Exception("Attempting to decode non-valid location code: " + codeObj.Code);
 			}
+
+			string clean = codeObj.Code.Replace(GlobalVars.Separator.ToString(), "");
+
+			if (clean.Length == 7) {}
+
+			long latVal = -GlobalVars.LatitudeMax * GlobalVars.LatitudeMultiplier;
+			long lngVal = -GlobalVars.LongitudeMax * GlobalVars.LongitudeMultiplier;
+
+			long latPlaceVal = GlobalVars.LatitudeSigDigit;
+			long lngPlaceVal = GlobalVars.LongitudeSigDigit;
+
+			for (int i = 0; i < Math.Min(clean.Length, GlobalVars.MaxEncodingLength); i++)
+			{
+				latPlaceVal /= GlobalVars.EncodingBase;
+				lngPlaceVal /= GlobalVars.EncodingBase;
+
+				latVal += GlobalVars.CodeAlphabet.IndexOf(clean[i]) * latPlaceVal;
+				lngVal += GlobalVars.CodeAlphabet.IndexOf(clean[i + 1]) * lngPlaceVal;
+			}
+
+			for (int i = GlobalVars.MaxEncodingLength; i < Math.Min(clean.Length, GlobalVars.MaxDigitCount); i ++)
+			{
+				latPlaceVal /= GlobalVars.GridRows;
+				lngPlaceVal /= GlobalVars.GridColumns;
+
+				int digit = GlobalVars.CodeAlphabet.IndexOf(clean[i]);
+				int row = digit / GlobalVars.GridColumns; // ?????
+				int col = digit / GlobalVars.GridColumns; // ?????
+
+				latVal += row * latPlaceVal;
+				lngVal += col * lngPlaceVal;
+
+				double latMin = (double) latVal / GlobalVars.LatitudeMultiplier;
+				double lngMin = (double) lngVal / GlobalVars.LongitudeMultiplier;
+
+				double latMax = (double) (latVal + latPlaceVal) / GlobalVars.LatitudeMultiplier;
+				double lngMax = (double) (lngVal + lngPlaceVal) / GlobalVars.LongitudeMultiplier;
+			}
+
+			return new CodeArea(latMin, lngMin, latMax, lngMax, Math.Min(clean.Length, GlobalVars.MaxDigitCount));
 		}
 	}
 }
