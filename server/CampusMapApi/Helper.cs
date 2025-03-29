@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 using CampusMapApi;
 using CampusMapApi.Models;
@@ -19,19 +18,6 @@ using CampusMapApi.Models;
     </summary>
     <author> Dakotah Kurtz </author>
 */
-=======
-/// <summary>
-/// Provides static Helper functions for totaling MapPath distance and estimating travel times.
-/// Requires Node data to be in the form described by Jess, namely with location described by Plus Codes in
-/// the LocationCode attribute and floor information in the Floor attribute. 
-/// 
-/// Assumes average walking speed, and that each subsequent stairwell climbed is climbed slower than the previous.
-/// 
-/// Default behavior is to return the total distance of a path in Feet and estimated travel time in seconds.
-/// 
-/// Dakotah
-/// </summary>
->>>>>>> ad5169eb057b5f584bed1a45c5a54007a63e8e38
 
 namespace CampusMapApi
 {
