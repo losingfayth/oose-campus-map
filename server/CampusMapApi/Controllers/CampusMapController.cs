@@ -1,28 +1,29 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Neo4j.Driver; // DB related functions
+    using Microsoft.AspNetCore.Mvc;
+    using CampusMapApi.Models;
+    using System.Threading.Tasks;
+    using Neo4j.Driver; // DB related functions
 
-/**
-Establishes a web API controller to handle server-side requests from front-end.
+    /**
+    Establishes a web API controller to handle server-side requests from front-end.
 
-**API Enpoints**
+    **API Enpoints**
 
-get-locations
-- HttpGet request that takes no arguments. When called, does a DB query to Neo4j
-  to retrieve building name, room number, and unique id of every node for every room
-  on campus. Returns an IActionResult object that indicates the status of request
-  completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
-  node contains the previously queried data about each location on campus.
-*/
+    get-locations
+    - HttpGet request that takes no arguments. When called, does a DB query to Neo4j
+    to retrieve building name, room number, and unique id of every node for every room
+    on campus. Returns an IActionResult object that indicates the status of request
+    completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
+    node contains the previously queried data about each location on campus.
+    */
 
-namespace CampusMapApi.Controllers;
+    namespace CampusMapApi.Controllers;
 
 
-[ApiController] // marks this class as a web API controller
-[Route("api/[controller]")] // define URL route for controller
-public class CampusMapController : ControllerBase
-{
-  
+    [ApiController] // marks this class as a web API controller
+    [Route("api/[controller]")] // define URL route for controller
+    public class CampusMapController : ControllerBase
+    {
+
     private readonly ILogger<CampusMapController> _logger;
 
     public CampusMapController(ILogger<CampusMapController> logger)
@@ -30,7 +31,7 @@ public class CampusMapController : ControllerBase
         _logger = logger;
     }
 
-    
+
     // http POST endpoint accessible at POST /api/CampusMap/find-path
     [HttpPost("find-path")]
     public Task<IActionResult> FindPath(float currLoc, float dest) {
@@ -91,10 +92,15 @@ public class CampusMapController : ControllerBase
           Console.WriteLine($"Error: {e.Message}");
       }
 
-     // return the list of location nodes and the status of the call
-     return Ok(locations);
+      // return the list of location nodes and the status of the call
+      return Ok(locations);
+    }
+
+    [HttpPost("ConvertDistance")]
+    public Task<IActionResult> ConvertDistance(string from, string to, double val)
+    {
+    double ret = DistanceMetricExtensions.Convert((DistanceMetric) Enum.Parse(typeof(DistanceMetric), from), (DistanceMetric) Enum.Parse(typeof(DistanceMetric), to), val);
+    return Task.FromResult<IActionResult>(Ok(ret));
     }
 
 }
-
-
