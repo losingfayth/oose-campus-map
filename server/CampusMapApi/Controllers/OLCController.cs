@@ -4,7 +4,7 @@ using CampusMapApi.Models;
 namespace CampusMapApi.Controllers;
 
 [ApiController]
-[Route("api/OLC/[controller]")]
+[Route("api/[controller]")]
 public class OLCController : ControllerBase
 {
 	[HttpPost("GetDistance")]

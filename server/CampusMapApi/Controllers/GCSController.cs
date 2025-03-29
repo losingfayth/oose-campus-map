@@ -4,7 +4,7 @@ using CampusMapApi.Models;
 namespace CampusMapApi.Controllers;
 
 [ApiController]
-[Route("api/GCS/[controller]")]
+[Route("api/[controller]")]
 public class GCSController : ControllerBase
 {
 	[HttpPost("GetDistance")]
