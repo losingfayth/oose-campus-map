@@ -4,9 +4,9 @@ using CampusMapApi;
 
 namespace CampusMapApi.Models
 {
-	class OpenLocationCode
+	public class OpenLocationCode
     {
-		public required string Code { get; set; }
+		public string Code { get; set; }
 
 		public OpenLocationCode(string code)
 		{
@@ -28,7 +28,7 @@ namespace CampusMapApi.Models
 
 		public int Length() { return Code.Length; }
 
-		public double GetDistance(OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
+		public static double GetDistance(OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
 		{
 			return GCSCoordinate.GetDistance(c1.DecodeToCenter(), c2.DecodeToCenter(), metric);
 		}
@@ -143,6 +143,11 @@ namespace CampusMapApi.Models
 
 	static class OpenLocationCodeExtension
 	{
+
+		public static double DistanceTo(this OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
+		{
+			return OpenLocationCode.GetDistance(c1, c2, metric);
+		}
 		
 		public static bool IsValid(this OpenLocationCode codeObj)
 		{
