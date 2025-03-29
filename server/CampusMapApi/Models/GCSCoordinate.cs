@@ -56,6 +56,13 @@ namespace CampusMapApi.Models
 				* Math.Asin(Math.Sqrt(a));
 		}
 
+		public static double GetDistance(double startLat, double startLng, double endLat, double endLng, DistanceMetric metric)
+		{
+			GCSCoordinate start = new(startLng, startLat);
+			GCSCoordinate end = new(endLng, endLat);
+			return GetDistance(start, end, metric);
+		}
+
 		public static GCSCoordinate GetCampus(double latMin, double latSec, double lngMin, double lngSec)
 		{
 			return new GCSCoordinate(GlobalVars.CampusLat, latMin, latSec, GlobalVars.CampusLng, lngMin, lngSec);
@@ -82,7 +89,7 @@ namespace CampusMapApi.Models
 			{
 				return Math.Pow(GlobalVars.EncodingBase, length / -2 + 2);
 			}
-			
+
 			return Math.Pow(GlobalVars.EncodingBase, -3) / Math.Pow(GlobalVars.GridRows, length - GlobalVars.MaxEncodingLength);
 		}
 	}

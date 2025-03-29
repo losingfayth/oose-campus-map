@@ -33,6 +33,13 @@ namespace CampusMapApi.Models
 			return GCSCoordinate.GetDistance(c1.DecodeToCenter(), c2.DecodeToCenter(), metric);
 		}
 
+		public static double GetDistance(string c1, string c2, DistanceMetric metric)
+		{
+			OpenLocationCode oC1 = new(c1);
+			OpenLocationCode oC2 = new(c2);
+			return GetDistance(oC1, oC2, metric);
+		}
+
 		public static string Compute(GCSCoordinate coordinate, int length)
 		{
 			double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
