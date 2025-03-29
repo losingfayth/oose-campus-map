@@ -122,6 +122,7 @@ id,locationCode,floor,building,name,isValidDestination
 164,x,2,Navy,Room 216,TRUE
 165,x,2,Navy,Room 217,TRUE
 166,x,2,Navy,Room 218,TRUE
+167,x,2,Navy,Second Floor Elevator,FALSE
 200,x,0,Bakeless,hallway1,FALSE
 201,x,0,Bakeless,hallway2,FALSE
 203,x,0,Bakeless,Ground Floor Elevator,FALSE
@@ -524,6 +525,7 @@ id,locationCode,floor,building,name,isValidDestination
 742,x,3,Sutliff,Room 374,TRUE
 743,x,3,Sutliff,Room 375,TRUE
 744,x,3,Sutliff,Room 377,TRUE
+745,X,3,Sutliff,hallway20,FALSE
 800,x,0,Student Services Center,Ground Floor Rear Entrance,TRUE
 801,x,0,Student Services Center,hallway1,FALSE
 802,x,0,Student Services Center,hallway2,FALSE
@@ -670,6 +672,10 @@ id,locationCode,floor,building,name,isValidDestination
 943,x,2,Student Services Center,Room 265,TRUE
 944,x,2,Student Services Center,Room 266,TRUE
 945,x,2,Student Services Center,Room 268,TRUE
+946,x,2,Student Services Center,Room 270,TRUE
+947,x,2,Student Services Center,Room 274,TRUE
+948,x,2,Student Services Center,Room 275,TRUE
+949,x,2,Student Services Center,hallway29,FALSE
 1000,87H52H53+JRC,1,Andruss Library, First Floor Main Entrance,TRUE
 1001,87H52H53+HRV,1,Andruss Library,First Floor Study Entrance,TRUE
 1002,87H52H53+HRP,1,Andruss Library,Starbucks Entrance,TRUE
@@ -1485,7 +1491,7 @@ id,locationCode,floor,building,name,isValidDestination
 3171,87H52G4X+RCW,0,Outside,Sidewalk Outside,FALSE
 3172,87H52G4X+RG8,0,Outside,Sidewalk Outside,FALSE
 3173,87H52H53+3FX,0,Outside,Sidewalk Outside,FALSE
-3174,2H64+3M6,0,Outside,Student Recreation Main Entrance,TRUE
-3175,2H64+3G8,0,Outside,Sidewalk Outside,FALSE
-3176,2H54+RGG,0,Outside,Sidewalk Outside,FALSE
-3177,2H42+MM9,0,Outside,Sidewalk Outside,FALSE
+3174,87H52H64+3M6,0,Outside,Student Recreation Main Entrance,TRUE
+3175,87H52H64+3G8,0,Outside,Sidewalk Outside,FALSE
+3176,87H52H54+RGG,0,Outside,Sidewalk Outside,FALSE
+3177,87H52H42+MM9,0,Outside,Sidewalk Outside,FALSE
