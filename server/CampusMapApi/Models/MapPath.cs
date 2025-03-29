@@ -3,7 +3,7 @@ using CampusMapApi.Models;
 
 namespace CampusMapApi.Models
 {
-    public class Path
+    public class MapPath
     {
         public double Distance { get; set; } = 0;
         public DistanceMetric Metric { get; set; } 
