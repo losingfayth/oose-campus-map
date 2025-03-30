@@ -12,9 +12,9 @@ namespace CampusMapApi.Models
 		{
 			if (code.Length == 8) code = GlobalVars.CampusGridCode + code;
 
-			if (!this.IsValid()) throw new Exception("Invalid code entered: " + code);
-
 			Code = code;
+
+			if (!this.IsValid()) throw new Exception("Invalid code entered: " + code);
 		}
 
 		public OpenLocationCode(GCSCoordinate coordinate, int length)
@@ -201,7 +201,7 @@ namespace CampusMapApi.Models
 			long latPlaceVal = GlobalVars.LatitudeSigDigit;
 			long lngPlaceVal = GlobalVars.LongitudeSigDigit;
 
-			for (int i = 0; i < Math.Min(clean.Length, GlobalVars.MaxEncodingLength); i++)
+			for (int i = 0; i < Math.Min(clean.Length, GlobalVars.MaxEncodingLength); i += 2)
 			{
 				latPlaceVal /= GlobalVars.EncodingBase;
 				lngPlaceVal /= GlobalVars.EncodingBase;
