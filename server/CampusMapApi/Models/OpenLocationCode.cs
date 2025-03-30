@@ -1,5 +1,6 @@
 using System.Text;
 using CampusMapApi;
+using System.Text.Json.Serialization;
 
 
 namespace CampusMapApi.Models
@@ -8,6 +9,7 @@ namespace CampusMapApi.Models
     {
 		public string Code { get; set; }
 
+		[JsonConstructor]
 		public OpenLocationCode(string code)
 		{
 			if (code.Length == 8) code = GlobalVars.CampusGridCode + code;
