@@ -93,4 +93,17 @@ namespace CampusMapApi.Models
 			return Math.Pow(GlobalVars.EncodingBase, -3) / Math.Pow(GlobalVars.GridRows, length - GlobalVars.MaxEncodingLength);
 		}
 	}
+
+	public static class GCSCoordinateExtensions
+	{
+		public static void NormalizeLongitude(this GCSCoordinate c)
+		{
+			c.Longitude = GCSCoordinate.NormalizeLongitude(c.Longitude);
+		}
+
+		public static void ClipLatitude(this GCSCoordinate c)
+		{
+			c.Latitude = GCSCoordinate.ClipLatitude(c.Latitude);
+		}
+	}
 }

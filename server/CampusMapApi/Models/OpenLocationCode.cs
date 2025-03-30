@@ -44,6 +44,9 @@ namespace CampusMapApi.Models
 
 		public static string Compute(GCSCoordinate coordinate, int length)
 		{
+			coordinate.NormalizeLongitude();
+			coordinate.ClipLatitude();
+			/*
 			double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
 
 			double lng = coordinate.Longitude;
@@ -52,12 +55,13 @@ namespace CampusMapApi.Models
 			{
 				long circleDegree = 2 * GlobalVars.LongitudeMax;
 				lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
-			}
+			}*/
 
 			StringBuilder reverseCodeBuilder = new();
 
-			long newLat = (long) (Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
-			long newLng = (long) (Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
+			long newLat = (long) (Math.Round((coordinate.Latitude + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
+
+			long newLng = (long) (Math.Round((coordinate.Longitude + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
 
 			if (length > GlobalVars.MaxEncodingLength)
 			{
@@ -65,8 +69,11 @@ namespace CampusMapApi.Models
 				{
 					long latDigit = newLat % GlobalVars.GridRows;
 					long lngDigit = newLng % GlobalVars.GridColumns;
+
 					int ndx = (int) (latDigit * GlobalVars.GridColumns + lngDigit);
+
 					reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[ndx]);
+
 					newLat /= GlobalVars.GridRows;
 					newLng /= GlobalVars.GridColumns;
 				}
@@ -76,6 +83,7 @@ namespace CampusMapApi.Models
 				newLat = (long) (newLat / Math.Pow(GlobalVars.GridRows, GlobalVars.GridCodeLength));
 				newLng = (long) (newLng / Math.Pow(GlobalVars.GridColumns, GlobalVars.GridCodeLength));
 			}
+
 			for (int i = 0; i < GlobalVars.MaxEncodingLength / 2; i++)
 			{
 				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLng % GlobalVars.EncodingBase)]);
@@ -83,14 +91,17 @@ namespace CampusMapApi.Models
 
 				newLat /= GlobalVars.EncodingBase;
 				newLng /= GlobalVars.EncodingBase;
+
 				if (i == 0) reverseCodeBuilder.Append(GlobalVars.Separator);
 			}
 
 			StringBuilder codeBuilder = new();
+
 			for (int i = 0; i < reverseCodeBuilder.Length; i++)
 			{
 				if (length < GlobalVars.SeparatorPosition && i >= length) codeBuilder.Append(GlobalVars.PaddingCharacter);
-				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1]);
+				
+				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1 - i]);
 			}
 
 			return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
