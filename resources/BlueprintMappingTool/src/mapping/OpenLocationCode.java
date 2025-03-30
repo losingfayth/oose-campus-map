@@ -1,4 +1,4 @@
-// Copyright 2014 Google Inc. All rights reserved.
+package mapping;// Copyright 2014 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import java.util.Objects;
  *
  * <p>This provides both object and static methods.
  *
- * <p>Create an object with: OpenLocationCode code = new OpenLocationCode("7JVW52GR+2V");
- * OpenLocationCode code = new OpenLocationCode("52GR+2V"); OpenLocationCode code = new
- * OpenLocationCode(27.175063, 78.042188); OpenLocationCode code = new OpenLocationCode(27.175063,
+ * <p>Create an object with: mapping.OpenLocationCode code = new mapping.OpenLocationCode("7JVW52GR+2V");
+ * mapping.OpenLocationCode code = new mapping.OpenLocationCode("52GR+2V"); mapping.OpenLocationCode code = new
+ * mapping.OpenLocationCode(27.175063, 78.042188); mapping.OpenLocationCode code = new mapping.OpenLocationCode(27.175063,
  * 78.042188, 11);
  *
  * <p>Once you have a code object, you can apply the other methods to it, such as to shorten:
@@ -99,7 +99,7 @@ public final class OpenLocationCode {
     private static final long LNG_MSP_VALUE = LNG_INTEGER_MULTIPLIER * ENCODING_BASE * ENCODING_BASE;
 
     /**
-     * Coordinates of a decoded Open Location Code.
+     * Coordinates of a decoded Open fixed.Location Code.
      *
      * <p>The coordinates include the latitude and longitude of the lower left and upper right corners
      * and the center of the bounding box for the area the code represents.
@@ -166,7 +166,7 @@ public final class OpenLocationCode {
     private final String code;
 
     /**
-     * Creates Open Location Code object for the provided code.
+     * Creates Open fixed.Location Code object for the provided code.
      *
      * @param code A valid OLC code. Can be a full code or a shortened code.
      * @throws IllegalArgumentException when the passed code is not valid.
@@ -174,13 +174,13 @@ public final class OpenLocationCode {
     public OpenLocationCode(String code) {
         if (!isValidCode(code.toUpperCase())) {
             throw new IllegalArgumentException(
-                    "The provided code '" + code + "' is not a valid Open Location Code.");
+                    "The provided code '" + code + "' is not a valid Open fixed.Location Code.");
         }
         this.code = code.toUpperCase();
     }
 
     /**
-     * Creates Open Location Code.
+     * Creates Open fixed.Location Code.
      *
      * @param latitude The latitude in decimal degrees.
      * @param longitude The longitude in decimal degrees.
@@ -257,7 +257,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Creates Open Location Code with the default precision length.
+     * Creates Open fixed.Location Code with the default precision length.
      *
      * @param latitude The latitude in decimal degrees.
      * @param longitude The longitude in decimal degrees.
@@ -276,8 +276,8 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Encodes latitude/longitude into 10 digit Open Location Code. This method is equivalent to
-     * creating the OpenLocationCode object and getting the code from it.
+     * Encodes latitude/longitude into 10 digit Open fixed.Location Code. This method is equivalent to
+     * creating the mapping.OpenLocationCode object and getting the code from it.
      *
      * @param latitude The latitude in decimal degrees.
      * @param longitude The longitude in decimal degrees.
@@ -288,8 +288,8 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Encodes latitude/longitude into Open Location Code of the provided length. This method is
-     * equivalent to creating the OpenLocationCode object and getting the code from it.
+     * Encodes latitude/longitude into Open fixed.Location Code of the provided length. This method is
+     * equivalent to creating the mapping.OpenLocationCode object and getting the code from it.
      *
      * @param latitude The latitude in decimal degrees.
      * @param longitude The longitude in decimal degrees.
@@ -349,19 +349,19 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Decodes code representing Open Location Code into {@link CodeArea} object encapsulating
+     * Decodes code representing Open fixed.Location Code into {@link CodeArea} object encapsulating
      * latitude/longitude bounding box.
      *
-     * @param code Open Location Code to be decoded.
+     * @param code Open fixed.Location Code to be decoded.
      * @return A CodeArea object.
-     * @throws IllegalArgumentException if the provided code is not a valid Open Location Code.
+     * @throws IllegalArgumentException if the provided code is not a valid Open fixed.Location Code.
      */
     public static CodeArea decode(String code) throws IllegalArgumentException {
         return new OpenLocationCode(code).decode();
     }
 
     /**
-     * Returns whether this {@link OpenLocationCode} is a full Open Location Code.
+     * Returns whether this {@link OpenLocationCode} is a full Open fixed.Location Code.
      *
      * @return True if it is a full code.
      */
@@ -370,7 +370,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether the provided Open Location Code is a full Open Location Code.
+     * Returns whether the provided Open fixed.Location Code is a full Open fixed.Location Code.
      *
      * @param code The code to check.
      * @return True if it is a full code.
@@ -380,7 +380,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether this {@link OpenLocationCode} is a short Open Location Code.
+     * Returns whether this {@link OpenLocationCode} is a short Open fixed.Location Code.
      *
      * @return True if it is short.
      */
@@ -389,7 +389,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether the provided Open Location Code is a short Open Location Code.
+     * Returns whether the provided Open fixed.Location Code is a short Open fixed.Location Code.
      *
      * @param code The code to check.
      * @return True if it is short.
@@ -399,7 +399,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether this {@link OpenLocationCode} is a padded Open Location Code, meaning that it
+     * Returns whether this {@link OpenLocationCode} is a padded Open fixed.Location Code, meaning that it
      * contains less than 8 valid digits.
      *
      * @return True if this code is padded.
@@ -409,7 +409,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether the provided Open Location Code is a padded Open Location Code, meaning that it
+     * Returns whether the provided Open fixed.Location Code is a padded Open fixed.Location Code, meaning that it
      * contains less than 8 valid digits.
      *
      * @param code The code to check.
@@ -420,7 +420,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns short {@link OpenLocationCode} from the full Open Location Code created by removing
+     * Returns short {@link OpenLocationCode} from the full Open fixed.Location Code created by removing
      * four or six digits, depending on the provided reference point. It removes as many digits as
      * possible.
      *
@@ -453,12 +453,12 @@ public final class OpenLocationCode {
             }
         }
         throw new IllegalArgumentException(
-                "Reference location is too far from the Open Location Code center.");
+                "Reference location is too far from the Open fixed.Location Code center.");
     }
 
     /**
-     * Returns an {@link OpenLocationCode} object representing a full Open Location Code from this
-     * (short) Open Location Code, given the reference location.
+     * Returns an {@link OpenLocationCode} object representing a full Open fixed.Location Code from this
+     * (short) Open fixed.Location Code, given the reference location.
      *
      * @param referenceLatitude Degrees.
      * @param referenceLongitude Degrees.
@@ -513,7 +513,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns whether the bounding box specified by the Open Location Code contains provided point.
+     * Returns whether the bounding box specified by the Open fixed.Location Code contains provided point.
      *
      * @param latitude Degrees.
      * @param longitude Degrees.
@@ -552,7 +552,7 @@ public final class OpenLocationCode {
     // Exposed static helper methods.
 
     /**
-     * Returns whether the provided string is a valid Open Location code.
+     * Returns whether the provided string is a valid Open fixed.Location code.
      *
      * @param code The code to check.
      * @return True if it is a valid full or short code.
@@ -634,7 +634,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns if the code is a valid full Open Location Code.
+     * Returns if the code is a valid full Open fixed.Location Code.
      *
      * @param code The code to check.
      * @return True if it is a valid full code.
@@ -648,7 +648,7 @@ public final class OpenLocationCode {
     }
 
     /**
-     * Returns if the code is a valid short Open Location Code.
+     * Returns if the code is a valid short Open fixed.Location Code.
      *
      * @param code The code to check.
      * @return True if it is a valid short code.

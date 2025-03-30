@@ -9,18 +9,16 @@ public class CoordinateSystem {
     Vector jHat;
     double[] inverseMatrix;
 
-    public CoordinateSystem(Point topLeft, Point topRight, Point bottomLeft,
-                            Point bottomRight) throws Exception
+    public CoordinateSystem(Point origin, Point originPlusIHat, Point originPlusJHat) throws Exception
     {
-        this.topLeft = topLeft;
-        this.topRight = topRight;
-        this.bottomLeft = bottomLeft;
-        this.bottomRight = bottomRight;
+        this.topLeft = origin;
+        this.topRight = originPlusIHat;
+        this.bottomLeft = originPlusJHat;
 
-        iHat = new Vector(topRight.x - topLeft.x,
-                topRight.y - topLeft.y);
-        jHat = new Vector(bottomLeft.x - topLeft.x,
-                bottomLeft.y - topLeft.y);
+        iHat = new Vector(originPlusIHat.x - origin.x,
+                originPlusIHat.y - origin.y);
+        jHat = new Vector(originPlusJHat.x - origin.x,
+                originPlusJHat.y - origin.y);
 
         double deterCoeff = iHat.x * jHat.y - jHat.x* iHat.y;
         if (deterCoeff == 0) {

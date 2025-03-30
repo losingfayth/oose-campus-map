@@ -14,6 +14,13 @@ public class Vector
         this.y = p.y;
     }
 
+    public double getX() {
+        return x;
+    }
+    public  double getY() {
+        return y;
+    }
+
     public Vector add(Vector v) {
         return new Vector(this.x+v.x, this.y+v.y);
     }
@@ -31,6 +38,11 @@ public class Vector
     }
     public Vector subtract(Vector v) {
         return this.add(v.scale(-1));
+    }
+
+    public Vector normalize() {
+        double magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+        return new Vector(this.x / magnitude, this.y/magnitude);
     }
 
     @Override
