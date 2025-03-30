@@ -68,21 +68,6 @@ namespace CampusMapApi.Models
 			return new GCSCoordinate(GlobalVars.CampusLat, latMin, latSec, GlobalVars.CampusLng, lngMin, lngSec);
 		}
 
-		public static double NormalizeLongitude(double lng)
-		{
-			if (lng >= -GlobalVars.LongitudeMax 
-			&& lng < GlobalVars.LongitudeMax) return lng;
-
-			long cirDeg = 2 * GlobalVars.LongitudeMax;
-			return (lng % cirDeg + cirDeg + GlobalVars.LongitudeMax) 
-					% cirDeg - GlobalVars.LongitudeMax;
-		}
-
-		public static double ClipLatitude(double lat)
-		{
-			return Math.Min(Math.Max(lat, GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
-		}
-
 		public static double ComputeLatitudePrecision(int length)
 		{
 			if (length <= GlobalVars.CodePrecision)
@@ -96,14 +81,29 @@ namespace CampusMapApi.Models
 
 	public static class GCSCoordinateExtensions
 	{
+		private static double NormalizeLongitude(double lng)
+		{
+			if (lng >= -GlobalVars.LongitudeMax 
+			&& lng < GlobalVars.LongitudeMax) return lng;
+
+			long cirDeg = 2 * GlobalVars.LongitudeMax;
+			return (lng % cirDeg + cirDeg + GlobalVars.LongitudeMax) 
+					% cirDeg - GlobalVars.LongitudeMax;
+		}
+
+		private static double ClipLatitude(double lat)
+		{
+			return Math.Min(Math.Max(lat, GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+		}
+
 		public static void NormalizeLongitude(this GCSCoordinate c)
 		{
-			c.Longitude = GCSCoordinate.NormalizeLongitude(c.Longitude);
+			c.Longitude = NormalizeLongitude(c.Longitude);
 		}
 
 		public static void ClipLatitude(this GCSCoordinate c)
 		{
-			c.Latitude = GCSCoordinate.ClipLatitude(c.Latitude);
+			c.Latitude = ClipLatitude(c.Latitude);
 		}
 	}
 }

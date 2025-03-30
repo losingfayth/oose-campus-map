@@ -2,7 +2,7 @@ using CampusMapApi;
 
 namespace CampusMapApi.Models
 {
-	class CodeArea(double southLat, double westLng, double northLat, double eastLng, int length)
+	public class CodeArea(double southLat, double westLng, double northLat, double eastLng, int length)
 	{
 		public double SouthLatitude { get; set; } = southLat;
 		public double WestLongitude { get; set; } = westLng;

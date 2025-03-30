@@ -151,7 +151,7 @@ namespace CampusMapApi.Models
 		}
     }
 
-	static class OpenLocationCodeExtension
+	public static class OpenLocationCodeExtension
 	{
 
 		public static double DistanceTo(this OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
@@ -164,7 +164,7 @@ namespace CampusMapApi.Models
 			return OpenLocationCode.Validate(codeObj.Code);
 		}
 
-		private static bool IsValidCampus(this OpenLocationCode codeObj)
+		public static bool IsValidCampus(this OpenLocationCode codeObj)
 		{
 			string code = codeObj.Code;
 			int count = 0;
