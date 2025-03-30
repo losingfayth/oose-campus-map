@@ -40,7 +40,7 @@ import { Svg, Path, Circle } from "react-native-svg";
 import { points, originalImageSize } from "./components/Points";
 import generatePath from "./components/PathGenerator";
 
-const uri = Image.resolveAssetSource(require("./assets/BFB-1.jpg")).uri;
+const uri = Image.resolveAssetSource(require("./assets/BFB-1-2.jpg")).uri;
 
 const App = () => {
   const { width, height } = useWindowDimensions();
