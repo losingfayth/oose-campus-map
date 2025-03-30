@@ -20,4 +20,11 @@ public class OLCController : ControllerBase
 		bool ret = OpenLocationCode.Validate(c);
 		return Task.FromResult<IActionResult>(Ok(ret));
 	}
+
+	[HttpPost("ConvertGCS")]
+	public Task<IActionResult> ConvertGCS(GCSCoordinate c)
+	{
+		OpenLocationCode ret = new(c);
+		return Task.FromResult<IActionResult>(Ok(ret));
+	}
 }

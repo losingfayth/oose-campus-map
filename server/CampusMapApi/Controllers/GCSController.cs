@@ -34,4 +34,11 @@ public class GCSController : ControllerBase
 		double ret = GCSCoordinate.ComputeLatitudePrecision(len);
 		return Task.FromResult<IActionResult>(Ok(ret));
 	}
+
+	[HttpPost("ConvertOLC")]
+	public Task<IActionResult> ConvertOLC(OpenLocationCode c)
+	{
+		GCSCoordinate ret = c.DecodeToCenter();
+		return Task.FromResult<IActionResult>(Ok(ret));
+	}
 }
