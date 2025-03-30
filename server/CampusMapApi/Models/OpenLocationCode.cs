@@ -94,7 +94,16 @@ namespace CampusMapApi.Models
 				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1 - i]);
 			}
 
-			return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
+			char[] arr = new char[Math.Max(GlobalVars.SeparatorPosition + 1, length + 1)];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = codeBuilder[i];
+            }
+
+            return new string(arr);
+
+			//return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
 		}
 
 		public static bool Validate(string code)
