@@ -46,16 +46,6 @@ namespace CampusMapApi.Models
 		{
 			coordinate.NormalizeLongitude();
 			coordinate.ClipLatitude();
-			/*
-			double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
-
-			double lng = coordinate.Longitude;
-
-			if (!(lng >= -GlobalVars.LongitudeMax) || !(lng < GlobalVars.LongitudeMax))
-			{
-				long circleDegree = 2 * GlobalVars.LongitudeMax;
-				lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
-			}*/
 
 			StringBuilder reverseCodeBuilder = new();
 
@@ -87,7 +77,7 @@ namespace CampusMapApi.Models
 			for (int i = 0; i < GlobalVars.MaxEncodingLength / 2; i++)
 			{
 				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLng % GlobalVars.EncodingBase)]);
-				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLng % GlobalVars.EncodingBase)]);
+				reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[(int)(newLat % GlobalVars.EncodingBase)]);
 
 				newLat /= GlobalVars.EncodingBase;
 				newLng /= GlobalVars.EncodingBase;
