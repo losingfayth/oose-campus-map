@@ -4,8 +4,8 @@ namespace CampusMapApi.Models
 {
 	public class GCSCoordinate
 	{
-		public double Longitude { get; set; }
 		public double Latitude { get; set; }
+		public double Longitude { get; set; }
 
 		public GCSCoordinate() {}
 		public GCSCoordinate(double latitude, double longitude)
@@ -16,12 +16,11 @@ namespace CampusMapApi.Models
 
 		public GCSCoordinate
 		(
-			double longDeg, double longMin, double longSec,
-			double latDeg, double latMin, double latSec
+			double latitudeDegrees, double latitudeMinutes, double latitudeSeconds, double longitudeDegree, double longitudeMinutes, double longitudeSeconds
 		)
 		{
-			Longitude = longDeg + (longMin / 60) + (longSec / 3600);
-			Latitude = latDeg + (latMin / 60) + (longSec / 3600);
+			Longitude = longitudeDegree + (longitudeMinutes / 60) + (longitudeSeconds / 3600);
+			Latitude = latitudeDegrees + (latitudeMinutes / 60) + (longitudeSeconds / 3600);
 		}
 
 		public Tuple<double, double> Get() 
