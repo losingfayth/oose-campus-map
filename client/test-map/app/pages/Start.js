@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { useLocalSearchParams, useRouter } from "expo-router";
-
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
   Image,
   StatusBar,
   Pressable,
-  Button,
+  Text,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import * as Location from "expo-location";
-import { routeCoordinates } from "./test/test-coords";
+import SearchBar from "../components/SearchBar";
+import { searchables, roomNumbers } from "../components/test/Words";
+import { points } from "../components/Points";
 
-export default function App() {
+export default function Start() {
   const [location, setLocation] = useState(null);
   const [subscription, setTracker] = useState(null);
   const [region, setRegion] = useState({
@@ -25,27 +26,26 @@ export default function App() {
   });
 
   const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
-  const [isTyping, setIsTyping] = useState(false);
+  const [isBuildingTyping, setIsBuildingTyping] = useState(false);
+  const [isRoomTyping, setIsRoomTyping] = useState(false);
 
   // State to store selected from and room values
-  const [selectedFrom, setSelectedFrom] = useState(null);
-  const [selectedRoom, setSelectedRoom] = useState(null);
-
-  const router = useRouter();
-
-  const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
-  const parsedPoints = coords ? JSON.parse(coords) : [];
-
-  const locs = JSON.parse(categories || "[]"); // Convert back to an array
-  const currIndex = parseInt(currLoc);
-  // console.log("---->", parsedPoints[currIndex]);
-
-  //const selectedPoints = [routeCoordinates[2], routeCoordinates[3], routeCoordinates[4]];
+  const [selectedStartBuilding, setStartBuilding] = useState(null);
+  const [selectedStartRoom, setStartRoom] = useState(null);
+  const [selectedEndBuilding, setEndBuilding] = useState(null);
+  const [selectedEndRoom, setEndRoom] = useState(null);
 
   // set up a useEffect to request permissions, fetch user location, and track location
   useEffect(() => {
     // request user location to use while app is running
     async function getPermissionsAndStartWatching() {
+      // wait until we get permission granted or denied
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission not granted");
+        return;
+      }
+
       // Get initial location
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
@@ -100,20 +100,18 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar hidden={true} />
 
+      {/* Text above search bars*/}
+      <View style={styles.textBox}>
+        <Text style={styles.text}>Hello</Text>
+      </View>
+
       <MapView
         style={styles.map}
         region={region} // Directly control region without initialRegion
         // minZoomLevel={16} // Ensure minimum zoom level is appropriate
         onRegionChangeComplete={handleRegionChangeComplete} // update the zoom level when the user changes it
+        minZoomLevel={16}
       >
-        {/* Draw the path */}
-        <Polyline
-          coordinates={parsedPoints[currIndex]}
-          // or, for a select group of points from the container:
-          //coordinates={selectedPoints}
-          strokeWidth={10}
-          strokeColor="blue"
-        />
         {/* Marker showing the User's location */}
         {location && (
           <Marker
@@ -130,62 +128,77 @@ export default function App() {
         )}
       </MapView>
 
-      {/* Previous button (only if not at the first location) */}
-      {currIndex > 0 && (
-        <View style={[styles.buttonWrapper, styles.leftButton]}>
-          <Button
-            title="Prev"
-            onPress={() => {
-              router.push({
-                pathname: `/buildings/${locs[currIndex - 1]}`,
-                params: {
-                  categories: JSON.stringify(locs),
-                  coords: JSON.stringify(parsedPoints),
-                  currLoc: currIndex - 1,
-                  maxLocs,
-                },
-              });
-            }}
-          />
-        </View>
-      )}
+      {/* Search Button */}
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          // Check if we have a building and room # for current location and destination
+          if (
+            true
+            // selectedStartBuilding !== null &&
+            // selectedStartRoom !== null &&
+            // selectedEndBuilding !== null &&
+            // selectedEndRoom !== null
+          ) {
+            console.log("Not null");
 
-      <View style={[styles.buttonWrapper, styles.centerButton]}>
-        <Button
-          title="Home"
-          onPress={() => {
+            // Testing getting the array of buildings
+            const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
-              pathname: "../pages/Start",
+              pathname: `/buildings/${locs[0]}`,
               params: {
-                categories: null,
-                coords: null,
+                categories: JSON.stringify(locs),
+                coords: JSON.stringify(points),
                 currLoc: 0,
-                maxLocs: 0,
+                maxLocs: locs.length - 1,
               },
             });
-          }}
-        />
-      </View>
+          } else {
+            console.log("One or more values are null");
+          }
+        }}
+      >
+        <Text style={styles.buttonText}>Search</Text>
+      </Pressable>
 
-      {/* Next button (only if there are more locations) */}
-      {currIndex < maxLocs && (
-        <View style={[styles.buttonWrapper, styles.rightButton]}>
-          <Button
-            title="Next"
-            onPress={() => {
-              router.push({
-                pathname: `/buildings/${locs[currIndex + 1]}`,
-                params: {
-                  categories: JSON.stringify(locs),
-                  coords: JSON.stringify(parsedPoints),
-                  currLoc: currIndex + 1,
-                  maxLocs,
-                },
-              });
-            }}
-          />
-        </View>
-      )}
+      {/* Search bar with first being for building and second for room number */}
+      <SearchBar
+        searchFilterData={searchables}
+        customStyles={{ left: "5%", width: "60%" }}
+        placeholderText="From"
+        onTypingChange={setIsBuildingTyping}
+        onSelect={setStartBuilding} // Set selected "From" value
+      />
+      <SearchBar
+        customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
+        showIcon={false}
+        searchFilterData={roomNumbers}
+        searchFilterStyles={{ width: "100%" }}
+        placeholderText="Room #"
+        onTypingChange={setIsRoomTyping}
+        onSelect={setStartRoom} // Set selected "Room" value
+      />
+
+      {/* Second set of two search bars.*/}
+      <SearchBar
+        searchFilterData={searchables}
+        customStyles={{ top: "16%", left: "5%", width: "60%" }}
+        placeholderText="To"
+        onSelect={setEndBuilding}
+      />
+      <SearchBar
+        customStyles={{
+          top: "16%",
+          width: "31%",
+          left: "64%",
+          borderColor: "black",
+        }}
+        showIcon={false}
+        searchFilterData={roomNumbers}
+        searchFilterStyles={{ width: "100%" }}
+        placeholderText="Room #"
+        onSelect={setEndRoom}
+      />
     </View>
   );
 }
@@ -199,6 +212,20 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  textBox: {
+    position: "absolute",
+    top: 40,
+    justifyContent: "center",
+    backgroundColor: "#f1f1f1",
+    padding: 10,
+    borderRadius: 5,
+    zIndex: 10, // Ensures it stays on top of other content
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
   button: {
     position: "absolute",
     top: "24%",
@@ -206,7 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    flexDirection: "row", // Align the icon and text horizontally
+    flexDirection: "row",
     alignItems: "center",
     borderRadius: 5,
     borderColor: "black",
@@ -216,21 +243,6 @@ const styles = StyleSheet.create({
     color: "grey",
     fontSize: 18,
     fontWeight: "bold",
-    marginLeft: 10, // Add space between icon and text
-  },
-  buttonWrapper: {
-    position: "absolute",
-    bottom: "10%",
-  },
-  leftButton: {
-    left: "10%",
-  },
-  centerButton: {
-    position: "absolute",
-    left: "50%",
-    transform: [{ translateX: "-50%" }],
-  },
-  rightButton: {
-    right: "10%",
+    marginLeft: 10,
   },
 });

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { useLocalSearchParams, useRouter } from "expo-router";
-
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
   Image,
   StatusBar,
   Pressable,
-  Button,
+  Text,
 } from "react-native";
 import { Link } from "expo-router";
 import * as Location from "expo-location";
-import { routeCoordinates } from "./test/test-coords";
+import SearchBar from "../components/SearchBar";
+import { searchables, roomNumbers } from "../components/test/Words";
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -31,14 +31,32 @@ export default function App() {
   const [selectedFrom, setSelectedFrom] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
-  const router = useRouter();
-
-  const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
-  const parsedPoints = coords ? JSON.parse(coords) : [];
-
-  const locs = JSON.parse(categories || "[]"); // Convert back to an array
-  const currIndex = parseInt(currLoc);
-  // console.log("---->", parsedPoints[currIndex]);
+  const routeCoordinates = [
+    // Apple maps
+    // { latitude: 41.006960, longitude: -76.448590 }, // Point a
+    // { latitude: 41.007050, longitude: -76.448650 }, // Point b
+    // { latitude: 41.007150, longitude: -76.448610 },
+    // { latitude: 41.007230, longitude: -76.448520 }, // Point c
+    // { latitude: 41.007249, longitude: -76.448466 }, // Point d
+    { latitude: 41.0069, longitude: -76.44911 }, // first
+    { latitude: 41.006774, longitude: -76.449009 },
+    { latitude: 41.006975, longitude: -76.448576 },
+    { latitude: 41.007099, longitude: -76.448645 },
+    { latitude: 41.007242, longitude: -76.448531 },
+    { latitude: 41.007249, longitude: -76.448466 },
+    { latitude: 41.007319, longitude: -76.448316 },
+    { latitude: 41.007191, longitude: -76.448214 },
+    { latitude: 41.007175, longitude: -76.448248 },
+    { latitude: 41.007099, longitude: -76.448306 },
+    { latitude: 41.00699, longitude: -76.44822 },
+    // { latitude: 41.006980, longitude: -76.448245 },
+    { latitude: 41.00695003, longitude: -76.44821454 },
+    { latitude: 41.00690578, longitude: -76.4483156 },
+    { latitude: 41.00693638, longitude: -76.4483393 },
+    { latitude: 41.00696368, longitude: -76.44836176 },
+    { latitude: 41.00703194, longitude: -76.44841603 },
+    { latitude: 41.0070037, longitude: -76.4484965 },
+  ];
 
   //const selectedPoints = [routeCoordinates[2], routeCoordinates[3], routeCoordinates[4]];
 
@@ -77,24 +95,11 @@ export default function App() {
 
   // Handle region change only if the region hasn't been set yet
   const handleRegionChangeComplete = (newRegion) => {
-    setRegion(newRegion);
-  };
-
-  // Update region with location data when it's available
-  useEffect(() => {
-    if (location && !isRegionSet) {
-      const newRegion = {
-        // latitude: location.latitude,
-        // longitude: location.longitude,
-        latitude: 41.007799728334525,
-        longitude: -76.44851515601727,
-        latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421,
-      };
+    if (!isRegionSet) {
       setRegion(newRegion);
       setIsRegionSet(true); // Mark that the region is set
     }
-  }, [location, isRegionSet]); // Ensure this runs only when the location is available
+  };
 
   return (
     <View style={styles.container}>
@@ -102,13 +107,16 @@ export default function App() {
 
       <MapView
         style={styles.map}
-        region={region} // Directly control region without initialRegion
-        // minZoomLevel={16} // Ensure minimum zoom level is appropriate
+        initialRegion={region} // Set the initial region only once
+        region={isRegionSet ? region : undefined} // After the initial set, use the region prop only
+        //showsUserLocation={true}
+
         onRegionChangeComplete={handleRegionChangeComplete} // update the zoom level when the user changes it
+        // minZoomLevel={16}
       >
         {/* Draw the path */}
         <Polyline
-          coordinates={parsedPoints[currIndex]}
+          coordinates={routeCoordinates}
           // or, for a select group of points from the container:
           //coordinates={selectedPoints}
           strokeWidth={10}
@@ -130,62 +138,18 @@ export default function App() {
         )}
       </MapView>
 
-      {/* Previous button (only if not at the first location) */}
-      {currIndex > 0 && (
-        <View style={[styles.buttonWrapper, styles.leftButton]}>
-          <Button
-            title="Prev"
-            onPress={() => {
-              router.push({
-                pathname: `/buildings/${locs[currIndex - 1]}`,
-                params: {
-                  categories: JSON.stringify(locs),
-                  coords: JSON.stringify(parsedPoints),
-                  currLoc: currIndex - 1,
-                  maxLocs,
-                },
-              });
-            }}
-          />
-        </View>
-      )}
-
-      <View style={[styles.buttonWrapper, styles.centerButton]}>
-        <Button
-          title="Home"
-          onPress={() => {
-            router.push({
-              pathname: "../pages/Start",
-              params: {
-                categories: null,
-                coords: null,
-                currLoc: 0,
-                maxLocs: 0,
-              },
-            });
+      {/* Button with icon in the center of the screen */}
+      <Pressable style={styles.button} onPress={() => {}}>
+        {/* <Text style={styles.centerButtonText}>Search</Text> */}
+        <Link
+          href={{
+            pathname: "/pages/to",
           }}
-        />
-      </View>
-
-      {/* Next button (only if there are more locations) */}
-      {currIndex < maxLocs && (
-        <View style={[styles.buttonWrapper, styles.rightButton]}>
-          <Button
-            title="Next"
-            onPress={() => {
-              router.push({
-                pathname: `/buildings/${locs[currIndex + 1]}`,
-                params: {
-                  categories: JSON.stringify(locs),
-                  coords: JSON.stringify(parsedPoints),
-                  currLoc: currIndex + 1,
-                  maxLocs,
-                },
-              });
-            }}
-          />
-        </View>
-      )}
+          style={styles.buttonText}
+        >
+          Search
+        </Link>
+      </Pressable>
     </View>
   );
 }
@@ -217,20 +181,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginLeft: 10, // Add space between icon and text
-  },
-  buttonWrapper: {
-    position: "absolute",
-    bottom: "10%",
-  },
-  leftButton: {
-    left: "10%",
-  },
-  centerButton: {
-    position: "absolute",
-    left: "50%",
-    transform: [{ translateX: "-50%" }],
-  },
-  rightButton: {
-    right: "10%",
   },
 });
