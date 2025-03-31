@@ -80,7 +80,7 @@ namespace CampusMapApi.Models
 
 	public static class GCSCoordinateExtensions
 	{
-		private static double NormalizeLongitude(double lng)
+		public static double NormalizeLongitude(double lng)
 		{
 			if (!(lng >= -GlobalVars.LongitudeMax) 
 			 || !(lng < GlobalVars.LongitudeMax))
@@ -93,7 +93,7 @@ namespace CampusMapApi.Models
 			return lng;
 		}
 
-		private static double ClipLatitude(double lat)
+		public static double ClipLatitude(double lat)
 		{
 			return Math.Min(Math.Max(lat, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
 		}
