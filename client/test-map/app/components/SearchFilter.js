@@ -58,5 +58,6 @@ const styles = StyleSheet.create({
     top: 60, // Fixed incorrect string values
     // left: 15,
     justifyContent: "center",
+    zIndex: 10, // Ensures it stays on top of other content
   },
 });

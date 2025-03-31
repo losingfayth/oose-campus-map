@@ -3,7 +3,7 @@
     "name": "test-map",
     "slug": "test-map",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "DEFAULT",
     "icon": "./assets/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "light",

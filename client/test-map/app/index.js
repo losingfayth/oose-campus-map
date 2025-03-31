@@ -3,7 +3,7 @@ import { Link, Redirect, router } from "expo-router";
 import React from "react";
 
 export default function index() {
-  return <Redirect href={"/pages/App"} />;
+  return <Redirect href={"/pages/Start"} />;
   // return (
   //   <View>
   //     <StatusBar hidden={true} />

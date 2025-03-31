@@ -18,6 +18,10 @@ export const searchables = [
     name: "Centennial",
     id: "4",
   },
+  {
+    name: "Navy Hall",
+    id: "5",
+  },
 ];
 
 export const roomNumbers = [
@@ -36,5 +40,9 @@ export const roomNumbers = [
   {
     name: "218",
     id: "4",
+  },
+  {
+    name: "220",
+    id: "5",
   },
 ];
