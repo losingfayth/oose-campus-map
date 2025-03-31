@@ -220,7 +220,7 @@ namespace CampusMapApi.Models
 
 				int digit = GlobalVars.CodeAlphabet.IndexOf(clean[i]);
 				int row = digit / GlobalVars.GridColumns; // ?????
-				int col = digit / GlobalVars.GridColumns; // ?????
+				int col = digit % GlobalVars.GridColumns; // ?????
 
 				latVal += row * latPlaceVal;
 				lngVal += col * lngPlaceVal;
