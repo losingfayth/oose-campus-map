@@ -14,20 +14,6 @@ public class GCSController : ControllerBase
 		return Task.FromResult<IActionResult>(Ok(ret));
 	}
 
-	[HttpPost("ClipLatitude")]
-	public Task<IActionResult> ClipLatitude(double lat)
-	{
-		double ret = GCSCoordinate.ClipLatitude(lat);
-		return Task.FromResult<IActionResult>(Ok(ret));
-	}
-
-	[HttpPost("NormalizeLongitude")]
-	public Task<IActionResult> NormalizeLongitude(double lng)
-	{
-		double ret = GCSCoordinate.NormalizeLongitude(lng);
-		return Task.FromResult<IActionResult>(Ok(ret));
-	}
-
 	[HttpPost("GetLatitudePrecision")]
 	public Task<IActionResult> GetLatitudePrecision(int len)
 	{
