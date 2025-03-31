@@ -8,10 +8,10 @@ namespace CampusMapApi.Models
 		public double Latitude { get; set; }
 
 		public GCSCoordinate() {}
-		public GCSCoordinate(double longitude, double latitude)
+		public GCSCoordinate(double latitude, double longitude)
 		{
-			Longitude = longitude;
 			Latitude = latitude;
+			Longitude = longitude;
 		}
 
 		public GCSCoordinate
@@ -58,8 +58,8 @@ namespace CampusMapApi.Models
 
 		public static double GetDistance(double startLat, double startLng, double endLat, double endLng, DistanceMetric metric)
 		{
-			GCSCoordinate start = new(startLng, startLat);
-			GCSCoordinate end = new(endLng, endLat);
+			GCSCoordinate start = new(startLat, startLng);
+			GCSCoordinate end = new(endLat, endLng);
 			return GetDistance(start, end, metric);
 		}
 
