@@ -92,7 +92,7 @@ namespace CampusMapApi.Models
 
 		private static double ClipLatitude(double lat)
 		{
-			return Math.Min(Math.Max(lat, GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+			return Math.Min(Math.Max(lat, GlobalVars.LatitudeMax), -GlobalVars.LatitudeMax);
 		}
 
 		public static void NormalizeLongitude(this GCSCoordinate c)
