@@ -20,7 +20,7 @@ namespace CampusMapApi.Models
 		)
 		{
 			Longitude = longitudeDegree + (longitudeMinutes / 60) + (longitudeSeconds / 3600);
-			Latitude = latitudeDegrees + (latitudeMinutes / 60) + (longitudeSeconds / 3600);
+			Latitude = latitudeDegrees + (latitudeMinutes / 60) + (latitudeSeconds / 3600);
 		}
 
 		public Tuple<double, double> Get() 
@@ -82,12 +82,15 @@ namespace CampusMapApi.Models
 	{
 		private static double NormalizeLongitude(double lng)
 		{
-			if (lng >= -GlobalVars.LongitudeMax 
-			&& lng < GlobalVars.LongitudeMax) return lng;
-
-			long cirDeg = 2 * GlobalVars.LongitudeMax;
-			return (lng % cirDeg + cirDeg + GlobalVars.LongitudeMax) 
+			if (!(lng >= -GlobalVars.LongitudeMax) 
+			 || !(lng < GlobalVars.LongitudeMax))
+			{
+				long cirDeg = 2 * GlobalVars.LongitudeMax;
+				lng = (lng % cirDeg + cirDeg + GlobalVars.LongitudeMax) 
 					% cirDeg - GlobalVars.LongitudeMax;
+			}
+
+			return lng;
 		}
 
 		private static double ClipLatitude(double lat)
