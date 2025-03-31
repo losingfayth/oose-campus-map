@@ -1,15 +1,13 @@
 using System.Text;
 using CampusMapApi;
-using System.Text.Json.Serialization;
 
 
 namespace CampusMapApi.Models
 {
 	public class OpenLocationCode
-    {
+	{
 		public string Code { get; set; }
 
-		[JsonConstructor]
 		public OpenLocationCode(string code)
 		{
 			if (code.Length == 8) code = GlobalVars.CampusGridCode + code;
@@ -17,6 +15,7 @@ namespace CampusMapApi.Models
 			Code = code;
 
 			if (!this.IsValid()) throw new Exception("Invalid code entered: " + code);
+
 		}
 
 		public OpenLocationCode(GCSCoordinate coordinate, int length)
@@ -44,14 +43,20 @@ namespace CampusMapApi.Models
 
 		public static string Compute(GCSCoordinate coordinate, int length)
 		{
-			coordinate.NormalizeLongitude();
-			coordinate.ClipLatitude();
+			double lat = Math.Min(Math.Max(coordinate.Latitude, -GlobalVars.LatitudeMax), GlobalVars.LatitudeMax);
+
+			double lng = coordinate.Longitude;
+
+			if (!(lng >= -GlobalVars.LongitudeMax) || !(lng < GlobalVars.LongitudeMax))
+			{
+				long circleDegree = 2 * GlobalVars.LongitudeMax;
+				lng = (lng % circleDegree + circleDegree + GlobalVars.LongitudeMax) % circleDegree - GlobalVars.LongitudeMax;
+			}
 
 			StringBuilder reverseCodeBuilder = new();
 
-			long newLat = (long) (Math.Round((coordinate.Latitude + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
-
-			long newLng = (long) (Math.Round((coordinate.Longitude + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
+			long newLat = (long)(Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) / 1e6);
+			long newLng = (long)(Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) / 1e6);
 
 			if (length > GlobalVars.MaxEncodingLength)
 			{
@@ -59,20 +64,18 @@ namespace CampusMapApi.Models
 				{
 					long latDigit = newLat % GlobalVars.GridRows;
 					long lngDigit = newLng % GlobalVars.GridColumns;
-
-					int ndx = (int) (latDigit * GlobalVars.GridColumns + lngDigit);
-
+					int ndx = (int)(latDigit * GlobalVars.GridColumns + lngDigit);
 					reverseCodeBuilder.Append(GlobalVars.CodeAlphabet[ndx]);
-
 					newLat /= GlobalVars.GridRows;
 					newLng /= GlobalVars.GridColumns;
 				}
 			}
 			else
 			{
-				newLat = (long) (newLat / Math.Pow(GlobalVars.GridRows, GlobalVars.GridCodeLength));
-				newLng = (long) (newLng / Math.Pow(GlobalVars.GridColumns, GlobalVars.GridCodeLength));
+				newLat = (long)(newLat / Math.Pow(GlobalVars.GridRows, GlobalVars.GridCodeLength));
+				newLng = (long)(newLng / Math.Pow(GlobalVars.GridColumns, GlobalVars.GridCodeLength));
 			}
+
 
 			for (int i = 0; i < GlobalVars.MaxEncodingLength / 2; i++)
 			{
@@ -81,18 +84,16 @@ namespace CampusMapApi.Models
 
 				newLat /= GlobalVars.EncodingBase;
 				newLng /= GlobalVars.EncodingBase;
-
 				if (i == 0) reverseCodeBuilder.Append(GlobalVars.Separator);
 			}
 
 			StringBuilder codeBuilder = new();
-
 			for (int i = 0; i < reverseCodeBuilder.Length; i++)
 			{
 				if (length < GlobalVars.SeparatorPosition && i >= length) codeBuilder.Append(GlobalVars.PaddingCharacter);
-				
 				else codeBuilder.Append(reverseCodeBuilder[reverseCodeBuilder.Length - 1 - i]);
 			}
+
 
 			return codeBuilder.ToString(0, Math.Max(GlobalVars.SeparatorPosition + 1, length + 1));
 		}
@@ -105,7 +106,7 @@ namespace CampusMapApi.Models
 
 			int separatorPosition = code.IndexOf(GlobalVars.Separator);
 
-			if (separatorPosition == -1 
+			if (separatorPosition == -1
 				|| separatorPosition != code.LastIndexOf(GlobalVars.Separator)
 				|| separatorPosition % 2 != 0
 				|| separatorPosition > GlobalVars.SeparatorPosition
@@ -149,29 +150,36 @@ namespace CampusMapApi.Models
 		{
 			return code.IndexOf(GlobalVars.Separator) == GlobalVars.SeparatorPosition;
 		}
-    }
 
-	public static class OpenLocationCodeExtension
+		public static void Print(string s)
+		{
+			Console.WriteLine("Model: " + s);
+		}
+	}
+
+
+
+	static class OpenLocationCodeExtension
 	{
 
 		public static double DistanceTo(this OpenLocationCode c1, OpenLocationCode c2, DistanceMetric metric)
 		{
 			return OpenLocationCode.GetDistance(c1, c2, metric);
 		}
-		
+
 		public static bool IsValid(this OpenLocationCode codeObj)
 		{
 			return OpenLocationCode.Validate(codeObj.Code);
 		}
 
-		public static bool IsValidCampus(this OpenLocationCode codeObj)
+		private static bool IsValidCampus(this OpenLocationCode codeObj)
 		{
 			string code = codeObj.Code;
 			int count = 0;
 
 			for (int i = 0; i < code.Length; i++)
 			{
-				if (GlobalVars.CodeAlphabet.Contains(code[i])) count ++;
+				if (GlobalVars.CodeAlphabet.Contains(code[i])) count++;
 			}
 
 			return count == 7;
@@ -187,6 +195,8 @@ namespace CampusMapApi.Models
 			c.Code = GlobalVars.CampusGridCode + c;
 		}
 
+
+
 		public static CodeArea Decode(this OpenLocationCode codeObj)
 		{
 			if (codeObj.Code.IndexOf(GlobalVars.Separator) != GlobalVars.SeparatorPosition)
@@ -196,7 +206,7 @@ namespace CampusMapApi.Models
 
 			string clean = codeObj.Code.Replace(GlobalVars.Separator.ToString(), "");
 
-			if (clean.Length == 7) {}
+			if (clean.Length == 7) { }
 
 			long latVal = -GlobalVars.LatitudeMax * GlobalVars.LatitudeMultiplier;
 			long lngVal = -GlobalVars.LongitudeMax * GlobalVars.LongitudeMultiplier;
@@ -213,25 +223,25 @@ namespace CampusMapApi.Models
 				lngVal += GlobalVars.CodeAlphabet.IndexOf(clean[i + 1]) * lngPlaceVal;
 			}
 
-			for (int i = GlobalVars.MaxEncodingLength; i < Math.Min(clean.Length, GlobalVars.MaxDigitCount); i ++)
+			for (int i = GlobalVars.MaxEncodingLength; i < Math.Min(clean.Length, GlobalVars.MaxDigitCount); i++)
 			{
 				latPlaceVal /= GlobalVars.GridRows;
 				lngPlaceVal /= GlobalVars.GridColumns;
 
 				int digit = GlobalVars.CodeAlphabet.IndexOf(clean[i]);
 				int row = digit / GlobalVars.GridColumns; // ?????
-				int col = digit / GlobalVars.GridColumns; // ?????
+				int col = digit % GlobalVars.GridColumns; // ?????
 
 				latVal += row * latPlaceVal;
 				lngVal += col * lngPlaceVal;
 
 			}
 
-			double latMin = (double) latVal / GlobalVars.LatitudeMultiplier;
-			double lngMin = (double) lngVal / GlobalVars.LongitudeMultiplier;
+			double latMin = (double)latVal / GlobalVars.LatitudeMultiplier;
+			double lngMin = (double)lngVal / GlobalVars.LongitudeMultiplier;
 
-			double latMax = (double) (latVal + latPlaceVal) / GlobalVars.LatitudeMultiplier;
-			double lngMax = (double) (lngVal + lngPlaceVal) / GlobalVars.LongitudeMultiplier;
+			double latMax = (double)(latVal + latPlaceVal) / GlobalVars.LatitudeMultiplier;
+			double lngMax = (double)(lngVal + lngPlaceVal) / GlobalVars.LongitudeMultiplier;
 
 			return new CodeArea(latMin, lngMin, latMax, lngMax, Math.Min(clean.Length, GlobalVars.MaxDigitCount));
 		}
