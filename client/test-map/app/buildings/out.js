@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
   Image,
-  KeyboardAvoidingView,
-  Platform,
+  StatusBar,
+  Pressable,
+  Text,
 } from "react-native";
+import { Link } from "expo-router";
 import * as Location from "expo-location";
-import SearchBar from "./app/components/SearchBar";
-import BarSearch from "./app/components/BarSearch";
-import { searchables, roomNumbers } from "./app/components/test/Words";
+import SearchBar from "../components/SearchBar";
+import { searchables, roomNumbers } from "../components/test/Words";
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -21,8 +23,13 @@ export default function App() {
     latitudeDelta: 0.00922,
     longitudeDelta: 0.00421,
   });
+
   const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
   const [isTyping, setIsTyping] = useState(false);
+
+  // State to store selected from and room values
+  const [selectedFrom, setSelectedFrom] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   const routeCoordinates = [
     // Apple maps
@@ -57,13 +64,6 @@ export default function App() {
   useEffect(() => {
     // request user location to use while app is running
     async function getPermissionsAndStartWatching() {
-      // wait until we get permission granted or denied
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permission not granted");
-        return;
-      }
-
       // Get initial location
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
@@ -103,6 +103,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar hidden={true} />
+
       <MapView
         style={styles.map}
         initialRegion={region} // Set the initial region only once
@@ -110,7 +112,7 @@ export default function App() {
         //showsUserLocation={true}
 
         onRegionChangeComplete={handleRegionChangeComplete} // update the zoom level when the user changes it
-        minZoomLevel={16}
+        // minZoomLevel={16}
       >
         {/* Draw the path */}
         <Polyline
@@ -129,51 +131,25 @@ export default function App() {
             }}
           >
             <Image
-              source={require("./assets/cropped-huskie.png")}
+              source={require("../assets/cropped-huskie.png")}
               style={{ height: 40, width: 40 }}
             />
           </Marker>
         )}
       </MapView>
 
-      {/* Add search bar with first being for building and second for room number */}
-      <SearchBar
-        searchFilterData={searchables}
-        customStyles={{ left: "5%", width: "60%" }}
-        placeholderText="From"
-        onTypingChange={setIsTyping} // Add this prop
-      />
-      <SearchBar
-        customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
-        showIcon={false}
-        searchFilterData={roomNumbers}
-        searchFilterStyles={{ width: "100%" }}
-        placeholderText="Room #"
-        onTypingChange={setIsTyping} // Add this prop
-      />
-
-      {/* Second set of two search bars. Check if user is typing in top two and if so, hide below bars */}
-      {!isTyping && (
-        <>
-          <SearchBar
-            searchFilterData={searchables}
-            customStyles={{ top: "17%", left: "5%", width: "60%" }}
-            placeholderText="To"
-          />
-          <SearchBar
-            customStyles={{
-              top: "17%",
-              width: "31%",
-              left: "64%",
-              borderColor: "black",
-            }}
-            showIcon={false}
-            searchFilterData={roomNumbers}
-            searchFilterStyles={{ width: "100%" }}
-            placeholderText="Room #"
-          />
-        </>
-      )}
+      {/* Button with icon in the center of the screen */}
+      <Pressable style={styles.button} onPress={() => {}}>
+        {/* <Text style={styles.centerButtonText}>Search</Text> */}
+        <Link
+          href={{
+            pathname: "/pages/to",
+          }}
+          style={styles.buttonText}
+        >
+          Search
+        </Link>
+      </Pressable>
     </View>
   );
 }
@@ -186,5 +162,24 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  button: {
+    position: "absolute",
+    top: "24%",
+    right: "5%",
+    backgroundColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: "row", // Align the icon and text horizontally
+    alignItems: "center",
+    borderRadius: 5,
+    borderColor: "black",
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: "grey",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 10, // Add space between icon and text
   },
 });
