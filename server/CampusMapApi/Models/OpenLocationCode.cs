@@ -44,14 +44,14 @@ namespace CampusMapApi.Models
 
 		public static string Compute(GCSCoordinate coordinate, int length)
 		{
-			double lng = GCSCoordinateExtensions.NormalizeLongitude(coordinate.Longitude);
-			double lat = GCSCoordinateExtensions.ClipLatitude(coordinate.Latitude);
+			coordinate.NormalizeLongitude();
+			coordinate.ClipLatitude();
 
 			StringBuilder reverseCodeBuilder = new();
 
-			long newLat = (long) (Math.Round((lat + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
+			long newLat = (long) (Math.Round((coordinate.Latitude + GlobalVars.LatitudeMax) * GlobalVars.LatitudeMultiplier * 1e6) * 1e6);
 
-			long newLng = (long) (Math.Round((lng + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
+			long newLng = (long) (Math.Round((coordinate.Longitude + GlobalVars.LongitudeMax) * GlobalVars.LongitudeMultiplier * 1e6) * 1e6);
 
 			if (length > GlobalVars.MaxEncodingLength)
 			{
