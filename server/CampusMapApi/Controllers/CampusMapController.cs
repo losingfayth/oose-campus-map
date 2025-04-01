@@ -33,7 +33,7 @@ public class CampusMapController : ControllerBase
     
     // http POST endpoint accessible at POST /api/CampusMap/find-path
     [HttpPost("find-path")]
-    public Task<IActionResult> FindPath(int currLoc, int dest) {
+    public async Task<IActionResult> FindPath(int currLoc, int dest) {
 
       var path = new List<LocationNode>();
         // initial db connection
