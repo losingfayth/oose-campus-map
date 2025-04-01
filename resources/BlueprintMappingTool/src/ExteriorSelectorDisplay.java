@@ -202,6 +202,7 @@ L
                     String code = OpenLocationCode.encode(p.x, p.y);
                     System.out.printf("%n%s",
                             code);
+                    System.out.printf("%n(lat,lng) = (%f, %f)", p.x, p.y);
 
                     String counterValue = String.valueOf(counter.getValue());
                     Location labelLocationText;
