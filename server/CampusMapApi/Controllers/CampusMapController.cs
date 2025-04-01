@@ -70,7 +70,7 @@ public class CampusMapController : ControllerBase
       var records = await result.ToListAsync();
       return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
-      return Task.FromResult<IActionResult>(Ok(path));
+      return Ok(path);
 
     }
 
