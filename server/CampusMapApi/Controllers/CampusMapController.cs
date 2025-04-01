@@ -35,7 +35,7 @@ public class CampusMapController : ControllerBase
     [HttpPost("find-path")]
     public Task<IActionResult> FindPath(int currLoc, int dest) {
 
-      //var path = new List<LocationNode>();
+      var path = new List<LocationNode>();
         // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
       var username = Environment.GetEnvironmentVariable("DB_USER") 
@@ -46,29 +46,29 @@ public class CampusMapController : ControllerBase
       IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
       await using var session = _driver.AsyncSession();
       
-        var query = @"
-            MATCH (start:Location {name: $currLoc}), (end:Location {name: $dest})
-            CALL gds.shortestPath.astar.stream({
-              nodeProjection: 'Location',
-              relationshipProjection: {
-                CONNECTS: {
-                  type: 'CONNECTS',
-                  properties: 'distance',
-                  orientation: 'UNDIRECTED'
-                }
-              },
-              sourceNode: start,
-              targetNode: end,
-              latitudeProperty: 'latitude',
-              longitudeProperty: 'longitude'
-            })
-            YIELD nodeIds
-            RETURN [node IN nodeIds | gds.util.asNode(node).name] AS path";
+      var query = @"
+          MATCH (start:Location {name: $currLoc}), (end:Location {name: $dest})
+          CALL gds.shortestPath.astar.stream({
+            nodeProjection: 'Location',
+            relationshipProjection: {
+              CONNECTS: {
+                type: 'CONNECTS',
+                properties: 'distance',
+                orientation: 'UNDIRECTED'
+              }
+            },
+            sourceNode: start,
+            targetNode: end,
+            latitudeProperty: 'latitude',
+            longitudeProperty: 'longitude'
+          })
+          YIELD nodeIds
+          RETURN [node IN nodeIds | gds.util.asNode(node).name] AS path";
 
-        var result = await session.RunAsync(query, new { currLoc, dest });
+      var result = await session.RunAsync(query, new { currLoc, dest });
 
-        var records = await result.ToListAsync();
-        return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+      var records = await result.ToListAsync();
+      return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
       return Task.FromResult<IActionResult>(Ok(path));
 
@@ -76,10 +76,63 @@ public class CampusMapController : ControllerBase
 
     /** 
     Queries database for all nodes and returns a list of location objects.
-    http GET api endpoint accessible at GET /api/CampusMap/get-locations
+    http GET api endpoint accessible at GET /api/CampusMap/get-buildings
     */
-    [HttpGet("get-locations")]
-    public async Task<IActionResult> GetLocations() {
+    [HttpGet("get-buildings")]
+    public async Task<IActionResult> GetBuildings() {
+        
+      // initial db connection
+      var uri = "neo4j+s://apibloomap.xyz:7687";
+      var username = Environment.GetEnvironmentVariable("DB_USER") 
+        ?? throw new InvalidOperationException("DB_USER is not set");
+      var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+        ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+        
+      IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+      await using var session = _driver.AsyncSession();
+
+      // query to retrieve all nodes' building and room number attributes
+      var query = "MATCH (n) RETURN n.building AS building, n.id as id";
+      var locations = new List<LocationNode>(); // list of locations being queried
+      
+      try {
+
+        // run the query on the database at store result set            
+        var result = await session.RunAsync(query);
+
+        // get the key attributes from each record and create a location 
+        // node with those attributes. add the node to the list
+        await result.ForEachAsync(record => {
+
+          // creating a new Location node
+          LocationNode node = new LocationNode();
+
+          // pulling data from each record and storing in node
+          node.building = record["building"].As<string>();
+          node.roomNumber = record["roomNumber"].As<string>();
+          node.id = record["id"].As<string>();
+          //node.displayName = $"{building} Room {roomNumber}";
+
+          // add node to List<>
+          locations.Add(node);
+
+        });
+
+        // catch and display any errors encountered
+      } catch (Exception e) {
+          Console.WriteLine($"Error: {e.Message}");
+      }
+
+     // return the list of location nodes and the status of the call
+     return Ok(locations);
+    }
+
+    /** 
+    Queries database for all nodes and returns a list of location objects.
+    http POST api endpoint accessible at GET /api/CampusMap/get-rooms
+    */
+    [HttpPost("get-rooms")]
+    public async Task<IActionResult> GetRooms() {
         
       // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
