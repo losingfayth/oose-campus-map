@@ -87,7 +87,7 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
 
       // query to retrieve all nodes' building and room number attributes
-      var query = "MATCH (n) RETURN n.building AS building, n.id as id";
+      var query = "MATCH (n) WHERE EXISTS(n.building) RETURN DISTINCT n.building AS building, n.id AS id";
       var locations = new List<LocationNode>(); // list of locations being queried
       
       try {
@@ -140,7 +140,7 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
 
       // query to retrieve all nodes' building and room number attributes
-      var query = "MATCH (n) RETURN n.building AS building, n.roomNumber AS roomNumber, n.id as id";
+      var query = "MATCH (n:Location) WHERE EXISTS(n.roomNumber) RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id";
       var locations = new List<LocationNode>(); // list of locations being queried
       
       try {
