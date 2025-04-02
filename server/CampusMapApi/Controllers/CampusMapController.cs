@@ -36,42 +36,37 @@ public class CampusMapController : ControllerBase
     public async Task<IActionResult> FindPath(int currLoc, int dest) {
 
       var path = new List<LocationNode>();
-        // initial db connection
+      
+      // initial db connection
       var uri = "neo4j+s://apibloomap.xyz:7687";
       var username = Environment.GetEnvironmentVariable("DB_USER") 
         ?? throw new InvalidOperationException("DB_USER is not set");
       var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
         ?? throw new InvalidOperationException("DB_PASSWORD is not set");
-        
       IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
       await using var session = _driver.AsyncSession();
       
+      // query to use A* algorithm on database
       var query = @"
-          MATCH (start:Location {name: $currLoc}), (end:Location {name: $dest})
-          CALL gds.shortestPath.astar.stream({
-            nodeProjection: 'Location',
-            relationshipProjection: {
-              CONNECTS: {
-                type: 'CONNECTS',
-                properties: 'distance',
-                orientation: 'UNDIRECTED'
-              }
-            },
-            sourceNode: start,
-            targetNode: end,
-            latitudeProperty: 'latitude',
-            longitudeProperty: 'longitude'
-          })
-          YIELD nodeIds
-          RETURN [node IN nodeIds | gds.util.asNode(node).name] AS path";
+      MATCH (n:Location)
+      SET n.latitude = 0, n.longitude = n.id;
 
+      MATCH (start:Location {id: $startId}), (end:Location {id: $endId})
+      CALL gds.shortestPath.astar.stream('campusGraph', {
+          sourceNode: start,
+          targetNode: end,
+          relationshipWeightProperty: 'distance',
+          latitudeProperty: 'latitude',
+          longitudeProperty: 'longitude'
+      })
+      YIELD nodeIds, totalCost
+      RETURN nodeIds, totalCost;";
+      
       var result = await session.RunAsync(query, new { currLoc, dest });
-
       var records = await result.ToListAsync();
       return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
       return Ok(path);
-
     }
 
     /** 
