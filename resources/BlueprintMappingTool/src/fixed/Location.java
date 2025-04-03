@@ -2,6 +2,8 @@ package fixed;
 
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
+import mapping.OpenLocationCode;
+import mapping.Point;
 
 import java.util.ArrayList;
 
@@ -13,21 +15,28 @@ public class Location extends Text
         ArrayList<Edge> edges;
         String locationCode;
         String type;
+        Point GCSCoordinates;
         Point2D fixedPoint;
 
-        public Location(String displayText, String type, String code,
+        public Location(String displayText, String type, Point GCSCoordinates,
                         Point2D fixedPoint) {
             super(displayText);
-            this.id = STARTING_ID + Integer.parseInt(displayText);
+            this.id = Integer.parseInt(displayText);
             this.type = type;
-            this.locationCode = code;
+            this.locationCode = OpenLocationCode.encode(GCSCoordinates.x,
+                    GCSCoordinates.y);
+            this.GCSCoordinates = GCSCoordinates;
             this.fixedPoint = fixedPoint;
             connectedTo = new ArrayList<>();
             edges = new ArrayList<>();
         }
 
+
+
         public Point2D getFixedPoint() {
             return fixedPoint;
+        }
+        public Point getGCSCoordinates() {return GCSCoordinates;
         }
 
         public void markConnection(Location l) {
@@ -89,6 +98,13 @@ public class Location extends Text
     public ArrayList<Edge> getEdges()
     {
         return edges;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.id + " " + this.getLocationCode() + " " + this.GCSCoordinates.x +
+                " " + this.GCSCoordinates.y;
     }
 }
 

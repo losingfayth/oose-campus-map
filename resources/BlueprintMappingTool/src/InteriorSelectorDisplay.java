@@ -15,10 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import mapping.*;
-import mapping.Map;
 import mapping.Point;
-import mapping.Vector;
+import mapping.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -26,9 +24,11 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-public class ExteriorSelectorDisplay extends Application
+public class InteriorSelectorDisplay extends Application
 {
 
 
@@ -49,7 +49,13 @@ public class ExteriorSelectorDisplay extends Application
     public void start(Stage stage) throws Exception
     {
 
-
+/*
+/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Sutliff Hall/SH-3RD FL.png
+L
+41.007749, -76.446363
+41.007440, -76.447036
+41.008018, -76.446582
+ */
 
 
         HBox controlPane = new HBox();
@@ -59,10 +65,12 @@ public class ExteriorSelectorDisplay extends Application
 
         ToggleGroup pointTypeGroup = new ToggleGroup();
         ToggleButton pointsToggle = initAndSet("Points", pointTypeGroup);
-        ToggleButton entranceToggle = initAndSet("Main Entrance", pointTypeGroup);
-        ToggleButton sideToggle = initAndSet("Side Entrance", pointTypeGroup);
+        ToggleButton entranceToggle = initAndSet("Entrance", pointTypeGroup);
+        ToggleButton bathroomToggle = initAndSet("Bathroom", pointTypeGroup);
         ToggleButton stairsToggle = initAndSet("Stairs", pointTypeGroup);
-        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, sideToggle, stairsToggle);
+        ToggleButton elevatorToggle = initAndSet("Elevator", pointTypeGroup);
+        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, bathroomToggle,
+                stairsToggle, elevatorToggle);
 
         ToggleGroup nodesEdgesGroup = new ToggleGroup();
         ToggleButton nodes =  initAndSet("Place Nodes", nodesEdgesGroup);
@@ -77,11 +85,14 @@ public class ExteriorSelectorDisplay extends Application
         entranceToggle.setOnMouseClicked(event -> {
             System.out.println("Main entrances");
         });
-        sideToggle.setOnMouseClicked(event -> {
+        bathroomToggle.setOnMouseClicked(event -> {
             System.out.println("Side entrances");
         });
         stairsToggle.setOnMouseClicked(event ->  {
             System.out.println("Stairs");
+        });
+        elevatorToggle.setOnMouseClicked(event -> {
+            System.out.println("Elevators");
         });
 
         nodes.setOnMouseClicked(event -> {
@@ -139,29 +150,27 @@ public class ExteriorSelectorDisplay extends Application
 
         Point[] points = getPointsFromConsole(input);
 
-
-
-        /*
-/Users/dakotahkurtz/Downloads/campusBuildingsOutlinedPNG.png
-L
-41.00786, -76.44842
-41.00908, -76.44579
-41.0066, -76.44766
-         */
-
-        System.out.println("Click the three locations on the image that match the " +
-                "locationCodes or latitude/longitude points entered above.");
-
         int sIndex = getStartingIndexFromConsole(input);
 
         ArrayList<Point> referencePoints = new ArrayList<>();
+        referencePoints.add(new Point(0, 0));
+        referencePoints.add(new Point(imageView.getImage().getWidth(), 0));
+        referencePoints.add(new Point(0, imageView.getImage().getHeight()));
+
+        imageCoordinateSystem =
+                new CoordinateSystem(referencePoints.get(0),
+                        referencePoints.get(1), referencePoints.get(2));
+        realWorldCoordinates = new CoordinateSystem(points[0], points[1], points[2]);
+        map = new Map(imageCoordinateSystem, realWorldCoordinates);
+        System.out.println("Mapping generated.");
 
         Counter counter = new Counter(sIndex);
 
         LocationGraph enteredLocations = new LocationGraph();
         ArrayList<Edge> lines = new ArrayList<>();
 
-        final boolean[] mapGenerated = {false};
+
+
         imagePane.setOnMouseClicked(event -> {
 
             if (list.contains(KeyCode.CONTROL))
@@ -173,13 +182,6 @@ L
             double cy = event.getY();
             Point2D onImage = imageView.imageViewToImage(new Point2D(cx, cy));
 
-            if (referencePoints.size() <= 2) {
-                referencePoints.add(new Point(onImage.getX(), onImage.getY()));
-                System.out.println("clicked " + cx + ", " + cy);
-                System.out.println("At pixel x,y: " + onImage.getX() + ", " + onImage.getY());
-            }
-
-            if (mapGenerated[0]) {
                 if (nodes.isSelected()) {
                     for (Location l : enteredLocations.getNodes()) {
                         if (l.contains(cx, cy)) {
@@ -200,11 +202,7 @@ L
                     }
 
                     Point p = map.convert(new Point(onImage.getX(), onImage.getY()));
-                    String code = OpenLocationCode.encode(p.x, p.y);
-//                    System.out.printf("%n%s",
-//                            code);
-//                    System.out.printf("%n(lat,lng) = (%f, %f)", p.x, p.y);
-                    System.out.printf("%f, %f ", p.x, p.y);
+
                     if (counter.getValue() % 3 == 0) {
                         System.out.println();
                     }
@@ -222,7 +220,7 @@ L
                         labelLocationText = new Location(counterValue, "main", p,
                                 onImage);
                         c = Color.RED;
-                    } else if (sideToggle.isSelected()) {
+                    } else if (bathroomToggle.isSelected()) {
                         labelLocationText = new Location(counterValue, "side", p,
                                 onImage);
                         c = Color.BLUE;
@@ -230,11 +228,18 @@ L
                         labelLocationText = new Location(counterValue, "stairs", p,
                                 onImage);
                         c = Color.PURPLE;
+                    } else if (elevatorToggle.isSelected()) {
+                        labelLocationText = new Location(counterValue, "elevator", p
+                                , onImage);
+                        c = Color.ORANGE;
                     }
                     else {
                         System.out.println("Select type of point.");
                         return;
                     }
+
+                    System.out.printf("%n%s %f %f ",
+                            labelLocationText.getLocationCode(), p.x, p.y);
 
                     labelLocationText.setFill(c);
                     double xLoc = cx;
@@ -302,33 +307,8 @@ L
                         }
                     }
                 }
-            }
 
 
-
-            if (!mapGenerated[0] && referencePoints.size() == 3) {
-                mapGenerated[0] = true;
-                try
-                {
-                    imageCoordinateSystem =
-                            new CoordinateSystem(referencePoints.get(0),
-                                    referencePoints.get(1), referencePoints.get(2));
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                try
-                {
-                    realWorldCoordinates = new CoordinateSystem(points[0], points[1], points[2]);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                map = new Map(imageCoordinateSystem, realWorldCoordinates);
-                System.out.println("Mapping generated.");
-            }
 
         });
 //
@@ -534,7 +514,7 @@ L
 
         Graphics2D g2d = image.createGraphics();
 
-        java.awt.Font font = new java.awt.Font("Arial", Font.BOLD, 20);
+        Font font = new Font("Arial", Font.BOLD, 20);
         g2d.setFont(font);
         g2d.setColor(java.awt.Color.RED);
 
@@ -552,8 +532,6 @@ L
 
         g2d.setStroke(stroke1);
         for (Edge e : lines) {
-//            Point p1 = map.convert(new Point(line.getStartX(), line.getStartY()));
-//            Point p2 = map.convert(new Point(line.getEndX(), line.getEndY()));
             Point2D p1 = e.getFixedStart();
             Point2D p2 = e.getFixedEnd();
 

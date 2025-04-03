@@ -83,7 +83,7 @@ public class LocationGraph
                 previous = l.getType();
                 output.append("\n").append(previous).append("\n");
             }
-            output.append(l.getKeyID()).append(" ").append(l.getLocationCode()).append("\n");
+            output.append(l).append("\n");
         }
 
         output.append("********\nTotal # of nodes: ").append(getNodes().size()).append(" **********\n");
