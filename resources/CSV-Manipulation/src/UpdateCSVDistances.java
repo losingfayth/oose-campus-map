@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class CsvManipulation
+public class UpdateCSVDistances
 {
     private static int AVG_MPH_WALKING_SPEED = 3;
     private static int STAIRWELL_TRAVERSAL_TIME = 20;
