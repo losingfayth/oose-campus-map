@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Point;
 import mapping.*;
@@ -27,6 +28,41 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+/*
+
+    Usage:
+    Before starting, ensure the blueprint is cropped in such a way that it matches the
+    selection from the marked up image of the campus. Also ensure the blueprint PNG is
+    oriented such that the top left corner of the blueprint corresponds to the corner
+    of the building that is labeled top left in that same marked up image of campus
+    (the top left corner will be numbered so that the label % 3 == 1)
+
+    On start-up, enter the file path to the blueprint on your system.
+    You will be prompted whether you want to enter the reference point coordinates in
+    plus codes, or lat/longitude pairs. The latitude/longitude pairs corresponding to
+    each blueprint are stored in the resources/Building Corners/buildCorners.csv file.
+    That same folder also holds the previously mentioned marked up campus image.
+
+    Enter the reference corners in the format chosen - top left corner first, then top
+    right, then bottom left. This is also the order the points are stored in the csv.
+
+    The final prompt asks you where you would like to begin numbering your points. For
+    example, Navy Hall starts at ID = 100.
+
+    An example set of inputs:
+
+    /oose-campus-map/resources/blueprintCropped_png/Sutliff Hall/SH-3RD FL.png
+    L
+    41.007749, -76.446363
+    41.007440, -76.447036
+    41.008018, -76.446582
+    
+
+    Key Commands:
+
+    Press and hold CTRL to pan. When node is toggled on, click on a previously placed node to delete it.    When edge is toggled on, press and hold "r" to choose a root; press and hold "d" while clicking a node    to delete all edges attached to that node.
+ */
 
 public class InteriorSelectorDisplay extends Application
 {
@@ -141,6 +177,7 @@ L
         BorderPane root = new BorderPane();
 
         Pane imagePane = new Pane(imageView);
+
         root.setCenter(imagePane);
         root.setBottom(controlPane);
 
