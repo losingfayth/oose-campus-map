@@ -61,8 +61,10 @@ public class LocationGraph
         return nodes;
     }
 
-    public void fancyPrint()
+    public String fancyPrint()
     {
+
+        StringBuilder output = new StringBuilder();
 
         getNodes().sort((o1, o2) ->
         {
@@ -73,28 +75,30 @@ public class LocationGraph
             return o1.getKeyID() - o2.getKeyID();
         });
 
-        System.out.println("\n***********Nodes************\n");
+        output.append("\n***********Nodes************\n");
         String previous = getNodes().get(0).getType();
-        System.out.println("\n" + previous + "\n");
+        output.append("\n").append(previous).append("\n");
         for (Location l : getNodes()) {
             if (!l.getType().equals(previous)) {
                 previous = l.getType();
-                System.out.println("\n"+previous+"\n");
+                output.append("\n").append(previous).append("\n");
             }
-            System.out.println(l.getKeyID() + " " + l.getLocationCode());
+            output.append(l.getKeyID()).append(" ").append(l.getLocationCode()).append("\n");
         }
 
-        System.out.println("********\nTotal # of nodes: " + getNodes().size() + " **********\n");
+        output.append("********\nTotal # of nodes: ").append(getNodes().size()).append(" **********\n");
 
-        System.out.println("\n***********Edges************\n");
+        output.append("\n***********Edges************\n");
         int tot = 0;
         for (Location l : getNodes()) {
             int n1 = l.getKeyID();
             for (Location to : l.getConnectedTo()) {
                 tot++;
-                System.out.printf("%n%d %d", n1, to.getKeyID());
+                output.append(String.format("%n%d %d", n1, to.getKeyID()));
             }
         }
-        System.out.println("\nTotal # of Edges: " + tot);
+        output.append("\nTotal # of Edges: ").append(tot);
+
+        return output.toString();
     }
 }

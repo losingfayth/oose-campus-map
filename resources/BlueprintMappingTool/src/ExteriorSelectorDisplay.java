@@ -25,6 +25,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ExteriorSelectorDisplay extends Application
@@ -141,7 +142,7 @@ public class ExteriorSelectorDisplay extends Application
 
 
         /*
-/Users/dakotahkurtz/Downloads/campusUpdated.png
+/Users/dakotahkurtz/Downloads/campusBuildingsOutlinedPNG.png
 L
 41.00786, -76.44842
 41.00908, -76.44579
@@ -200,10 +201,13 @@ L
 
                     Point p = map.convert(new Point(onImage.getX(), onImage.getY()));
                     String code = OpenLocationCode.encode(p.x, p.y);
-                    System.out.printf("%n%s",
-                            code);
-                    System.out.printf("%n(lat,lng) = (%f, %f)", p.x, p.y);
-
+//                    System.out.printf("%n%s",
+//                            code);
+//                    System.out.printf("%n(lat,lng) = (%f, %f)", p.x, p.y);
+                    System.out.printf("%f, %f ", p.x, p.y);
+                    if (counter.getValue() % 3 == 0) {
+                        System.out.println();
+                    }
                     String counterValue = String.valueOf(counter.getValue());
                     Location labelLocationText;
 
@@ -334,7 +338,7 @@ L
             {
                 saveImage(new File(finalFilename),
                         enteredLocations, lines,
-                        finalSaveLocation + String.valueOf(saveCounter.getValue()) + ".png");
+                        finalSaveLocation + String.valueOf(saveCounter.getValue()));
                 saveCounter.increment();
             }
             catch (Exception e)
@@ -560,15 +564,29 @@ L
 
 
             // Writing to file taking type and path as
-            ImageIO.write(image, "png", new File(saveLocation));
+            ImageIO.write(image, "png", new File(saveLocation + ".png"));
 
-            System.out.println("\n**************Save complete: " + saveLocation + "\n\n");
+            System.out.println("\n**************Image Save complete: " + saveLocation +
+                    "\n\n");
         }
         catch (IOException e) {
             System.out.println("Error: " + e);
         }
 
-        enteredLocations.fancyPrint();
+        String output = enteredLocations.fancyPrint();
+        System.out.println(output);
+
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(saveLocation + ".txt"), StandardCharsets.UTF_8)))
+        {
+            writer.write(output);
+            System.out.println("\nText file save complete");
+        }
+        catch (IOException ex)
+        {
+            System.out.println("File save failed: " + ex.getMessage());
+
+        }
 
     }
 

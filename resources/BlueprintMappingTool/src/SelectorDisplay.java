@@ -3,6 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -28,8 +29,17 @@ Comment
 
 public class SelectorDisplay extends Application
 {
-    int maxDisplayDim = 1200;
+    int maxDisplayDim = 800;
     int controlHeight = 50;
+    int displayImageHeight;
+    int displayImageWidth;
+    CoordinateSystem imageCoordinateSystem;
+    CoordinateSystem realWorldCoordinates;
+    Map map;
+    boolean rootSelectMode = false;
+    boolean deleteEdgeMode = false;
+    ArrayList<KeyCode> list = new ArrayList<>();
+    SelectorDisplay.Counter saveCounter = new SelectorDisplay.Counter(1);
 
     @Override
     public void start(Stage stage) throws Exception
