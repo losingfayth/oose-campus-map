@@ -13,9 +13,11 @@ export async function getBuildings() {
       "https://apibloomap.xyz:5164/api/CampusMap/get-buildings"
     );
 
-    console.log("Raw response:", response); // check the full response object
+    // console.log("Raw response:", response); // check the full response object
     const data = await response.json();
-    console.log("Parsed JSON:", data);
+    // console.log("Parsed JSON:", data);
+
+    return data;
 
     // throw error if fetch is unsuccessful
   } catch (error) {
@@ -43,9 +45,11 @@ export async function getRooms(building) {
       }
     );
 
-    console.log("Raw response:", response); // check the full response object
+    //console.log("Raw response:", response); // check the full response object
     const data = await response.json();
-    console.log("Parsed JSON:", data);
+    //console.log("Parsed JSON:", data);
+
+    return data;
 
     // throw error if fetch is unsuccessful
   } catch (error) {
