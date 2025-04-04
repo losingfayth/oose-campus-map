@@ -57,9 +57,29 @@ import java.util.Scanner;
     41.007749, -76.446363
     41.007440, -76.447036
     41.008018, -76.446582
-    
+    672
 
-    Key Commands:
+    **************
+
+    Once the program launches - Choose the "Node" toggle to add nodes. The type of node
+     (Bathroom, stairs, point, etc) must be chosen before a node can be placed. The
+     Point toggle refers to any general point that doesn't fit the other categories.
+
+     Choose the "Edges" toggle to add edges connecting nodes. First, select the "root"
+     node, by holding the "r" key and clicking a node. Then, after releasing "r", click
+      on another node to add an edge between them.
+
+      Adjust zoom by using a wheel (if you have a mouse) or with a two fingered
+      "scroll" gesture.
+
+      You can save your progress, which will:
+       1. Generate a new PNG with the edges and
+            nodes you've marked labeled.
+       2. Print the nodes and edges you've marked in a clean format, such that it can
+       be copied and pasted (by hand, sorry) into the CSV in the appropriate rows
+       3. Generate a text file of that same output.
+
+    Tips:
 
     Press and hold CTRL to pan. When node is toggled on, click on a previously placed node to delete it.    When edge is toggled on, press and hold "r" to choose a root; press and hold "d" while clicking a node    to delete all edges attached to that node.
  */
@@ -99,14 +119,22 @@ L
 
         Button saveButton = new Button("saveImage");
 
+        String[] nodeTypes = new String[]{"Point", "Entrance", "Bathroom", "Stairs",
+                "Elevator"};
+        Color[] nodeLabelColors = new Color[]{Color.RED, Color.GREEN, Color.BLUE,
+                Color.ORANGE, Color.PURPLE};
+
+        ArrayList<ToggleLabel> nodeToggles = new ArrayList<>(nodeTypes.length);
         ToggleGroup pointTypeGroup = new ToggleGroup();
-        ToggleButton pointsToggle = initAndSet("Points", pointTypeGroup);
-        ToggleButton entranceToggle = initAndSet("Entrance", pointTypeGroup);
-        ToggleButton bathroomToggle = initAndSet("Bathroom", pointTypeGroup);
-        ToggleButton stairsToggle = initAndSet("Stairs", pointTypeGroup);
-        ToggleButton elevatorToggle = initAndSet("Elevator", pointTypeGroup);
-        HBox pointTypeHBox = new HBox(pointsToggle, entranceToggle, bathroomToggle,
-                stairsToggle, elevatorToggle);
+        HBox pointTypeHBox = new HBox();
+
+        for (int i = 0; i < nodeTypes.length; i++) {
+            ToggleLabel l = initAndSet(nodeTypes[i], pointTypeGroup, nodeLabelColors[i]);
+            l.setOnMouseClicked(event -> {
+                System.out.println(l.getText());
+            });
+            pointTypeHBox.getChildren().add(l);
+        }
 
         ToggleGroup nodesEdgesGroup = new ToggleGroup();
         ToggleButton nodes =  initAndSet("Place Nodes", nodesEdgesGroup);
@@ -114,22 +142,6 @@ L
         HBox nodesEdgeHBox = new HBox(nodes, edges);
 
         controlPane.getChildren().addAll(saveButton, pointTypeHBox, nodesEdgeHBox);
-
-        pointsToggle.setOnMouseClicked(event -> {
-            System.out.println("Points:");
-        });
-        entranceToggle.setOnMouseClicked(event -> {
-            System.out.println("Main entrances");
-        });
-        bathroomToggle.setOnMouseClicked(event -> {
-            System.out.println("Side entrances");
-        });
-        stairsToggle.setOnMouseClicked(event ->  {
-            System.out.println("Stairs");
-        });
-        elevatorToggle.setOnMouseClicked(event -> {
-            System.out.println("Elevators");
-        });
 
         nodes.setOnMouseClicked(event -> {
             System.out.println("Place Nodes");
@@ -159,7 +171,6 @@ L
 
         double ix =  image.getWidth();
         double iy = image.getHeight();
-
         System.out.println("Image loaded: w: "+ix + ", h: " + iy);
 
         if (ix >= (iy))
@@ -248,30 +259,13 @@ L
 
                     Color c;
 
-                    if (pointsToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "point", p,
+                    if (pointTypeGroup.getSelectedToggle() != null) {
+                        ToggleLabel l = (ToggleLabel) pointTypeGroup.getSelectedToggle();
+                        labelLocationText = new Location(counterValue, l.getText(), p,
                                 onImage);
-
-                        c = Color.GREEN;
-                    } else if (entranceToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "main", p,
-                                onImage);
-                        c = Color.RED;
-                    } else if (bathroomToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "side", p,
-                                onImage);
-                        c = Color.BLUE;
-                    } else if (stairsToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "stairs", p,
-                                onImage);
-                        c = Color.PURPLE;
-                    } else if (elevatorToggle.isSelected()) {
-                        labelLocationText = new Location(counterValue, "elevator", p
-                                , onImage);
-                        c = Color.ORANGE;
-                    }
-                    else {
-                        System.out.println("Select type of point.");
+                        c = l.getColor();
+                    } else {
+                        System.out.println("Type of node must be selected");
                         return;
                     }
 
@@ -344,9 +338,6 @@ L
                         }
                     }
                 }
-
-
-
         });
 //
 
@@ -439,7 +430,7 @@ L
             }
             try
             {
-                InputStream inputStream = new FileInputStream(inputFileName);
+                new FileInputStream(inputFileName);
                 break;
             } catch (FileNotFoundException f) {
                 System.out.println("\n"+inputFileName + " is invalid file path.");
@@ -532,6 +523,13 @@ L
         }
 
         return points;
+    }
+
+    private ToggleLabel initAndSet(String txt, ToggleGroup group, Color color) {
+        ToggleLabel b = new ToggleLabel(txt, color);
+        b.setToggleGroup(group);
+
+        return b;
     }
 
     private ToggleButton initAndSet(String txt, ToggleGroup group) {
