@@ -97,7 +97,18 @@ export default function Start() {
     }
   }, [location, isRegionSet]); // Ensure this runs only when the location is available
 
-  console.log(getBuildings());
+  useEffect(() => {
+    async function fetchBuildings() {
+      try {
+        const buildings = await getBuildings();
+        console.log(buildings);
+      } catch (e) {
+        console.error("Error fetching buildings:", e);
+      }
+    }
+
+    fetchBuildings();
+  }, []);
 
   return (
     <View style={styles.container}>
