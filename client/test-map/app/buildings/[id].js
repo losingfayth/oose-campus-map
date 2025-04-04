@@ -87,10 +87,10 @@ export default function Building() {
     return (
       <GestureHandlerRootView>
         <View style={styles.textContainer}>
-          <Text>List of Buildings: {categories}</Text>
+          {/* <Text>List of Buildings: {categories}</Text>
           <Text>Building ID: {id}</Text>
           <Text>Current Location in Array: {currLoc}</Text>
-          <Text>Maximum Locations in Array: {maxLocs}</Text>
+          <Text>Maximum Locations in Array: {maxLocs}</Text> */}
         </View>
         <ResumableZoom maxScale={resolution}>
           <ImageBackground

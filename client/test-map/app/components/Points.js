@@ -12,7 +12,7 @@ const points = [
   ],
   [
     { latitude: 41.00797, longitude: -76.44897 },
-    { latitude: 41.007784, longitude: -76.448804 },
+    { latitude: 41.008014, longitude: -76.448866 },
     { latitude: 41.007756, longitude: -76.448667 },
     { latitude: 41.007319, longitude: -76.448316 },
     { latitude: 41.007191, longitude: -76.448214 },

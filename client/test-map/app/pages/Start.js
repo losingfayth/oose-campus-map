@@ -102,7 +102,7 @@ export default function Start() {
 
       {/* Text above search bars*/}
       <View style={styles.textBox}>
-        <Text style={styles.text}>Hello</Text>
+        <Text style={styles.text}>RoonGO</Text>
       </View>
 
       <MapView
