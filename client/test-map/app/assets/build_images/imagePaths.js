@@ -9,7 +9,6 @@ export const imagePaths = {
   "NAVY-2": require("../../assets/build_images/NAVY-2.jpg"),
 };
 
-
 let buildingNames = ["BFB-1", "BFB-2", "NAVY-1"];
 let GCSCoords = [];
 GCSCoords.push(
@@ -20,15 +19,6 @@ GCSCoords.push(
   [41.007064, -76.44857],
   [41.006764, -76.448069] // BFB-2
 );
-
-for (let i = 0; i < twoDArray.length; i++) {
-  imageReferencePoints.push(
-    buildingNames[i],
-    referencePoints(
-      referencePoint(twoDArray[i][0].latitude, twoDArray[i][0].longitude)
-    )
-  );
-}
 
 export const imageReferencePoints = [];
 
@@ -74,4 +64,4 @@ Object.keys(imagePaths).forEach((key) => {
   imagePaths[key].height = height;
 });
 
-// export imagePaths, imageReferencePoints;
+export default imagePaths;

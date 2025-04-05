@@ -20,7 +20,10 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths, { imageReferencePoints } from "../assets/build_images/imagePaths";
+import {
+  imagePaths,
+  imageReferencePoints,
+} from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
 
 /**
@@ -40,7 +43,8 @@ import CoordinateMap from "../utils/CoordinateMap";
 
 function getImageReferencePoints(building) {
   for (let i = 0; i < imageReferencePoints.length; i++) {
-    if (imageReferencePoints[i].buildingName == building) { // string equality in javascript?
+    if (imageReferencePoints[i].buildingName == building) {
+      // string equality in javascript?
       return imageReferencePoints[i];
     }
   }
@@ -48,49 +52,20 @@ function getImageReferencePoints(building) {
 }
 
 export default function Building() {
+  // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
   const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
   const parsedPoints = coords ? JSON.parse(coords) : [];
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
+  console.log("-----------------");
+  console.log(locs[currIndex]);
 
   const getImageUri = (building) => {
     return Image.resolveAssetSource(imagePaths[building]).uri;
   };
   const uri = getImageUri(locs[currIndex]); // get image location of the current floor
-
-  // building Name locs[currIndex]
-  let imageReference = getImageReferencePoints(locs[currIndex]);
-  const gcsToBlueprintMap = new (
-    [imageReference.referencePoints.topLeft[0], imageReference.referencePoints.topLeft[1],
-    imageReference.referencePoints.topRight[0], imageReference.referencePoints.topRight[1],
-    imageReference.referencePoints.bottomLeft[0], imageReference.referencePoints.bottomLeft[1],
-    ],
-    [
-      0, 0,
-      size.width, 0,
-      0, size.height,
-    ]
-  );
-
-  // example usage -> lat, lng both need to be Numbers that represent the latitude longitude values of the LocationNode received
-  // from the server
-
-  let point = gcsToBlueprintMap.convert(lat, lng);
-  // then the mapped points can be accessed with: point.x, point.y - which should give the appropriate place to draw the point on
-  // the blueprint displayed on the users phone
-
-
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    parsedPoints[currIndex],
-    locs[currIndex]
-  );
-  
-  // console.log(normalizedPoints);
-
-  const { width, height } = useWindowDimensions();
-  const { isFetching, resolution } = useImageResolution({ uri });
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
@@ -106,6 +81,9 @@ export default function Building() {
     }
   }, [currIndex, locs, router]);
 
+  const { width, height } = useWindowDimensions();
+  const { isFetching, resolution } = useImageResolution({ uri });
+
   if (isFetching || resolution === undefined) {
     return null;
   }
@@ -115,6 +93,34 @@ export default function Building() {
     width,
     height,
   });
+  // to here-----------------------------------------------------------------------------------
+  // must move as one big block ---------------------------------------------------------------
+
+  // building Name locs[currIndex]
+  let imageReference = getImageReferencePoints(locs[currIndex]);
+  const gcsToBlueprintMap = new ([
+    imageReference.referencePoints.topLeft[0],
+    imageReference.referencePoints.topLeft[1],
+    imageReference.referencePoints.topRight[0],
+    imageReference.referencePoints.topRight[1],
+    imageReference.referencePoints.bottomLeft[0],
+    imageReference.referencePoints.bottomLeft[1],
+  ],
+  [0, 0, size.width, 0, 0, size.height])();
+
+  // example usage -> lat, lng both need to be Numbers that represent the latitude longitude values of the LocationNode received
+  // from the server
+
+  let point = gcsToBlueprintMap.convert(lat, lng);
+  // then the mapped points can be accessed with: point.x, point.y - which should give the appropriate place to draw the point on
+  // the blueprint displayed on the users phone
+
+  const normalizedPoints = PointNormalizer.normalizePoints(
+    parsedPoints[currIndex],
+    locs[currIndex]
+  );
+
+  // console.log(normalizedPoints);
 
   if (locs[currIndex] !== "OUT") {
     return (
