@@ -94,23 +94,28 @@ public class CampusMapController : ControllerBase
         RETURN building, node.id AS id
         ";
 
-      var locations = new List<LocationNode>(); // list of locations being queried
+      var locations = new List<BuildingInfo>(); // list of locations being queried
       
       try {
-
         // run the query on the database at store result set            
         var result = await session.RunAsync(query);
 
         // get the key attributes from each record and create a location 
         // node with those attributes. add the node to the list
         await result.ForEachAsync(record => {
-          var node = new LocationNode {
-              building = record["building"].As<string>(),
-              id = record["id"].As<string>()
-          };
-          locations.Add(node);
-        });
 
+          // creating a new Location node
+          BuildingInfo node = new BuildingInfo();
+
+          // pulling data from each record and storing in node
+          node.building = record["building"].As<string>();
+          node.id = record["id"].As<string>();
+          //node.displayName = $"{building} Room {roomNumber}";
+
+          // add node to List<>
+          locations.Add(node);
+
+        });
 
         // catch and display any errors encountered
       } catch (Exception e) {
