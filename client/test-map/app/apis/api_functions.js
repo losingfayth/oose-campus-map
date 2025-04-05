@@ -10,7 +10,7 @@ export async function getBuildings() {
   try {
     // use fetch to make an http request to server at get-location endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5164/api/CampusMap/get-buildings"
+      "https://apibloomap.xyz:5160/api/CampusMap/get-buildings"
     );
 
     // console.log("Raw response:", response); // check the full response object
