@@ -31,43 +31,43 @@ public class CampusMapController : ControllerBase
     }
 
     
-    // http POST endpoint accessible at POST /api/CampusMap/find-path
-    [HttpPost("find-path")]
-    public async Task<IActionResult> FindPath(int currLoc, int dest) {
+    // // http POST endpoint accessible at POST /api/CampusMap/find-path
+    // [HttpPost("find-path")]
+    // public async Task<IActionResult> FindPath(int currLoc, int dest) {
 
-      var path = new List<LocationNode>();
+    //   var path = new List<LocationNode>();
       
-      // initial db connection
-      var uri = "neo4j+s://apibloomap.xyz:7687";
-      var username = Environment.GetEnvironmentVariable("DB_USER") 
-        ?? throw new InvalidOperationException("DB_USER is not set");
-      var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
-        ?? throw new InvalidOperationException("DB_PASSWORD is not set");
-      IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-      await using var session = _driver.AsyncSession();
+    //   // initial db connection
+    //   var uri = "neo4j+s://apibloomap.xyz:7687";
+    //   var username = Environment.GetEnvironmentVariable("DB_USER") 
+    //     ?? throw new InvalidOperationException("DB_USER is not set");
+    //   var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+    //     ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+    //   IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+    //   await using var session = _driver.AsyncSession();
       
-      // query to use A* algorithm on database
-      var query = @"
-      MATCH (n:Location)
-      SET n.latitude = 0, n.longitude = n.id;
+    //   // query to use A* algorithm on database
+    //   var query = @"
+    //   MATCH (n:Location)
+    //   SET n.latitude = 0, n.longitude = n.id;
 
-      MATCH (start:Location {id: $startId}), (end:Location {id: $endId})
-      CALL gds.shortestPath.astar.stream('campusGraph', {
-          sourceNode: start,
-          targetNode: end,
-          relationshipWeightProperty: 'distance',
-          latitudeProperty: 'latitude',
-          longitudeProperty: 'longitude'
-      })
-      YIELD nodeIds, totalCost
-      RETURN nodeIds, totalCost;";
+    //   MATCH (start:Location {id: $startId}), (end:Location {id: $endId})
+    //   CALL gds.shortestPath.astar.stream('campusGraph', {
+    //       sourceNode: start,
+    //       targetNode: end,
+    //       relationshipWeightProperty: 'distance',
+    //       latitudeProperty: 'latitude',
+    //       longitudeProperty: 'longitude'
+    //   })
+    //   YIELD nodeIds, totalCost
+    //   RETURN nodeIds, totalCost;";
       
-      var result = await session.RunAsync(query, new { currLoc, dest });
-      var records = await result.ToListAsync();
-      return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+    //   var result = await session.RunAsync(query, new { currLoc, dest });
+    //   var records = await result.ToListAsync();
+    //   return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
-      return Ok(path);
-    }
+    //   return Ok(path);
+    // }
 
     /** 
     Queries database for all nodes and returns a list of location objects.
@@ -87,7 +87,13 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
 
       // query to retrieve all nodes' building and room number attributes
-      var query = "MATCH (n) WHERE EXISTS(n.building) RETURN DISTINCT n.building AS building, n.id AS id";
+      var query = @"
+          MATCH (n:Location) 
+          WHERE n.building IS NOT NULL 
+          WITH n.building AS building, COLLECT(n)[0] AS node
+          RETURN building, node.id AS id
+        ";
+
       var locations = new List<LocationNode>(); // list of locations being queried
       
       try {
@@ -104,7 +110,6 @@ public class CampusMapController : ControllerBase
 
           // pulling data from each record and storing in node
           node.building = record["building"].As<string>();
-          node.roomNumber = record["roomNumber"].As<string>();
           node.id = record["id"].As<string>();
           //node.displayName = $"{building} Room {roomNumber}";
 

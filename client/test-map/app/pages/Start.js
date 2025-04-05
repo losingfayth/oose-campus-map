@@ -14,6 +14,7 @@ import * as Location from "expo-location";
 import SearchBar from "../components/SearchBar";
 import { searchables, roomNumbers } from "../components/test/Words";
 import { points } from "../components/Points";
+import { getBuildings, getRooms, findPath } from "../apis/api_functions";
 
 export default function Start() {
   const [location, setLocation] = useState(null);
@@ -95,6 +96,19 @@ export default function Start() {
       setIsRegionSet(true); // Mark that the region is set
     }
   }, [location, isRegionSet]); // Ensure this runs only when the location is available
+
+  useEffect(() => {
+    async function fetchBuildings() {
+      try {
+        const buildings = await getBuildings();
+        console.log(buildings);
+      } catch (e) {
+        console.error("Error fetching buildings:", e);
+      }
+    }
+
+    fetchBuildings();
+  }, []);
 
   return (
     <View style={styles.container}>
