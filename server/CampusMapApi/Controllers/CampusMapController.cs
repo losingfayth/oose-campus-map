@@ -87,7 +87,13 @@ public class CampusMapController : ControllerBase
       await using var session = _driver.AsyncSession();
 
       // query to retrieve all nodes' building and room number attributes
-      var query = "MATCH (n:Location) WHERE n.building IS NOT NULL RETURN DISTINCT n.building AS building, n.id AS id";
+      var query = @"
+    MATCH (n:Location) 
+    WHERE n.building IS NOT NULL 
+    WITH n.building AS building, COLLECT(n)[0] AS node
+    RETURN building, node.id AS id
+";
+
       var locations = new List<LocationNode>(); // list of locations being queried
       
       try {
