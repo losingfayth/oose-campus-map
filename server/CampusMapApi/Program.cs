@@ -7,7 +7,7 @@ using CampusMapApi;
 var builder = WebApplication.CreateBuilder(args);
 
 // sets default port to 5159 and server will listen on all available network interfaces
-var port = Environment.GetEnvironmentVariable("PORT");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5159";
 var urls = $"https://0.0.0.0:{port}";
 
 // configure Kestrel
