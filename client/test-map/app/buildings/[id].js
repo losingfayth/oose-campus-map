@@ -81,14 +81,24 @@ export default function Building() {
     }
   }, [currIndex, locs, router]);
 
-  const { width, height } = useWindowDimensions();
-  const { isFetching, resolution } = useImageResolution({ uri });
+  const { width, height } = useWindowDimensions(); // returns object with current devices dimensions
+  const { isFetching, resolution } = useImageResolution({ uri }); // get the resolution of the image (uri)
 
+  // check whether the resolution of the image is still
+  // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
     return null;
   }
 
-  // Get the resized image dimensions
+  /**
+   * Once the image resolution is fetched and available, this line
+   * calculates the appropriate size for the image based on the device's
+   * screen size and the image’s resolution (aspect ratio).
+   *
+   * fitContainer() calculates the best fitting dimensions for the image,
+   * keeping its aspect ratio consistent while ensuring that the image
+   * fits within the available screen size
+   */
   const size = fitContainer(resolution.width / resolution.height, {
     width,
     height,
