@@ -36,6 +36,8 @@ export default function Start() {
   const [selectedEndBuilding, setEndBuilding] = useState(null);
   const [selectedEndRoom, setEndRoom] = useState(null);
 
+  const [buildingOptions, setBuildingOptions] = useState([]);
+
   // set up a useEffect to request permissions, fetch user location, and track location
   useEffect(() => {
     // request user location to use while app is running
@@ -101,7 +103,13 @@ export default function Start() {
     async function fetchBuildings() {
       try {
         const buildings = await getBuildings();
-        console.log(buildings);
+
+        const formatted = buildings.map((b) => ({
+          name: b.building,
+          id: b.id,
+        }));
+
+        setBuildingOptions(formatted); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }
@@ -177,7 +185,7 @@ export default function Start() {
 
       {/* Search bar with first being for building and second for room number */}
       <SearchBar
-        searchFilterData={searchables}
+        searchFilterData={buildingOptions}
         customStyles={{ left: "5%", width: "60%" }}
         placeholderText="From"
         onTypingChange={setIsBuildingTyping}
@@ -195,7 +203,7 @@ export default function Start() {
 
       {/* Second set of two search bars.*/}
       <SearchBar
-        searchFilterData={searchables}
+        searchFilterData={buildingOptions}
         customStyles={{ top: "16%", left: "5%", width: "60%" }}
         placeholderText="To"
         onSelect={setEndBuilding}
