@@ -51,14 +51,14 @@ export default function Building() {
   const router = useRouter();
 
   const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
-  const parsedPoints = coords ? JSON.parse(coords) : [];
+  const parsedPoints = coords ? JSON.parse(coords) : []; // put points in an array
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
 
   const getImageUri = (building) => {
     return Image.resolveAssetSource(imagePaths[building]).uri;
   };
-  const uri = getImageUri(locs[currIndex]);
+  const uri = getImageUri(locs[currIndex]); // get image location of the current floor
 
   // building Name locs[currIndex]
   let imageReference = getImageReferencePoints(locs[currIndex]);
@@ -74,8 +74,12 @@ export default function Building() {
     ]
   );
 
+  // example usage -> lat, lng both need to be Numbers that represent the latitude longitude values of the LocationNode received
+  // from the server
+
   let point = gcsToBlueprintMap.convert(lat, lng);
-  //point.x, point.y
+  // then the mapped points can be accessed with: point.x, point.y - which should give the appropriate place to draw the point on
+  // the blueprint displayed on the users phone
 
 
   const normalizedPoints = PointNormalizer.normalizePoints(
@@ -106,8 +110,11 @@ export default function Building() {
     return null;
   }
 
-  // Get the resized image dimensions
-  const size = fitContainer(resolution.width / resolution.height, { width, height, });
+  // Get the resized image dimensions of the image on the phone (phone dimensions)
+  const size = fitContainer(resolution.width / resolution.height, {
+    width,
+    height,
+  });
 
   if (locs[currIndex] !== "OUT") {
     return (
