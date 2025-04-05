@@ -88,11 +88,11 @@ public class CampusMapController : ControllerBase
 
       // query to retrieve all nodes' building and room number attributes
       var query = @"
-    MATCH (n:Location) 
-    WHERE n.building IS NOT NULL 
-    WITH n.building AS building, COLLECT(n)[0] AS node
-    RETURN building, node.id AS id
-";
+        MATCH (n:Location) 
+        WHERE n.building IS NOT NULL 
+        WITH n.building AS building, COLLECT(n)[0] AS node
+        RETURN building, node.id AS id
+        ";
 
       var locations = new List<LocationNode>(); // list of locations being queried
       
@@ -104,19 +104,13 @@ public class CampusMapController : ControllerBase
         // get the key attributes from each record and create a location 
         // node with those attributes. add the node to the list
         await result.ForEachAsync(record => {
-
-          // creating a new Location node
-          LocationNode node = new LocationNode();
-
-          // pulling data from each record and storing in node
-          node.building = record["building"].As<string>();
-          node.id = record["id"].As<string>();
-          //node.displayName = $"{building} Room {roomNumber}";
-
-          // add node to List<>
+          var node = new LocationNode {
+              building = record["building"].As<string>(),
+              id = record["id"].As<string>()
+          };
           locations.Add(node);
-
         });
+
 
         // catch and display any errors encountered
       } catch (Exception e) {
