@@ -51,7 +51,7 @@ export default function Building() {
   const router = useRouter();
 
   const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
-  const parsedPoints = coords ? JSON.parse(coords) : []; // put points in an array
+  const parsedPoints = coords ? JSON.parse(coords) : [];
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
 
@@ -86,8 +86,8 @@ export default function Building() {
     parsedPoints[currIndex],
     locs[currIndex]
   );
-
-
+  
+  // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
@@ -110,7 +110,7 @@ export default function Building() {
     return null;
   }
 
-  // Get the resized image dimensions of the image on the phone (phone dimensions)
+  // Get the resized image dimensions
   const size = fitContainer(resolution.width / resolution.height, {
     width,
     height,

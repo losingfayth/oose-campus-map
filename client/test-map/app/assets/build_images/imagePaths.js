@@ -13,25 +13,43 @@ export const imagePaths = {
 let buildingNames = ["BFB-1", "BFB-2", "NAVY-1"];
 let GCSCoords = [];
 GCSCoords.push(
-  [41.006674, -76.448270], [41.007064, -76.448570], [41.006764, -76.448069], // BFB-1
-  [41.006674, -76.448270], [41.007064, -76.448570], [41.006764, -76.448069], // BFB-2
-)
+  [41.006674, -76.44827],
+  [41.007064, -76.44857],
+  [41.006764, -76.448069], // BFB-1
+  [41.006674, -76.44827],
+  [41.007064, -76.44857],
+  [41.006764, -76.448069] // BFB-2
+);
 
 for (let i = 0; i < twoDArray.length; i++) {
-  imageReferencePoints.push(buildingNames[i], referencePoints(referencePoint(twoDArray[i][0].latitude, twoDArray[i][0].longitude),))
+  imageReferencePoints.push(
+    buildingNames[i],
+    referencePoints(
+      referencePoint(twoDArray[i][0].latitude, twoDArray[i][0].longitude)
+    )
+  );
 }
 
 export const imageReferencePoints = [];
 
 for (let i = 0; i < buildingNames.length; i += 3) {
-  imageReferencePoints.push(imageReference(buildingNames[i], referencePoints(referencePoint(GCSCoords[i][0], GCSCoords[i][1]), referencePoint(GCSCoords[i + 1][0], GCSCoords[i + 1][1]), referencePoint(GCSCoords[i + 2][0], GCSCoords[i + 2][1]))));
+  imageReferencePoints.push(
+    imageReference(
+      buildingNames[i],
+      referencePoints(
+        referencePoint(GCSCoords[i][0], GCSCoords[i][1]),
+        referencePoint(GCSCoords[i + 1][0], GCSCoords[i + 1][1]),
+        referencePoint(GCSCoords[i + 2][0], GCSCoords[i + 2][1])
+      )
+    )
+  );
 }
 
 function imageReference(buildingName, referencePoints) {
   return {
     buildingName: buildingName,
     referencePoints: referencePoints,
-  }
+  };
 }
 
 function referencePoints(topLeft, topRight, bottomLeft) {
@@ -39,14 +57,14 @@ function referencePoints(topLeft, topRight, bottomLeft) {
     topLeft: topLeft,
     topRight: topRight,
     bottomLeft: bottomLeft,
-  }
+  };
 }
 
 function referencePoint(lat, lng) {
   return {
     latitude: lat,
     longitude: lng,
-  }
+  };
 }
 
 // Add width and height to each entry
@@ -56,3 +74,4 @@ Object.keys(imagePaths).forEach((key) => {
   imagePaths[key].height = height;
 });
 
+// export imagePaths, imageReferencePoints;
