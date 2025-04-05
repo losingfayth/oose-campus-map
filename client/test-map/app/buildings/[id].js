@@ -54,6 +54,7 @@ export default function Building() {
     parsedPoints[currIndex],
     locs[currIndex]
   );
+  
   // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
