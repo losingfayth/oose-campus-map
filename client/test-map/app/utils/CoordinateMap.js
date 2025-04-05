@@ -45,79 +45,89 @@
     displayLocation.x, displayLocation.y
 */
 
-
 class CoordinateMap {
+  constructor(domainArray, rangeArray) {
+    this.domain = this.#CoordinateSystem(
+      CoordinateMap.#Point(domainArray[0], domainArray[1]),
+      CoordinateMap.#Point(domainArray[2], domainArray[3]),
+      CoordinateMap.#Point(domainArray[4], domainArray[5])
+    );
+    this.range = this.#CoordinateSystem(
+      CoordinateMap.#Point(rangeArray[0], rangeArray[1]),
+      CoordinateMap.#Point(rangeArray[2], rangeArray[3]),
+      CoordinateMap.#Point(rangeArray[4], rangeArray[5])
+    );
+  }
 
-    constructor(domainArray, rangeArray) {
-        this.domain = this.#CoordinateSystem(CoordinateMap.#Point(domainArray[0], domainArray[1]), CoordinateMap.#Point(domainArray[2], domainArray[3]), CoordinateMap.#Point(domainArray[4], domainArray[5]));
-        this.range = this.#CoordinateSystem(CoordinateMap.#Point(rangeArray[0], rangeArray[1]), CoordinateMap.#Point(rangeArray[2], rangeArray[3]), CoordinateMap.#Point(rangeArray[4], rangeArray[5]));
+  convert(x, y) {
+    let point = CoordinateMap.#Point(x, y);
+    let proportionalityConstant = this.#getBasisProportion(this.domain, point);
+    let scaled = this.#multVectorByMatrix(proportionalityConstant, [
+      this.range.iHat.x,
+      this.range.jHat.x,
+      this.range.iHat.y,
+      this.range.jHat.y,
+    ]);
+
+    return this.#vectorAddition(scaled, this.range.origin);
+  }
+
+  #getBasisProportion(coordinateSystem, point) {
+    let wrtOrigin = this.#vectorSubtraction(point, coordinateSystem.origin);
+
+    let m = this.#multVectorByMatrix(wrtOrigin, coordinateSystem.inverseMatrix);
+
+    return m;
+  }
+
+  #vectorSubtraction(p1, p2) {
+    return CoordinateMap.#Point(p1.x - p2.x, p1.y - p2.y);
+  }
+
+  #scaleMatrix(scalar, matrix) {
+    let m = [];
+    for (let i = 0; i < matrix.length; i++) {
+      m.push(matrix[i] * scalar);
     }
 
-    convert(x, y) {
-        let point = CoordinateMap.#Point(x, y);
-        let proportionalityConstant = this.#getBasisProportion(this.domain, point);
-        let scaled = this.#multVectorByMatrix(proportionalityConstant, [this.range.iHat.x, this.range.jHat.x, this.range.iHat.y, this.range.jHat.y]);
+    return m;
+  }
 
-        return this.#vectorAddition(scaled, this.range.origin);
-    }
+  #multVectorByMatrix(v, m) {
+    return CoordinateMap.#Point(
+      v.x * m[0] + v.y * m[1],
+      v.x * m[2] + v.y * m[3]
+    );
+  }
 
-    #getBasisProportion(coordinateSystem, point) {
-        let wrtOrigin = this.#vectorSubtraction(point, coordinateSystem.origin);
+  #vectorAddition(v1, v2) {
+    return CoordinateMap.#Point(v1.x + v2.x, v1.y + v2.y);
+  }
 
-        let m = this.#multVectorByMatrix(wrtOrigin, coordinateSystem.inverseMatrix);
+  #CoordinateSystem(origin, topRight, bottomLeft) {
+    let iHat = this.#vectorSubtraction(topRight, origin);
+    let jHat = this.#vectorSubtraction(bottomLeft, origin);
+    let determCoeff = iHat.x * jHat.y - iHat.y * jHat.x;
+    let determ = 1 / determCoeff;
+    let inverseMatrix = [jHat.y, -jHat.x, -iHat.y, iHat.x];
+    inverseMatrix = this.#scaleMatrix(determ, inverseMatrix);
 
-        return m;
-    }
+    return {
+      origin: origin,
+      originPlusIHat: topRight,
+      originPlusJHat: bottomLeft,
+      iHat: iHat,
+      jHat: jHat,
+      inverseMatrix: inverseMatrix,
+    };
+  }
 
-    #vectorSubtraction(p1, p2) {
-        return CoordinateMap.#Point(p1.x - p2.x, p1.y - p2.y);
-    }
-
-    #scaleMatrix(scalar, matrix) {
-        let m = [];
-        for (let i = 0; i < matrix.length; i++) {
-            m.push(matrix[i] * scalar);
-        }
-
-        return m;
-    }
-
-    #multVectorByMatrix(v, m) {
-        return CoordinateMap.#Point(v.x * m[0] + v.y * m[1], v.x * m[2] + v.y * m[3]);
-    }
-
-    #vectorAddition(v1, v2) {
-        return CoordinateMap.#Point(v1.x + v2.x, v1.y + v2.y);
-    }
-
-    #CoordinateSystem(origin, topRight, bottomLeft) {
-
-        let iHat = this.#vectorSubtraction(topRight, origin);
-        let jHat = this.#vectorSubtraction(bottomLeft, origin);
-        let determCoeff = iHat.x * jHat.y - iHat.y * jHat.x;
-        let determ = 1 / determCoeff;
-        let inverseMatrix = [jHat.y, -jHat.x, -iHat.y, iHat.x];
-        inverseMatrix = this.#scaleMatrix(determ, inverseMatrix);
-
-        return {
-            origin: origin,
-            originPlusIHat: topRight,
-            originPlusJHat: bottomLeft,
-            iHat: iHat,
-            jHat: jHat,
-            inverseMatrix: inverseMatrix,
-        }
-
-    }
-
-    static #Point(x, y) {
-        return {
-            "x": x,
-            "y": y,
-        }
-    }
-
-
+  static #Point(x, y) {
+    return {
+      x: x,
+      y: y,
+    };
+  }
 }
 
-
+export default CoordinateMap;
