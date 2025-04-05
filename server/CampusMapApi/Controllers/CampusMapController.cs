@@ -103,8 +103,8 @@ public class CampusMapController : ControllerBase
           LocationNode node = new LocationNode();
 
           // pulling data from each record and storing in node
-          // node.building = record["building"].As<string>();
-          // node.id = record["id"].As<string>();
+          node.building = record["building"].As<string>();
+          node.id = record["id"].As<string>();
           //node.displayName = $"{building} Room {roomNumber}";
 
           // add node to List<>
