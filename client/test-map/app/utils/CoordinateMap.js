@@ -120,4 +120,6 @@ class CoordinateMap {
 
 }
 
+export default CoordinateMap;
+
 

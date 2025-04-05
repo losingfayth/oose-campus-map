@@ -20,7 +20,8 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths from "../assets/build_images/imagePaths";
+import imagePaths, { imageReferencePoints } from "../assets/build_images/imagePaths";
+import CoordinateMap from "../utils/CoordinateMap";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
@@ -37,6 +38,15 @@ import imagePaths from "../assets/build_images/imagePaths";
 //   require("../assets/build_images/BFB-1.jpg")
 // ).uri;
 
+function getImageReferencePoints(building) {
+  for (let i = 0; i < imageReferencePoints.length; i++) {
+    if (imageReferencePoints[i].buildingName == building) { // string equality in javascript?
+      return imageReferencePoints[i];
+    }
+  }
+  // error handling - building name not in imageReferencePoints
+}
+
 export default function Building() {
   const router = useRouter();
 
@@ -50,12 +60,30 @@ export default function Building() {
   };
   const uri = getImageUri(locs[currIndex]);
 
+  // building Name locs[currIndex]
+  let imageReference = getImageReferencePoints(locs[currIndex]);
+  const gcsToBlueprintMap = new (
+    [imageReference.referencePoints.topLeft[0], imageReference.referencePoints.topLeft[1],
+    imageReference.referencePoints.topRight[0], imageReference.referencePoints.topRight[1],
+    imageReference.referencePoints.bottomLeft[0], imageReference.referencePoints.bottomLeft[1],
+    ],
+    [
+      0, 0,
+      size.width, 0,
+      0, size.height,
+    ]
+  );
+
+  let point = gcsToBlueprintMap.convert(lat, lng);
+  //point.x, point.y
+
+
   const normalizedPoints = PointNormalizer.normalizePoints(
     parsedPoints[currIndex],
     locs[currIndex]
   );
-  
-  // console.log(normalizedPoints);
+
+
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
@@ -79,10 +107,7 @@ export default function Building() {
   }
 
   // Get the resized image dimensions
-  const size = fitContainer(resolution.width / resolution.height, {
-    width,
-    height,
-  });
+  const size = fitContainer(resolution.width / resolution.height, { width, height, });
 
   if (locs[currIndex] !== "OUT") {
     return (
