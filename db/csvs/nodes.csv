@@ -1042,7 +1042,7 @@ id,locationCode,floor,building,name,isValidDestination
 1472,x,0,Arts & Admin,Room 007,TRUE
 1473,x,2,Arts & Admin,Room 261,TRUE
 1501,x,-1,Hartline,Basement Entrance 1,TRUE
-1502,x,-1,Hartline Basement Entrance 2,TRUE,
+1502,x,-1,Hartline,Basement Entrance 2,TRUE
 1503,x,-1,Hartline,Basement Entrance 3,TRUE
 1504,x,-0.5,Hartline,stair1,FALSE
 1505,x,-0.5,Hartline,stair2,FALSE
