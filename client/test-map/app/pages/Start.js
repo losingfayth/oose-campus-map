@@ -14,6 +14,7 @@ import * as Location from "expo-location";
 import SearchBar from "../components/SearchBar";
 import { searchables, roomNumbers } from "../components/test/Words";
 import { points } from "../components/Points";
+import { loadImageReferences } from "../assets/build_images/imagePaths";
 
 export default function Start() {
   const [location, setLocation] = useState(null);

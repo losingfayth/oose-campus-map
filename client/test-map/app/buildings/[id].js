@@ -20,7 +20,8 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths from "../assets/build_images/imagePaths";
+import imagePaths, { ImageReferences, buildingCorners, getImageReferences, getImageReference } from "../assets/build_images/imagePaths";
+import CoordinateMap from "../utils/CoordinateMap";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
@@ -49,6 +50,8 @@ export default function Building() {
     return Image.resolveAssetSource(imagePaths[building]).uri;
   };
   const uri = getImageUri(locs[currIndex]);
+
+  let imageReferencePoints = getImageReference(locs[currIndex]);
 
   const normalizedPoints = PointNormalizer.normalizePoints(
     parsedPoints[currIndex],
@@ -82,6 +85,24 @@ export default function Building() {
     width,
     height,
   });
+
+  console.log(size);
+
+  let m = new CoordinateMap(
+    CoordinateMap.fromReference(imageReferencePoints.referencePoints),
+
+    [
+      [0, 0],
+      [size.width, 0],
+      [0, size.height]
+    ],
+  );
+
+  //41.006674, -76.448270, 41.007064, -76.448570,
+  let mapped = m.convert(41.0068, -76.4483);
+  console.log("mapped: " + mapped.x + ", " + mapped.y);
+  // console.log("size.width: " + size.width);
+
 
   if (locs[currIndex] !== "OUT") {
     return (
