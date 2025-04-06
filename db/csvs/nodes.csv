@@ -1165,7 +1165,7 @@ id,locationCode,floor,building,name,isValidDestination
 1622,x,0,Hartline,Room G64,TRUE
 1623,x,0,Hartline,Room G64A,TRUE
 1624,x,0,Hartline,Room G64B,TRUE
-1625,x,0,Hartline Room G67,TRUE,
+1625,x,0,Hartline,Room G67,TRUE
 1626,x,0,Hartline,Room G69,TRUE
 1627,x,0,Hartline,Room G70,TRUE
 1628,x,0,Hartline,Room G71,TRUE
