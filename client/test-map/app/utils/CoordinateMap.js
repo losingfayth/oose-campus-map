@@ -49,8 +49,6 @@
 class CoordinateMap {
 
     constructor(domainArray, rangeArray) {
-        console.log("Domain: " + domainArray);
-        console.log("Range: " + rangeArray);
         this.domain = this.#CoordinateSystem(CoordinateMap.Point(domainArray[0], domainArray[1]), CoordinateMap.Point(domainArray[2], domainArray[3]), CoordinateMap.Point(domainArray[4], domainArray[5]));
         this.range = this.#CoordinateSystem(CoordinateMap.Point(rangeArray[0], rangeArray[1]), CoordinateMap.Point(rangeArray[2], rangeArray[3]), CoordinateMap.Point(rangeArray[4], rangeArray[5]));
     }
@@ -60,7 +58,6 @@ class CoordinateMap {
     }
 
     convert(x, y) {
-        console.log("convert: ")
         let point = CoordinateMap.Point(x, y);
         let proportionalityConstant = this.#getBasisProportion(this.domain, point);
         let scaled = this.#multVectorByMatrix(proportionalityConstant, [this.range.iHat.x, this.range.jHat.x, this.range.iHat.y, this.range.jHat.y]);
@@ -118,7 +115,6 @@ class CoordinateMap {
     }
 
     static Point(x, y) {
-        console.log("Point: " + x + ", " + y);
         return {
             "x": x,
             "y": y,
