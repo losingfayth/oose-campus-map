@@ -103,9 +103,9 @@ export default function Building() {
   // );
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
-  console.log("Given lat/lon points: ", parsedPoints[currIndex]);
-  console.log("Dakotah points: ", pixelPoints);
-  console.log("-------------------\n");
+  // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
+  // console.log("Dakotah points: ", pixelPoints);
+  // console.log("-------------------\n");
   const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
@@ -134,7 +134,7 @@ export default function Building() {
                 strokeDasharray="5 10" // 5 units of stroke with 10 units of space
               />
               {/* Add a circle at the last point */}
-              {/* {normalizedPoints.length > 0 && (
+              {normalizedPoints.length > 0 && (
                 <Circle
                   cx={
                     normalizedPoints[normalizedPoints.length - 1].x * size.width
@@ -154,7 +154,7 @@ export default function Building() {
                   r={8} // Radius of the circle
                   fill={currLoc == 0 ? "lime" : "blue"}
                 />
-              )} */}
+              )}
             </Svg>
           </ImageBackground>
         </ResumableZoom>

@@ -3,10 +3,10 @@ import { Image } from "react-native";
 
 const imagePaths = {
   "BFB-1": require("../../assets/build_images/BFB-1.png"),
-  "BFB-2": require("../../assets/build_images/BFB-2.jpg"),
+  "BFB-2": require("../../assets/build_images/BFB-2.png"),
   OUT: require("../../assets/build_images/OUT.jpg"),
   "NAVY-1": require("../../assets/build_images/NAVY-1.png"),
-  "NAVY-2": require("../../assets/build_images/NAVY-2.jpg"),
+  "NAVY-2": require("../../assets/build_images/NAVY-2.png"),
 };
 
 const buildingNames = [
