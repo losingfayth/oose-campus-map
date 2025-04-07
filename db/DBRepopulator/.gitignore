@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Added by Brandon (above are default and unmodified) ###
+.idea/

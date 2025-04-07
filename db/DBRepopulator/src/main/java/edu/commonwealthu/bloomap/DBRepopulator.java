@@ -17,11 +17,11 @@ public class DBRepopulator {
 
         // Retrieve username and password from user to log into the database.
         final String dbUri = "neo4j+ssc://apibloomap.xyz:7687";
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter DB Username: ");
-        final String dbUser = in.nextLine().strip();
-        System.out.print("Enter DB Password: ");
-        final String dbPass = in.nextLine().strip();
+        final String dbUser = System.getenv("DB_USER");
+        final String dbPass = System.getenv("DB_PASSWORD");
+        if (dbUser == null || dbPass == null) {
+            throw new RuntimeException("Environment variables DB_USER and/or DB_PASSWORD are not set.");
+        }
 
         // Read the csvs from which the database will be repopulated.
         final File nodesFile = new File("../csvs/nodes.csv");
@@ -30,10 +30,14 @@ public class DBRepopulator {
         final ArrayList<Map<String, String>> edges = CSVParser.readCsv(edgesFile);
 
         // Attempt to connect to the database; if successful, run the nuke and repopulation methods.
+        long startTime = 0;
         try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
             driver.verifyConnectivity();
-            System.out.println("Connected to database.");
+            System.out.println("Connected to database as user " + dbUser + ".\n" +
+                    "Beginning repopulation...");
             try (Session session = driver.session()) {
+                startTime = System.nanoTime();
+
                 session.executeWrite(tx -> {
                     removeAllLocations(tx);
                     insertNodes(tx, nodes);
@@ -47,15 +51,23 @@ public class DBRepopulator {
             e.printStackTrace();
         }
 
-        System.out.println("Database successfully repopulated.");
+        long endTime = System.nanoTime();
+        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
+        System.out.printf("Database successfully repopulated in %.2f seconds%n.", durationSeconds);
     }
 
     /**
      * Removes all Location nodes in the database.
      */
     private static void removeAllLocations(TransactionContext tx) {
-            tx.run("MATCH (n:Location) DETACH DELETE n");
-            System.out.println("All Location nodes removed.");
+        long startTime = System.nanoTime();
+
+        tx.run("MATCH (n:Location) DETACH DELETE n");
+
+        long endTime = System.nanoTime();
+        double durationMillis = (endTime - startTime) / 1_000_000.;
+        System.out.printf("All Location nodes removed in %.2f milliseconds%n.", durationMillis);
+
     }
 
     /**
@@ -63,6 +75,8 @@ public class DBRepopulator {
      * The nodes parameter contains a type row at index 0 and the actual node data in subsequent rows.
      */
     private static void insertNodes(TransactionContext tx, ArrayList<Map<String, String>> nodes) {
+        long startTime = System.nanoTime();
+
         // This will never happen for our purposes.
         if (nodes.size() < 2) {
             System.out.println("No node data found.");
@@ -89,7 +103,10 @@ public class DBRepopulator {
             String query = "CREATE (:Location {" + props + "})";
             tx.run(query, params);
         }
-        System.out.println("Nodes inserted.");
+
+        long endTime = System.nanoTime();
+        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
+        System.out.printf("Nodes inserted in %.2f seconds%n", durationSeconds);
     }
 
     /**
@@ -111,6 +128,8 @@ public class DBRepopulator {
      * Each row must include startId and endId. Other keys become relationship properties.
      */
     public static void insertEdges(TransactionContext tx, ArrayList<Map<String, String>> edgesCsv) {
+        long startTime = System.nanoTime();
+
         if (edgesCsv.size() < 2) {
             System.out.println("No edge data found.");
             return;
@@ -146,7 +165,10 @@ public class DBRepopulator {
                     "(b)-[:CONNECTED_TO" + relPropsString + "]->(a)";
             tx.run(query, params);
         }
-        System.out.println("Edges inserted.");
+
+        long endTime = System.nanoTime();
+        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
+        System.out.printf("Edges inserted in %.2f seconds%n", durationSeconds);
     }
 
     /**
