@@ -53,7 +53,7 @@ public class DBRepopulator {
 
         long endTime = System.nanoTime();
         double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Database successfully repopulated in %.2f seconds%n.", durationSeconds);
+        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
     }
 
     /**
@@ -66,7 +66,7 @@ public class DBRepopulator {
 
         long endTime = System.nanoTime();
         double durationMillis = (endTime - startTime) / 1_000_000.;
-        System.out.printf("All Location nodes removed in %.2f milliseconds%n.", durationMillis);
+        System.out.printf("All Location nodes removed in %.2f milliseconds.%n", durationMillis);
 
     }
 
@@ -106,7 +106,7 @@ public class DBRepopulator {
 
         long endTime = System.nanoTime();
         double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Nodes inserted in %.2f seconds%n", durationSeconds);
+        System.out.printf("Nodes inserted in %.2f seconds.%n", durationSeconds);
     }
 
     /**
@@ -168,7 +168,7 @@ public class DBRepopulator {
 
         long endTime = System.nanoTime();
         double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Edges inserted in %.2f seconds%n", durationSeconds);
+        System.out.printf("Edges inserted in %.2f seconds.%n", durationSeconds);
     }
 
     /**
