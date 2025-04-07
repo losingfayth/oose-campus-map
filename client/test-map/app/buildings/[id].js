@@ -20,7 +20,12 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths, { ImageReferences, buildingCorners, getImageReferences, getImageReference } from "../assets/build_images/imagePaths";
+import imagePaths, {
+  ImageReferences,
+  buildingCorners,
+  getImageReferences,
+  getImageReference,
+} from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
 
 /**
@@ -38,6 +43,13 @@ import CoordinateMap from "../utils/CoordinateMap";
 //   require("../assets/build_images/BFB-1.jpg")
 // ).uri;
 
+function mapPointsToPixels(points, coordinateMap) {
+  return points.map((point) => {
+    const mapped = coordinateMap.convert(point.latitude, point.longitude);
+    return { x: mapped.x, y: mapped.y };
+  });
+}
+
 export default function Building() {
   const router = useRouter();
 
@@ -52,12 +64,6 @@ export default function Building() {
   const uri = getImageUri(locs[currIndex]);
 
   let imageReferencePoints = getImageReference(locs[currIndex]);
-
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    parsedPoints[currIndex],
-    locs[currIndex]
-  );
-  // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
@@ -86,22 +92,33 @@ export default function Building() {
     height,
   });
 
-
   let m = new CoordinateMap(
     CoordinateMap.fromReference(imageReferencePoints.referencePoints),
 
-    [
-      0, 0,
-      size.width, 0,
-      0, size.height,
-    ],
+    [0, 0, size.width, 0, 0, size.height]
   );
 
   // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  let mapped = m.convert(41.0068, -76.4483);
-  console.log("mapped: " + mapped.x + ", " + mapped.y);
+  // let mapped = m.convert(41.0068, -76.4483);
+  // console.log("mapped: " + mapped.x + ", " + mapped.y);
+  console.log(
+    "New Image Width: ",
+    size.width,
+    " and New Image Height: ",
+    size.height
+  );
 
+  const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
+  console.log("Dakotah points:");
+  console.log(pixelPoints);
 
+  const normalizedPoints = PointNormalizer.normalizePoints(
+    pixelPoints,
+    locs[currIndex]
+  );
+  console.log("normalized points:");
+  console.log(normalizedPoints);
+  // console.log(normalizedPoints);
 
   if (locs[currIndex] !== "OUT") {
     return (
@@ -129,7 +146,7 @@ export default function Building() {
                 strokeDasharray="5 10" // 5 units of stroke with 10 units of space
               />
               {/* Add a circle at the last point */}
-              {normalizedPoints.length > 0 && (
+              {/* {normalizedPoints.length > 0 && (
                 <Circle
                   cx={
                     normalizedPoints[normalizedPoints.length - 1].x * size.width
@@ -149,7 +166,7 @@ export default function Building() {
                   r={8} // Radius of the circle
                   fill={currLoc == 0 ? "lime" : "blue"}
                 />
-              )}
+              )} */}
             </Svg>
           </ImageBackground>
         </ResumableZoom>
