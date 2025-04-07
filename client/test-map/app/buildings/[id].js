@@ -39,10 +39,6 @@ import CoordinateMap from "../utils/CoordinateMap";
  *  @author Ethan Broskoskie
  */
 
-// const uri = Image.resolveAssetSource(
-//   require("../assets/build_images/BFB-1.jpg")
-// ).uri;
-
 function mapPointsToPixels(points, coordinateMap) {
   return points.map((point) => {
     const mapped = coordinateMap.convert(point.latitude, point.longitude);
@@ -62,8 +58,6 @@ export default function Building() {
     return Image.resolveAssetSource(imagePaths[building]).uri;
   };
   const uri = getImageUri(locs[currIndex]);
-
-  let imageReferencePoints = getImageReference(locs[currIndex]);
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
@@ -92,6 +86,8 @@ export default function Building() {
     height,
   });
 
+  let imageReferencePoints = getImageReference(locs[currIndex]);
+
   let m = new CoordinateMap(
     CoordinateMap.fromReference(imageReferencePoints.referencePoints),
 
@@ -99,26 +95,18 @@ export default function Building() {
   );
 
   // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  // let mapped = m.convert(41.0068, -76.4483);
-  // console.log("mapped: " + mapped.x + ", " + mapped.y);
-  console.log(
-    "New Image Width: ",
-    size.width,
-    " and New Image Height: ",
-    size.height
-  );
+  // console.log(
+  //   "New Image Width: ",
+  //   size.width,
+  //   " and New Image Height: ",
+  //   size.height
+  // );
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
-  console.log("Dakotah points:");
-  console.log(pixelPoints);
-
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    pixelPoints,
-    locs[currIndex]
-  );
-  console.log("normalized points:");
-  console.log(normalizedPoints);
-  // console.log(normalizedPoints);
+  console.log("Given lat/lon points: ", parsedPoints[currIndex]);
+  console.log("Dakotah points: ", pixelPoints);
+  console.log("-------------------\n");
+  const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
     return (

@@ -5,14 +5,31 @@ const imagePaths = {
   "BFB-1": require("../../assets/build_images/BFB-1.png"),
   "BFB-2": require("../../assets/build_images/BFB-2.jpg"),
   OUT: require("../../assets/build_images/OUT.jpg"),
-  "NAVY-1": require("../../assets/build_images/NAVY-1.jpg"),
+  "NAVY-1": require("../../assets/build_images/NAVY-1.png"),
   "NAVY-2": require("../../assets/build_images/NAVY-2.jpg"),
 };
 
-const buildingNames = ["BFB-1", "BFB-2"];
+const buildingNames = [
+  "OUT",
+  "BFB-G",
+  "BFB-1",
+  "BFB-2",
+  "NAVY-G",
+  "NAVY-1",
+  "NAVY-2",
+  "NAVY-A",
+];
 const buildingCorners = [
-  [41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069],
-  [41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069],
+  [1.0, -1.0, 1.0, -1.0, 1.0, -1.0], // OUTSIDE (OUT)
+
+  [41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069], // BFB-G
+  [41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069], // BFB-1
+  [41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069], // BFB-2
+
+  [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-G  edit
+  [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-1  edit
+  [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-2  edit
+  [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-A  edit
 ];
 
 var ImageReferences = [];
