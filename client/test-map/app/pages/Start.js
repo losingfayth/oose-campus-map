@@ -99,17 +99,14 @@ export default function Start() {
     }
   }, [location, isRegionSet]); // Ensure this runs only when the location is available
 
+  // Get buildings when the program starts
   useEffect(() => {
     async function fetchBuildings() {
       try {
         const buildings = await getBuildings();
 
-        const formatted = buildings.map((b) => ({
-          name: b.building,
-          id: b.id,
-        }));
-
-        setBuildingOptions(formatted); // save to state
+        console.log(buildings);
+        setBuildingOptions(buildings); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }
@@ -189,7 +186,21 @@ export default function Start() {
         customStyles={{ left: "5%", width: "60%" }}
         placeholderText="From"
         onTypingChange={setIsBuildingTyping}
-        onSelect={setStartBuilding} // Set selected "From" value
+        onSelect={(building) => {
+          setStartBuilding(building);
+          getRooms(building)
+            .then((rooms) => {
+              console.log("Rooms for", building, ":", rooms);
+              // Optional: you can also update roomNumbers state here if needed
+            })
+            .catch((error) => {
+              console.error(
+                "Error fetching rooms for building:",
+                building,
+                error
+              );
+            });
+        }}
       />
       <SearchBar
         customStyles={{ width: "31%", left: "64%", borderColor: "black" }}

@@ -37,11 +37,11 @@ export async function getRooms(building) {
     // use fetch to make an http request to server at get-location endpoint
     // use fetch to make an http request to server at find-path endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5164/api/CampusMap/get-rooms",
+      "https://apibloomap.xyz:5160/api/CampusMap/get-rooms",
       {
         method: "POST", // http POST request
         headers: { "Content-Type": "application/json" }, // sending data as json
-        body: JSON.stringify({ buildings }), // convert js to json before sending
+        body: JSON.stringify({ building }), // convert js to json before sending
       }
     );
 

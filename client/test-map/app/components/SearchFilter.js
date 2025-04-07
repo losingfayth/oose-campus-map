@@ -10,13 +10,13 @@ import React from "react";
 const SearchFilter = ({ data, input, setInput, customStyles }) => {
   // Function to handle item press
   const handlePress = (item) => {
-    console.log("User clicked:", item.name);
-    setInput(item.name); // Update the search input with the clicked item's name
+    console.log("User clicked:", item);
+    setInput(item); // Update the search input with the clicked item's name
   };
 
   // Filter data based on user input
   const filteredData = data.filter((item) =>
-    item.name.toLowerCase().includes(input.toLowerCase())
+    item.toLowerCase().includes(input.toLowerCase())
   );
 
   // If input is not empty and no matches, render nothing
@@ -32,7 +32,7 @@ const SearchFilter = ({ data, input, setInput, customStyles }) => {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePress(item)}>
             <View style={{ marginVertical: 10, marginLeft: 10 }}>
-              <Text style={{ fontSize: 16 }}>{item.name}</Text>
+              <Text style={{ fontSize: 16 }}>{item}</Text>
             </View>
           </TouchableOpacity>
         )}

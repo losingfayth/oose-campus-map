@@ -37,20 +37,6 @@ import CoordinateMap from "../utils/CoordinateMap";
  *  @author Ethan Broskoskie
  */
 
-// const uri = Image.resolveAssetSource(
-//   require("../assets/build_images/BFB-1.jpg")
-// ).uri;
-
-function getImageReferencePoints(building) {
-  for (let i = 0; i < imageReferencePoints.length; i++) {
-    if (imageReferencePoints[i].buildingName == building) {
-      // string equality in javascript?
-      return imageReferencePoints[i];
-    }
-  }
-  // error handling - building name not in imageReferencePoints
-}
-
 export default function Building() {
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
@@ -105,25 +91,6 @@ export default function Building() {
   });
   // to here-----------------------------------------------------------------------------------
   // must move as one big block ---------------------------------------------------------------
-
-  // building Name locs[currIndex]
-  let imageReference = getImageReferencePoints(locs[currIndex]);
-  const gcsToBlueprintMap = new ([
-    imageReference.referencePoints.topLeft[0],
-    imageReference.referencePoints.topLeft[1],
-    imageReference.referencePoints.topRight[0],
-    imageReference.referencePoints.topRight[1],
-    imageReference.referencePoints.bottomLeft[0],
-    imageReference.referencePoints.bottomLeft[1],
-  ],
-  [0, 0, size.width, 0, 0, size.height])();
-
-  // example usage -> lat, lng both need to be Numbers that represent the latitude longitude values of the LocationNode received
-  // from the server
-
-  let point = gcsToBlueprintMap.convert(lat, lng);
-  // then the mapped points can be accessed with: point.x, point.y - which should give the appropriate place to draw the point on
-  // the blueprint displayed on the users phone
 
   const normalizedPoints = PointNormalizer.normalizePoints(
     parsedPoints[currIndex],
