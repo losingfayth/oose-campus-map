@@ -186,21 +186,7 @@ export default function Start() {
         customStyles={{ left: "5%", width: "60%" }}
         placeholderText="From"
         onTypingChange={setIsBuildingTyping}
-        onSelect={(building) => {
-          setStartBuilding(building);
-          getRooms(building)
-            .then((rooms) => {
-              console.log("Rooms for", building, ":", rooms);
-              // Optional: you can also update roomNumbers state here if needed
-            })
-            .catch((error) => {
-              console.error(
-                "Error fetching rooms for building:",
-                building,
-                error
-              );
-            });
-        }}
+        onSelect={setStartBuilding} // Set selected "From" value
       />
       <SearchBar
         customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
