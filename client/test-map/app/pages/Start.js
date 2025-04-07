@@ -106,8 +106,8 @@ export default function Start() {
         const buildings = await getBuildings();
 
         console.log(buildings);
-        console.log("Get Rooms: ", await getRooms());
-        setBuildingOptions(buildings); // save to state
+        // console.log("Get Rooms: ", await getRooms());
+        // setBuildingOptions(buildings); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }

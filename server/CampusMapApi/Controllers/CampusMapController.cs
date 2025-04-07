@@ -128,9 +128,11 @@ public class CampusMapController : ControllerBase
   Queries database for all nodes and returns a list of location objects.
   http POST api endpoint accessible at GET /api/CampusMap/get-rooms
   */
-  [HttpGet("get-rooms")]
-  public async Task<IActionResult> GetRooms()
+  [HttpPost("get-rooms")]
+  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
   {
+    var building = request.building;
+
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
     var username = Environment.GetEnvironmentVariable("DB_USER")
@@ -141,17 +143,17 @@ public class CampusMapController : ControllerBase
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    // Cypher query to fetch all nodes with room numbers
+    // Cypher query that filters by building
     var query = @"
-      MATCH (n:Location)
-      WHERE n.roomNumber IS NOT NULL
-      RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
-  ";
+        MATCH (n:Location)
+        WHERE n.roomNumber IS NOT NULL AND n.building = $building
+        RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
+    ";
     var locations = new List<LocationNode>();
 
     try
     {
-      var result = await session.RunAsync(query);
+      var result = await session.RunAsync(query, new { building });
 
       await result.ForEachAsync(record =>
       {
@@ -173,7 +175,6 @@ public class CampusMapController : ControllerBase
 
     return Ok(locations);
   }
-
 
   // DTO for request body
   public class BuildingRequest
