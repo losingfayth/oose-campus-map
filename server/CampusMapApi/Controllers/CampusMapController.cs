@@ -94,7 +94,7 @@ public class CampusMapController : ControllerBase
           RETURN building, node.id AS id
         ";
 
-      var locations = new List<LocationNode>(); // list of locations being queried
+      var locations = new List<string>(); // list of locations being queried
       
       try {
 
@@ -105,16 +105,19 @@ public class CampusMapController : ControllerBase
         // node with those attributes. add the node to the list
         await result.ForEachAsync(record => {
 
-          // creating a new Location node
-          LocationNode node = new LocationNode();
+          string building = record["building"].As<string>();
+          locations.Add(building);
 
-          // pulling data from each record and storing in node
-          node.building = record["building"].As<string>();
-          node.id = record["id"].As<string>();
-          //node.displayName = $"{building} Room {roomNumber}";
+          // // creating a new Location node
+          // LocationNode node = new LocationNode();
 
-          // add node to List<>
-          locations.Add(node);
+          // // pulling data from each record and storing in node
+          // node.building = record["building"].As<string>();
+          // node.id = record["id"].As<string>();
+          // //node.displayName = $"{building} Room {roomNumber}";
+
+          // // add node to List<>
+          // locations.Add(node);
 
         });
 
