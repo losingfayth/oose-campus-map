@@ -106,6 +106,7 @@ export default function Start() {
         const buildings = await getBuildings();
 
         console.log(buildings);
+        console.log("Get Rooms: ", await getRooms());
         setBuildingOptions(buildings); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
@@ -187,6 +188,23 @@ export default function Start() {
         placeholderText="From"
         onTypingChange={setIsBuildingTyping}
         onSelect={setStartBuilding} // Set selected "From" value
+        // onSelect={(building) => {
+        //   if (!building) return; // Guard clause
+        //   setStartBuilding(building);
+
+        //   getRooms(building)
+        //     .then((rooms) => {
+        //       console.log("Rooms for", building, ":", rooms);
+        //       setFilteredRoomNumbers(rooms);
+        //     })
+        //     .catch((error) => {
+        //       console.error(
+        //         "Error fetching rooms for building:",
+        //         building,
+        //         error
+        //       );
+        //     });
+        // }}
       />
       <SearchBar
         customStyles={{ width: "31%", left: "64%", borderColor: "black" }}

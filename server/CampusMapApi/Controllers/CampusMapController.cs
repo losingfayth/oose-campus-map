@@ -111,17 +111,6 @@ public class CampusMapController : ControllerBase
         string building = record["building"].As<string>();
         locations.Add(building);
 
-        // // creating a new Location node
-        // LocationNode node = new LocationNode();
-
-        // // pulling data from each record and storing in node
-        // node.building = record["building"].As<string>();
-        // node.id = record["id"].As<string>();
-        // //node.displayName = $"{building} Room {roomNumber}";
-
-        // // add node to List<>
-        // locations.Add(node);
-
       });
 
       // catch and display any errors encountered
@@ -139,11 +128,9 @@ public class CampusMapController : ControllerBase
   Queries database for all nodes and returns a list of location objects.
   http POST api endpoint accessible at GET /api/CampusMap/get-rooms
   */
-  [HttpPost("get-rooms")]
-  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
+  [HttpGet("get-rooms")]
+  public async Task<IActionResult> GetRooms()
   {
-    var building = request.building;
-
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
     var username = Environment.GetEnvironmentVariable("DB_USER")
@@ -154,17 +141,17 @@ public class CampusMapController : ControllerBase
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    // Cypher query that filters by building
+    // Cypher query to fetch all nodes with room numbers
     var query = @"
-        MATCH (n:Location)
-        WHERE n.roomNumber IS NOT NULL AND n.building = $building
-        RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
-    ";
+      MATCH (n:Location)
+      WHERE n.roomNumber IS NOT NULL
+      RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
+  ";
     var locations = new List<LocationNode>();
 
     try
     {
-      var result = await session.RunAsync(query, new { building });
+      var result = await session.RunAsync(query);
 
       await result.ForEachAsync(record =>
       {
@@ -186,6 +173,7 @@ public class CampusMapController : ControllerBase
 
     return Ok(locations);
   }
+
 
   // DTO for request body
   public class BuildingRequest
