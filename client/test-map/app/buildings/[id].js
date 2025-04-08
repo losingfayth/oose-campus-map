@@ -86,22 +86,21 @@ export default function Building() {
     height,
   });
 
-  console.log(size);
 
   let m = new CoordinateMap(
     CoordinateMap.fromReference(imageReferencePoints.referencePoints),
 
     [
-      [0, 0],
-      [size.width, 0],
-      [0, size.height]
+      0, 0,
+      size.width, 0,
+      0, size.height,
     ],
   );
 
-  //41.006674, -76.448270, 41.007064, -76.448570,
+  // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
   let mapped = m.convert(41.0068, -76.4483);
   console.log("mapped: " + mapped.x + ", " + mapped.y);
-  // console.log("size.width: " + size.width);
+
 
 
   if (locs[currIndex] !== "OUT") {
