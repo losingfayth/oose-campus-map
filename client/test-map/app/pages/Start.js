@@ -14,6 +14,9 @@ import * as Location from "expo-location";
 import SearchBar from "../components/SearchBar";
 import { searchables, roomNumbers } from "../components/test/Words";
 import { points } from "../components/Points";
+
+import { loadImageReferences } from "../assets/build_images/imagePaths";
+
 import { getBuildings, getRooms, findPath } from "../apis/api_functions";
 
 export default function Start() {
