@@ -146,8 +146,8 @@ public class CampusMapController : ControllerBase
     // Cypher query that filters by building
     var query = @"
         MATCH (n:Location)
-        WHERE n.roomNumber IS NOT NULL AND n.building = $building
-        RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
+        WHERE n.name IS NOT NULL AND n.building = $building
+        RETURN n.building AS building, n.name AS name, n.id AS id
     ";
     // var query = @"
     //     MATCH (n:Location)
@@ -165,7 +165,7 @@ public class CampusMapController : ControllerBase
         LocationNode node = new LocationNode
         {
           building = record["building"].As<string>(),
-          roomNumber = record["roomNumber"].As<string>(),
+          name = record["name"].As<string>(),
           id = record["id"].As<string>()
         };
 
