@@ -38,6 +38,11 @@ export default function Start() {
 
   const [buildingOptions, setBuildingOptions] = useState([]);
 
+  const [filteredRoomNumbers, setFilteredRoomNumbers] = useState([]);
+  const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
+  const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
+  const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+
   // set up a useEffect to request permissions, fetch user location, and track location
   useEffect(() => {
     // request user location to use while app is running
@@ -106,7 +111,7 @@ export default function Start() {
         const buildings = await getBuildings();
 
         console.log(buildings);
-        console.log("Get Rooms: ", await getRooms("Navy"));
+        // console.log("Get Rooms: ", await getRooms("Navy"));
         setBuildingOptions(buildings); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
@@ -152,7 +157,7 @@ export default function Start() {
       <Pressable
         style={styles.button}
         onPress={() => {
-          // Check if we have a building and room # for current location and destination
+          // Check if all necessary values are set
           if (
             true
             // selectedStartBuilding !== null &&
@@ -162,7 +167,11 @@ export default function Start() {
           ) {
             console.log("Not null");
 
-            // Testing getting the array of buildings
+            // Create array of room IDs: [fromRoomId, toRoomId]
+            const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+            console.log("Room ID array:", roomIdArray);
+
+            // Proceed with navigation
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
               pathname: `/buildings/${locs[0]}`,
@@ -182,47 +191,89 @@ export default function Start() {
       </Pressable>
 
       {/* Search bar with first being for building and second for room number */}
+      {/* "From" Building Search Bar */}
+      {/* "From" Building Search Bar */}
       <SearchBar
-        searchFilterData={buildingOptions}
+        searchFilterData={buildingOptions} // options for buildings
         customStyles={{ left: "5%", width: "60%" }}
         placeholderText="From"
-        onTypingChange={setIsBuildingTyping}
-        onSelect={setStartBuilding} // Set selected "From" value
-        // onSelect={(building) => {
-        //   if (!building) return; // Guard clause
-        //   setStartBuilding(building);
+        onTypingChange={setIsBuildingTyping} // updates typing state if needed
+        onSelect={(building) => {
+          if (!building) return; // safety check
+          setStartBuilding(building); // save selected building
 
-        //   getRooms(building)
-        //     .then((rooms) => {
-        //       console.log("Rooms for", building, ":", rooms);
-        //       setFilteredRoomNumbers(rooms);
-        //     })
-        //     .catch((error) => {
-        //       console.error(
-        //         "Error fetching rooms for building:",
-        //         building,
-        //         error
-        //       );
-        //     });
-        // }}
+          // Fetch all rooms for the selected building
+          getRooms(building)
+            .then((rooms) => {
+              // Filter only rooms that include the word "room" in their name
+              const filteredRooms = rooms.filter((room) =>
+                room.name.toLowerCase().includes("room")
+              );
+
+              // Save the full filtered room objects (not just names)
+              setFilteredRoomNumbers(filteredRooms);
+            })
+            .catch((error) => {
+              console.error(
+                "Error fetching rooms for building:",
+                building,
+                error
+              );
+            });
+        }}
       />
+
+      {/* "From" Room Search Bar */}
       <SearchBar
         customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
         showIcon={false}
-        searchFilterData={roomNumbers}
+        searchFilterData={filteredRoomNumbers.map((r) => r.name)} // show only room names in dropdown
         searchFilterStyles={{ width: "100%" }}
         placeholderText="Room #"
         onTypingChange={setIsRoomTyping}
-        onSelect={setStartRoom} // Set selected "Room" value
+        onSelect={(selectedName) => {
+          // Find the full room object matching the selected name
+          const matched = filteredRoomNumbers.find(
+            (room) => room.name === selectedName
+          );
+          if (matched) {
+            setStartRoom(matched.name); // save room name
+            setSelectedStartRoomId(matched.id); // save room id
+            console.log("Selected room:", matched.name, "| ID:", matched.id);
+          }
+        }}
       />
 
-      {/* Second set of two search bars.*/}
+      {/* "To" Building Search Bar */}
       <SearchBar
-        searchFilterData={buildingOptions}
+        searchFilterData={buildingOptions} // same list of buildings
         customStyles={{ top: "16%", left: "5%", width: "60%" }}
         placeholderText="To"
-        onSelect={setEndBuilding}
+        onSelect={(building) => {
+          if (!building) return;
+          setEndBuilding(building); // save destination building
+
+          // Fetch and filter rooms for this building
+          getRooms(building)
+            .then((rooms) => {
+              const filteredRooms = rooms.filter((room) =>
+                room.name.toLowerCase().includes("room")
+              );
+
+              // Save filtered room objects for "To" field
+              setFilteredEndRoomNumbers(filteredRooms);
+            })
+            .catch((error) => {
+              console.error(
+                "Error fetching TO rooms for building:",
+                building,
+                error
+              );
+            });
+        }}
       />
+
+      {/* "To" Room Search Bar */}
       <SearchBar
         customStyles={{
           top: "16%",
@@ -231,10 +282,20 @@ export default function Start() {
           borderColor: "black",
         }}
         showIcon={false}
-        searchFilterData={roomNumbers}
+        searchFilterData={filteredEndRoomNumbers.map((r) => r.name)} // only names in dropdown
         searchFilterStyles={{ width: "100%" }}
         placeholderText="Room #"
-        onSelect={setEndRoom}
+        onSelect={(selectedName) => {
+          // Find the full room object from the selected name
+          const matched = filteredEndRoomNumbers.find(
+            (room) => room.name === selectedName
+          );
+          if (matched) {
+            setEndRoom(matched.name); // save destination room name
+            setSelectedEndRoomId(matched.id); // save its ID
+            console.log("Selected TO room:", matched.name, "| ID:", matched.id);
+          }
+        }}
       />
     </View>
   );
