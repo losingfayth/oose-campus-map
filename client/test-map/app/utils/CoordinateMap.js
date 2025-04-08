@@ -45,7 +45,6 @@
     displayLocation.x, displayLocation.y
 */
 
-
 class CoordinateMap {
 
     constructor(domainArray, rangeArray) {
@@ -74,6 +73,7 @@ class CoordinateMap {
     }
 
     #vectorSubtraction(p1, p2) {
+
         return CoordinateMap.Point(p1.x - p2.x, p1.y - p2.y);
     }
 
@@ -87,6 +87,7 @@ class CoordinateMap {
     }
 
     #multVectorByMatrix(v, m) {
+
         return CoordinateMap.Point(v.x * m[0] + v.y * m[1], v.x * m[2] + v.y * m[3]);
     }
 

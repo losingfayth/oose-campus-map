@@ -34,17 +34,16 @@ import CoordinateMap from "../utils/CoordinateMap";
  *  @author Ethan Broskoskie
  */
 
-// const uri = Image.resolveAssetSource(
-//   require("../assets/build_images/BFB-1.jpg")
-// ).uri;
-
 export default function Building() {
+  // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
   const { id, categories, coords, currLoc, maxLocs } = useLocalSearchParams();
   const parsedPoints = coords ? JSON.parse(coords) : [];
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
+  console.log("-----------------");
+  console.log(locs[currIndex]);
 
   const getImageUri = (building) => {
     return Image.resolveAssetSource(imagePaths[building]).uri;
@@ -76,15 +75,37 @@ export default function Building() {
     }
   }, [currIndex, locs, router]);
 
+  const { width, height } = useWindowDimensions(); // returns object with current devices dimensions
+  const { isFetching, resolution } = useImageResolution({ uri }); // get the resolution of the image (uri)
+
+  // check whether the resolution of the image is still
+  // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
     return null;
   }
 
-  // Get the resized image dimensions
+  /**
+   * Once the image resolution is fetched and available, this line
+   * calculates the appropriate size for the image based on the device's
+   * screen size and the image’s resolution (aspect ratio).
+   *
+   * fitContainer() calculates the best fitting dimensions for the image,
+   * keeping its aspect ratio consistent while ensuring that the image
+   * fits within the available screen size
+   */
   const size = fitContainer(resolution.width / resolution.height, {
     width,
     height,
   });
+  // to here-----------------------------------------------------------------------------------
+  // must move as one big block ---------------------------------------------------------------
+
+  const normalizedPoints = PointNormalizer.normalizePoints(
+    parsedPoints[currIndex],
+    locs[currIndex]
+  );
+
+  // console.log(normalizedPoints);
 
 
   let m = new CoordinateMap(
@@ -107,10 +128,10 @@ export default function Building() {
     return (
       <GestureHandlerRootView>
         <View style={styles.textContainer}>
-          <Text>List of Buildings: {categories}</Text>
+          {/* <Text>List of Buildings: {categories}</Text>
           <Text>Building ID: {id}</Text>
           <Text>Current Location in Array: {currLoc}</Text>
-          <Text>Maximum Locations in Array: {maxLocs}</Text>
+          <Text>Maximum Locations in Array: {maxLocs}</Text> */}
         </View>
         <ResumableZoom maxScale={resolution}>
           <ImageBackground

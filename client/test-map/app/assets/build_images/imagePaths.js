@@ -2,6 +2,7 @@
 import { Image } from "react-native";
 
 
+
 const imagePaths = {
   "BFB-1": require("../../assets/build_images/BFB-1.jpg"),
   "BFB-2": require("../../assets/build_images/BFB-2.jpg"),
@@ -9,8 +10,6 @@ const imagePaths = {
   "NAVY-1": require("../../assets/build_images/NAVY-1.jpg"),
   "NAVY-2": require("../../assets/build_images/NAVY-2.jpg"),
 };
-
-
 
 const buildingNames = ["BFB-1", "BFB-2"];
 const buildingCorners = [
@@ -72,8 +71,6 @@ function ImageReference(building, referencePoints) {
     referencePoints: referencePoints,
   }
 }
-
-
 
 // Add width and height to each entry
 Object.keys(imagePaths).forEach((key) => {
