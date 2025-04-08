@@ -10,7 +10,7 @@ export async function getBuildings() {
   try {
     // use fetch to make an http request to server at get-location endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5160/api/CampusMap/get-buildings"
+      "https://apibloomap.xyz:5159/api/CampusMap/get-buildings"
     );
 
     // console.log("Raw response:", response); // check the full response object
@@ -37,7 +37,7 @@ export async function getRooms(building) {
     // use fetch to make an http request to server at get-location endpoint
     // use fetch to make an http request to server at find-path endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5160/api/CampusMap/get-rooms",
+      "https://apibloomap.xyz:5159/api/CampusMap/get-rooms",
       {
         method: "POST", // http POST request
         headers: { "Content-Type": "application/json" }, // sending data as json
@@ -66,7 +66,7 @@ export async function findPath(currLoc, destination) {
   try {
     // use fetch to make an http request to server at find-path endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5164/api/CampusMap/find-path",
+      "https://apibloomap.xyz:5159/api/CampusMap/find-path",
       {
         method: "POST", // http POST request
         headers: { "Content-Type": "application/json" }, // sending data as json
