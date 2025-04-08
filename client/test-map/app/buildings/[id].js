@@ -20,7 +20,7 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths, { ImageReferences, buildingCorners, getImageReferences, getImageReference } from "../assets/build_images/imagePaths";
+import imagePaths, { getImageReference } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
 
 /**
@@ -75,9 +75,6 @@ export default function Building() {
     }
   }, [currIndex, locs, router]);
 
-  const { width, height } = useWindowDimensions(); // returns object with current devices dimensions
-  const { isFetching, resolution } = useImageResolution({ uri }); // get the resolution of the image (uri)
-
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
@@ -100,10 +97,7 @@ export default function Building() {
   // to here-----------------------------------------------------------------------------------
   // must move as one big block ---------------------------------------------------------------
 
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    parsedPoints[currIndex],
-    locs[currIndex]
-  );
+
 
   // console.log(normalizedPoints);
 

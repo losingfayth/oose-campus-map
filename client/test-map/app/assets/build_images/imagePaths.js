@@ -80,4 +80,4 @@ Object.keys(imagePaths).forEach((key) => {
 });
 
 export default imagePaths;
-export { ImageReferences, buildingCorners, getImageReferences, getImageReference };
+export { getImageReference };
