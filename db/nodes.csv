@@ -1,1320 +1,1497 @@
-id,locationCode,floor,building,name,isValidDestination
-1,x,1,Ben Franklin,First Floor Main Entrance,true
-2,x,1,Ben Franklin,hallway1,false
-3,x,1,Ben Franklin,hallway2,false
-4,x,1,Ben Franklin,hallway3,false
-5,x,1.5,Ben Franklin,stair1,false
-6,x,1.5,Ben Franklin,stair2,false
-7,x,1,Ben Franklin,Room 103,true
-8,x,1,Ben Franklin,Room 113,true
-9,x,1,Ben Franklin,Room 114,true
-10,x,1,Ben Franklin,Room 115,true
-11,x,2,Ben Franklin,hallway4,false
-12,x,2,Ben Franklin,hallway5,false
-13,x,2,Ben Franklin,hallway6,false
-14,x,2,Ben Franklin,hallway7,false
-15,x,2,Ben Franklin,hallway8,false
-16,x,2,Ben Franklin,Room 235,true
-17,x,2,Ben Franklin,Room 236,true
-18,x,2,Ben Franklin,Room 237,true
-19,x,2,Ben Franklin,Room 238,true
-20,x,2,Ben Franklin,Room 239,true
-21,x,2,Ben Franklin,Room 240,true
-22,x,2,Ben Franklin,Room 204,true
-23,x,2,Ben Franklin,Room 205,true
-24,x,2,Ben Franklin,Room 206,true
-25,x,2,Ben Franklin,Room 207,true
-26,x,2,Ben Franklin,Room 208,true
-27,x,2,Ben Franklin,Room 209,true
-28,x,2,Ben Franklin,Room 210,true
-29,x,2,Ben Franklin,Room 211,true
-30,x,2,Ben Franklin,Room 212,true
-31,x,2,Ben Franklin,Room 229,true
-32,x,2,Ben Franklin,Room 228,true
-33,x,2,Ben Franklin,Room 227,true
-34,x,2,Ben Franklin,Room 226,true
-35,x,2,Ben Franklin,Room 225,true
-36,x,2,Ben Franklin,Room 224,true
-37,x,2,Ben Franklin,Room 223,true
-38,x,2,Ben Franklin,Room 222,true
-39,x,2,Ben Franklin,Room 218,true
-40,x,2,Ben Franklin,Room 219,true
-41,x,2,Ben Franklin,Room 220,true
-42,x,2,Ben Franklin,Room 214,true
-43,x,2,Ben Franklin,Room 215,true
-44,x,2,Ben Franklin,hallway9,false
-45,x,2,Ben Franklin,Room 217C,true
-46,x,2,Ben Franklin,Room 217,true
-47,x,2,Ben Franklin,Room 217B,true
-48,x,2,Ben Franklin,Room 217A,true
-49,x,0,Ben Franklin,hallway10,false
-50,x,0,Ben Franklin,Ground Floor South Entrance,true
-51,x,0,Ben Franklin,Ground Floor North Entrance,true
-52,x,0.5,Ben Franklin,stair3,false
-53,x,0.5,Ben Franklin,stair4, false
-54,x,0,Ben Franklin,Ground Floor Elevator,false
-55,x,1,Ben Franklin,First Floor Elevator,false
-56,x,2,Ben Franklin,Second Floor Elevator,false
-100,x,0,Navy,Ground Floor South Entrance,true
-101,x,0,Navy,Ground Floor North Entrance,true
-102,x,0,Navy,Ground Floor West Entrance,true
-103,x,0,Navy,hallway1,false
-104,x,0,Navy,hallway2,false
-105,x,0,Navy,hallway3,false
-106,x,0,Navy,Ground Floor Elevator,false
-107,x,0,Navy,Room 10,true
-108,x,0,Navy,Room 9,true
-109,x,0,Navy,Room 11A,true
-110,x,0,Navy,Room 12,true
-111,x,0,Navy,Room 14,true
-112,x,0,Navy,Room 15,true
-113,x,0,Navy,Room 16,true
-114,x,0,Navy,Room 19,true
-115,x,0,Navy,Room 27,true
-116,x,0,Navy,Room 28,true
-117,x,0,Navy,Room 29,true
-118,x,0,Navy,Room 30,true
-119,x,0,Navy,Room 31,true
-120,x,0,Navy,Room 11B,true
-121,x,0.5,Navy,stair1,false
-122,x,0.5,Navy,stair2,false
-123,x,1,Navy,hallway3,false
-124,x,1,Navy,hallway4,false
-125,x,1,Navy,hallway5,false
-126,x,1,Navy,First Floor Elevator,false
-127,x,1,Navy,First Floor Entrance,true
-128,x,1,Navy,hallway6,false
-129,x,1,Navy,Room 116,true
-130,x,1,Navy,Room 117,true
-131,x,1,Navy,Room 115,true
-132,x,1,Navy,Room 116A,true
-133,x,1,Navy,Room 114,true
-134,x,1,Navy,Room 112B,true
-135,x,1,Navy,hallway7,false
-136,x,0,Navy,Room 17,true
-137,x,1,Navy,Room 127,true
-138,x,1,Navy,Room 122,true
-139,x,1,Navy,Room 123,true
-140,x,1,Navy,Room 124,true
-141,x,1,Navy,Room 125,true
-142,x,1,Navy,Room 126,true
-143,x,1,Navy,hallway8,false
-144,x,1,Navy,Room 104,true
-145,x,1,Navy,Room 105,true
-146,x,1,Navy,Room 106,true
-147,x,1,Navy,Room 107,true
-148,x,1.5,Navy,stair3,false
-149,x,1.5,Navy,stair4,false
-150,x,2,Navy,hallway12,false
-151,x,2,Navy,hallway9,false
-152,x,2,Navy,hallway10,false
-153,x,2,Navy,Room 209B,true
-154,x,2,Navy,Room 209D,true
-155,x,2,Navy,Room 209C,true
-156,x,2,Navy,Room 209E,true
-157,x,2,Navy,Room 209F,true
-158,x,2,Navy,Room 207,true
-159,x,2,Navy,Room 205,true
-160,x,2,Navy,Room 220,true
-161,x,2,Navy,Room 221,true
-162,x,2,Navy,Room 223,true
-163,x,2,Navy,hallway11,false
-164,x,2,Navy,Room 216,true
-165,x,2,Navy,Room 217,true
-166,x,2,Navy,Room 218,true
-200,x,0,Bakeless,hallway1,false
-201,x,0,Bakeless,hallway2,false
-203,x,0,Bakeless,Ground Floor Elevator,false
-204,x,0,Bakeless,Room G4A,true
-205,x,0,Bakeless,Room G5,true
-206,x,0,Bakeless,Room G6,true
-207,x,0,Bakeless,Court Entrance,true
-208,x,0.5,Bakeless,stair1,false
-209,x,1.5,Bakeless,stair2,false
-210,x,1.5,Bakeless,stair3,false
-211,x,1,Bakeless,First Floor Elevator,false
-212,x,2,Bakeless,Second Floor Elevator,false
-213,x,3,Bakeless,Third Floor Elevator,false
-214,x,1,Bakeless,First Floor Main Entrance,true
-215,x,1,Bakeless,hallway3,false
-216,x,1,Bakeless,hallway4,false
-217,x,1,Bakeless,hallway5,false
-218,x,1,Bakeless,hallway6,false
-219,x,1,Bakeless,Room 101,true
-220,x,1,Bakeless,Room 102,true
-221,x,1,Bakeless,Room 103,true
-222,x,1,Bakeless,Room 104,true
-223,x,1,Bakeless,Room 105,true
-224,x,1,Bakeless,Room 107,true
-225,x,1,Bakeless,Room 106A,true
-226,x,1,Bakeless,Room 106D,true
-227,x,1,Bakeless,Room 106B,true
-228,x,1,Bakeless,Room 106C,true
-229,x,1,Bakeless,Room 111A,true
-230,x,1,Bakeless,Room 111B,true
-231,x,1,Bakeless,Room 110A,true
-232,x,1,Bakeless,Room 110B,true
-233,x,1,Bakeless,Room 109A,true
-234,x,1,Bakeless,Room 109B,true
-235,x,1,Bakeless,Room 108A,true
-236,x,1,Bakeless,Room 108B,true
-237,x,1,Bakeless,Room 113A,true
-238,x,1,Bakeless,Room 113B,true
-239,x,1,Bakeless,Room 114,true
-240,x,1,Bakeless,Room 115A,true
-241,x,1,Bakeless,Room 115B,true
-242,x,1,Bakeless,Room 116A,true
-243,x,1,Bakeless,Room 116B,true
-244,x,1,Bakeless,Room 117B,true
-245,x,1,Bakeless,Room 117A,true
-246,x,1,Bakeless,Room 118,true
-247,x,1,Bakeless,Room 119A,true
-248,x,1,Bakeless,Room 119B,true
-249,x,1.5,Bakeless,stair4,false
-250,x,2.5,Bakeless,stair5,false
-251,x,1.5,Bakeless,stair6,false
-252,x,2.5,Bakeless,stair7,false
-253,x,1.5,Bakeless,stair8,false
-254,x,2.5,Bakeless,stair9,false
-255,x,1,Bakeless,First Floor West Court Entrance,true
-256,x,1,Bakeless,First Floor East Court Entrance,true
-257,x,1,Bakeless,hallway7,false
-258,x,1,Bakeless,First Floor Rear Entrance,true
-259,x,2,Bakeless,hallway8,false
-260,x,2,Bakeless,hallway9,false
-261,x,2,Bakeless,hallway10,false
-262,x,2,Bakeless,hallway11,false
-263,x,2,Bakeless,hallway12,false
-265,x,2,Bakeless,Room 213A,true
-266,x,2,Bakeless,Room 213B,true
-267,x,2,Bakeless,Room 214,true
-268,x,2,Bakeless,Room 215B,true
-269,x,2,Bakeless,Room 215A,true
-270,x,2,Bakeless,Room 216A,true
-271,x,2,Bakeless,Room 216B,true
-272,x,2,Bakeless,Room 217B,true
-273,x,2,Bakeless,Room 217A,true
-274,x,2,Bakeless,Room 218,true
-275,x,2,Bakeless,Room 219A,true
-276,x,2,Bakeless,Room 219B,true
-277,x,2,Bakeless,Room 201,true
-278,x,2,Bakeless,Room 202,true
-279,x,2,Bakeless,Room 203,true
-280,x,2,Bakeless,Room 204,true
-281,x,2,Bakeless,Room 205,true
-282,x,2,Bakeless,Room 206,true
-283,x,2,Bakeless,Room 206A,true
-284,x,2,Bakeless,Room 207,true
-285,x,2,Bakeless,Room 208,true
-286,x,2,Bakeless,Room 209,true
-287,x,2,Bakeless,Room 210,true
-288,x,2,Bakeless,Room 211,true
-289,x,3,Bakeless,hallway13,false
-290,x,3,Bakeless,hallway14,false
-291,x,3,Bakeless,hallway15,false
-292,x,3,Bakeless,hallway16,false
-293,x,3,Bakeless,hallway17,false
-295,x,3,Bakeless,Room 313B,true
-296,x,3,Bakeless,Room 313A,true
-297,x,3,Bakeless,Room 314,true
-298,x,3,Bakeless,Room 315B,true
-299,x,3,Bakeless,Room 315A,true
-300,x,3,Bakeless,Room 316B,true
-301,x,3,Bakeless,Room 316A,true
-302,x,3,Bakeless,Room 317B,true
-303,x,3,Bakeless,Room 317A,true
-304,x,3,Bakeless,Room 318,true
-305,x,3,Bakeless,Room 319B,true
-306,x,3,Bakeless,Room 319A,true
-307,x,3,Bakeless,Room 301,true
-308,x,3,Bakeless,Room 302,true
-309,x,3,Bakeless,Room 303,true
-310,x,3,Bakeless,Room 304,true
-311,x,3,Bakeless,Room 305,true
-312,x,3,Bakeless,Room 306,true
-313,x,3,Bakeless,Room 307,true
-314,x,3,Bakeless,Room 308,true
-315,x,3,Bakeless,Room 309,true
-316,x,3,Bakeless,Room 310,true
-317,x,3,Bakeless,Room 311,true
-400,x,1,Centennial,First Floor Main Entrance,true
-401,x,1,Centennial,Left Side Stair Entrance,false
-402,x,1,Centennial,Right Side Stair Entrance, false
-403,x,1,Centennial,East Side Stair Entrance,false
-404,x,1,Centennial,West Side Stair Entrance,false
-405,x,1,Centennial,East Side Hallway Entrance,false
-406,x,1,Centennial,West Side Hallway Entrance,false
-407,x,1,Centennial,East Rear Office Entrance,false
-408,x,1,Centennial,West Rear Office Entrance,false
-409,x,1,Centennial,East Rear Side Entrance,false
-410,x,1,Centennial,West Rear Side Entrance,false
-411,x,1,Centennial,Rear Entrance,true
-412,x,1.5,Centennial,stair1,false
-413,x,1.5,Centennial,stair2,false
-414,x,1.5,Centennial,stair3,false
-415,x,1.5,Centennial,stair4,false
-416,x,1,Centennial,First Floor Elevator,false
-417,x,1,Centennial,hallway1,false
-418,x,1,Centennial,hallway2,false
-419,x,1,Centennial,hallway3,false
-420,x,1,Centennial,hallway4,false
-421,x,1,Centennial,hallway5,false
-422,x,1,Centennial,hallway6,false
-423,x,1,Centennial,hallway7,false
-424,x,1,Centennial,hallway8,false
-425,x,1,Centennial,hallway9,false
-426,x,1,Centennial,hallway10,false
-427,x,1,Centennial,hallway11,false
-428,x,1,Centennial,Room 103,true
-429,x,1,Centennial,Room 108,true
-430,x,1,Centennial,Room 110,true
-431,x,1,Centennial,Room 163,true
-432,x,1,Centennial,Room 164,true
-433,x,1,Centennial,Room 170,true
-434,x,1,Centennial,Room 121,true
-435,x,1,Centennial,Room 122,true
-436,x,1,Centennial,Room 123,true
-437,x,1,Centennial,Room 124,true
-438,x,1,Centennial,Room 125,true
-439,x,1,Centennial,Room 127,true
-440,x,1,Centennial,Room 130,true
-441,x,1,Centennial,Room 131,true
-442,x,1,Centennial,Room 132,true
-443,x,1,Centennial,Room 134,true
-444,x,1,Centennial,Room 136,true
-445,x,1,Centennial,Room 140A,true
-446,x,1,Centennial,Room 135,true
-447,x,1,Centennial,Room 138,true
-448,x,1,Centennial,Room 139,true
-449,x,1,Centennial,Room 140B,true
-450,x,1,Centennial,Room 144,true
-451,x,1,Centennial,Room 142,true
-452,x,1,Centennial,Room 150,true
-453,x,1,Centennial,Room 149,true
-454,x,1,Centennial,Room 148,true
-455,x,1,Centennial,Room 153,true
-456,x,1,Centennial,Room 152,true
-457,x,1,Centennial,Room 151,true
-458,x,1,Centennial,Room 146A,true
-459,x,1,Centennial,Room 146,true
-460,x,1,Centennial,Room 113,true
-461,x,2.5,Centennial,stair5,false
-462,x,2.5,Centennial,stair6,false
-463,x,3,Centennial,Third Floor Elevator,false
-465,x,2,Centennial,Second Floor Elevator,false
-466,x,2,Centennial,hallway12,false
-467,x,2,Centennial,hallway13,false
-468,x,2,Centennial,hallway14,false
-469,x,2,Centennial,hallway15,false
-470,x,2,Centennial,hallway16,false
-471,x,2,Centennial,Room 201,true
-472,x,2,Centennial,Room 204,true
-473,x,2,Centennial,Room 205,true
-474,x,2,Centennial,Room 206,true
-475,x,2,Centennial,Room 207,true
-476,x,2,Centennial,Room 209,true
-477,x,2,Centennial,Room 212,true
-478,x,2,Centennial,Room 213,true
-479,x,2,Centennial,Room 243,true
-480,x,2,Centennial,Room 244,true
-481,x,2,Centennial,Room 245,true
-482,x,2,Centennial,Room 223,true
-483,x,2,Centennial,Room 224,true
-484,x,2,Centennial,Room 227,true
-485,x,2,Centennial,Room 226,true
-486,x,2,Centennial,Room 230,true
-487,x,2,Centennial,Room 232,true
-488,x,2,Centennial,Room 237,true
-489,x,2,Centennial,Room 236,true
-490,x,2,Centennial,Room 235,true
-491,x,2,Centennial,Room 233,true
-492,x,2,Centennial,Room 239,true
-493,x,2,Centennial,Room 217,true
-494,x,2,Centennial,Room 219,true
-495,x,2,Centennial,Room 219A,true
-496,x,2,Centennial,Room 218,true
-497,x,2,Centennial,hallway17,false
-498,x,3,Centennial,hallway18,false
-499,x,3,Centennial,hallway19,false
-500,x,3,Centennial,hallway20,false
-501,x,3,Centennial,hallway21,false
-502,x,3,Centennial,hallway22,false
-503,x,3,Centennial,hallway23,false
-504,x,3,Centennial,hallway24,false
-505,x,3,Centennial,hallway25,false
-506,x,3,Centennial,hallway26,false
-507,x,3,Centennial,Room 301,true
-508,x,3,Centennial,Room 303,true
-511,x,3,Centennial,Room 306,true
-512,x,3,Centennial,Room 352,true
-513,x,3,Centennial,Room 309,true
-514,x,3,Centennial,Room 308,true
-515,x,3,Centennial,Room 353,true
-516,x,3,Centennial,Room 354,true
-517,x,3,Centennial,hallway27,false
-518,x,3,Centennial,Room 312,true
-519,x,3,Centennial,Room 313,true
-520,x,3,Centennial,Room 314,true
-521,x,3,Centennial,Room 315,true
-522,x,3,Centennial,Room 316,true
-523,x,3,Centennial,Room 317,true
-524,x,3,Centennial,Room 318,true
-525,x,3,Centennial,Room 319,true
-526,x,3,Centennial,Room 320,true
-527,x,3,Centennial,Room 321,true
-528,x,3,Centennial,Room 322,true
-529,x,3,Centennial,Room 307,true
-530,x,3,Centennial,Room 326,true
-531,x,3,Centennial,Room 327,true
-532,x,3,Centennial,Room 328,true
-533,x,3,Centennial,Room 329,true
-534,x,3,Centennial,Room 330,true
-535,x,3,Centennial,Room 331,true
-536,x,3,Centennial,Room 332,true
-537,x,3,Centennial,Room 342,true
-538,x,3,Centennial,Room 343,true
-539,x,3,Centennial,Room 334,true
-540,x,3,Centennial,Room 335,true
-541,x,3,Centennial,Room 336,true
-542,x,3,Centennial,Room 337,true
-543,x,3,Centennial,Room 338,true
-544,x,3,Centennial,Room 339,true
-545,x,3,Centennial,Room 340,true
-600,x,1,Sutliff,First Floor Main Entrance,true
-601,x,1,Sutliff,hallway1,false
-602,x,1,Sutliff,hallway2,false
-603,x,1,Sutliff,hallway3,false
-604,x,1,Sutliff,hallway4,false
-605,x,1,Sutliff,First Floor Elevator,false
-606,x,2,Sutliff,Second Floor Elevator,false
-607,x,3,Sutliff,Third Floor Elevator,false
-608,x,1.5,Sutliff,stair1,false
-609,x,1.5,Sutliff,stair2,false
-610,x,1.5,Sutliff,stair3,false
-611,x,1,Sutliff,Room 102,true
-612,x,1,Sutliff,Room 105,true
-613,x,1,Sutliff,Room 106,true
-614,x,1,Sutliff,Room 107,true
-615,x,1,Sutliff,Room 110,true
-616,x,1,Sutliff,Room 111,true
-617,x,1,Sutliff,Room 112,true
-618,x,1,Sutliff,Room 113,true
-619,x,1,Sutliff,Room 114,true
-620,x,1,Sutliff,Room 115,true
-621,x,1,Sutliff,Room 120,true
-622,x,1,Sutliff,Room 123,true
-623,x,2.5,Sutliff,stair4,false
-624,x,2.5,Sutliff,stair5,false
-625,x,2.5,Sutliff,stair6,false
-626,x,2,Sutliff,hallway5,false
-627,x,2,Sutliff,hallway6,false
-628,x,2,Sutliff,hallway7,false
-629,x,2,Sutliff,hallway8,false
-630,x,2,Sutliff,hallway9,false
-631,x,2,Sutliff,hallway10,false
-632,x,2,Sutliff,hallway11,false
-633,x,2,Sutliff,Room 202,true
-634,x,2,Sutliff,Room 203,true
-635,x,2,Sutliff,Room 204,true
-636,x,2,Sutliff,Room 205,true
-637,x,2,Sutliff,Room 206,true
-638,x,2,Sutliff,Room 207,true
-639,x,2,Sutliff,Room 209,true
-640,x,2,Sutliff,Room 210,true
-641,x,2,Sutliff,Room 211,true
-642,x,2,Sutliff,Room 212,true
-643,x,2,Sutliff,Room 214,true
-644,x,2,Sutliff,Room 215,true
-645,x,2,Sutliff,Room 216,true
-646,x,2,Sutliff,Room 217,true
-647,x,2,Sutliff,Room 222,true
-648,x,2,Sutliff,Room 223,true
-649,x,2,Sutliff,Room 225,true
-650,x,2,Sutliff,Room 226,true
-651,x,2,Sutliff,Room 227,true
-652,x,2,Sutliff,Room 228,true
-653,x,2,Sutliff,Room 229,true
-654,x,2,Sutliff,Room 230,true
-655,x,2,Sutliff,Room 231,true
-656,x,2,Sutliff,Room 232,true
-657,x,2,Sutliff,Room 233,true
-658,x,2,Sutliff,Room 235,true
-659,x,2,Sutliff,Room 239,true
-660,x,2,Sutliff,Room 240,true
-661,x,2,Sutliff,Room 241,true
-662,x,2,Sutliff,Room 242,true
-663,x,2,Sutliff,Room 244,true
-664,x,2,Sutliff,Room 245,true
-665,x,2,Sutliff,Room 246,true
-667,x,2,Sutliff,Room 252,true
-668,x,2,Sutliff,Room 253,true
-669,x,2,Sutliff,Room 256,true
-670,x,2,Sutliff,Room 257,true
-671,x,2,Sutliff,Room 255,true
-672,x,3,Sutliff,hallway12,false
-673,x,3,Sutliff,hallway13,false
-674,x,3,Sutliff,hallway14,false
-675,x,3,Sutliff,hallway15,false
-676,x,3,Sutliff,hallway16,false
-677,x,3,Sutliff,hallway17,false
-678,x,3,Sutliff,hallway18,false
-679,x,3,Sutliff,hallway19,false
-680,x,3,Sutliff,Room 301,true
-681,x,3,Sutliff,Room 302,true
-682,x,3,Sutliff,Room 303,true
-683,x,3,Sutliff,Room 304,true
-684,x,3,Sutliff,Room 305,true
-685,x,3,Sutliff,Room 306,true
-686,x,3,Sutliff,Room 307,true
-687,x,3,Sutliff,Room 308,true
-688,x,3,Sutliff,Room 309,true
-689,x,3,Sutliff,Room 310,true
-690,x,3,Sutliff,Room 311,true
-691,x,3,Sutliff,Room 312,true
-692,x,3,Sutliff,Room 313,true
-693,x,3,Sutliff,Room 314,true
-694,x,3,Sutliff,Room 315,true
-695,x,3,Sutliff,Room 316,true
-696,x,3,Sutliff,Room 317,true
-697,x,3,Sutliff,Room 318,true
-698,x,3,Sutliff,Room 319,true
-699,x,3,Sutliff,Room 320,true
-700,x,3,Sutliff,Room 321,true
-701,x,3,Sutliff,Room 322,true
-702,x,3,Sutliff,Room 323,true
-703,x,3,Sutliff,Room 324,true
-704,x,3,Sutliff,Room 325,true
-705,x,3,Sutliff,Room 326,true
-706,x,3,Sutliff,Room 327,true
-707,x,3,Sutliff,Room 328,true
-708,x,3,Sutliff,Room 329,true
-709,x,3,Sutliff,Room 330,true
-710,x,3,Sutliff,Room 331,true
-711,x,3,Sutliff,Room 332,true
-712,x,3,Sutliff,Room 333,true
-713,x,3,Sutliff,Room 334,true
-714,x,3,Sutliff,Room 335,true
-715,x,3,Sutliff,Room 336,true
-716,x,3,Sutliff,Room 337,true
-717,x,3,Sutliff,Room 338,true
-718,x,3,Sutliff,Room 339,true
-719,x,3,Sutliff,Room 340,true
-720,x,3,Sutliff,Room 341,true
-721,x,3,Sutliff,Room 342,true
-722,x,3,Sutliff,Room 343,true
-723,x,3,Sutliff,Room 344,true
-724,x,3,Sutliff,Room 345,true
-725,x,3,Sutliff,Room 346,true
-726,x,3,Sutliff,Room 348,true
-727,x,3,Sutliff,Room 350,true
-728,x,3,Sutliff,Room 354,true
-729,x,3,Sutliff,Room 355,true
-730,x,3,Sutliff,Room 356,true
-731,x,3,Sutliff,Room 358,true
-732,x,3,Sutliff,Room 359,true
-733,x,3,Sutliff,Room 360,true
-734,x,3,Sutliff,Room 361,true
-735,x,3,Sutliff,Room 362,true
-736,x,3,Sutliff,Room 363,true
-737,x,3,Sutliff,Room 365,true
-738,x,3,Sutliff,Room 366,true
-739,x,3,Sutliff,Room 371,true
-740,x,3,Sutliff,Room 372,true
-741,x,3,Sutliff,Room 373,true
-742,x,3,Sutliff,Room 374,true
-743,x,3,Sutliff,Room 375,true
-744,x,3,Sutliff,Room 377,true
-800,x,0,Student Services Center,Ground Floor Rear Entrance,true
-801,x,0,Student Services Center,hallway1,false
-802,x,0,Student Services Center,hallway2,false
-803,x,0,Student Services Center,hallway3,false
-804,x,0,Student Services Center,hallway4,false
-805,x,0,Student Services Center,hallway5,false
-806,x,0,Student Services Center,hallway6,false
-807,x,0,Student Services Center,hallway7,false
-808,x,0,Student Services Center,hallway8,false
-809,x,0,Student Services Center,hallway9,false
-810,x,0,Student Services Center,Ground Floor Elevator,false
-811,x,0,Student Services Center,First Floor Elevator,false
-812,x,0,Student Services Center,Second Floor Elevator,false
-813,x,0.5,Student Services Center,stair1,false
-814,x,0.5,Student Services Center,stair2,false
-815,x,0.5,Student Services Center,stair3,false
-816,x,0.5,Student Services Center,stair4,false
-817,x,0.5,Student Services Center,stair5,false
-818,x,0,Student Services Center,Room 4,true
-819,x,0,Student Services Center,Room 10,true
-820,x,0,Student Services Center,Room 10A,true
-821,x,0,Student Services Center,Room 13,true
-822,x,0,Student Services Center,Room 13B,true
-823,x,0,Student Services Center,Room 26,true
-824,x,0,Student Services Center,Room 26A,true
-825,x,0,Student Services Center,Room 27,true
-826,x,0,Student Services Center,Room 27A,true
-827,x,0,Student Services center,Room 30,true
-828,x,0,Student Services Center,Room 31,true
-829,x,0,Student Services Center,Room 32,true
-830,x,0,Student Services Center,Room 33,true
-831,x,0,Student Services Center,Room 34,true
-832,x,0,Student Services Center,Room 36,true
-833,x,0,Student Services Center,Room 37,true
-834,x,0,Student Services Center,Room 38,true
-835,x,0,Student Services Center,Room 40,true
-836,x,0,Student Services Center,Room 41,true
-837,x,0,Student Services Center,Room 42,true
-838,x,0,Student Services Center,Room 44,true
-839,x,0,Student Services Center,Room 45,true
-840,x,0,Student Services Center,Room 46,true
-841,x,0,Student Services Center,Room 47,true
-842,x,0,Student Services Center,Room 48,true
-843,x,0,Student Services Center,Room 49,true
-844,x,0,Student Services Center,Room 55,true
-845,x,0,Student Services Center,Room 58,true
-846,x,0,Student Services Center,Room 39,true
-847,x,0,Student Services Center,Room 39A,true
-848,x,0,Student Services Center,Room 39B,true
-849,x,0,Student Services Center,Room 54,true
-850,x,0,Student Services Center,Room 62,true
-851,x,0,Student Services Center,Room 63,true
-852,x,0,Student Services Center,Room 14A,true
-853,x,0,Student Services Center,Room 21,true
-854,x,0,Student Services Center,Room 22,true
-855,x,1.5,Student Services Center,stair10,false
-856,x,1.5,Student Services Center,stair6,false
-857,x,1.5,Student Services Center,stair7,false
-858,x,1.5,Student Services Center,stair8,false
-859,x,1.5,Student Services Center,stair9,false
-860,x,1,Student Services Center,First Floor Main Entrance,tru
-861,x,1,Student Services Center,hallway10,false
-862,x,1,Student Services Center,hallway11,false
-863,x,1,Student Services Center,hallway12,false
-864,x,1,Student Services Center,hallway13,false
-865,x,1,Student Services Center,hallway14,false
-866,x,1,Student Services Center,hallway15,false
-867,x,1,Student Services Center,hallway16,false
-868,x,1,Student Services Center,Room 119,true
-869,x,1,Student Services Center,hallway17,false
-870,x,1,Student Services Center,Room 102 (Information Center),true
-871,x,1,Student Services Center,Room 105,true
-872,x,1,Student Services Center,Room 107,true
-873,x,1,Student Services Center,Room 109,true
-874,x,1,Student Services Center,Room 112,true
-875,x,1,Student Services Center,Room 115,true
-876,x,1,Student Services Center,Room 116,true
-877,x,1,Student Services Center,Room 117A,true
-878,x,1,Student Services Center,Room 117B,true
-879,x,1,Student Services Center,Room 117C,true
-880,x,1,Student Services Center,Room 128,true
-881,x,1,Student Services Center,Room 124,true
-882,x,1,Student Services Center,Room 130,true
-883,x,1,Student Services Center,Room 131,true
-884,x,1,Student Services Center,Room 134,true
-885,x,1,Student Services Center,Roongo's Cafe,true
-886,x,1,Student Services Center,Room 140,true
-887,x,1,Student Services Center,Room 143,true
-888,x,1,Student Services Center,Room 144,true
-889,x,1,Student Services Center,Room 145,true
-890,x,1,Student Services Center,Room 147,true
-891,x,1,Student Services Center,Room 149,true
-892,x,1,Student Services Center,Room 152,true
-893,x,1,Student Services Center,Room 153,true
-894,x,1,Student Services Center,Room 155,true
-895,x,1,Student Services Center,Room 156,true
-896,x,1,Student Services Center,Commuter Lounge,true
-897,x,1,Student Services Center,Room 162,true
-898,x,2,Student Services Center,hallway18,false
-899,x,2,Student Services Center,hallway19,false
-900,x,2,Student Services Center,hallway20,false
-901,x,2,Student Services Center,hallway21,false
-902,x,2,Student Services Center,hallway22,false
-903,x,2,Student Services Center,hallway23,false
-904,x,2,Student Services Center,hallway24,false
-905,x,2,Student Services Center,hallway25,false
-906,x,2,Student Services Center,hallway26,false
-907,x,2,Student Services Center,Room 203,true
-908,x,2,Student Services Center,Room 204,true
-909,x,2,Student Services Center,Room 206,true
-910,x,2,Student Services Center,Room 207,true
-911,x,2,Student Services Center,Room 209,true
-912,x,2,Student Services Center,Room 211,true
-913,x,2,Student Services Center,Room 212,true
-914,x,2,Student Services Center,Room 216,true
-915,x,2,Student Services Center,Room 217,true
-916,x,2,Student Services Center,Room 218,true
-917,x,2,Student Services Center,Room 219,true
-918,x,2,Student Services Center,Room 220,true
-919,x,2,Student Services Center,Room 221,true
-920,x,2,Student Services Center,Room 222,true
-921,x,2,Student Services Center,Room 223,true
-922,x,2,Student Services Center,Room 224,true
-923,x,2,Student Services Center,Room 225,true
-924,x,2,Student Services Center,Room 228,true
-925,x,2,Student Services Center,hallway27,false
-926,x,2,Student Services Center,Room 234,true
-927,x,2,Student Services Center,Room 235,true
-928,x,2,Student Services Center,Room 238,true
-929,x,2,Student Services Center,Room 240,true
-930,x,2,Student Services Center,Room 242,true
-931,x,2,Student Services Center,Room 246,true
-932,x,2,Student Services Center,Room 247,true
-933,x,2,Student Services Center,Room 248,true
-934,x,2,Student Services Center,Room 249,true
-935,x,2,Student Services Center,Room 251,true
-936,x,2,Student Services Center,hallway28,false
-937,x,2,Student Services Center,Room 243,true
-938,x,2,Student Services Center,Room 254,true
-939,x,2,Student Services Center,Room 259,true
-940,x,2,Student Services Center,Room 261,true
-941,x,2,Student Services Center,Room 262,true
-942,x,2,Student Services Center,Room 264,true
-943,x,2,Student Services Center,Room 265,true
-944,x,2,Student Services Center,Room 266,true
-945,x,2,Student Services Center,Room 268,true
-1000,x,1,Andruss Library, First Floor Main Entrance,true
-1001,x,1,Andruss Library,First Floor Study Entrance,true
-1002,x,1,Andruss Library,Starbucks Entrance,true
-1003,x,1.5,Andruss Library,stair1,false
-1004,x,2.5,Andruss Library,stair2,false
-1005,x,3.5,Andruss Library,stair3,false
-1006,x,1,Andruss Library,First Floor Main Elevator,false
-1007,x,2,Andruss Library,Second Floor Main Elevator,false
-1008,x,3,Andruss Library,Third Floor Main Elevator,false
-1009,x,4,Andruss Library,Fourth Floor Main Elevator,false
-1010,x,1,Andruss Library,First Floor Rear Elevator,false
-1011,x,2,Andruss Library,Second Floor Rear Elevator,false
-1012,x,3,Andruss Library,Third Floor Rear Elevator,false
-1013,x,4,Andruss Library,Fourth Floor Rear Elevator,false
-1014,x,2.5,Andruss Library,stair4,false
-1015,x,3.5,Andruss Library,stair5,false
-1016,x,1.5,Andruss Library,stair6,false
-1017,x,2.5,Andruss Library,stair7,false
-1018,x,3.5,Andruss Library,stair8,false
-1019,x,1.5,Andruss Library,stair9,false
-1020,x,2.5,Andruss Library,stair10,false
-1021,x,3.5,Andruss Library,stair11,false
-1022,x,1,Andruss Library,hallway1,false
-1023,x,1,Andruss Library,hallway2,false
-1024,x,1,Andruss Library,hallway3,false
-1025,x,1,Andruss Library,hallway4,false
-1026,x,1,Andruss Library,hallway6,false
-1027,x,1,Andruss Library,Starbucks Study Lounge,true
-1028,x,1,Andruss Library,Starbucks,true
-1029,x,1,Andruss Library,Room 103,true
-1030,x,1,Andruss Library,First Floor Study Lounge Area,true
-1031,x,1,Andruss Library,Room 139,true
-1032,x,1,Andruss Library,Room 134,true
-1033,x,1,Andruss Library,Room 130,true
-1034,x,2,Andruss Library,hallway7,false
-1035,x,2,Andruss Library,hallway8,false
-1036,x,2,Andruss Library,hallway9,false
-1037,x,2,Andruss Library,hallway10,false
-1038,x,2,Andruss Library,hallway11,false
-1039,x,2,Andruss Library,hallway12,false
-1040,x,2,Andruss Library,hallway13,false
-1041,x,2,Andruss Library,hallway14,false
-1042,x,2,Andruss Library,Room 214,true
-1043,x,2,Andruss Library,Room 220,true
-1044,x,2,Andruss Library,Room 221,true
-1045,x,2,Andruss Library,Room 232,true
-1046,x,2,Andruss Library,Room 233,true
-1047,x,2,Andruss Library,Room 234,true
-1048,x,2,Andruss Library,Room 235,true
-1049,x,2,Andruss Library,Room 236,true
-1050,x,2,Andruss Library,Room 237,true
-1051,x,2,Andruss Library,Room 238,true
-1052,x,2,Andruss Library,Room 242,true
-1053,x,2,Andruss Library,Room 243,true
-1054,x,2,Andruss Library,Room 246,true
-1055,x,2,Andruss Library,Room 248,true
-1056,x,2,Andruss Library,Room 207,true
-1057,x,2,Andruss Library,Room 208,true
-1058,x,2,Andruss Library,Room 209,true
-1059,x,2,Andruss Library,Room 210,true
-1060,x,2,Andruss Library,Room 216,true
-1061,x,3,Andruss Library,hallway15,false
-1062,x,3,Andruss Library,hallway16,false
-1063,x,3,Andruss Library,hallway17,false
-1064,x,3,Andruss Library,hallway18,false
-1065,x,3,Andruss Library,hallway19,false
-1066,x,3,Andruss Library,hallway20,false
-1067,x,3,Andruss Library,Room 330,true
-1068,x,3,Andruss Library,Room 340,true
-1069,x,3,Andruss Library,Room 342,true
-1070,x,3,Andruss Library,Room 320,true
-1071,x,3,Andruss Library,Room 324,true
-1072,x,3,Andruss Library,Room 323,true
-1073,x,3,Andruss Library,Room 321,true
-1074,x,3,Andruss Library,Room 322,true
-1075,x,3,Andruss Library,Room 316,true
-1076,x,3,Andruss Library,Room 315,true
-1077,x,3,Andruss Library,Room 326,true
-1078,x,3,Andruss Library,Room 327,true
-1079,x,3,Andruss Library,Room 328,true
-1080,x,4,Andruss Library,hallway21,false
-1081,x,4,Andruss Library,hallway22,false
-1082,x,4,Andruss Library,hallway23,false
-1083,x,4,Andruss Library,hallway24,false
-1084,x,4,Andruss Library,hallway25,false
-1085,x,4,Andruss Library,hallway26,false
-1086,x,4,Andruss Library,Room 407,true
-1087,x,4,Andruss Library,Room 409,true
-1088,x,4,Andruss Library,Room 410,true
-1089,x,4,Andruss Library,Room 411,true
-1090,x,4,Andruss Library,Room 413,true
-1091,x,4,Andruss Library,Room 414,true
-1092,x,4,Andruss Library,Room 415,true
-1093,x,4,Andruss Library,Room 417,true
-1094,x,4,Andruss Library,Room 418,true
-1095,x,4,Andruss Library,Room 419,true
-1096,x,4,Andruss Library,Room 423,true
-1097,x,4,Andruss Library,Room 425,true
-1098,x,1,Andruss Library,hallway27,false
-1200,x,0,Arts & Admin,Ground Floor Rear Entrance,true
-1201,x,0,Arts & Admin,Ground Floor Rear Metal Shop Entrance,true
-1202,x,0.5,Arts & Admin,stair1,false
-1203,x,0,Arts & Admin,hallway1,false
-1204,x,0,Arts & Admin,hallway2,false
-1205,x,0,Arts & Admin,hallway3,false
-1206,x,0,Arts & Admin,Ground Floor Elevator,false
-1207,x,0,Arts & Admin,hallway4,false
-1208,x,0,Arts & Admin,hallway5,false
-1209,x,0,Arts & Admin,hallway6,false
-1210,x,0,Arts & Admin,hallway7,false
-1211,x,0,Arts & Admin,hallway8,false
-1212,x,0,Arts & Admin,hallway9,false
-1213,x,0,Arts & Admin,Room 002,true
-1214,x,0,Arts & Admin,Room 003,true
-1215,x,0,Arts & Admin,Room 006,true
-1216,x,0,Arts & Admin,Room 013,true
-1217,x,0,Arts & Admin,Room 018,true
-1218,x,0,Arts & Admin,Room 019,true
-1219,x,0,Arts & Admin,Room 022,true
-1220,x,0,Arts & Admin,Room 024,true
-1221,x,0,Arts & Admin,Room 025,true
-1222,x,0,Arts & Admin,Room 023,true
-1223,x,0,Arts & Admin,Room 026,true
-1224,x,0,Arts & Admin,Room 030,true
-1225,x,0,Arts & Admin,Room 033,true
-1226,x,0,Arts & Admin,Room 036,true
-1227,x,0,Arts & Admin,Room 038,true
-1228,x,0.5,Arts & Admin,stair2,false
-1229,x,0,Arts & Admin,hallway10,false
-1230,x,0.5,Arts & Admin,stair3,false
-1231,x,0,Arts & Admin,hallway11,false
-1232,x,1,Arts & Admin,First Floor Main Entrance,true
-1233,x,1,Arts & Admin,hallway12,false
-1234,x,1,Arts & Admin,hallway13,false
-1235,x,1,Arts & Admin,hallway14,false
-1236,x,1,Arts & Admin,First Floor Elevator,false
-1237,x,1,Arts & Admin,hallway15,false
-1238,x,1,Arts & Admin,hallway16,false
-1239,x,1,Arts & Admin,hallway17,false
-1240,x,1,Arts & Admin,hallway18,false
-1241,x,1,Arts & Admin,hallway19,false
-1242,x,1,Arts & Admin,hallway20,false
-1243,x,1,Arts & Admin,hallway21,false
-1244,x,1,Arts & Admin,hallway22,false
-1245,x,1,Arts & Admin,hallway23,false
-1246,x,1,Arts & Admin,hallway24,false
-1247,x,1,Arts & Admin,hallway25,false
-1248,x,1,Arts & Admin,hallway26,false
-1249,x,1,Arts & Admin,hallway27,false
-1250,x,1,Arts & Admin,hallway28,false
-1251,x,1,Arts & Admin,hallway29,false
-1252,x,1,Arts & Admin,hallway30,false
-1253,x,1,Arts & Admin,Room 105,true
-1254,x,1,Arts & Admin,Room 109,true
-1255,x,1,Arts & Admin,Room 110,true
-1256,x,1,Arts & Admin,Room 111,true
-1257,x,1,Arts & Admin,Room 112,true
-1258,x,1,Arts & Admin,Room 113,true
-1259,x,1,Arts & Admin,Room 114,true
-1260,x,1,Arts & Admin,Room 115,true
-1261,x,1,Arts & Admin,Room 116,true
-1262,x,1,Arts & Admin,Room 118,true
-1263,x,1,Arts & Admin,Room 119,true
-1264,x,1,Arts & Admin,Room 126,true
-1265,x,1,Arts & Admin,Room 127,true
-1266,x,1,Arts & Admin,Room 128,true
-1267,x,1,Arts & Admin,Room 129,true
-1268,x,1,Arts & Admin,Room 124,true
-1269,x,1,Arts & Admin,Room 123,true
-1270,x,1,Arts & Admin,Room 130,true
-1271,x,1,Arts & Admin,Room 131,true
-1272,x,1,Arts & Admin,Room 133,true
-1273,x,1,Arts & Admin,Room 134,true
-1274,x,1,Arts & Admin,Room 140,true
-1275,x,1.5,Arts & Admin,stair4,false
-1276,x,1,Arts & Admin,Room 151,true
-1277,x,1,Arts & Admin,Room 152,true
-1278,x,1,Arts & Admin,Room 153,true
-1279,x,1,Arts & Admin,Room 147,true
-1280,x,1,Arts & Admin,Room 154,true
-1281,x,1,Arts & Admin,Room 155,true
-1282,x,1,Arts & Admin,Room 156,true
-1283,x,1,Arts & Admin,Room 157,true
-1284,x,1,Arts & Admin,Room 158,true
-1285,x,1,Arts & Admin,Room 160,true
-1286,x,1,Arts & Admin,Room 161,true
-1287,x,1,Arts & Admin,Room 162,true
-1288,x,1,Arts & Admin,Room 163,true
-1289,x,1,Arts & Admin,Room 165,true
-1290,x,1,Arts & Admin,Room 167,true
-1291,x,1,Arts & Admin,Room 168,true
-1292,x,1,Arts & Admin,Room 169,true
-1293,x,1,Arts & Admin,Room 170,true
-1294,x,1,Arts & Admin,Room 172,true
-1295,x,1,Arts & Admin,Room 174,true
-1296,x,1,Arts & Admin,Room 175,true
-1297,x,1,Arts & Admin,Room 176,true
-1298,x,1,Arts & Admin,Room 177,true
-1299,x,1,Arts & Admin,Room 178,true
-1300,x,1,Arts & Admin,Room 179,true
-1301,x,1,Arts & Admin,Room 182,true
-1302,x,1,Arts & Admin,Room 183,true
-1303,x,1,Arts & Admin,Room 185,true
-1304,x,1.5,Arts & Admin,stair5,false
-1305,x,1.5,Arts & Admin,stair6,false
-1306,x,1,Arts & Admin,Room 106,true
-1307,x,1,Arts & Admin,First Floor Side Entrance,true
-1308,x,2.5,Arts & Admin,stair7,false
-1309,x,2.5,Arts & Admin,stair8,false
-1310,x,2.5,Arts & Admin,stair9,false
-1311,x,2,Arts & Admin,hallway31,false
-1312,x,2,Arts & Admin,hallway32,false
-1313,x,2,Arts & Admin,hallway33,false
-1314,x,2,Arts & Admin,Second Floor Elevator,false
-1315,x,2,Arts & Admin,hallway34,false
-1316,x,2,Arts & Admin,hallway35,false
-1317,x,2,Arts & Admin,hallway36,false
-1318,x,2,Arts & Admin,hallway37,false
-1319,x,2,Arts & Admin,hallway38,false
-1320,x,2,Arts & Admin,hallway39,false
-1321,x,2,Arts & Admin,hallway40,false
-1322,x,2,Arts & Admin,hallway41,false
-1323,x,2,Arts & Admin,hallway42,false
-1324,x,2,Arts & Admin,hallway43,false
-1325,x,2,Arts & Admin,hallway44,false
-1326,x,2,Arts & Admin,hallway45,false
-1327,x,2,Arts & Admin,hallway46,false
-1328,x,2,Arts & Admin,hallway47,false
-1329,x,2,Arts & Admin,hallway48,false
-1330,x,2,Arts & Admin,hallway49,false
-1331,x,2,Arts & Admin,hallway50,false
-1332,x,2,Arts & Admin,Room 203,true
-1333,x,2,Arts & Admin,Room 204,true
-1334,x,2,Arts & Admin,Room 205,true
-1335,x,2,Arts & Admin,Room 206,true
-1336,x,2,Arts & Admin,Room 207,true
-1337,x,2,Arts & Admin,Room 208,true
-1338,x,2,Arts & Admin,Room 209,true
-1339,x,2,Arts & Admin,Room 210,true
-1340,x,2,Arts & Admin,Room 212,true
-1341,x,2,Arts & Admin,Room 219,true
-1342,x,2,Arts & Admin,hallway51,false
-1343,x,2,Arts & Admin,hallway52,false
-1344,x,2,Arts & Admin,Room 223,true
-1345,x,2,Arts & Admin,Room 224,true
-1346,x,2,Arts & Admin,Room 226,true
-1347,x,2,Arts & Admin,Room 227,true
-1348,x,2,Arts & Admin,Room 225,true
-1349,x,2,Arts & Admin,Room 228,true
-1350,x,2,Arts & Admin,Room 229,true
-1351,x,2,Arts & Admin,Room 230,true
-1352,x,2,Arts & Admin,Room 232,true
-1353,x,2,Arts & Admin,Room 233,true
-1354,x,2,Arts & Admin,Room 234,true
-1355,x,2,Arts & Admin,Room 236,true
-1356,x,2,Arts & Admin,Room 237,true
-1357,x,2,Arts & Admin,Room 238,true
-1358,x,2,Arts & Admin,Room 239,true
-1359,x,2,Arts & Admin,Room 240,true
-1360,x,2,Arts & Admin,Room 241,true
-1361,x,2,Arts & Admin,Room 243,true
-1362,x,2,Arts & Admin,Room 244,true
-1363,x,2,Arts & Admin,Room 245,true
-1364,x,2,Arts & Admin,Room 247,true
-1365,x,2,Arts & Admin,Room 248,true
-1366,x,2,Arts & Admin,Room 249,true
-1367,x,2,Arts & Admin,Room 250,true
-1368,x,2,Arts & Admin,Room 251,true
-1369,x,2,Arts & Admin,Room 252,true
-1370,x,2,Arts & Admin,Room 253,true
-1371,x,2,Arts & Admin,Room 254,true
-1372,x,2,Arts & Admin,Room 255,true
-1373,x,2,Arts & Admin,Room 256,true
-1374,x,2,Arts & Admin,Room 257,true
-1375,x,2,Arts & Admin,Room 258,true
-1376,x,2,Arts & Admin,Room 259,true
-1377,x,2,Arts & Admin,Room 260,true
-1378,x,2,Arts & Admin,Room 262,true
-1379,x,2,Arts & Admin,Room 263,true
-1380,x,2,Arts & Admin,Room 264,true
-1381,x,2,Arts & Admin,Room 265,true
-1382,x,2,Arts & Admin,Room 266,true
-1383,x,2,Arts & Admin,Room 267,true
-1384,x,2,Arts & Admin,Room 268,true
-1385,x,2,Arts & Admin,Room 269,true
-1386,x,2,Arts & Admin,Room 270,true
-1387,x,2,Arts & Admin,Room 276,true
-1388,x,2,Arts & Admin,Room 278,true
-1389,x,2,Arts & Admin,Room 279,true
-1390,x,2,Arts & Admin,Room 281,true
-1391,x,2,Arts & Admin,Room 283,true
-1392,x,2,Arts & Admin,Room 284,true
-1393,x,2,Arts & Admin,Room 285,true
-1394,x,2,Arts & Admin,Room 286,true
-1395,x,3,Arts & Admin,hallway53,false
-1396,x,3,Arts & Admin,hallway54,false
-1397,x,3,Arts & Admin,hallway55,false
-1398,x,3,Arts & Admin,Third Floor Elevator,false
-1399,x,3,Arts & Admin,hallway56,false
-1400,x,3,Arts & Admin,hallway57,false
-1401,x,3,Arts & Admin,hallway58,false
-1402,x,3,Arts & Admin,hallway59,false
-1403,x,3,Arts & Admin,hallway60,false
-1404,x,3,Arts & Admin,hallway61,false
-1405,x,3,Arts & Admin,hallway62,false
-1406,x,3,Arts & Admin,hallway63,false
-1407,x,3,Arts & Admin,hallway64,false
-1408,x,3,Arts & Admin,hallway65,false
-1409,x,3,Arts & Admin,hallway66,false
-1410,x,3,Arts & Admin,hallway67,false
-1411,x,3,Arts & Admin,hallway68,false
-1412,x,3,Arts & Admin,Room 303,true
-1413,x,3,Arts & Admin,Room 304,true
-1414,x,3,Arts & Admin,Room 305,true
-1415,x,3,Arts & Admin,Room 306,true
-1416,x,3,Arts & Admin,Room 307,true
-1417,x,3,Arts & Admin,Room 308,true
-1418,x,3,Arts & Admin,Room 309,true
-1419,x,3,Arts & Admin,Room 310,true
-1420,x,3,Arts & Admin,Room 314,true
-1421,x,3,Arts & Admin,Room 316,true
-1422,x,3,Arts & Admin,Room 317,true
-1423,x,3,Arts & Admin,Room 318,true
-1424,x,3,Arts & Admin,Room 320,true
-1425,x,3,Arts & Admin,Room 322,true
-1426,x,3,Arts & Admin,Room 323,true
-1427,x,3,Arts & Admin,Room 330,true
-1428,x,3,Arts & Admin,hallway69,false
-1429,x,3,Arts & Admin,Room 336,true
-1430,x,3,Arts & Admin,Room 338,true
-1431,x,3,Arts & Admin,Room 339,true
-1432,x,3,Arts & Admin,Room 340,true
-1435,x,3,Arts & Admin,Room 335,true
-1436,x,3,Arts & Admin,Room 342,true
-1437,x,3,Arts & Admin,Room 343,true
-1438,x,3,Arts & Admin,Room 344,true
-1439,x,3,Arts & Admin,Room 345,true
-1440,x,3,Arts & Admin,Room 348,true
-1441,x,3,Arts & Admin,Room 349,true
-1442,x,3,Arts & Admin,Room 350,true
-1443,x,3,Arts & Admin,Room 351,true
-1444,x,3,Arts & Admin,Room 353,true
-1445,x,3,Arts & Admin,Room 354,true
-1446,x,3,Arts & Admin,Room 357,true
-1447,x,3,Arts & Admin,Room 358,true
-1448,x,3,Arts & Admin,Room 356,true
-1449,x,3,Arts & Admin,Room 359,true
-1450,x,3,Arts & Admin,Room 360,true
-1451,x,3,Arts & Admin,Room 361,true
-1452,x,3,Arts & Admin,Room 364,true
-1453,x,3,Arts & Admin,Room 365,true
-1454,x,3,Arts & Admin,Room 366,true
-1455,x,3,Arts & Admin,Room 367,true
-1456,x,3,Arts & Admin,Room 368,true
-1457,x,3,Arts & Admin,Room 369,true
-1458,x,3,Arts & Admin,Room 372,true
-1459,x,3,Arts & Admin,Room 373,true
-1460,x,3,Arts & Admin,Room 374,true
-1461,x,3,Arts & Admin,Room 378,true
-1462,x,3,Arts & Admin,Room 376,true
-1463,x,3,Arts & Admin,hallway70,false
-1464,x,3,Arts & Admin,Room 383,true
-1465,x,3,Arts & Admin,Room 384,true
-1466,x,3,Arts & Admin,Room 385,true
-1467,x,3,Arts & Admin,Room 386,true
-1468,x,3,Arts & Admin,Room 387,true
-1469,x,3,Arts & Admin,Room 388,true
-1470,x,1,Arts & Admin,hallway71,false
-1471,x,0,Arts & Admin,hallway72,false
-1472,x,0,Arts & Admin,Room 007,true
-1473,x,2,Arts & Admin,Room 261,true
-1501,x,-1,Hartline,Basement Entrance 1,true
-1502,x,-1,Hartline Basement Entrance 2,true
-1503,x,-1,Hartline,Basement Entrance 3,true
-1504,x,-0.5,Hartline,stair1,false
-1505,x,-0.5,Hartline,stair2,false
-1506,x,-0.5,Hartline,stair3,false
-1507,x,-0.5,Hartline,stari4,false
-1508,x,-1,Hartline,Basement West Elevator,false
-1509,x,-1,Hartline,Basement East Elevator,false
-1510,x,-1,Hartline,hallway1,false
-1511,x,-1,Hartline,hallway2,false
-1512,x,-1,Hartline,hallway3,false
-1513,x,-1,Hartline,hallway4,false
-1514,x,-1,Hartline,hallway5,false
-1515,x,-1,Hartline,hallway6,false
-1516,x,-1,Hartline,hallway7,false
-1517,x,-1,Hartline,hallway8,false
-1518,x,-1,Hartline,hallway9,false
-1519,x,-1,Hartline,hallway10,false
-1520,x,-1,Hartline,Room B6,true
-1521,x,-1,Hartline,Room B10,true
-1522,x,-1,Hartline,Room B10A,true
-1523,x,-1,Hartline,Room B11,true
-1524,x,-1,Hartline,Room B12,true
-1525,x,-1,Hartline,Room B14,true
-1526,x,-1,Hartline,Room B15,true
-1527,x,-1,Hartline,Room B16,true
-1528,x,-1,Hartline,Room B17,true
-1529,x,-1,Hartline,Room B19,true
-1530,x,-1,Hartline,Room B25,true
-1531,x,-1,Hartline,Room B26,true
-1532,x,-1,Hartline,Room B27,true
-1533,x,-1,Hartline,Room B28,true
-1534,x,-1,Hartline,Room B31,true
-1535,x,-1,Hartline,Room B33,true
-1536,x,-1,Hartline,Room B34,true
-1537,x,-1,Hartline,Room B32,true
-1538,x,-1,Hartline,Room B35,true
-1539,x,-1,Hartline,Room B36,true
-1540,x,-1,Hartline,Room B37,true
-1541,x,-1,Hartline,Room B38,true
-1542,x,-1,Hartline,Room B39,true
-1543,x,-1,Hartline,Room B40,true
-1544,x,-1,Hartline,Room B41,true
-1545,x,-1,Hartline,Room B42,true
-1546,x,-1,Hartline,Room B43,true
-1547,x,-1,Hartline,Room B44,true
-1548,x,-1,Hartline,Room B45,true
-1549,x,-1,Hartline,Room B46,true
-1550,x,-1,Hartline,Room B47,true
-1551,x,-1,Hartline,Room B47A,true
-1552,x,-1,Hartline,Room B48,true
-1553,x,-1,Hartline,Room B50,true
-1554,x,-1,Hartline,Room B52,true
-1555,x,-1,Hartline,Room B53,true
-1556,x,-1,Hartline,Room B54,true
-1557,x,-1,Hartline,Room B55,true
-1558,x,-1,Hartline,Room B56,true
-1559,x,0.5,Hartline,stair5,false
-1560,x,0.5,Hartline,stair6,false
-1561,x,0.5,Hartline,stair7,false
-1562,x,0.5,Hartline,stair8,false
-1563,x,0,Hartline,Ground Floor West Elevator,false
-1564,x,0,Hartline,Ground Floor East Elevator,false
-1565,x,0,Hartline,Ground Floor Side Entrance,true
-1566,x,0,Hartline,Ground Floor Lobby Entrance,true
-1567,x,0,Hartline,Ground Floor Stair Entrance,true
-1568,x,0,Hartline,Ground Floor Greenhouse Entrance,true
-1569,x,0.5,Hartline,stair9,false
-1570,x,0.5,Hartline,stair10,false
-1571,x,0,Hartline,hallway11,false
-1572,x,0,Hartline,hallway12,false
-1573,x,0,Hartline,hallway13,false
-1574,x,0,Hartline,hallway14,false
-1575,x,0,Hartline,hallway15,false
-1576,x,0,Hartline,hallway16,false
-1577,x,0,Hartline,hallway17,false
-1578,x,0,Hartline,hallway18,false
-1579,x,0,Hartline,hallway19,false
-1580,x,0,Hartline,hallway20,false
-1581,x,0,Hartline,hallway21,false
-1582,x,0,Hartline,hallway22,false
-1583,x,0,Hartline,Room G3,true
-1584,x,0,Hartline,Room G4,true
-1585,x,0,Hartline,Room G5,true
-1586,x,0,Hartline,Room G6,true
-1587,x,0,Hartline,Room G7,true
-1588,x,0,Hartline,Room G11,true
-1589,x,0,Hartline,Room G12,true
-1590,x,0,Hartline,Room G13,true
-1591,x,0,Hartline,Room G19,true
-1592,x,0,Hartline,Room G20,true
-1593,x,0,Hartline,Room G22,true
-1594,x,0,Hartline,Room G23,true
-1595,x,0,Hartline,Room G24,true
-1596,x,0,Hartline,Room G25,true
-1597,x,0,Hartline,Room G26,true
-1598,x,0,Hartline,Room G27,true
-1599,x,0,Hartline,Room G28,true
-1600,x,0,Hartline,Room G29,true
-1601,x,0,Hartline,Room G30,true
-1602,x,0,Hartline,Room G31,true
-1603,x,0,Hartline,Room G33,true
-1604,x,0,Hartline,Room G34,true
-1605,x,0,Hartline,Room G35,true
-1606,x,0,Hartline,Room G45,true
-1607,x,0,Hartline,Room G46,true
-1608,x,0,Hartline,Room G47,true
-1609,x,0,Hartline,Room G48,true
-1610,x,0,Hartline,Room G49,true
-1611,x,0,Hartline,Room G52,true
-1612,x,0,Hartline,Room G53,true
-1613,x,0,Hartline,Room G54,true
-1614,x,0,Hartline,Room G55,true
-1615,x,0,Hartline,Room G56,true
-1616,x,0,Hartline,Room G57,true
-1617,x,0,Hartline,Room G58,true
-1618,x,0,Hartline,Room G60,true
-1619,x,0,Hartline,Room G61,true
-1620,x,0,Hartline,Room G62,true
-1621,x,0,Hartline,Room G63,true
-1622,x,0,Hartline,Room G64,true
-1623,x,0,Hartline,Room G64A,true
-1624,x,0,Hartline,Room G64B,true
-1625,x,0,Hartline Room G67,true
-1626,x,0,Hartline,Room G69,true
-1627,x,0,Hartline,Room G70,true
-1628,x,0,Hartline,Room G71,true
-1629,x,0,Hartline,Room G72,true
-1630,x,0,Hartline,hallway23,false
-1631,x,0,Hartline,Room G38,true
-1632,x,0,Hartline,Room G40,true
-1633,x,0,Hartline,Room G42,true
-1634,x,0,Hartline,Room G39,true
-1635,x,0,Hartline,Room G41,true
-1636,x,0,Hartline,Room G50,true
-1637,x,0,Hartline,Room G51,true
-1638,x,1,Hartline,First Floor Main Entrance,true
-1639,x,1.5,Hartline,stair11,false
-1640,x,1.5,Hartline,stair12,false
-1641,x,1.5,Hartline,stair13,false
-1642,x,1.5,Hartline,stair14,false
-1643,x,1,Hartline,First Floor West Elevator,false
-1644,x,1,Hartline,First Floor East Elevator,false
-1645,x,1,Hartline,hallway24,false
-1646,x,1,Hartline,hallway25,false
-1647,x,1,Hartline,hallway26,false
-1648,x,1,Hartline,hallway27,false
-1649,x,1,Hartline,hallway28,false
-1650,x,1,Hartline,hallway29,false
-1651,x,1,Hartline,hallway30,false
-1652,x,1,Hartline,hallway31,false
-1653,x,1,Hartline,hallway32,false
-1654,x,1,Hartline,hallway33,false
-1655,x,1,Hartline,hallway34,false
-1656,x,1,Hartline,hallway35,false
-1657,x,1,Hartline,Room 101,true
-1658,x,1,Hartline,Room 102,true
-1659,x,1,Hartline,Room 103,true
-1660,x,1,Hartline,Room 114,true
-1661,x,1,Hartline,Room 115,true
-1662,x,1,Hartline,Room 116,true
-1663,x,1,Hartline,Room 117,true
-1664,x,1,Hartline,Room 118,true
-1665,x,1,Hartline,Room 119,true
-1666,x,1,Hartline,Room 120,true
-1667,x,1,Hartline,Room 121,true
-1668,x,1,Hartline,Room 122,true
-1669,x,1,Hartline,Room 123,true
-1670,x,1,Hartline,Room 124,true
-1671,x,1,Hartline,Room 125,true
-1672,x,1,Hartline,Room 126,true
-1673,x,1,Hartline,Room 127,true
-1674,x,1,Hartline,Room 128,true
-1675,x,1,Hartline,Room 129,true
-1676,x,1,Hartline,Room 130,true
-1677,x,1,Hartline,Room 131,true
-1678,x,1,Hartline,Room 133,true
-1679,x,1,Hartline,Room 134,true
-1680,x,1,Hartline,Room 135,true
-1681,x,1,Hartline,Room 136,true
-1682,x,1,Hartline,Room 137,true
-1683,x,1,Hartline,Room 138,true
-1684,x,1,Hartline,Room 139,true
-1685,x,1,Hartline,Room 140,true
-1686,x,1,Hartline,Room 143,true
-1687,x,1,Hartline,Room 144,true
-1688,x,1,Hartline,Room 145,true
-1689,x,1,Hartline,Room 146,true
-1690,x,1,Hartline,Room 147,true
-1691,x,1,Hartline,Room 148,true
-1692,x,1,Hartline,Room 149,true
-1693,x,1,Hartline,Room 150,true
-1694,x,1,Hartline,Room 151,true
-1695,x,1,Hartline,Room 152,true
-1696,x,1,Hartline,Room 154,true
-1697,x,1,Hartline,Room 155,true
-1698,x,1,Hartline,Room 156,true
-1699,x,1,Hartline,Room 157,true
-1700,x,1,Hartline,Room 158,true
-1701,x,1,Hartline,Room 160,true
-1702,x,1,Hartline,Room 161,true
-1703,x,1,Hartline,Room 162,true
-1704,x,1,Hartline,Room 163,true
-1705,x,1,Hartline,Room 164,true
-1706,x,1,Hartline,Room 166,true
-1707,x,1,Hartline,Room 169,true
-1708,x,1,Hartline,Room 171,true
-1709,x,1,Hartline,Room 174,true
-1710,x,1,Hartline,Room 175,true
-1711,x,1,Hartline,Room 176,true
-1712,x,2,Hartline,Room 172,true
-1713,x,1,Hartline,Room 173,true
-1714,x,1,Hartline,Room 177,true
-1715,x,1,Hartline,Room 178,true
-1716,x,1,Hartline,Room 97,true
-1717,x,1,Hartline,Room 98,true
-1718,x,1,Hartline,Room 99,true
-1719,x,1,Hartline,Room 100,true
-1720,x,1,Hartline,Room 108,true
-1721,x,1,Hartline,Room 109,true
-1722,x,1,Hartline,Room 11,true
-1723,x,2,Hartline,Second Floor West Elevator,false
-1724,x,2,Hartline,Second Floor East Elevator,false
-1725,x,2,Hartline,hallway36,false
-1726,x,2,Hartline,hallway37,false
-1727,x,2,Hartline,hallway38,false
-1728,x,2,Hartline,hallway39,false
-1729,x,2,Hartline,hallway40,false
-1730,x,2,Hartline,hallway41,false
-1731,x,2,Hartline,hallway42,false
-1732,x,2,Hartline,hallway43,false
-1733,x,2,Hartline,hallway44,false
-1734,x,2,Hartline,hallway45,false
-1735,x,2,Hartline,hallway46,false
-1736,x,2,Hartline,hallway47,false
-1737,x,2,Hartline,Room 206,true
-1738,x,2,Hartline,Room 209,true
-1739,x,2,Hartline,Room 210,true
-1740,x,2,Hartline,Room 211,true
-1741,x,2,Hartline,Room 215,true
-1742,x,2,Hartline,Room 216,true
-1743,x,2,Hartline,Room 217,true
-1744,x,2,Hartline,Room 218,true
-1745,x,2,Hartline,Room 219,true
-1746,x,2,Hartline,Room 220,true
-1747,x,2,Hartline,Room 221,true
-1748,x,2,Hartline,Room 222,true
-1749,x,2,Hartline,Room 223,true
-1750,x,2,Hartline,Room 224,true
-1751,x,2,Hartline,Room 225,true
-1752,x,2,Hartline,Room 226,true
-1753,x,2,Hartline,Room 227,true
-1754,x,2,Hartline,Room 229,true
-1755,x,2,Hartline,Room 231,true
-1756,x,2,Hartline,Room 232,true
-1757,x,2,Hartline,Room 233,true
-1758,x,2,Hartline,Room 236,true
-1759,x,2,Hartline,Room 237,true
-1760,x,2,Hartline,Room 238,true
-1761,x,2,Hartline,Room 239,true
-1762,x,2,Hartline,Room 240,true
-1763,x,2,Hartline,Room 241,true
-1764,x,2,Hartline,Room 230,true
-1765,x,2,Hartline,Organic Chemistry Teaching Lab,true
-1766,x,2,Hartline,Biochemistry Teaching Lab,true
-1767,x,2,Hartline,Biology Prep Lab,true
-1768,x,2,Hartline,Biotechnology Teaching Lab,true
-1769,x,2,Hartline,Cell Culture Lab,true
-1770,x,2,Hartline,Biology Storage,true
-1771,x,2,Hartline,Biology Research Lab,true
-1772,x,2,Hartline,Mineralogy/Petrology Teaching Lab,true
-1773,x,2,Hartline,Geochemistry Prep,true
-1774,x,2,Hartline,Geochemistry Teaching Lab,true
-1775,x,2,Hartline,Chemistry Research Lab,true
-1776,x,1,Hartline,Room 111,true
-1777,x,2,Hartline,Conference Room,true
+id,locationCode,latitude,longitude,floor,building,name,isValidDestination
+1,87H52H42+QP6,41.0069125,-76.448234375,1,Ben Franklin,First Floor Main Entrance,TRUE
+2,87H52H42+QM3,41.006887500000000,-76.448328125,1,Ben Franklin,hallway1,FALSE
+3,87H52H42+PMH,41.006812500000000,-76.448265625,1,Ben Franklin,hallway2,FALSE
+4,87H52H42+QJQ,41.0069625,-76.448390625,1,Ben Franklin,hallway3,FALSE
+5,87H52H42+PM5,41.006762500000000,-76.448265625,1.5,Ben Franklin,stair1,FALSE
+6,87H52H42+QJW,41.006987500000000,-76.44842187500000,1.5,Ben Franklin,stair2,FALSE
+7,87H52H42+MPV,41.0067375,-76.44820312500000,1,Ben Franklin,Room 103,TRUE
+8,87H52H42+QMC,41.00693750000000,-76.448359375,1,Ben Franklin,Room 113,TRUE
+9,87H52H42+QJX,41.006987500000000,-76.448390625,1,Ben Franklin,Room 114,TRUE
+10,87H52H42+RJ7,41.007037500000000,-76.448453125,1,Ben Franklin,Room 115,TRUE
+11,87H52H42+PMQ,41.0068375,-76.448265625,2,Ben Franklin,hallway4,FALSE
+12,87H52H42+QJQ,41.0069625,-76.448390625,2,Ben Franklin,hallway5,FALSE
+13,87H52H42+PP3,41.006762500000000,-76.44820312500000,2,Ben Franklin,hallway6,FALSE
+14,87H52H42+RJ4,41.0070125,-76.44842187500000,2,Ben Franklin,hallway7,FALSE
+15,87H52H42+PMR,41.0068625,-76.448359375,2,Ben Franklin,hallway8,FALSE
+16,87H52H42+QJ8,41.0069125,-76.44842187500000,2,Ben Franklin,Room 235,TRUE
+17,87H52H42+QJ9,41.0069125,-76.448390625,2,Ben Franklin,Room 236,TRUE
+18,87H52H42+PJX,41.0068625,-76.448390625,2,Ben Franklin,Room 237,TRUE
+19,87H52H42+PMR,41.0068625,-76.448359375,2,Ben Franklin,Room 238,TRUE
+20,87H52H42+PMJ,41.0068375,-76.448359375,2,Ben Franklin,Room 239,TRUE
+21,87H52H42+PMF,41.006812500000000,-76.448328125,2,Ben Franklin,Room 240,TRUE
+22,87H52H42+MMX,41.0067375,-76.448265625,2,Ben Franklin,Room 204,TRUE
+23,87H52H42+MPJ,41.006712500000000,-76.448234375,2,Ben Franklin,Room 205,TRUE
+24,87H52H42+MPV,41.0067375,-76.44820312500000,2,Ben Franklin,Room 206,TRUE
+25,87H52H42+MPV,41.0067375,-76.44820312500000,2,Ben Franklin,Room 207,TRUE
+26,87H52H42+PP4,41.006762500000000,-76.448171875,2,Ben Franklin,Room 208,TRUE
+27,87H52H42+PP5,41.006762500000000,-76.44814062500000,2,Ben Franklin,Room 209,TRUE
+28,87H52H42+PP9,41.0067875,-76.44814062500000,2,Ben Franklin,Room 210,TRUE
+29,87H52H42+PPC,41.006812500000000,-76.448234375,2,Ben Franklin,Room 211,TRUE
+30,87H52H42+PMQ,41.0068375,-76.448265625,2,Ben Franklin,Room 212,TRUE
+31,87H52H42+RJ2,41.0070125,-76.44848437500000,2,Ben Franklin,Room 229,TRUE
+32,87H52H42+RJ2,41.0070125,-76.44848437500000,2,Ben Franklin,Room 228,TRUE
+33,87H52H42+RJ7,41.007037500000000,-76.448453125,2,Ben Franklin,Room 227,TRUE
+34,87H52H42+RJ8,41.007037500000000,-76.44842187500000,2,Ben Franklin,Room 226,TRUE
+35,87H52H42+RJ9,41.007037500000000,-76.448390625,2,Ben Franklin,Room 225,TRUE
+36,87H52H42+RJH,41.0070625,-76.448390625,2,Ben Franklin,Room 224,TRUE
+37,87H52H42+RMC,41.0070625,-76.448359375,2,Ben Franklin,Room 223,TRUE
+38,87H52H42+RM2,41.0070125,-76.448359375,2,Ben Franklin,Room 222,TRUE
+39,87H52H42+QMJ,41.0069625,-76.448359375,2,Ben Franklin,Room 218,TRUE
+40,87H52H42+QJX,41.006987500000000,-76.448390625,2,Ben Franklin,Room 219,TRUE
+41,87H52H42+QJX,41.006987500000000,-76.448390625,2,Ben Franklin,Room 220,TRUE
+42,87H52H42+PPR,41.0068625,-76.448234375,2,Ben Franklin,Room 214,TRUE
+43,87H52H42+QP2,41.006887500000000,-76.448234375,2,Ben Franklin,Room 215,TRUE
+44,87H52H42+QMF,41.00693750000000,-76.448328125,2,Ben Franklin,hallway9,FALSE
+45,87H52H42+QM9,41.0069125,-76.448265625,2,Ben Franklin,Room 217C,TRUE
+46,87H52H42+QMG,41.00693750000000,-76.448296875,2,Ben Franklin,Room 217,TRUE
+47,87H52H42+QMP,41.0069625,-76.448296875,2,Ben Franklin,Room 217B,TRUE
+48,87H52H42+QMV,41.006987500000000,-76.448328125,2,Ben Franklin,Room 217A,TRUE
+49,87H52H42+QM3,41.006887500000000,-76.448328125,0,Ben Franklin,hallway10,FALSE
+50,87H52H42+PM3,41.006762500000000,-76.448328125,0,Ben Franklin,Ground Floor South Entrance,TRUE
+51,87H52H42+QJJ,41.0069625,-76.44848437500000,0,Ben Franklin,Ground Floor North Entrance,TRUE
+52,87H52H42+PM4,41.006762500000000,-76.448296875,0.5,Ben Franklin,stair3,FALSE
+53,87H52H42+QJM,41.0069625,-76.448453125,0.5,Ben Franklin,stair4, false
+54,87H52H42+QM7,41.0069125,-76.448328125,0,Ben Franklin,Ground Floor Elevator,FALSE
+55,87H52H42+QM7,41.0069125,-76.448328125,1,Ben Franklin,First Floor Elevator,FALSE
+56,87H52H42+QM9,41.0069125,-76.448265625,2,Ben Franklin,Second Floor Elevator,FALSE
+100,x,-1,-1,0,Navy,Ground Floor South Entrance,TRUE
+101,x,-1,-1,0,Navy,Ground Floor North Entrance,TRUE
+102,x,-1,-1,0,Navy,Ground Floor West Entrance,TRUE
+103,x,-1,-1,0,Navy,hallway1,FALSE
+104,x,-1,-1,0,Navy,hallway2,FALSE
+105,x,-1,-1,0,Navy,hallway3,FALSE
+106,x,-1,-1,0,Navy,Ground Floor Elevator,FALSE
+107,x,-1,-1,0,Navy,Room 10,TRUE
+108,x,-1,-1,0,Navy,Room 9,TRUE
+109,x,-1,-1,0,Navy,Room 11A,TRUE
+110,x,-1,-1,0,Navy,Room 12,TRUE
+111,x,-1,-1,0,Navy,Room 14,TRUE
+112,x,-1,-1,0,Navy,Room 15,TRUE
+113,x,-1,-1,0,Navy,Room 16,TRUE
+114,x,-1,-1,0,Navy,Room 19,TRUE
+115,x,-1,-1,0,Navy,Room 27,TRUE
+116,x,-1,-1,0,Navy,Room 28,TRUE
+117,x,-1,-1,0,Navy,Room 29,TRUE
+118,x,-1,-1,0,Navy,Room 30,TRUE
+119,x,-1,-1,0,Navy,Room 31,TRUE
+120,x,-1,-1,0,Navy,Room 11B,TRUE
+121,x,-1,-1,0.5,Navy,stair1,FALSE
+122,x,-1,-1,0.5,Navy,stair2,FALSE
+123,x,-1,-1,1,Navy,hallway3,FALSE
+124,x,-1,-1,1,Navy,hallway4,FALSE
+125,x,-1,-1,1,Navy,hallway5,FALSE
+126,x,-1,-1,1,Navy,First Floor Elevator,FALSE
+127,x,-1,-1,1,Navy,First Floor Entrance,TRUE
+128,x,-1,-1,1,Navy,hallway6,FALSE
+129,x,-1,-1,1,Navy,Room 116,TRUE
+130,x,-1,-1,1,Navy,Room 117,TRUE
+131,x,-1,-1,1,Navy,Room 115,TRUE
+132,x,-1,-1,1,Navy,Room 116A,TRUE
+133,x,-1,-1,1,Navy,Room 114,TRUE
+134,x,-1,-1,1,Navy,Room 112B,TRUE
+135,x,-1,-1,1,Navy,hallway7,FALSE
+136,x,-1,-1,0,Navy,Room 17,TRUE
+137,x,-1,-1,1,Navy,Room 127,TRUE
+138,x,-1,-1,1,Navy,Room 122,TRUE
+139,x,-1,-1,1,Navy,Room 123,TRUE
+140,x,-1,-1,1,Navy,Room 124,TRUE
+141,x,-1,-1,1,Navy,Room 125,TRUE
+142,x,-1,-1,1,Navy,Room 126,TRUE
+143,x,-1,-1,1,Navy,hallway8,FALSE
+144,x,-1,-1,1,Navy,Room 104,TRUE
+145,x,-1,-1,1,Navy,Room 105,TRUE
+146,x,-1,-1,1,Navy,Room 106,TRUE
+147,x,-1,-1,1,Navy,Room 107,TRUE
+148,x,-1,-1,1.5,Navy,stair3,FALSE
+149,x,-1,-1,1.5,Navy,stair4,FALSE
+150,x,-1,-1,2,Navy,hallway12,FALSE
+151,x,-1,-1,2,Navy,hallway9,FALSE
+152,x,-1,-1,2,Navy,hallway10,FALSE
+153,x,-1,-1,2,Navy,Room 209B,TRUE
+154,x,-1,-1,2,Navy,Room 209D,TRUE
+155,x,-1,-1,2,Navy,Room 209C,TRUE
+156,x,-1,-1,2,Navy,Room 209E,TRUE
+157,x,-1,-1,2,Navy,Room 209F,TRUE
+158,x,-1,-1,2,Navy,Room 207,TRUE
+159,x,-1,-1,2,Navy,Room 205,TRUE
+160,x,-1,-1,2,Navy,Room 220,TRUE
+161,x,-1,-1,2,Navy,Room 221,TRUE
+162,x,-1,-1,2,Navy,Room 223,TRUE
+163,x,-1,-1,2,Navy,hallway11,FALSE
+164,x,-1,-1,2,Navy,Room 216,TRUE
+165,x,-1,-1,2,Navy,Room 217,TRUE
+166,x,-1,-1,2,Navy,Room 218,TRUE
+167,x,-1,-1,2,Navy,Second Floor Elevator,FALSE
+200,x,-1,-1,0,Bakeless,hallway1,FALSE
+201,x,-1,-1,0,Bakeless,hallway2,FALSE
+203,x,-1,-1,0,Bakeless,Ground Floor Elevator,FALSE
+204,x,-1,-1,0,Bakeless,Room G4A,TRUE
+205,x,-1,-1,0,Bakeless,Room G5,TRUE
+206,x,-1,-1,0,Bakeless,Room G6,TRUE
+207,x,-1,-1,0,Bakeless,Court Entrance,TRUE
+208,x,-1,-1,0.5,Bakeless,stair1,FALSE
+209,x,-1,-1,1.5,Bakeless,stair2,FALSE
+210,x,-1,-1,1.5,Bakeless,stair3,FALSE
+211,x,-1,-1,1,Bakeless,First Floor Elevator,FALSE
+212,x,-1,-1,2,Bakeless,Second Floor Elevator,FALSE
+213,x,-1,-1,3,Bakeless,Third Floor Elevator,FALSE
+214,x,-1,-1,1,Bakeless,First Floor Main Entrance,TRUE
+215,x,-1,-1,1,Bakeless,hallway3,FALSE
+216,x,-1,-1,1,Bakeless,hallway4,FALSE
+217,x,-1,-1,1,Bakeless,hallway5,FALSE
+218,x,-1,-1,1,Bakeless,hallway6,FALSE
+219,x,-1,-1,1,Bakeless,Room 101,TRUE
+220,x,-1,-1,1,Bakeless,Room 102,TRUE
+221,x,-1,-1,1,Bakeless,Room 103,TRUE
+222,x,-1,-1,1,Bakeless,Room 104,TRUE
+223,x,-1,-1,1,Bakeless,Room 105,TRUE
+224,x,-1,-1,1,Bakeless,Room 107,TRUE
+225,x,-1,-1,1,Bakeless,Room 106A,TRUE
+226,x,-1,-1,1,Bakeless,Room 106D,TRUE
+227,x,-1,-1,1,Bakeless,Room 106B,TRUE
+228,x,-1,-1,1,Bakeless,Room 106C,TRUE
+229,x,-1,-1,1,Bakeless,Room 111A,TRUE
+230,x,-1,-1,1,Bakeless,Room 111B,TRUE
+231,x,-1,-1,1,Bakeless,Room 110A,TRUE
+232,x,-1,-1,1,Bakeless,Room 110B,TRUE
+233,x,-1,-1,1,Bakeless,Room 109A,TRUE
+234,x,-1,-1,1,Bakeless,Room 109B,TRUE
+235,x,-1,-1,1,Bakeless,Room 108A,TRUE
+236,x,-1,-1,1,Bakeless,Room 108B,TRUE
+237,x,-1,-1,1,Bakeless,Room 113A,TRUE
+238,x,-1,-1,1,Bakeless,Room 113B,TRUE
+239,x,-1,-1,1,Bakeless,Room 114,TRUE
+240,x,-1,-1,1,Bakeless,Room 115A,TRUE
+241,x,-1,-1,1,Bakeless,Room 115B,TRUE
+242,x,-1,-1,1,Bakeless,Room 116A,TRUE
+243,x,-1,-1,1,Bakeless,Room 116B,TRUE
+244,x,-1,-1,1,Bakeless,Room 117B,TRUE
+245,x,-1,-1,1,Bakeless,Room 117A,TRUE
+246,x,-1,-1,1,Bakeless,Room 118,TRUE
+247,x,-1,-1,1,Bakeless,Room 119A,TRUE
+248,x,-1,-1,1,Bakeless,Room 119B,TRUE
+249,x,-1,-1,1.5,Bakeless,stair4,FALSE
+250,x,-1,-1,2.5,Bakeless,stair5,FALSE
+251,x,-1,-1,1.5,Bakeless,stair6,FALSE
+252,x,-1,-1,2.5,Bakeless,stair7,FALSE
+253,x,-1,-1,1.5,Bakeless,stair8,FALSE
+254,x,-1,-1,2.5,Bakeless,stair9,FALSE
+255,x,-1,-1,1,Bakeless,First Floor West Court Entrance,TRUE
+256,x,-1,-1,1,Bakeless,First Floor East Court Entrance,TRUE
+257,x,-1,-1,1,Bakeless,hallway7,FALSE
+258,x,-1,-1,1,Bakeless,First Floor Rear Entrance,TRUE
+259,x,-1,-1,2,Bakeless,hallway8,FALSE
+260,x,-1,-1,2,Bakeless,hallway9,FALSE
+261,x,-1,-1,2,Bakeless,hallway10,FALSE
+262,x,-1,-1,2,Bakeless,hallway11,FALSE
+263,x,-1,-1,2,Bakeless,hallway12,FALSE
+265,x,-1,-1,2,Bakeless,Room 213A,TRUE
+266,x,-1,-1,2,Bakeless,Room 213B,TRUE
+267,x,-1,-1,2,Bakeless,Room 214,TRUE
+268,x,-1,-1,2,Bakeless,Room 215B,TRUE
+269,x,-1,-1,2,Bakeless,Room 215A,TRUE
+270,x,-1,-1,2,Bakeless,Room 216A,TRUE
+271,x,-1,-1,2,Bakeless,Room 216B,TRUE
+272,x,-1,-1,2,Bakeless,Room 217B,TRUE
+273,x,-1,-1,2,Bakeless,Room 217A,TRUE
+274,x,-1,-1,2,Bakeless,Room 218,TRUE
+275,x,-1,-1,2,Bakeless,Room 219A,TRUE
+276,x,-1,-1,2,Bakeless,Room 219B,TRUE
+277,x,-1,-1,2,Bakeless,Room 201,TRUE
+278,x,-1,-1,2,Bakeless,Room 202,TRUE
+279,x,-1,-1,2,Bakeless,Room 203,TRUE
+280,x,-1,-1,2,Bakeless,Room 204,TRUE
+281,x,-1,-1,2,Bakeless,Room 205,TRUE
+282,x,-1,-1,2,Bakeless,Room 206,TRUE
+283,x,-1,-1,2,Bakeless,Room 206A,TRUE
+284,x,-1,-1,2,Bakeless,Room 207,TRUE
+285,x,-1,-1,2,Bakeless,Room 208,TRUE
+286,x,-1,-1,2,Bakeless,Room 209,TRUE
+287,x,-1,-1,2,Bakeless,Room 210,TRUE
+288,x,-1,-1,2,Bakeless,Room 211,TRUE
+289,x,-1,-1,3,Bakeless,hallway13,FALSE
+290,x,-1,-1,3,Bakeless,hallway14,FALSE
+291,x,-1,-1,3,Bakeless,hallway15,FALSE
+292,x,-1,-1,3,Bakeless,hallway16,FALSE
+293,x,-1,-1,3,Bakeless,hallway17,FALSE
+295,x,-1,-1,3,Bakeless,Room 313B,TRUE
+296,x,-1,-1,3,Bakeless,Room 313A,TRUE
+297,x,-1,-1,3,Bakeless,Room 314,TRUE
+298,x,-1,-1,3,Bakeless,Room 315B,TRUE
+299,x,-1,-1,3,Bakeless,Room 315A,TRUE
+300,x,-1,-1,3,Bakeless,Room 316B,TRUE
+301,x,-1,-1,3,Bakeless,Room 316A,TRUE
+302,x,-1,-1,3,Bakeless,Room 317B,TRUE
+303,x,-1,-1,3,Bakeless,Room 317A,TRUE
+304,x,-1,-1,3,Bakeless,Room 318,TRUE
+305,x,-1,-1,3,Bakeless,Room 319B,TRUE
+306,x,-1,-1,3,Bakeless,Room 319A,TRUE
+307,x,-1,-1,3,Bakeless,Room 301,TRUE
+308,x,-1,-1,3,Bakeless,Room 302,TRUE
+309,x,-1,-1,3,Bakeless,Room 303,TRUE
+310,x,-1,-1,3,Bakeless,Room 304,TRUE
+311,x,-1,-1,3,Bakeless,Room 305,TRUE
+312,x,-1,-1,3,Bakeless,Room 306,TRUE
+313,x,-1,-1,3,Bakeless,Room 307,TRUE
+314,x,-1,-1,3,Bakeless,Room 308,TRUE
+315,x,-1,-1,3,Bakeless,Room 309,TRUE
+316,x,-1,-1,3,Bakeless,Room 310,TRUE
+317,x,-1,-1,3,Bakeless,Room 311,TRUE
+400,x,-1,-1,1,Centennial,First Floor Main Entrance,TRUE
+401,x,-1,-1,1,Centennial,Left Side Stair Entrance,FALSE
+402,x,-1,-1,1,Centennial,Right Side Stair Entrance, false
+403,x,-1,-1,1,Centennial,East Side Stair Entrance,FALSE
+404,x,-1,-1,1,Centennial,West Side Stair Entrance,FALSE
+405,x,-1,-1,1,Centennial,East Side Hallway Entrance,FALSE
+406,x,-1,-1,1,Centennial,West Side Hallway Entrance,FALSE
+407,x,-1,-1,1,Centennial,East Rear Office Entrance,FALSE
+408,x,-1,-1,1,Centennial,West Rear Office Entrance,FALSE
+409,x,-1,-1,1,Centennial,East Rear Side Entrance,FALSE
+410,x,-1,-1,1,Centennial,West Rear Side Entrance,FALSE
+411,x,-1,-1,1,Centennial,Rear Entrance,TRUE
+412,x,-1,-1,1.5,Centennial,stair1,FALSE
+413,x,-1,-1,1.5,Centennial,stair2,FALSE
+414,x,-1,-1,1.5,Centennial,stair3,FALSE
+415,x,-1,-1,1.5,Centennial,stair4,FALSE
+416,x,-1,-1,1,Centennial,First Floor Elevator,FALSE
+417,x,-1,-1,1,Centennial,hallway1,FALSE
+418,x,-1,-1,1,Centennial,hallway2,FALSE
+419,x,-1,-1,1,Centennial,hallway3,FALSE
+420,x,-1,-1,1,Centennial,hallway4,FALSE
+421,x,-1,-1,1,Centennial,hallway5,FALSE
+422,x,-1,-1,1,Centennial,hallway6,FALSE
+423,x,-1,-1,1,Centennial,hallway7,FALSE
+424,x,-1,-1,1,Centennial,hallway8,FALSE
+425,x,-1,-1,1,Centennial,hallway9,FALSE
+426,x,-1,-1,1,Centennial,hallway10,FALSE
+427,x,-1,-1,1,Centennial,hallway11,FALSE
+428,x,-1,-1,1,Centennial,Room 103,TRUE
+429,x,-1,-1,1,Centennial,Room 108,TRUE
+430,x,-1,-1,1,Centennial,Room 110,TRUE
+431,x,-1,-1,1,Centennial,Room 163,TRUE
+432,x,-1,-1,1,Centennial,Room 164,TRUE
+433,x,-1,-1,1,Centennial,Room 170,TRUE
+434,x,-1,-1,1,Centennial,Room 121,TRUE
+435,x,-1,-1,1,Centennial,Room 122,TRUE
+436,x,-1,-1,1,Centennial,Room 123,TRUE
+437,x,-1,-1,1,Centennial,Room 124,TRUE
+438,x,-1,-1,1,Centennial,Room 125,TRUE
+439,x,-1,-1,1,Centennial,Room 127,TRUE
+440,x,-1,-1,1,Centennial,Room 130,TRUE
+441,x,-1,-1,1,Centennial,Room 131,TRUE
+442,x,-1,-1,1,Centennial,Room 132,TRUE
+443,x,-1,-1,1,Centennial,Room 134,TRUE
+444,x,-1,-1,1,Centennial,Room 136,TRUE
+445,x,-1,-1,1,Centennial,Room 140A,TRUE
+446,x,-1,-1,1,Centennial,Room 135,TRUE
+447,x,-1,-1,1,Centennial,Room 138,TRUE
+448,x,-1,-1,1,Centennial,Room 139,TRUE
+449,x,-1,-1,1,Centennial,Room 140B,TRUE
+450,x,-1,-1,1,Centennial,Room 144,TRUE
+451,x,-1,-1,1,Centennial,Room 142,TRUE
+452,x,-1,-1,1,Centennial,Room 150,TRUE
+453,x,-1,-1,1,Centennial,Room 149,TRUE
+454,x,-1,-1,1,Centennial,Room 148,TRUE
+455,x,-1,-1,1,Centennial,Room 153,TRUE
+456,x,-1,-1,1,Centennial,Room 152,TRUE
+457,x,-1,-1,1,Centennial,Room 151,TRUE
+458,x,-1,-1,1,Centennial,Room 146A,TRUE
+459,x,-1,-1,1,Centennial,Room 146,TRUE
+460,x,-1,-1,1,Centennial,Room 113,TRUE
+461,x,-1,-1,2.5,Centennial,stair5,FALSE
+462,x,-1,-1,2.5,Centennial,stair6,FALSE
+463,x,-1,-1,3,Centennial,Third Floor Elevator,FALSE
+465,x,-1,-1,2,Centennial,Second Floor Elevator,FALSE
+466,x,-1,-1,2,Centennial,hallway12,FALSE
+467,x,-1,-1,2,Centennial,hallway13,FALSE
+468,x,-1,-1,2,Centennial,hallway14,FALSE
+469,x,-1,-1,2,Centennial,hallway15,FALSE
+470,x,-1,-1,2,Centennial,hallway16,FALSE
+471,x,-1,-1,2,Centennial,Room 201,TRUE
+472,x,-1,-1,2,Centennial,Room 204,TRUE
+473,x,-1,-1,2,Centennial,Room 205,TRUE
+474,x,-1,-1,2,Centennial,Room 206,TRUE
+475,x,-1,-1,2,Centennial,Room 207,TRUE
+476,x,-1,-1,2,Centennial,Room 209,TRUE
+477,x,-1,-1,2,Centennial,Room 212,TRUE
+478,x,-1,-1,2,Centennial,Room 213,TRUE
+479,x,-1,-1,2,Centennial,Room 243,TRUE
+480,x,-1,-1,2,Centennial,Room 244,TRUE
+481,x,-1,-1,2,Centennial,Room 245,TRUE
+482,x,-1,-1,2,Centennial,Room 223,TRUE
+483,x,-1,-1,2,Centennial,Room 224,TRUE
+484,x,-1,-1,2,Centennial,Room 227,TRUE
+485,x,-1,-1,2,Centennial,Room 226,TRUE
+486,x,-1,-1,2,Centennial,Room 230,TRUE
+487,x,-1,-1,2,Centennial,Room 232,TRUE
+488,x,-1,-1,2,Centennial,Room 237,TRUE
+489,x,-1,-1,2,Centennial,Room 236,TRUE
+490,x,-1,-1,2,Centennial,Room 235,TRUE
+491,x,-1,-1,2,Centennial,Room 233,TRUE
+492,x,-1,-1,2,Centennial,Room 239,TRUE
+493,x,-1,-1,2,Centennial,Room 217,TRUE
+494,x,-1,-1,2,Centennial,Room 219,TRUE
+495,x,-1,-1,2,Centennial,Room 219A,TRUE
+496,x,-1,-1,2,Centennial,Room 218,TRUE
+497,x,-1,-1,2,Centennial,hallway17,FALSE
+498,x,-1,-1,3,Centennial,hallway18,FALSE
+499,x,-1,-1,3,Centennial,hallway19,FALSE
+500,x,-1,-1,3,Centennial,hallway20,FALSE
+501,x,-1,-1,3,Centennial,hallway21,FALSE
+502,x,-1,-1,3,Centennial,hallway22,FALSE
+503,x,-1,-1,3,Centennial,hallway23,FALSE
+504,x,-1,-1,3,Centennial,hallway24,FALSE
+505,x,-1,-1,3,Centennial,hallway25,FALSE
+506,x,-1,-1,3,Centennial,hallway26,FALSE
+507,x,-1,-1,3,Centennial,Room 301,TRUE
+508,x,-1,-1,3,Centennial,Room 303,TRUE
+511,x,-1,-1,3,Centennial,Room 306,TRUE
+512,x,-1,-1,3,Centennial,Room 352,TRUE
+513,x,-1,-1,3,Centennial,Room 309,TRUE
+514,x,-1,-1,3,Centennial,Room 308,TRUE
+515,x,-1,-1,3,Centennial,Room 353,TRUE
+516,x,-1,-1,3,Centennial,Room 354,TRUE
+517,x,-1,-1,3,Centennial,hallway27,FALSE
+518,x,-1,-1,3,Centennial,Room 312,TRUE
+519,x,-1,-1,3,Centennial,Room 313,TRUE
+520,x,-1,-1,3,Centennial,Room 314,TRUE
+521,x,-1,-1,3,Centennial,Room 315,TRUE
+522,x,-1,-1,3,Centennial,Room 316,TRUE
+523,x,-1,-1,3,Centennial,Room 317,TRUE
+524,x,-1,-1,3,Centennial,Room 318,TRUE
+525,x,-1,-1,3,Centennial,Room 319,TRUE
+526,x,-1,-1,3,Centennial,Room 320,TRUE
+527,x,-1,-1,3,Centennial,Room 321,TRUE
+528,x,-1,-1,3,Centennial,Room 322,TRUE
+529,x,-1,-1,3,Centennial,Room 307,TRUE
+530,x,-1,-1,3,Centennial,Room 326,TRUE
+531,x,-1,-1,3,Centennial,Room 327,TRUE
+532,x,-1,-1,3,Centennial,Room 328,TRUE
+533,x,-1,-1,3,Centennial,Room 329,TRUE
+534,x,-1,-1,3,Centennial,Room 330,TRUE
+535,x,-1,-1,3,Centennial,Room 331,TRUE
+536,x,-1,-1,3,Centennial,Room 332,TRUE
+537,x,-1,-1,3,Centennial,Room 342,TRUE
+538,x,-1,-1,3,Centennial,Room 343,TRUE
+539,x,-1,-1,3,Centennial,Room 334,TRUE
+540,x,-1,-1,3,Centennial,Room 335,TRUE
+541,x,-1,-1,3,Centennial,Room 336,TRUE
+542,x,-1,-1,3,Centennial,Room 337,TRUE
+543,x,-1,-1,3,Centennial,Room 338,TRUE
+544,x,-1,-1,3,Centennial,Room 339,TRUE
+545,x,-1,-1,3,Centennial,Room 340,TRUE
+600,x,-1,-1,1,Sutliff,First Floor Main Entrance,TRUE
+601,x,-1,-1,1,Sutliff,hallway1,FALSE
+602,x,-1,-1,1,Sutliff,hallway2,FALSE
+603,x,-1,-1,1,Sutliff,hallway3,FALSE
+604,x,-1,-1,1,Sutliff,hallway4,FALSE
+605,x,-1,-1,1,Sutliff,First Floor Elevator,FALSE
+606,x,-1,-1,2,Sutliff,Second Floor Elevator,FALSE
+607,x,-1,-1,3,Sutliff,Third Floor Elevator,FALSE
+608,x,-1,-1,1.5,Sutliff,stair1,FALSE
+609,x,-1,-1,1.5,Sutliff,stair2,FALSE
+610,x,-1,-1,1.5,Sutliff,stair3,FALSE
+611,x,-1,-1,1,Sutliff,Room 102,TRUE
+612,x,-1,-1,1,Sutliff,Room 105,TRUE
+613,x,-1,-1,1,Sutliff,Room 106,TRUE
+614,x,-1,-1,1,Sutliff,Room 107,TRUE
+615,x,-1,-1,1,Sutliff,Room 110,TRUE
+616,x,-1,-1,1,Sutliff,Room 111,TRUE
+617,x,-1,-1,1,Sutliff,Room 112,TRUE
+618,x,-1,-1,1,Sutliff,Room 113,TRUE
+619,x,-1,-1,1,Sutliff,Room 114,TRUE
+620,x,-1,-1,1,Sutliff,Room 115,TRUE
+621,x,-1,-1,1,Sutliff,Room 120,TRUE
+622,x,-1,-1,1,Sutliff,Room 123,TRUE
+623,x,-1,-1,2.5,Sutliff,stair4,FALSE
+624,x,-1,-1,2.5,Sutliff,stair5,FALSE
+625,x,-1,-1,2.5,Sutliff,stair6,FALSE
+626,x,-1,-1,2,Sutliff,hallway5,FALSE
+627,x,-1,-1,2,Sutliff,hallway6,FALSE
+628,x,-1,-1,2,Sutliff,hallway7,FALSE
+629,x,-1,-1,2,Sutliff,hallway8,FALSE
+630,x,-1,-1,2,Sutliff,hallway9,FALSE
+631,x,-1,-1,2,Sutliff,hallway10,FALSE
+632,x,-1,-1,2,Sutliff,hallway11,FALSE
+633,x,-1,-1,2,Sutliff,Room 202,TRUE
+634,x,-1,-1,2,Sutliff,Room 203,TRUE
+635,x,-1,-1,2,Sutliff,Room 204,TRUE
+636,x,-1,-1,2,Sutliff,Room 205,TRUE
+637,x,-1,-1,2,Sutliff,Room 206,TRUE
+638,x,-1,-1,2,Sutliff,Room 207,TRUE
+639,x,-1,-1,2,Sutliff,Room 209,TRUE
+640,x,-1,-1,2,Sutliff,Room 210,TRUE
+641,x,-1,-1,2,Sutliff,Room 211,TRUE
+642,x,-1,-1,2,Sutliff,Room 212,TRUE
+643,x,-1,-1,2,Sutliff,Room 214,TRUE
+644,x,-1,-1,2,Sutliff,Room 215,TRUE
+645,x,-1,-1,2,Sutliff,Room 216,TRUE
+646,x,-1,-1,2,Sutliff,Room 217,TRUE
+647,x,-1,-1,2,Sutliff,Room 222,TRUE
+648,x,-1,-1,2,Sutliff,Room 223,TRUE
+649,x,-1,-1,2,Sutliff,Room 225,TRUE
+650,x,-1,-1,2,Sutliff,Room 226,TRUE
+651,x,-1,-1,2,Sutliff,Room 227,TRUE
+652,x,-1,-1,2,Sutliff,Room 228,TRUE
+653,x,-1,-1,2,Sutliff,Room 229,TRUE
+654,x,-1,-1,2,Sutliff,Room 230,TRUE
+655,x,-1,-1,2,Sutliff,Room 231,TRUE
+656,x,-1,-1,2,Sutliff,Room 232,TRUE
+657,x,-1,-1,2,Sutliff,Room 233,TRUE
+658,x,-1,-1,2,Sutliff,Room 235,TRUE
+659,x,-1,-1,2,Sutliff,Room 239,TRUE
+660,x,-1,-1,2,Sutliff,Room 240,TRUE
+661,x,-1,-1,2,Sutliff,Room 241,TRUE
+662,x,-1,-1,2,Sutliff,Room 242,TRUE
+663,x,-1,-1,2,Sutliff,Room 244,TRUE
+664,x,-1,-1,2,Sutliff,Room 245,TRUE
+665,x,-1,-1,2,Sutliff,Room 246,TRUE
+667,x,-1,-1,2,Sutliff,Room 252,TRUE
+668,x,-1,-1,2,Sutliff,Room 253,TRUE
+669,x,-1,-1,2,Sutliff,Room 256,TRUE
+670,x,-1,-1,2,Sutliff,Room 257,TRUE
+671,x,-1,-1,2,Sutliff,Room 255,TRUE
+672,x,-1,-1,3,Sutliff,hallway12,FALSE
+673,x,-1,-1,3,Sutliff,hallway13,FALSE
+674,x,-1,-1,3,Sutliff,hallway14,FALSE
+675,x,-1,-1,3,Sutliff,hallway15,FALSE
+676,x,-1,-1,3,Sutliff,hallway16,FALSE
+677,x,-1,-1,3,Sutliff,hallway17,FALSE
+678,x,-1,-1,3,Sutliff,hallway18,FALSE
+679,x,-1,-1,3,Sutliff,hallway19,FALSE
+680,x,-1,-1,3,Sutliff,Room 301,TRUE
+681,x,-1,-1,3,Sutliff,Room 302,TRUE
+682,x,-1,-1,3,Sutliff,Room 303,TRUE
+683,x,-1,-1,3,Sutliff,Room 304,TRUE
+684,x,-1,-1,3,Sutliff,Room 305,TRUE
+685,x,-1,-1,3,Sutliff,Room 306,TRUE
+686,x,-1,-1,3,Sutliff,Room 307,TRUE
+687,x,-1,-1,3,Sutliff,Room 308,TRUE
+688,x,-1,-1,3,Sutliff,Room 309,TRUE
+689,x,-1,-1,3,Sutliff,Room 310,TRUE
+690,x,-1,-1,3,Sutliff,Room 311,TRUE
+691,x,-1,-1,3,Sutliff,Room 312,TRUE
+692,x,-1,-1,3,Sutliff,Room 313,TRUE
+693,x,-1,-1,3,Sutliff,Room 314,TRUE
+694,x,-1,-1,3,Sutliff,Room 315,TRUE
+695,x,-1,-1,3,Sutliff,Room 316,TRUE
+696,x,-1,-1,3,Sutliff,Room 317,TRUE
+697,x,-1,-1,3,Sutliff,Room 318,TRUE
+698,x,-1,-1,3,Sutliff,Room 319,TRUE
+699,x,-1,-1,3,Sutliff,Room 320,TRUE
+700,x,-1,-1,3,Sutliff,Room 321,TRUE
+701,x,-1,-1,3,Sutliff,Room 322,TRUE
+702,x,-1,-1,3,Sutliff,Room 323,TRUE
+703,x,-1,-1,3,Sutliff,Room 324,TRUE
+704,x,-1,-1,3,Sutliff,Room 325,TRUE
+705,x,-1,-1,3,Sutliff,Room 326,TRUE
+706,x,-1,-1,3,Sutliff,Room 327,TRUE
+707,x,-1,-1,3,Sutliff,Room 328,TRUE
+708,x,-1,-1,3,Sutliff,Room 329,TRUE
+709,x,-1,-1,3,Sutliff,Room 330,TRUE
+710,x,-1,-1,3,Sutliff,Room 331,TRUE
+711,x,-1,-1,3,Sutliff,Room 332,TRUE
+712,x,-1,-1,3,Sutliff,Room 333,TRUE
+713,x,-1,-1,3,Sutliff,Room 334,TRUE
+714,x,-1,-1,3,Sutliff,Room 335,TRUE
+715,x,-1,-1,3,Sutliff,Room 336,TRUE
+716,x,-1,-1,3,Sutliff,Room 337,TRUE
+717,x,-1,-1,3,Sutliff,Room 338,TRUE
+718,x,-1,-1,3,Sutliff,Room 339,TRUE
+719,x,-1,-1,3,Sutliff,Room 340,TRUE
+720,x,-1,-1,3,Sutliff,Room 341,TRUE
+721,x,-1,-1,3,Sutliff,Room 342,TRUE
+722,x,-1,-1,3,Sutliff,Room 343,TRUE
+723,x,-1,-1,3,Sutliff,Room 344,TRUE
+724,x,-1,-1,3,Sutliff,Room 345,TRUE
+725,x,-1,-1,3,Sutliff,Room 346,TRUE
+726,x,-1,-1,3,Sutliff,Room 348,TRUE
+727,x,-1,-1,3,Sutliff,Room 350,TRUE
+728,x,-1,-1,3,Sutliff,Room 354,TRUE
+729,x,-1,-1,3,Sutliff,Room 355,TRUE
+730,x,-1,-1,3,Sutliff,Room 356,TRUE
+731,x,-1,-1,3,Sutliff,Room 358,TRUE
+732,x,-1,-1,3,Sutliff,Room 359,TRUE
+733,x,-1,-1,3,Sutliff,Room 360,TRUE
+734,x,-1,-1,3,Sutliff,Room 361,TRUE
+735,x,-1,-1,3,Sutliff,Room 362,TRUE
+736,x,-1,-1,3,Sutliff,Room 363,TRUE
+737,x,-1,-1,3,Sutliff,Room 365,TRUE
+738,x,-1,-1,3,Sutliff,Room 366,TRUE
+739,x,-1,-1,3,Sutliff,Room 371,TRUE
+740,x,-1,-1,3,Sutliff,Room 372,TRUE
+741,x,-1,-1,3,Sutliff,Room 373,TRUE
+742,x,-1,-1,3,Sutliff,Room 374,TRUE
+743,x,-1,-1,3,Sutliff,Room 375,TRUE
+744,x,-1,-1,3,Sutliff,Room 377,TRUE
+745,X,-1,-1,3,Sutliff,hallway20,FALSE
+800,x,-1,-1,0,Student Services Center,Ground Floor Rear Entrance,TRUE
+801,x,-1,-1,0,Student Services Center,hallway1,FALSE
+802,x,-1,-1,0,Student Services Center,hallway2,FALSE
+803,x,-1,-1,0,Student Services Center,hallway3,FALSE
+804,x,-1,-1,0,Student Services Center,hallway4,FALSE
+805,x,-1,-1,0,Student Services Center,hallway5,FALSE
+806,x,-1,-1,0,Student Services Center,hallway6,FALSE
+807,x,-1,-1,0,Student Services Center,hallway7,FALSE
+808,x,-1,-1,0,Student Services Center,hallway8,FALSE
+809,x,-1,-1,0,Student Services Center,hallway9,FALSE
+810,x,-1,-1,0,Student Services Center,Ground Floor Elevator,FALSE
+811,x,-1,-1,0,Student Services Center,First Floor Elevator,FALSE
+812,x,-1,-1,0,Student Services Center,Second Floor Elevator,FALSE
+813,x,-1,-1,0.5,Student Services Center,stair1,FALSE
+814,x,-1,-1,0.5,Student Services Center,stair2,FALSE
+815,x,-1,-1,0.5,Student Services Center,stair3,FALSE
+816,x,-1,-1,0.5,Student Services Center,stair4,FALSE
+817,x,-1,-1,0.5,Student Services Center,stair5,FALSE
+818,x,-1,-1,0,Student Services Center,Room 4,TRUE
+819,x,-1,-1,0,Student Services Center,Room 10,TRUE
+820,x,-1,-1,0,Student Services Center,Room 10A,TRUE
+821,x,-1,-1,0,Student Services Center,Room 13,TRUE
+822,x,-1,-1,0,Student Services Center,Room 13B,TRUE
+823,x,-1,-1,0,Student Services Center,Room 26,TRUE
+824,x,-1,-1,0,Student Services Center,Room 26A,TRUE
+825,x,-1,-1,0,Student Services Center,Room 27,TRUE
+826,x,-1,-1,0,Student Services Center,Room 27A,TRUE
+827,x,-1,-1,0,Student Services center,Room 30,TRUE
+828,x,-1,-1,0,Student Services Center,Room 31,TRUE
+829,x,-1,-1,0,Student Services Center,Room 32,TRUE
+830,x,-1,-1,0,Student Services Center,Room 33,TRUE
+831,x,-1,-1,0,Student Services Center,Room 34,TRUE
+832,x,-1,-1,0,Student Services Center,Room 36,TRUE
+833,x,-1,-1,0,Student Services Center,Room 37,TRUE
+834,x,-1,-1,0,Student Services Center,Room 38,TRUE
+835,x,-1,-1,0,Student Services Center,Room 40,TRUE
+836,x,-1,-1,0,Student Services Center,Room 41,TRUE
+837,x,-1,-1,0,Student Services Center,Room 42,TRUE
+838,x,-1,-1,0,Student Services Center,Room 44,TRUE
+839,x,-1,-1,0,Student Services Center,Room 45,TRUE
+840,x,-1,-1,0,Student Services Center,Room 46,TRUE
+841,x,-1,-1,0,Student Services Center,Room 47,TRUE
+842,x,-1,-1,0,Student Services Center,Room 48,TRUE
+843,x,-1,-1,0,Student Services Center,Room 49,TRUE
+844,x,-1,-1,0,Student Services Center,Room 55,TRUE
+845,x,-1,-1,0,Student Services Center,Room 58,TRUE
+846,x,-1,-1,0,Student Services Center,Room 39,TRUE
+847,x,-1,-1,0,Student Services Center,Room 39A,TRUE
+848,x,-1,-1,0,Student Services Center,Room 39B,TRUE
+849,x,-1,-1,0,Student Services Center,Room 54,TRUE
+850,x,-1,-1,0,Student Services Center,Room 62,TRUE
+851,x,-1,-1,0,Student Services Center,Room 63,TRUE
+852,x,-1,-1,0,Student Services Center,Room 14A,TRUE
+853,x,-1,-1,0,Student Services Center,Room 21,TRUE
+854,x,-1,-1,0,Student Services Center,Room 22,TRUE
+855,x,-1,-1,1.5,Student Services Center,stair10,FALSE
+856,x,-1,-1,1.5,Student Services Center,stair6,FALSE
+857,x,-1,-1,1.5,Student Services Center,stair7,FALSE
+858,x,-1,-1,1.5,Student Services Center,stair8,FALSE
+859,x,-1,-1,1.5,Student Services Center,stair9,FALSE
+860,x,-1,-1,1,Student Services Center,First Floor Main Entrance,tru
+861,x,-1,-1,1,Student Services Center,hallway10,FALSE
+862,x,-1,-1,1,Student Services Center,hallway11,FALSE
+863,x,-1,-1,1,Student Services Center,hallway12,FALSE
+864,x,-1,-1,1,Student Services Center,hallway13,FALSE
+865,x,-1,-1,1,Student Services Center,hallway14,FALSE
+866,x,-1,-1,1,Student Services Center,hallway15,FALSE
+867,x,-1,-1,1,Student Services Center,hallway16,FALSE
+868,x,-1,-1,1,Student Services Center,Room 119,TRUE
+869,x,-1,-1,1,Student Services Center,hallway17,FALSE
+870,x,-1,-1,1,Student Services Center,Room 102 (Information Center),TRUE
+871,x,-1,-1,1,Student Services Center,Room 105,TRUE
+872,x,-1,-1,1,Student Services Center,Room 107,TRUE
+873,x,-1,-1,1,Student Services Center,Room 109,TRUE
+874,x,-1,-1,1,Student Services Center,Room 112,TRUE
+875,x,-1,-1,1,Student Services Center,Room 115,TRUE
+876,x,-1,-1,1,Student Services Center,Room 116,TRUE
+877,x,-1,-1,1,Student Services Center,Room 117A,TRUE
+878,x,-1,-1,1,Student Services Center,Room 117B,TRUE
+879,x,-1,-1,1,Student Services Center,Room 117C,TRUE
+880,x,-1,-1,1,Student Services Center,Room 128,TRUE
+881,x,-1,-1,1,Student Services Center,Room 124,TRUE
+882,x,-1,-1,1,Student Services Center,Room 130,TRUE
+883,x,-1,-1,1,Student Services Center,Room 131,TRUE
+884,x,-1,-1,1,Student Services Center,Room 134,TRUE
+885,x,-1,-1,1,Student Services Center,Roongo's Cafe,TRUE
+886,x,-1,-1,1,Student Services Center,Room 140,TRUE
+887,x,-1,-1,1,Student Services Center,Room 143,TRUE
+888,x,-1,-1,1,Student Services Center,Room 144,TRUE
+889,x,-1,-1,1,Student Services Center,Room 145,TRUE
+890,x,-1,-1,1,Student Services Center,Room 147,TRUE
+891,x,-1,-1,1,Student Services Center,Room 149,TRUE
+892,x,-1,-1,1,Student Services Center,Room 152,TRUE
+893,x,-1,-1,1,Student Services Center,Room 153,TRUE
+894,x,-1,-1,1,Student Services Center,Room 155,TRUE
+895,x,-1,-1,1,Student Services Center,Room 156,TRUE
+896,x,-1,-1,1,Student Services Center,Commuter Lounge,TRUE
+897,x,-1,-1,1,Student Services Center,Room 162,TRUE
+898,x,-1,-1,2,Student Services Center,hallway18,FALSE
+899,x,-1,-1,2,Student Services Center,hallway19,FALSE
+900,x,-1,-1,2,Student Services Center,hallway20,FALSE
+901,x,-1,-1,2,Student Services Center,hallway21,FALSE
+902,x,-1,-1,2,Student Services Center,hallway22,FALSE
+903,x,-1,-1,2,Student Services Center,hallway23,FALSE
+904,x,-1,-1,2,Student Services Center,hallway24,FALSE
+905,x,-1,-1,2,Student Services Center,hallway25,FALSE
+906,x,-1,-1,2,Student Services Center,hallway26,FALSE
+907,x,-1,-1,2,Student Services Center,Room 203,TRUE
+908,x,-1,-1,2,Student Services Center,Room 204,TRUE
+909,x,-1,-1,2,Student Services Center,Room 206,TRUE
+910,x,-1,-1,2,Student Services Center,Room 207,TRUE
+911,x,-1,-1,2,Student Services Center,Room 209,TRUE
+912,x,-1,-1,2,Student Services Center,Room 211,TRUE
+913,x,-1,-1,2,Student Services Center,Room 212,TRUE
+914,x,-1,-1,2,Student Services Center,Room 216,TRUE
+915,x,-1,-1,2,Student Services Center,Room 217,TRUE
+916,x,-1,-1,2,Student Services Center,Room 218,TRUE
+917,x,-1,-1,2,Student Services Center,Room 219,TRUE
+918,x,-1,-1,2,Student Services Center,Room 220,TRUE
+919,x,-1,-1,2,Student Services Center,Room 221,TRUE
+920,x,-1,-1,2,Student Services Center,Room 222,TRUE
+921,x,-1,-1,2,Student Services Center,Room 223,TRUE
+922,x,-1,-1,2,Student Services Center,Room 224,TRUE
+923,x,-1,-1,2,Student Services Center,Room 225,TRUE
+924,x,-1,-1,2,Student Services Center,Room 228,TRUE
+925,x,-1,-1,2,Student Services Center,hallway27,FALSE
+926,x,-1,-1,2,Student Services Center,Room 234,TRUE
+927,x,-1,-1,2,Student Services Center,Room 235,TRUE
+928,x,-1,-1,2,Student Services Center,Room 238,TRUE
+929,x,-1,-1,2,Student Services Center,Room 240,TRUE
+930,x,-1,-1,2,Student Services Center,Room 242,TRUE
+931,x,-1,-1,2,Student Services Center,Room 246,TRUE
+932,x,-1,-1,2,Student Services Center,Room 247,TRUE
+933,x,-1,-1,2,Student Services Center,Room 248,TRUE
+934,x,-1,-1,2,Student Services Center,Room 249,TRUE
+935,x,-1,-1,2,Student Services Center,Room 251,TRUE
+936,x,-1,-1,2,Student Services Center,hallway28,FALSE
+937,x,-1,-1,2,Student Services Center,Room 243,TRUE
+938,x,-1,-1,2,Student Services Center,Room 254,TRUE
+939,x,-1,-1,2,Student Services Center,Room 259,TRUE
+940,x,-1,-1,2,Student Services Center,Room 261,TRUE
+941,x,-1,-1,2,Student Services Center,Room 262,TRUE
+942,x,-1,-1,2,Student Services Center,Room 264,TRUE
+943,x,-1,-1,2,Student Services Center,Room 265,TRUE
+944,x,-1,-1,2,Student Services Center,Room 266,TRUE
+945,x,-1,-1,2,Student Services Center,Room 268,TRUE
+946,x,-1,-1,2,Student Services Center,Room 270,TRUE
+947,x,-1,-1,2,Student Services Center,Room 274,TRUE
+948,x,-1,-1,2,Student Services Center,Room 275,TRUE
+949,x,-1,-1,2,Student Services Center,hallway29,FALSE
+1000,87H52H53+JRC,41.0090625,-76.445484375,1,Andruss Library, First Floor Main Entrance,TRUE
+1001,87H52H53+HRV,41.0089875,-76.445453125,1,Andruss Library,First Floor Study Entrance,TRUE
+1002,87H52H53+HRP,41.008962500000000,-76.445421875,1,Andruss Library,Starbucks Entrance,TRUE
+1003,87H52H53+JVW,41.0091125,-76.445296875,1.5,Andruss Library,stair1,FALSE
+1004,87H52H53+JVX,41.0091125,-76.44526562500000,2.5,Andruss Library,stair2,FALSE
+1005,87H52H53+JVX,41.0091125,-76.44526562500000,3.5,Andruss Library,stair3,FALSE
+1006,87H52H53+MR9,41.0091625,-76.445390625,1,Andruss Library,First Floor Main Elevator,FALSE
+1007,87H52H53+MR9,41.0091625,-76.445390625,2,Andruss Library,Second Floor Main Elevator,FALSE
+1008,87H52H53+MV6,41.0091625,-76.44535937500000,3,Andruss Library,Third Floor Main Elevator,FALSE
+1009,87H52H53+MV6,41.0091625,-76.44535937500000,4,Andruss Library,Fourth Floor Main Elevator,FALSE
+1010,87H52H53+PXV,41.009362500000000,-76.44507812500000,1,Andruss Library,First Floor Rear Elevator,FALSE
+1011,87H52H53+PXV,41.009362500000000,-76.44507812500000,2,Andruss Library,Second Floor Rear Elevator,FALSE
+1012,87H52H53+PXV,41.009362500000000,-76.44507812500000,3,Andruss Library,Third Floor Rear Elevator,FALSE
+1013,87H52H53+PXM,41.0093375,-76.44507812500000,4,Andruss Library,Fourth Floor Rear Elevator,FALSE
+1014,87H52H53+QX2,41.0093875,-76.445109375,2.5,Andruss Library,stair4,FALSE
+1015,87H52H53+QX3,41.0093875,-76.44507812500000,3.5,Andruss Library,stair5,FALSE
+1016,87H52H53+QX7,41.009412500000000,-76.44507812500000,1.5,Andruss Library,stair6,FALSE
+1017,87H52H53+JW9,41.009037500000000,-76.445140625,2.5,Andruss Library,stair7,FALSE
+1018,87H52H53+JW9,41.009037500000000,-76.445140625,3.5,Andruss Library,stair8,FALSE
+1019,87H52H53+JW9,41.009037500000000,-76.445140625,1.5,Andruss Library,stair9,FALSE
+1020,87H52H53+JW9,41.009037500000000,-76.445140625,2.5,Andruss Library,stair10,FALSE
+1021,87H52H53+JW9,41.009037500000000,-76.445140625,3.5,Andruss Library,stair11,FALSE
+1022,87H52H53+JRP,41.0090875,-76.445421875,1,Andruss Library,hallway1,FALSE
+1023,87H52H53+MV3,41.009137500000000,-76.445328125,1,Andruss Library,hallway2,FALSE
+1024,87H52H53+MWF,41.009187500000000,-76.445203125,1,Andruss Library,hallway3,FALSE
+1025,87H52H53+PX4,41.009262500000000,-76.445046875,1,Andruss Library,hallway4,FALSE
+1026,87H52H53+JWV,41.0091125,-76.445203125,1,Andruss Library,hallway6,FALSE
+1027,87H52H53+JR8,41.009037500000000,-76.445421875,1,Andruss Library,Starbucks Study Lounge,TRUE
+1028,87H52H53+HRQ,41.008962500000000,-76.445390625,1,Andruss Library,Starbucks,TRUE
+1029,87H52H53+MR3,41.009137500000000,-76.445453125,1,Andruss Library,Room 103,TRUE
+1030,87H52H53+JX7,41.009037500000000,-76.44507812500000,1,Andruss Library,First Floor Study Lounge Area,TRUE
+1031,87H52H53+JWF,41.0090625,-76.445203125,1,Andruss Library,Room 139,TRUE
+1032,87H52H53+JW7,41.009037500000000,-76.445203125,1,Andruss Library,Room 134,TRUE
+1033,87H52H53+PW7,41.0092875,-76.445203125,1,Andruss Library,Room 130,TRUE
+1034,87H52H53+MV3,41.009137500000000,-76.445328125,2,Andruss Library,hallway7,FALSE
+1035,87H52H53+JRM,41.0090875,-76.445453125,2,Andruss Library,hallway8,FALSE
+1036,87H52H53+HVR,41.0089875,-76.44535937500000,2,Andruss Library,hallway9,FALSE
+1037,87H52H53+MW3,41.009137500000000,-76.445203125,2,Andruss Library,hallway10,FALSE
+1038,87H52H53+MVW,41.0092375,-76.445296875,2,Andruss Library,hallway11,FALSE
+1039,87H52H53+PWF,41.0093125,-76.445203125,2,Andruss Library,hallway12,FALSE
+1040,87H52H53+MWX,41.0092375,-76.445140625,2,Andruss Library,hallway13,FALSE
+1041,87H52H53+JXW,41.0091125,-76.445046875,2,Andruss Library,hallway14,FALSE
+1042,87H52H53+MVC,41.009187500000000,-76.44535937500000,2,Andruss Library,Room 214,TRUE
+1043,87H52H53+PV2,41.009262500000000,-76.44535937500000,2,Andruss Library,Room 220,TRUE
+1044,87H52H53+PV2,41.009262500000000,-76.44535937500000,2,Andruss Library,Room 221,TRUE
+1045,87H52H53+PW9,41.0092875,-76.445140625,2,Andruss Library,Room 232,TRUE
+1046,87H52H53+PX2,41.009262500000000,-76.445109375,2,Andruss Library,Room 233,TRUE
+1047,87H52H53+MXR,41.0092375,-76.445109375,2,Andruss Library,Room 234,TRUE
+1048,87H52H53+MXM,41.009212500000000,-76.44507812500000,2,Andruss Library,Room 235,TRUE
+1049,87H52H53+MXF,41.009187500000000,-76.44507812500000,2,Andruss Library,Room 236,TRUE
+1050,87H52H53+MX8,41.0091625,-76.445046875,2,Andruss Library,Room 237,TRUE
+1051,87H52H53+MX4,41.009137500000000,-76.445046875,2,Andruss Library,Room 238,TRUE
+1052,87H52H53+JW8,41.009037500000000,-76.445171875,2,Andruss Library,Room 242,TRUE
+1053,87H52H53+JW7,41.009037500000000,-76.445203125,2,Andruss Library,Room 243,TRUE
+1054,87H52H53+JWF,41.0090625,-76.445203125,2,Andruss Library,Room 246,TRUE
+1055,87H52H53+JWJ,41.0090875,-76.445234375,2,Andruss Library,Room 248,TRUE
+1056,87H52H53+HVM,41.008962500000000,-76.445328125,2,Andruss Library,Room 207,TRUE
+1057,87H52H53+HVJ,41.008962500000000,-76.44535937500000,2,Andruss Library,Room 208,TRUE
+1058,87H52H53+HRX,41.0089875,-76.445390625,2,Andruss Library,Room 209,TRUE
+1059,87H52H53+JRX,41.0091125,-76.445390625,2,Andruss Library,Room 210,TRUE
+1060,87H52H53+MRP,41.009212500000000,-76.445421875,2,Andruss Library,Room 216,TRUE
+1061,87H52H53+MV2,41.009137500000000,-76.44535937500000,3,Andruss Library,hallway15,FALSE
+1062,87H52H53+MR2,41.009137500000000,-76.445484375,3,Andruss Library,hallway16,FALSE
+1063,87H52H53+MW2,41.009137500000000,-76.445234375,3,Andruss Library,hallway17,FALSE
+1064,87H52H53+JWG,41.0090625,-76.445171875,3,Andruss Library,hallway18,FALSE
+1065,87H52H53+PWX,41.009362500000000,-76.445140625,3,Andruss Library,hallway19,FALSE
+1066,87H52H53+PX7,41.0092875,-76.44507812500000,3,Andruss Library,hallway20,FALSE
+1067,87H52H53+JW8,41.009037500000000,-76.445171875,3,Andruss Library,Room 330,TRUE
+1068,87H52H53+JWC,41.0090625,-76.445234375,3,Andruss Library,Room 340,TRUE
+1069,87H52H53+JWJ,41.0090875,-76.445234375,3,Andruss Library,Room 342,TRUE
+1070,87H52H53+MVG,41.009187500000000,-76.445296875,3,Andruss Library,Room 320,TRUE
+1071,87H52H53+MVX,41.0092375,-76.44526562500000,3,Andruss Library,Room 324,TRUE
+1072,87H52H53+PV5,41.009262500000000,-76.44526562500000,3,Andruss Library,Room 323,TRUE
+1073,87H52H53+MVJ,41.009212500000000,-76.44535937500000,3,Andruss Library,Room 321,TRUE
+1074,87H52H53+PV3,41.009262500000000,-76.445328125,3,Andruss Library,Room 322,TRUE
+1075,87H52H53+MRF,41.009187500000000,-76.445453125,3,Andruss Library,Room 316,TRUE
+1076,87H52H53+MR6,41.0091625,-76.445484375,3,Andruss Library,Room 315,TRUE
+1077,87H52H53+PXF,41.0093125,-76.44507812500000,3,Andruss Library,Room 326,TRUE
+1078,87H52H53+PX8,41.0092875,-76.445046875,3,Andruss Library,Room 327,TRUE
+1079,87H52H53+PX9,41.0092875,-76.445015625,3,Andruss Library,Room 328,TRUE
+1080,87H52H53+MV2,41.009137500000000,-76.44535937500000,4,Andruss Library,hallway21,FALSE
+1081,87H52H53+MVM,41.009212500000000,-76.445328125,4,Andruss Library,hallway22,FALSE
+1082,87H52H53+MW2,41.009137500000000,-76.445234375,4,Andruss Library,hallway23,FALSE
+1083,87H52H53+JWG,41.0090625,-76.445171875,4,Andruss Library,hallway24,FALSE
+1084,87H52H53+PWX,41.009362500000000,-76.445140625,4,Andruss Library,hallway25,FALSE
+1085,87H52H53+PXF,41.0093125,-76.44507812500000,4,Andruss Library,hallway26,FALSE
+1086,87H52H53+MR5,41.009137500000000,-76.445390625,4,Andruss Library,Room 407,TRUE
+1087,87H52H53+MRP,41.009212500000000,-76.445421875,4,Andruss Library,Room 409,TRUE
+1088,87H52H53+MRX,41.0092375,-76.445390625,4,Andruss Library,Room 410,TRUE
+1089,87H52H53+MVR,41.0092375,-76.44535937500000,4,Andruss Library,Room 411,TRUE
+1090,87H52H53+PXG,41.0093125,-76.445046875,4,Andruss Library,Room 413,TRUE
+1091,87H52H53+PX8,41.0092875,-76.445046875,4,Andruss Library,Room 414,TRUE
+1092,87H52H53+PX9,41.0092875,-76.445015625,4,Andruss Library,Room 415,TRUE
+1093,87H52H53+JW8,41.009037500000000,-76.445171875,4,Andruss Library,Room 417,TRUE
+1094,87H52H53+HWR,41.0089875,-76.445234375,4,Andruss Library,Room 418,TRUE
+1095,87H52H53+JV5,41.0090125,-76.44526562500000,4,Andruss Library,Room 419,TRUE
+1096,87H52H53+JWF,41.0090625,-76.445203125,4,Andruss Library,Room 423,TRUE
+1097,87H52H53+JWJ,41.0090875,-76.445234375,4,Andruss Library,Room 425,TRUE
+1098,87H52H53+PXR,41.009362500000000,-76.445109375,1,Andruss Library,hallway27,FALSE
+1200,x,-1,-1,0,Arts & Admin,Ground Floor Rear Entrance,TRUE
+1201,x,-1,-1,0,Arts & Admin,Ground Floor Rear Metal Shop Entrance,TRUE
+1202,x,-1,-1,0.5,Arts & Admin,stair1,FALSE
+1203,x,-1,-1,0,Arts & Admin,hallway1,FALSE
+1204,x,-1,-1,0,Arts & Admin,hallway2,FALSE
+1205,x,-1,-1,0,Arts & Admin,hallway3,FALSE
+1206,x,-1,-1,0,Arts & Admin,Ground Floor Elevator,FALSE
+1207,x,-1,-1,0,Arts & Admin,hallway4,FALSE
+1208,x,-1,-1,0,Arts & Admin,hallway5,FALSE
+1209,x,-1,-1,0,Arts & Admin,hallway6,FALSE
+1210,x,-1,-1,0,Arts & Admin,hallway7,FALSE
+1211,x,-1,-1,0,Arts & Admin,hallway8,FALSE
+1212,x,-1,-1,0,Arts & Admin,hallway9,FALSE
+1213,x,-1,-1,0,Arts & Admin,Room 002,TRUE
+1214,x,-1,-1,0,Arts & Admin,Room 003,TRUE
+1215,x,-1,-1,0,Arts & Admin,Room 006,TRUE
+1216,x,-1,-1,0,Arts & Admin,Room 013,TRUE
+1217,x,-1,-1,0,Arts & Admin,Room 018,TRUE
+1218,x,-1,-1,0,Arts & Admin,Room 019,TRUE
+1219,x,-1,-1,0,Arts & Admin,Room 022,TRUE
+1220,x,-1,-1,0,Arts & Admin,Room 024,TRUE
+1221,x,-1,-1,0,Arts & Admin,Room 025,TRUE
+1222,x,-1,-1,0,Arts & Admin,Room 023,TRUE
+1223,x,-1,-1,0,Arts & Admin,Room 026,TRUE
+1224,x,-1,-1,0,Arts & Admin,Room 030,TRUE
+1225,x,-1,-1,0,Arts & Admin,Room 033,TRUE
+1226,x,-1,-1,0,Arts & Admin,Room 036,TRUE
+1227,x,-1,-1,0,Arts & Admin,Room 038,TRUE
+1228,x,-1,-1,0.5,Arts & Admin,stair2,FALSE
+1229,x,-1,-1,0,Arts & Admin,hallway10,FALSE
+1230,x,-1,-1,0.5,Arts & Admin,stair3,FALSE
+1231,x,-1,-1,0,Arts & Admin,hallway11,FALSE
+1232,x,-1,-1,1,Arts & Admin,First Floor Main Entrance,TRUE
+1233,x,-1,-1,1,Arts & Admin,hallway12,FALSE
+1234,x,-1,-1,1,Arts & Admin,hallway13,FALSE
+1235,x,-1,-1,1,Arts & Admin,hallway14,FALSE
+1236,x,-1,-1,1,Arts & Admin,First Floor Elevator,FALSE
+1237,x,-1,-1,1,Arts & Admin,hallway15,FALSE
+1238,x,-1,-1,1,Arts & Admin,hallway16,FALSE
+1239,x,-1,-1,1,Arts & Admin,hallway17,FALSE
+1240,x,-1,-1,1,Arts & Admin,hallway18,FALSE
+1241,x,-1,-1,1,Arts & Admin,hallway19,FALSE
+1242,x,-1,-1,1,Arts & Admin,hallway20,FALSE
+1243,x,-1,-1,1,Arts & Admin,hallway21,FALSE
+1244,x,-1,-1,1,Arts & Admin,hallway22,FALSE
+1245,x,-1,-1,1,Arts & Admin,hallway23,FALSE
+1246,x,-1,-1,1,Arts & Admin,hallway24,FALSE
+1247,x,-1,-1,1,Arts & Admin,hallway25,FALSE
+1248,x,-1,-1,1,Arts & Admin,hallway26,FALSE
+1249,x,-1,-1,1,Arts & Admin,hallway27,FALSE
+1250,x,-1,-1,1,Arts & Admin,hallway28,FALSE
+1251,x,-1,-1,1,Arts & Admin,hallway29,FALSE
+1252,x,-1,-1,1,Arts & Admin,hallway30,FALSE
+1253,x,-1,-1,1,Arts & Admin,Room 105,TRUE
+1254,x,-1,-1,1,Arts & Admin,Room 109,TRUE
+1255,x,-1,-1,1,Arts & Admin,Room 110,TRUE
+1256,x,-1,-1,1,Arts & Admin,Room 111,TRUE
+1257,x,-1,-1,1,Arts & Admin,Room 112,TRUE
+1258,x,-1,-1,1,Arts & Admin,Room 113,TRUE
+1259,x,-1,-1,1,Arts & Admin,Room 114,TRUE
+1260,x,-1,-1,1,Arts & Admin,Room 115,TRUE
+1261,x,-1,-1,1,Arts & Admin,Room 116,TRUE
+1262,x,-1,-1,1,Arts & Admin,Room 118,TRUE
+1263,x,-1,-1,1,Arts & Admin,Room 119,TRUE
+1264,x,-1,-1,1,Arts & Admin,Room 126,TRUE
+1265,x,-1,-1,1,Arts & Admin,Room 127,TRUE
+1266,x,-1,-1,1,Arts & Admin,Room 128,TRUE
+1267,x,-1,-1,1,Arts & Admin,Room 129,TRUE
+1268,x,-1,-1,1,Arts & Admin,Room 124,TRUE
+1269,x,-1,-1,1,Arts & Admin,Room 123,TRUE
+1270,x,-1,-1,1,Arts & Admin,Room 130,TRUE
+1271,x,-1,-1,1,Arts & Admin,Room 131,TRUE
+1272,x,-1,-1,1,Arts & Admin,Room 133,TRUE
+1273,x,-1,-1,1,Arts & Admin,Room 134,TRUE
+1274,x,-1,-1,1,Arts & Admin,Room 140,TRUE
+1275,x,-1,-1,1.5,Arts & Admin,stair4,FALSE
+1276,x,-1,-1,1,Arts & Admin,Room 151,TRUE
+1277,x,-1,-1,1,Arts & Admin,Room 152,TRUE
+1278,x,-1,-1,1,Arts & Admin,Room 153,TRUE
+1279,x,-1,-1,1,Arts & Admin,Room 147,TRUE
+1280,x,-1,-1,1,Arts & Admin,Room 154,TRUE
+1281,x,-1,-1,1,Arts & Admin,Room 155,TRUE
+1282,x,-1,-1,1,Arts & Admin,Room 156,TRUE
+1283,x,-1,-1,1,Arts & Admin,Room 157,TRUE
+1284,x,-1,-1,1,Arts & Admin,Room 158,TRUE
+1285,x,-1,-1,1,Arts & Admin,Room 160,TRUE
+1286,x,-1,-1,1,Arts & Admin,Room 161,TRUE
+1287,x,-1,-1,1,Arts & Admin,Room 162,TRUE
+1288,x,-1,-1,1,Arts & Admin,Room 163,TRUE
+1289,x,-1,-1,1,Arts & Admin,Room 165,TRUE
+1290,x,-1,-1,1,Arts & Admin,Room 167,TRUE
+1291,x,-1,-1,1,Arts & Admin,Room 168,TRUE
+1292,x,-1,-1,1,Arts & Admin,Room 169,TRUE
+1293,x,-1,-1,1,Arts & Admin,Room 170,TRUE
+1294,x,-1,-1,1,Arts & Admin,Room 172,TRUE
+1295,x,-1,-1,1,Arts & Admin,Room 174,TRUE
+1296,x,-1,-1,1,Arts & Admin,Room 175,TRUE
+1297,x,-1,-1,1,Arts & Admin,Room 176,TRUE
+1298,x,-1,-1,1,Arts & Admin,Room 177,TRUE
+1299,x,-1,-1,1,Arts & Admin,Room 178,TRUE
+1300,x,-1,-1,1,Arts & Admin,Room 179,TRUE
+1301,x,-1,-1,1,Arts & Admin,Room 182,TRUE
+1302,x,-1,-1,1,Arts & Admin,Room 183,TRUE
+1303,x,-1,-1,1,Arts & Admin,Room 185,TRUE
+1304,x,-1,-1,1.5,Arts & Admin,stair5,FALSE
+1305,x,-1,-1,1.5,Arts & Admin,stair6,FALSE
+1306,x,-1,-1,1,Arts & Admin,Room 106,TRUE
+1307,x,-1,-1,1,Arts & Admin,First Floor Side Entrance,TRUE
+1308,x,-1,-1,2.5,Arts & Admin,stair7,FALSE
+1309,x,-1,-1,2.5,Arts & Admin,stair8,FALSE
+1310,x,-1,-1,2.5,Arts & Admin,stair9,FALSE
+1311,x,-1,-1,2,Arts & Admin,hallway31,FALSE
+1312,x,-1,-1,2,Arts & Admin,hallway32,FALSE
+1313,x,-1,-1,2,Arts & Admin,hallway33,FALSE
+1314,x,-1,-1,2,Arts & Admin,Second Floor Elevator,FALSE
+1315,x,-1,-1,2,Arts & Admin,hallway34,FALSE
+1316,x,-1,-1,2,Arts & Admin,hallway35,FALSE
+1317,x,-1,-1,2,Arts & Admin,hallway36,FALSE
+1318,x,-1,-1,2,Arts & Admin,hallway37,FALSE
+1319,x,-1,-1,2,Arts & Admin,hallway38,FALSE
+1320,x,-1,-1,2,Arts & Admin,hallway39,FALSE
+1321,x,-1,-1,2,Arts & Admin,hallway40,FALSE
+1322,x,-1,-1,2,Arts & Admin,hallway41,FALSE
+1323,x,-1,-1,2,Arts & Admin,hallway42,FALSE
+1324,x,-1,-1,2,Arts & Admin,hallway43,FALSE
+1325,x,-1,-1,2,Arts & Admin,hallway44,FALSE
+1326,x,-1,-1,2,Arts & Admin,hallway45,FALSE
+1327,x,-1,-1,2,Arts & Admin,hallway46,FALSE
+1328,x,-1,-1,2,Arts & Admin,hallway47,FALSE
+1329,x,-1,-1,2,Arts & Admin,hallway48,FALSE
+1330,x,-1,-1,2,Arts & Admin,hallway49,FALSE
+1331,x,-1,-1,2,Arts & Admin,hallway50,FALSE
+1332,x,-1,-1,2,Arts & Admin,Room 203,TRUE
+1333,x,-1,-1,2,Arts & Admin,Room 204,TRUE
+1334,x,-1,-1,2,Arts & Admin,Room 205,TRUE
+1335,x,-1,-1,2,Arts & Admin,Room 206,TRUE
+1336,x,-1,-1,2,Arts & Admin,Room 207,TRUE
+1337,x,-1,-1,2,Arts & Admin,Room 208,TRUE
+1338,x,-1,-1,2,Arts & Admin,Room 209,TRUE
+1339,x,-1,-1,2,Arts & Admin,Room 210,TRUE
+1340,x,-1,-1,2,Arts & Admin,Room 212,TRUE
+1341,x,-1,-1,2,Arts & Admin,Room 219,TRUE
+1342,x,-1,-1,2,Arts & Admin,hallway51,FALSE
+1343,x,-1,-1,2,Arts & Admin,hallway52,FALSE
+1344,x,-1,-1,2,Arts & Admin,Room 223,TRUE
+1345,x,-1,-1,2,Arts & Admin,Room 224,TRUE
+1346,x,-1,-1,2,Arts & Admin,Room 226,TRUE
+1347,x,-1,-1,2,Arts & Admin,Room 227,TRUE
+1348,x,-1,-1,2,Arts & Admin,Room 225,TRUE
+1349,x,-1,-1,2,Arts & Admin,Room 228,TRUE
+1350,x,-1,-1,2,Arts & Admin,Room 229,TRUE
+1351,x,-1,-1,2,Arts & Admin,Room 230,TRUE
+1352,x,-1,-1,2,Arts & Admin,Room 232,TRUE
+1353,x,-1,-1,2,Arts & Admin,Room 233,TRUE
+1354,x,-1,-1,2,Arts & Admin,Room 234,TRUE
+1355,x,-1,-1,2,Arts & Admin,Room 236,TRUE
+1356,x,-1,-1,2,Arts & Admin,Room 237,TRUE
+1357,x,-1,-1,2,Arts & Admin,Room 238,TRUE
+1358,x,-1,-1,2,Arts & Admin,Room 239,TRUE
+1359,x,-1,-1,2,Arts & Admin,Room 240,TRUE
+1360,x,-1,-1,2,Arts & Admin,Room 241,TRUE
+1361,x,-1,-1,2,Arts & Admin,Room 243,TRUE
+1362,x,-1,-1,2,Arts & Admin,Room 244,TRUE
+1363,x,-1,-1,2,Arts & Admin,Room 245,TRUE
+1364,x,-1,-1,2,Arts & Admin,Room 247,TRUE
+1365,x,-1,-1,2,Arts & Admin,Room 248,TRUE
+1366,x,-1,-1,2,Arts & Admin,Room 249,TRUE
+1367,x,-1,-1,2,Arts & Admin,Room 250,TRUE
+1368,x,-1,-1,2,Arts & Admin,Room 251,TRUE
+1369,x,-1,-1,2,Arts & Admin,Room 252,TRUE
+1370,x,-1,-1,2,Arts & Admin,Room 253,TRUE
+1371,x,-1,-1,2,Arts & Admin,Room 254,TRUE
+1372,x,-1,-1,2,Arts & Admin,Room 255,TRUE
+1373,x,-1,-1,2,Arts & Admin,Room 256,TRUE
+1374,x,-1,-1,2,Arts & Admin,Room 257,TRUE
+1375,x,-1,-1,2,Arts & Admin,Room 258,TRUE
+1376,x,-1,-1,2,Arts & Admin,Room 259,TRUE
+1377,x,-1,-1,2,Arts & Admin,Room 260,TRUE
+1378,x,-1,-1,2,Arts & Admin,Room 262,TRUE
+1379,x,-1,-1,2,Arts & Admin,Room 263,TRUE
+1380,x,-1,-1,2,Arts & Admin,Room 264,TRUE
+1381,x,-1,-1,2,Arts & Admin,Room 265,TRUE
+1382,x,-1,-1,2,Arts & Admin,Room 266,TRUE
+1383,x,-1,-1,2,Arts & Admin,Room 267,TRUE
+1384,x,-1,-1,2,Arts & Admin,Room 268,TRUE
+1385,x,-1,-1,2,Arts & Admin,Room 269,TRUE
+1386,x,-1,-1,2,Arts & Admin,Room 270,TRUE
+1387,x,-1,-1,2,Arts & Admin,Room 276,TRUE
+1388,x,-1,-1,2,Arts & Admin,Room 278,TRUE
+1389,x,-1,-1,2,Arts & Admin,Room 279,TRUE
+1390,x,-1,-1,2,Arts & Admin,Room 281,TRUE
+1391,x,-1,-1,2,Arts & Admin,Room 283,TRUE
+1392,x,-1,-1,2,Arts & Admin,Room 284,TRUE
+1393,x,-1,-1,2,Arts & Admin,Room 285,TRUE
+1394,x,-1,-1,2,Arts & Admin,Room 286,TRUE
+1395,x,-1,-1,3,Arts & Admin,hallway53,FALSE
+1396,x,-1,-1,3,Arts & Admin,hallway54,FALSE
+1397,x,-1,-1,3,Arts & Admin,hallway55,FALSE
+1398,x,-1,-1,3,Arts & Admin,Third Floor Elevator,FALSE
+1399,x,-1,-1,3,Arts & Admin,hallway56,FALSE
+1400,x,-1,-1,3,Arts & Admin,hallway57,FALSE
+1401,x,-1,-1,3,Arts & Admin,hallway58,FALSE
+1402,x,-1,-1,3,Arts & Admin,hallway59,FALSE
+1403,x,-1,-1,3,Arts & Admin,hallway60,FALSE
+1404,x,-1,-1,3,Arts & Admin,hallway61,FALSE
+1405,x,-1,-1,3,Arts & Admin,hallway62,FALSE
+1406,x,-1,-1,3,Arts & Admin,hallway63,FALSE
+1407,x,-1,-1,3,Arts & Admin,hallway64,FALSE
+1408,x,-1,-1,3,Arts & Admin,hallway65,FALSE
+1409,x,-1,-1,3,Arts & Admin,hallway66,FALSE
+1410,x,-1,-1,3,Arts & Admin,hallway67,FALSE
+1411,x,-1,-1,3,Arts & Admin,hallway68,FALSE
+1412,x,-1,-1,3,Arts & Admin,Room 303,TRUE
+1413,x,-1,-1,3,Arts & Admin,Room 304,TRUE
+1414,x,-1,-1,3,Arts & Admin,Room 305,TRUE
+1415,x,-1,-1,3,Arts & Admin,Room 306,TRUE
+1416,x,-1,-1,3,Arts & Admin,Room 307,TRUE
+1417,x,-1,-1,3,Arts & Admin,Room 308,TRUE
+1418,x,-1,-1,3,Arts & Admin,Room 309,TRUE
+1419,x,-1,-1,3,Arts & Admin,Room 310,TRUE
+1420,x,-1,-1,3,Arts & Admin,Room 314,TRUE
+1421,x,-1,-1,3,Arts & Admin,Room 316,TRUE
+1422,x,-1,-1,3,Arts & Admin,Room 317,TRUE
+1423,x,-1,-1,3,Arts & Admin,Room 318,TRUE
+1424,x,-1,-1,3,Arts & Admin,Room 320,TRUE
+1425,x,-1,-1,3,Arts & Admin,Room 322,TRUE
+1426,x,-1,-1,3,Arts & Admin,Room 323,TRUE
+1427,x,-1,-1,3,Arts & Admin,Room 330,TRUE
+1428,x,-1,-1,3,Arts & Admin,hallway69,FALSE
+1429,x,-1,-1,3,Arts & Admin,Room 336,TRUE
+1430,x,-1,-1,3,Arts & Admin,Room 338,TRUE
+1431,x,-1,-1,3,Arts & Admin,Room 339,TRUE
+1432,x,-1,-1,3,Arts & Admin,Room 340,TRUE
+1435,x,-1,-1,3,Arts & Admin,Room 335,TRUE
+1436,x,-1,-1,3,Arts & Admin,Room 342,TRUE
+1437,x,-1,-1,3,Arts & Admin,Room 343,TRUE
+1438,x,-1,-1,3,Arts & Admin,Room 344,TRUE
+1439,x,-1,-1,3,Arts & Admin,Room 345,TRUE
+1440,x,-1,-1,3,Arts & Admin,Room 348,TRUE
+1441,x,-1,-1,3,Arts & Admin,Room 349,TRUE
+1442,x,-1,-1,3,Arts & Admin,Room 350,TRUE
+1443,x,-1,-1,3,Arts & Admin,Room 351,TRUE
+1444,x,-1,-1,3,Arts & Admin,Room 353,TRUE
+1445,x,-1,-1,3,Arts & Admin,Room 354,TRUE
+1446,x,-1,-1,3,Arts & Admin,Room 357,TRUE
+1447,x,-1,-1,3,Arts & Admin,Room 358,TRUE
+1448,x,-1,-1,3,Arts & Admin,Room 356,TRUE
+1449,x,-1,-1,3,Arts & Admin,Room 359,TRUE
+1450,x,-1,-1,3,Arts & Admin,Room 360,TRUE
+1451,x,-1,-1,3,Arts & Admin,Room 361,TRUE
+1452,x,-1,-1,3,Arts & Admin,Room 364,TRUE
+1453,x,-1,-1,3,Arts & Admin,Room 365,TRUE
+1454,x,-1,-1,3,Arts & Admin,Room 366,TRUE
+1455,x,-1,-1,3,Arts & Admin,Room 367,TRUE
+1456,x,-1,-1,3,Arts & Admin,Room 368,TRUE
+1457,x,-1,-1,3,Arts & Admin,Room 369,TRUE
+1458,x,-1,-1,3,Arts & Admin,Room 372,TRUE
+1459,x,-1,-1,3,Arts & Admin,Room 373,TRUE
+1460,x,-1,-1,3,Arts & Admin,Room 374,TRUE
+1461,x,-1,-1,3,Arts & Admin,Room 378,TRUE
+1462,x,-1,-1,3,Arts & Admin,Room 376,TRUE
+1463,x,-1,-1,3,Arts & Admin,hallway70,FALSE
+1464,x,-1,-1,3,Arts & Admin,Room 383,TRUE
+1465,x,-1,-1,3,Arts & Admin,Room 384,TRUE
+1466,x,-1,-1,3,Arts & Admin,Room 385,TRUE
+1467,x,-1,-1,3,Arts & Admin,Room 386,TRUE
+1468,x,-1,-1,3,Arts & Admin,Room 387,TRUE
+1469,x,-1,-1,3,Arts & Admin,Room 388,TRUE
+1470,x,-1,-1,1,Arts & Admin,hallway71,FALSE
+1471,x,-1,-1,0,Arts & Admin,hallway72,FALSE
+1472,x,-1,-1,0,Arts & Admin,Room 007,TRUE
+1473,x,-1,-1,2,Arts & Admin,Room 261,TRUE
+1501,x,-1,-1,-1,Hartline,Basement Entrance 1,TRUE
+1502,x,-1,-1,-1,Hartline,Basement Entrance 2,TRUE
+1503,x,-1,-1,-1,Hartline,Basement Entrance 3,TRUE
+1504,x,-1,-1,-0.5,Hartline,stair1,FALSE
+1505,x,-1,-1,-0.5,Hartline,stair2,FALSE
+1506,x,-1,-1,-0.5,Hartline,stair3,FALSE
+1507,x,-1,-1,-0.5,Hartline,stari4,FALSE
+1508,x,-1,-1,-1,Hartline,Basement West Elevator,FALSE
+1509,x,-1,-1,-1,Hartline,Basement East Elevator,FALSE
+1510,x,-1,-1,-1,Hartline,hallway1,FALSE
+1511,x,-1,-1,-1,Hartline,hallway2,FALSE
+1512,x,-1,-1,-1,Hartline,hallway3,FALSE
+1513,x,-1,-1,-1,Hartline,hallway4,FALSE
+1514,x,-1,-1,-1,Hartline,hallway5,FALSE
+1515,x,-1,-1,-1,Hartline,hallway6,FALSE
+1516,x,-1,-1,-1,Hartline,hallway7,FALSE
+1517,x,-1,-1,-1,Hartline,hallway8,FALSE
+1518,x,-1,-1,-1,Hartline,hallway9,FALSE
+1519,x,-1,-1,-1,Hartline,hallway10,FALSE
+1520,x,-1,-1,-1,Hartline,Room B6,TRUE
+1521,x,-1,-1,-1,Hartline,Room B10,TRUE
+1522,x,-1,-1,-1,Hartline,Room B10A,TRUE
+1523,x,-1,-1,-1,Hartline,Room B11,TRUE
+1524,x,-1,-1,-1,Hartline,Room B12,TRUE
+1525,x,-1,-1,-1,Hartline,Room B14,TRUE
+1526,x,-1,-1,-1,Hartline,Room B15,TRUE
+1527,x,-1,-1,-1,Hartline,Room B16,TRUE
+1528,x,-1,-1,-1,Hartline,Room B17,TRUE
+1529,x,-1,-1,-1,Hartline,Room B19,TRUE
+1530,x,-1,-1,-1,Hartline,Room B25,TRUE
+1531,x,-1,-1,-1,Hartline,Room B26,TRUE
+1532,x,-1,-1,-1,Hartline,Room B27,TRUE
+1533,x,-1,-1,-1,Hartline,Room B28,TRUE
+1534,x,-1,-1,-1,Hartline,Room B31,TRUE
+1535,x,-1,-1,-1,Hartline,Room B33,TRUE
+1536,x,-1,-1,-1,Hartline,Room B34,TRUE
+1537,x,-1,-1,-1,Hartline,Room B32,TRUE
+1538,x,-1,-1,-1,Hartline,Room B35,TRUE
+1539,x,-1,-1,-1,Hartline,Room B36,TRUE
+1540,x,-1,-1,-1,Hartline,Room B37,TRUE
+1541,x,-1,-1,-1,Hartline,Room B38,TRUE
+1542,x,-1,-1,-1,Hartline,Room B39,TRUE
+1543,x,-1,-1,-1,Hartline,Room B40,TRUE
+1544,x,-1,-1,-1,Hartline,Room B41,TRUE
+1545,x,-1,-1,-1,Hartline,Room B42,TRUE
+1546,x,-1,-1,-1,Hartline,Room B43,TRUE
+1547,x,-1,-1,-1,Hartline,Room B44,TRUE
+1548,x,-1,-1,-1,Hartline,Room B45,TRUE
+1549,x,-1,-1,-1,Hartline,Room B46,TRUE
+1550,x,-1,-1,-1,Hartline,Room B47,TRUE
+1551,x,-1,-1,-1,Hartline,Room B47A,TRUE
+1552,x,-1,-1,-1,Hartline,Room B48,TRUE
+1553,x,-1,-1,-1,Hartline,Room B50,TRUE
+1554,x,-1,-1,-1,Hartline,Room B52,TRUE
+1555,x,-1,-1,-1,Hartline,Room B53,TRUE
+1556,x,-1,-1,-1,Hartline,Room B54,TRUE
+1557,x,-1,-1,-1,Hartline,Room B55,TRUE
+1558,x,-1,-1,-1,Hartline,Room B56,TRUE
+1559,x,-1,-1,0.5,Hartline,stair5,FALSE
+1560,x,-1,-1,0.5,Hartline,stair6,FALSE
+1561,x,-1,-1,0.5,Hartline,stair7,FALSE
+1562,x,-1,-1,0.5,Hartline,stair8,FALSE
+1563,x,-1,-1,0,Hartline,Ground Floor West Elevator,FALSE
+1564,x,-1,-1,0,Hartline,Ground Floor East Elevator,FALSE
+1565,x,-1,-1,0,Hartline,Ground Floor Side Entrance,TRUE
+1566,x,-1,-1,0,Hartline,Ground Floor Lobby Entrance,TRUE
+1567,x,-1,-1,0,Hartline,Ground Floor Stair Entrance,TRUE
+1568,x,-1,-1,0,Hartline,Ground Floor Greenhouse Entrance,TRUE
+1569,x,-1,-1,0.5,Hartline,stair9,FALSE
+1570,x,-1,-1,0.5,Hartline,stair10,FALSE
+1571,x,-1,-1,0,Hartline,hallway11,FALSE
+1572,x,-1,-1,0,Hartline,hallway12,FALSE
+1573,x,-1,-1,0,Hartline,hallway13,FALSE
+1574,x,-1,-1,0,Hartline,hallway14,FALSE
+1575,x,-1,-1,0,Hartline,hallway15,FALSE
+1576,x,-1,-1,0,Hartline,hallway16,FALSE
+1577,x,-1,-1,0,Hartline,hallway17,FALSE
+1578,x,-1,-1,0,Hartline,hallway18,FALSE
+1579,x,-1,-1,0,Hartline,hallway19,FALSE
+1580,x,-1,-1,0,Hartline,hallway20,FALSE
+1581,x,-1,-1,0,Hartline,hallway21,FALSE
+1582,x,-1,-1,0,Hartline,hallway22,FALSE
+1583,x,-1,-1,0,Hartline,Room G3,TRUE
+1584,x,-1,-1,0,Hartline,Room G4,TRUE
+1585,x,-1,-1,0,Hartline,Room G5,TRUE
+1586,x,-1,-1,0,Hartline,Room G6,TRUE
+1587,x,-1,-1,0,Hartline,Room G7,TRUE
+1588,x,-1,-1,0,Hartline,Room G11,TRUE
+1589,x,-1,-1,0,Hartline,Room G12,TRUE
+1590,x,-1,-1,0,Hartline,Room G13,TRUE
+1591,x,-1,-1,0,Hartline,Room G19,TRUE
+1592,x,-1,-1,0,Hartline,Room G20,TRUE
+1593,x,-1,-1,0,Hartline,Room G22,TRUE
+1594,x,-1,-1,0,Hartline,Room G23,TRUE
+1595,x,-1,-1,0,Hartline,Room G24,TRUE
+1596,x,-1,-1,0,Hartline,Room G25,TRUE
+1597,x,-1,-1,0,Hartline,Room G26,TRUE
+1598,x,-1,-1,0,Hartline,Room G27,TRUE
+1599,x,-1,-1,0,Hartline,Room G28,TRUE
+1600,x,-1,-1,0,Hartline,Room G29,TRUE
+1601,x,-1,-1,0,Hartline,Room G30,TRUE
+1602,x,-1,-1,0,Hartline,Room G31,TRUE
+1603,x,-1,-1,0,Hartline,Room G33,TRUE
+1604,x,-1,-1,0,Hartline,Room G34,TRUE
+1605,x,-1,-1,0,Hartline,Room G35,TRUE
+1606,x,-1,-1,0,Hartline,Room G45,TRUE
+1607,x,-1,-1,0,Hartline,Room G46,TRUE
+1608,x,-1,-1,0,Hartline,Room G47,TRUE
+1609,x,-1,-1,0,Hartline,Room G48,TRUE
+1610,x,-1,-1,0,Hartline,Room G49,TRUE
+1611,x,-1,-1,0,Hartline,Room G52,TRUE
+1612,x,-1,-1,0,Hartline,Room G53,TRUE
+1613,x,-1,-1,0,Hartline,Room G54,TRUE
+1614,x,-1,-1,0,Hartline,Room G55,TRUE
+1615,x,-1,-1,0,Hartline,Room G56,TRUE
+1616,x,-1,-1,0,Hartline,Room G57,TRUE
+1617,x,-1,-1,0,Hartline,Room G58,TRUE
+1618,x,-1,-1,0,Hartline,Room G60,TRUE
+1619,x,-1,-1,0,Hartline,Room G61,TRUE
+1620,x,-1,-1,0,Hartline,Room G62,TRUE
+1621,x,-1,-1,0,Hartline,Room G63,TRUE
+1622,x,-1,-1,0,Hartline,Room G64,TRUE
+1623,x,-1,-1,0,Hartline,Room G64A,TRUE
+1624,x,-1,-1,0,Hartline,Room G64B,TRUE
+1625,x,-1,-1,0,Hartline,Room G67,TRUE
+1626,x,-1,-1,0,Hartline,Room G69,TRUE
+1627,x,-1,-1,0,Hartline,Room G70,TRUE
+1628,x,-1,-1,0,Hartline,Room G71,TRUE
+1629,x,-1,-1,0,Hartline,Room G72,TRUE
+1630,x,-1,-1,0,Hartline,hallway23,FALSE
+1631,x,-1,-1,0,Hartline,Room G38,TRUE
+1632,x,-1,-1,0,Hartline,Room G40,TRUE
+1633,x,-1,-1,0,Hartline,Room G42,TRUE
+1634,x,-1,-1,0,Hartline,Room G39,TRUE
+1635,x,-1,-1,0,Hartline,Room G41,TRUE
+1636,x,-1,-1,0,Hartline,Room G50,TRUE
+1637,x,-1,-1,0,Hartline,Room G51,TRUE
+1638,x,-1,-1,1,Hartline,First Floor Main Entrance,TRUE
+1639,x,-1,-1,1.5,Hartline,stair11,FALSE
+1640,x,-1,-1,1.5,Hartline,stair12,FALSE
+1641,x,-1,-1,1.5,Hartline,stair13,FALSE
+1642,x,-1,-1,1.5,Hartline,stair14,FALSE
+1643,x,-1,-1,1,Hartline,First Floor West Elevator,FALSE
+1644,x,-1,-1,1,Hartline,First Floor East Elevator,FALSE
+1645,x,-1,-1,1,Hartline,hallway24,FALSE
+1646,x,-1,-1,1,Hartline,hallway25,FALSE
+1647,x,-1,-1,1,Hartline,hallway26,FALSE
+1648,x,-1,-1,1,Hartline,hallway27,FALSE
+1649,x,-1,-1,1,Hartline,hallway28,FALSE
+1650,x,-1,-1,1,Hartline,hallway29,FALSE
+1651,x,-1,-1,1,Hartline,hallway30,FALSE
+1652,x,-1,-1,1,Hartline,hallway31,FALSE
+1653,x,-1,-1,1,Hartline,hallway32,FALSE
+1654,x,-1,-1,1,Hartline,hallway33,FALSE
+1655,x,-1,-1,1,Hartline,hallway34,FALSE
+1656,x,-1,-1,1,Hartline,hallway35,FALSE
+1657,x,-1,-1,1,Hartline,Room 101,TRUE
+1658,x,-1,-1,1,Hartline,Room 102,TRUE
+1659,x,-1,-1,1,Hartline,Room 103,TRUE
+1660,x,-1,-1,1,Hartline,Room 114,TRUE
+1661,x,-1,-1,1,Hartline,Room 115,TRUE
+1662,x,-1,-1,1,Hartline,Room 116,TRUE
+1663,x,-1,-1,1,Hartline,Room 117,TRUE
+1664,x,-1,-1,1,Hartline,Room 118,TRUE
+1665,x,-1,-1,1,Hartline,Room 119,TRUE
+1666,x,-1,-1,1,Hartline,Room 120,TRUE
+1667,x,-1,-1,1,Hartline,Room 121,TRUE
+1668,x,-1,-1,1,Hartline,Room 122,TRUE
+1669,x,-1,-1,1,Hartline,Room 123,TRUE
+1670,x,-1,-1,1,Hartline,Room 124,TRUE
+1671,x,-1,-1,1,Hartline,Room 125,TRUE
+1672,x,-1,-1,1,Hartline,Room 126,TRUE
+1673,x,-1,-1,1,Hartline,Room 127,TRUE
+1674,x,-1,-1,1,Hartline,Room 128,TRUE
+1675,x,-1,-1,1,Hartline,Room 129,TRUE
+1676,x,-1,-1,1,Hartline,Room 130,TRUE
+1677,x,-1,-1,1,Hartline,Room 131,TRUE
+1678,x,-1,-1,1,Hartline,Room 133,TRUE
+1679,x,-1,-1,1,Hartline,Room 134,TRUE
+1680,x,-1,-1,1,Hartline,Room 135,TRUE
+1681,x,-1,-1,1,Hartline,Room 136,TRUE
+1682,x,-1,-1,1,Hartline,Room 137,TRUE
+1683,x,-1,-1,1,Hartline,Room 138,TRUE
+1684,x,-1,-1,1,Hartline,Room 139,TRUE
+1685,x,-1,-1,1,Hartline,Room 140,TRUE
+1686,x,-1,-1,1,Hartline,Room 143,TRUE
+1687,x,-1,-1,1,Hartline,Room 144,TRUE
+1688,x,-1,-1,1,Hartline,Room 145,TRUE
+1689,x,-1,-1,1,Hartline,Room 146,TRUE
+1690,x,-1,-1,1,Hartline,Room 147,TRUE
+1691,x,-1,-1,1,Hartline,Room 148,TRUE
+1692,x,-1,-1,1,Hartline,Room 149,TRUE
+1693,x,-1,-1,1,Hartline,Room 150,TRUE
+1694,x,-1,-1,1,Hartline,Room 151,TRUE
+1695,x,-1,-1,1,Hartline,Room 152,TRUE
+1696,x,-1,-1,1,Hartline,Room 154,TRUE
+1697,x,-1,-1,1,Hartline,Room 155,TRUE
+1698,x,-1,-1,1,Hartline,Room 156,TRUE
+1699,x,-1,-1,1,Hartline,Room 157,TRUE
+1700,x,-1,-1,1,Hartline,Room 158,TRUE
+1701,x,-1,-1,1,Hartline,Room 160,TRUE
+1702,x,-1,-1,1,Hartline,Room 161,TRUE
+1703,x,-1,-1,1,Hartline,Room 162,TRUE
+1704,x,-1,-1,1,Hartline,Room 163,TRUE
+1705,x,-1,-1,1,Hartline,Room 164,TRUE
+1706,x,-1,-1,1,Hartline,Room 166,TRUE
+1707,x,-1,-1,1,Hartline,Room 169,TRUE
+1708,x,-1,-1,1,Hartline,Room 171,TRUE
+1709,x,-1,-1,1,Hartline,Room 174,TRUE
+1710,x,-1,-1,1,Hartline,Room 175,TRUE
+1711,x,-1,-1,1,Hartline,Room 176,TRUE
+1712,x,-1,-1,2,Hartline,Room 172,TRUE
+1713,x,-1,-1,1,Hartline,Room 173,TRUE
+1714,x,-1,-1,1,Hartline,Room 177,TRUE
+1715,x,-1,-1,1,Hartline,Room 178,TRUE
+1716,x,-1,-1,1,Hartline,Room 97,TRUE
+1717,x,-1,-1,1,Hartline,Room 98,TRUE
+1718,x,-1,-1,1,Hartline,Room 99,TRUE
+1719,x,-1,-1,1,Hartline,Room 100,TRUE
+1720,x,-1,-1,1,Hartline,Room 108,TRUE
+1721,x,-1,-1,1,Hartline,Room 109,TRUE
+1722,x,-1,-1,1,Hartline,Room 11,TRUE
+1723,x,-1,-1,2,Hartline,Second Floor West Elevator,FALSE
+1724,x,-1,-1,2,Hartline,Second Floor East Elevator,FALSE
+1725,x,-1,-1,2,Hartline,hallway36,FALSE
+1726,x,-1,-1,2,Hartline,hallway37,FALSE
+1727,x,-1,-1,2,Hartline,hallway38,FALSE
+1728,x,-1,-1,2,Hartline,hallway39,FALSE
+1729,x,-1,-1,2,Hartline,hallway40,FALSE
+1730,x,-1,-1,2,Hartline,hallway41,FALSE
+1731,x,-1,-1,2,Hartline,hallway42,FALSE
+1732,x,-1,-1,2,Hartline,hallway43,FALSE
+1733,x,-1,-1,2,Hartline,hallway44,FALSE
+1734,x,-1,-1,2,Hartline,hallway45,FALSE
+1735,x,-1,-1,2,Hartline,hallway46,FALSE
+1736,x,-1,-1,2,Hartline,hallway47,FALSE
+1737,x,-1,-1,2,Hartline,Room 206,TRUE
+1738,x,-1,-1,2,Hartline,Room 209,TRUE
+1739,x,-1,-1,2,Hartline,Room 210,TRUE
+1740,x,-1,-1,2,Hartline,Room 211,TRUE
+1741,x,-1,-1,2,Hartline,Room 215,TRUE
+1742,x,-1,-1,2,Hartline,Room 216,TRUE
+1743,x,-1,-1,2,Hartline,Room 217,TRUE
+1744,x,-1,-1,2,Hartline,Room 218,TRUE
+1745,x,-1,-1,2,Hartline,Room 219,TRUE
+1746,x,-1,-1,2,Hartline,Room 220,TRUE
+1747,x,-1,-1,2,Hartline,Room 221,TRUE
+1748,x,-1,-1,2,Hartline,Room 222,TRUE
+1749,x,-1,-1,2,Hartline,Room 223,TRUE
+1750,x,-1,-1,2,Hartline,Room 224,TRUE
+1751,x,-1,-1,2,Hartline,Room 225,TRUE
+1752,x,-1,-1,2,Hartline,Room 226,TRUE
+1753,x,-1,-1,2,Hartline,Room 227,TRUE
+1754,x,-1,-1,2,Hartline,Room 229,TRUE
+1755,x,-1,-1,2,Hartline,Room 231,TRUE
+1756,x,-1,-1,2,Hartline,Room 232,TRUE
+1757,x,-1,-1,2,Hartline,Room 233,TRUE
+1758,x,-1,-1,2,Hartline,Room 236,TRUE
+1759,x,-1,-1,2,Hartline,Room 237,TRUE
+1760,x,-1,-1,2,Hartline,Room 238,TRUE
+1761,x,-1,-1,2,Hartline,Room 239,TRUE
+1762,x,-1,-1,2,Hartline,Room 240,TRUE
+1763,x,-1,-1,2,Hartline,Room 241,TRUE
+1764,x,-1,-1,2,Hartline,Room 230,TRUE
+1765,x,-1,-1,2,Hartline,Organic Chemistry Teaching Lab,TRUE
+1766,x,-1,-1,2,Hartline,Biochemistry Teaching Lab,TRUE
+1767,x,-1,-1,2,Hartline,Biology Prep Lab,TRUE
+1768,x,-1,-1,2,Hartline,Biotechnology Teaching Lab,TRUE
+1769,x,-1,-1,2,Hartline,Cell Culture Lab,TRUE
+1770,x,-1,-1,2,Hartline,Biology Storage,TRUE
+1771,x,-1,-1,2,Hartline,Biology Research Lab,TRUE
+1772,x,-1,-1,2,Hartline,Mineralogy/Petrology Teaching Lab,TRUE
+1773,x,-1,-1,2,Hartline,Geochemistry Prep,TRUE
+1774,x,-1,-1,2,Hartline,Geochemistry Teaching Lab,TRUE
+1775,x,-1,-1,2,Hartline,Chemistry Research Lab,TRUE
+1776,x,-1,-1,1,Hartline,Room 111,TRUE
+1777,x,-1,-1,2,Hartline,Conference Room,TRUE
+3045,87H52H53+25C,41.007562500000000,-76.447109375,0,Outside,Sutliff Side Entrance,FALSE
+3046,87H52H42+RRM,41.0070875,-76.447953125,0,Outside,Hartline Side Entrance,FALSE
+3047,87H52H43+P22,41.006762500000000,-76.447484375,0,Outside,Hartline Side Entrance,FALSE
+3048,87H52H52+3M5,41.0076375,-76.448265625,0,Outside,Student Services Side Entrance,FALSE
+3049,87H52H52+9RH,41.0084375,-76.447890625,0,Outside,Bakeless Side Entrance,FALSE
+3068,87H52H52+7MV,41.0082375,-76.448328125,0,Outside,Bakeless Side Entrance,FALSE
+3079,87H52H52+3CM,41.0077125,-76.448953125,0,Outside,Navy Hall Side Entrance,FALSE
+3080,87H52H52+67Q,41.0080875,-76.44926562500000,0,Outside,Navy HallSide Entrance,FALSE
+3092,87H52H42+QH8,41.0069125,-76.448546875,0,Outside,Ben Franklin Side Entrance,FALSE
+3097,87H52H42+H8J,41.0064625,-76.449234375,0,Outside,Holtz Side Entrance,FALSE
+3102,87H52H42+FC9,41.0061625,-76.44889062500000,0,Outside,Holtz Side Entrance,FALSE
+3103,87H52H42+G9M,41.0063375,-76.449078125,0,Outside,Holtz Side Entrance,FALSE
+3114,87H52H52+93V,41.0084875,-76.449828125,0,Outside,Haas Center Side Entrance,FALSE
+3025,87H52H53+3MG,41.0076875,-76.445796875,0,Outside,Centennial Side Entrance,FALSE
+3028,87H52H53+4FM,41.007837500000000,-76.44632812500000,0,Outside,Centennial Side Entrance,FALSE
+3042,87H52H53+422,41.0077625,-76.447484375,0,Outside,Stairs Outside,FALSE
+3043,87H52H53+42X,41.0078625,-76.447390625,0,Outside,Stairs Outside,FALSE
+3044,87H52H53+624,41.00801250000000,-76.447421875,0,Outside,Stairs Outside,FALSE
+3024,87H52H43+XH9,41.0074125,-76.446015625,0,Outside,Stairs Outside,FALSE
+3076,87H52H42+WJ5,41.007262500000000,-76.448390625,0,Outside,Stairs Outside,FALSE
+3077,87H52H42+VH7,41.0071625,-76.448578125,0,Outside,Stairs Outside,FALSE
+3078,87H52H52+3F8,41.007662500000000,-76.448796875,0,Outside,Stairs Outside,FALSE
+3095,87H52H42+J7P,41.006587500000000,-76.449296875,0,Outside,Stairs Outside,FALSE
+3120,87H52H42+RQ2,41.0070125,-76.448109375,0,Outside,Stairs Outside,FALSE
+3135,87H52G4X+PR4,41.006762500000000,-76.450421875,0,Outside,Stairs Outside,FALSE
+3136,87H52H42+Q2W,41.006987500000000,-76.449921875,0,Outside,Stairs Outside,FALSE
+3160,87H52H42+H44,41.0063875,-76.449671875,0,Outside,Stairs Outside,FALSE
+3010,87H52H53+JR7,41.009037500000000,-76.445453125,0,Outside,Andruss Library Main Entrance,TRUE
+3011,87H52H53+MM2,41.009137500000000,-76.445859375,0,Outside,Waller Administration Main Entrance,TRUE
+3012,87H52H53+FV3,41.008637500000000,-76.445328125,0,Outside,Arts & Admin Main Entrance,TRUE
+3018,87H52H53+7GR,41.0082375,-76.446234375,0,Outside,Centennial Main Entrance,TRUE
+3039,87H52H53+C39,41.0085375,-76.447265625,0,Outside,McCormick Main Entrance,TRUE
+3040,87H52H52+5XC,41.0079375,-76.447609375,0,Outside,Main Entrance,TRUE
+3041,87H52H53+46V,41.0078625,-76.446953125,0,Outside,Sutliff Main Entrance,TRUE
+3069,87H52H52+7PP,41.0082125,-76.448171875,0,Outside,Bakeless Main Entrance,TRUE
+3070,87H52H52+2X8,41.0075375,-76.447546875,0,Outside,Hartline Main Entrance,TRUE
+3075,87H52H42+QPM,41.0069625,-76.44820312500000,0,Outside,Ben Franklin Main Entrance,TRUE
+3081,87H52H52+5CM,41.007962500000000,-76.448953125,0,Outside,Navy Main Entrance,TRUE
+3093,87H52H42+Q96,41.0069125,-76.449109375,0,Outside,Luzerne Hall Main Entrance,TRUE
+3094,87H52H42+MC7,41.006662500000000,-76.448953125,0,Outside,Holtz Main Entrance,TRUE
+3104,87H52H42+W6R,41.0073625,-76.449484375,0,Outside,Main Entrance,TRUE
+3115,87H52H52+9F6,41.008412500000000,-76.448859375,0,Outside,Haas Center Main Entrance,TRUE
+3119,87H52H52+52R,41.0079875,-76.449984375,0,Outside,Columbia Main Entrance,TRUE
+3137,87H52G4X+MVH,41.0066875,-76.450265625,0,Outside,Kehr Union Main Entrance,TRUE
+3159,87H52G4X+CWH,41.0060625,-76.450140625,0,Outside,Scranton Commons Main Entrance,TRUE
+3001,87H52H54+R32,41.0095125,-76.444859375,0,Outside,Sidewalk Outside,FALSE
+3002,87H52H54+M58,41.0091625,-76.444546875,0,Outside,Sidewalk Outside,FALSE
+3003,87H52H53+GVH,41.008812500000000,-76.44526562500000,0,Outside,Sidewalk Outside,FALSE
+3004,87H52H53+MQF,41.009187500000000,-76.445578125,0,Outside,Sidewalk Outside,FALSE
+3005,87H52H53+JMP,41.0090875,-76.445796875,0,Outside,Sidewalk Outside,FALSE
+3006,87H52H53+FRX,41.008737500000000,-76.445390625,0,Outside,Sidewalk Outside,FALSE
+3007,87H52H53+CRV,41.0086125,-76.445453125,0,Outside,Sidewalk Outside,FALSE
+3008,87H52H53+9MG,41.0084375,-76.445796875,0,Outside,Sidewalk Outside,FALSE
+3009,87H52H53+9XM,41.0084625,-76.44507812500000,0,Outside,Sidewalk Outside,FALSE
+3013,87H52H53+GC6,41.0087875,-76.446484375,0,Outside,Sidewalk Outside,FALSE
+3014,87H52H53+C66,41.0085375,-76.446984375,0,Outside,Sidewalk Outside,FALSE
+3015,87H52H53+69X,41.008112500000000,-76.446515625,0,Outside,Sidewalk Outside,FALSE
+3016,87H52H53+7CP,41.0082125,-76.446421875,0,Outside,Sidewalk Outside,FALSE
+3017,87H52H53+8HJ,41.008337500000000,-76.44610937500000,0,Outside,Sidewalk Outside,FALSE
+3019,87H52H54+54P,41.007962500000000,-76.444671875,0,Outside,Sidewalk Outside,FALSE
+3020,87H52H53+3V7,41.007662500000000,-76.445328125,0,Outside,Sidewalk Outside,FALSE
+3021,87H52H53+3M5,41.0076375,-76.445765625,0,Outside,Sidewalk Outside,FALSE
+3022,87H52H43+XHW,41.007487500000000,-76.44604687500000,0,Outside,Sidewalk Outside,FALSE
+3023,87H52H43+WJR,41.0073625,-76.445984375,0,Outside,Sidewalk Outside,FALSE
+3026,87H52H53+7Q2,41.008137500000000,-76.445609375,0,Outside,Sidewalk Outside,FALSE
+3029,87H52H53+57P,41.007962500000000,-76.44679687500000,0,Outside,Sidewalk Outside,FALSE
+3030,87H52H53+447,41.007787500000000,-76.447203125,0,Outside,Sidewalk Outside,FALSE
+3031,87H52H53+43M,41.007837500000000,-76.447328125,0,Outside,Sidewalk Outside,FALSE
+3032,87H52H53+538,41.0079125,-76.447296875,0,Outside,Sidewalk Outside,FALSE
+3033,87H52H53+82X,41.008362500000000,-76.447390625,0,Outside,Sidewalk Outside,FALSE
+3034,87H52H52+7WP,41.0082125,-76.447671875,0,Outside,Sidewalk Outside,FALSE
+3035,87H52H52+7V8,41.0081625,-76.447796875,0,Outside,Sidewalk Outside,FALSE
+3036,87H52H53+62V,41.008112500000000,-76.44745312500000,0,Outside,Sidewalk Outside,FALSE
+3037,87H52H53+32G,41.0076875,-76.447421875,0,Outside,Sidewalk Outside,FALSE
+3038,87H52H52+3X2,41.0076375,-76.447609375,0,Outside,Sidewalk Outside,FALSE
+3050,87H52H43+X63,41.0073875,-76.446953125,0,Outside,Sidewalk Outside,FALSE
+3051,87H52H43+R82,41.0070125,-76.446734375,0,Outside,Sidewalk Outside,FALSE
+3052,87H52H43+Q53,41.006887500000000,-76.44707812500000,0,Outside,Sidewalk Outside,FALSE
+3053,87H52H43+P4M,41.0068375,-76.447203125,0,Outside,Sidewalk Outside,FALSE
+3054,87H52H43+P34,41.006762500000000,-76.447296875,0,Outside,Sidewalk Outside,FALSE
+3055,87H52H43+M2M,41.006712500000000,-76.44745312500000,0,Outside,Sidewalk Outside,FALSE
+3056,87H52H42+MX3,41.0066375,-76.447578125,0,Outside,Sidewalk Outside,FALSE
+3057,87H52H42+JWW,41.0066125,-76.447671875,0,Outside,Sidewalk Outside,FALSE
+3058,87H52H42+QV5,41.006887500000000,-76.447765625,0,Outside,Sidewalk Outside,FALSE
+3059,87H52H42+PRX,41.0068625,-76.447890625,0,Outside,Sidewalk Outside,FALSE
+3060,87H52H42+XQ7,41.0074125,-76.448078125,0,Outside,Sidewalk Outside,FALSE
+3062,87H52H42+RMP,41.0070875,-76.448296875,0,Outside,Sidewalk Outside,FALSE
+3063,87H52H42+WMF,41.0073125,-76.448328125,0,Outside,Sidewalk Outside,FALSE
+3064,87H52H42+XHX,41.007487500000000,-76.448515625,0,Outside,Sidewalk Outside,FALSE
+3065,87H52H52+4JW,41.0078625,-76.44842187500000,0,Outside,Sidewalk Outside,FALSE
+3066,87H52H52+6Q8,41.0080375,-76.448046875,0,Outside,Sidewalk Outside,FALSE
+3067,87H52H52+8F9,41.008287500000000,-76.448765625,0,Outside,Sidewalk Outside,FALSE
+3071,87H52H52+CRJ,41.008587500000000,-76.447984375,0,Outside,Sidewalk Outside,FALSE
+3072,87H52H52+CMR,41.0086125,-76.448359375,0,Outside,Sidewalk Outside,FALSE
+3073,87H52H53+348,41.007662500000000,-76.44717187500000,0,Outside,Sidewalk Outside,FALSE
+3074,87H52H42+WQ4,41.007262500000000,-76.448046875,0,Outside,Sidewalk Outside,FALSE
+3082,87H52H52+2CW,41.00761250000000,-76.448921875,0,Outside,Sidewalk Outside,FALSE
+3083,87H52H52+3GJ,41.0077125,-76.448734375,0,Outside,Sidewalk Outside,FALSE
+3084,87H52H52+792,41.008137500000000,-76.449109375,0,Outside,Sidewalk Outside,FALSE
+3085,87H52H52+67M,41.0080875,-76.449328125,0,Outside,Sidewalk Outside,FALSE
+3086,87H52H42+X9J,41.0074625,-76.449109375,0,Outside,Sidewalk Outside,FALSE
+3087,87H52H42+WFJ,41.007337500000000,-76.448859375,0,Outside,Sidewalk Outside,FALSE
+3088,87H52H42+VHX,41.0072375,-76.448515625,0,Outside,Sidewalk Outside,FALSE
+3089,87H52H42+RGQ,41.0070875,-76.448640625,0,Outside,Sidewalk Outside,FALSE
+3090,87H52H42+QHM,41.0069625,-76.448578125,0,Outside,Sidewalk Outside,FALSE
+3091,87H52H42+PGW,41.0068625,-76.448671875,0,Outside,Sidewalk Outside,FALSE
+3096,87H52H42+P99,41.0067875,-76.449015625,0,Outside,Sidewalk Outside,FALSE
+3098,87H52H42+GMG,41.0063125,-76.448296875,0,Outside,Sidewalk Outside,FALSE
+3099,87H52H42+G8R,41.006362500000000,-76.449234375,0,Outside,Sidewalk Outside,FALSE
+3100,87H52H42+H5F,41.006437500000000,-76.449578125,0,Outside,Sidewalk Outside,FALSE
+3101,87H52H42+V6C,41.0071875,-76.449484375,0,Outside,Sidewalk Outside,FALSE
+3105,87H52H52+663,41.00801250000000,-76.44945312500000,0,Outside,Sidewalk Outside,FALSE
+3106,87H52H52+569,41.0079125,-76.449390625,0,Outside,Sidewalk Outside,FALSE
+3107,87H52H52+65W,41.008112500000000,-76.44954687500000,0,Outside,Sidewalk Outside,FALSE
+3108,87H52H52+848,41.008287500000000,-76.449671875,0,Outside,Sidewalk Outside,FALSE
+3109,87H52H52+637,41.0080375,-76.449828125,0,Outside,Sidewalk Outside,FALSE
+3110,87H52H52+52W,41.0079875,-76.449921875,0,Outside,Sidewalk Outside,FALSE
+3111,87H52H52+34R,41.007737500000000,-76.44973437500000,0,Outside,Sidewalk Outside,FALSE
+3112,87H52G5X+2XM,41.0075875,-76.450078125,0,Outside,Sidewalk Outside,FALSE
+3113,87H52G5X+8WM,41.008337500000000,-76.450203125,0,Outside,Sidewalk Outside,FALSE
+3117,87H52H52+9GX,41.0084875,-76.448640625,0,Outside,Sidewalk Outside,FALSE
+3118,87H52H52+93V,41.0084875,-76.449828125,0,Outside,Sidewalk Outside,FALSE
+3121,87H52H42+RQ3,41.0070125,-76.448078125,0,Outside,Sidewalk Outside,FALSE
+3122,87H52H42+VPF,41.0071875,-76.44820312500000,0,Outside,Sidewalk Outside,FALSE
+3123,87H52H42+CC4,41.0060125,-76.448921875,0,Outside,Sidewalk Outside,FALSE
+3124,87H52H42+99Q,41.005962500000000,-76.449015625,0,Outside,Sidewalk Outside,FALSE
+3125,87H52H42+W2F,41.0073125,-76.44995312500000,0,Outside,Sidewalk Outside,FALSE
+3126,87H52G4X+WX3,41.007262500000000,-76.450078125,0,Outside,Sidewalk Outside,FALSE
+3127,87H52H42+R2X,41.007112500000000,-76.449890625,0,Outside,Sidewalk Outside,FALSE
+3128,87H52H42+Q3X,41.006987500000000,-76.449765625,0,Outside,Sidewalk Outside,FALSE
+3129,87H52H42+P3Q,41.0068375,-76.449765625,0,Outside,Sidewalk Outside,FALSE
+3130,87H52G4X+QXQ,41.0069625,-76.45001562500000,0,Outside,Sidewalk Outside,FALSE
+3131,87H52G4X+PVF,41.006812500000000,-76.450328125,0,Outside,Sidewalk Outside,FALSE
+3132,87H52G4X+MQJ,41.006712500000000,-76.450609375,0,Outside,Sidewalk Outside,FALSE
+3133,87H52G4X+JMM,41.006587500000000,-76.450828125,0,Outside,Sidewalk Outside,FALSE
+3134,87H52G4X+HMW,41.006487500000000,-76.45079687500000,0,Outside,Sidewalk Outside,FALSE
+3138,87H52H42+G24,41.006262500000000,-76.449921875,0,Outside,Sidewalk Outside,FALSE
+3139,87H52H42+94V,41.0059875,-76.449703125,0,Outside,Sidewalk Outside,FALSE
+3141,87H52H42+84P,41.0058375,-76.449671875,0,Outside,Sidewalk Outside,FALSE
+3142,87H52H42+75V,41.005737500000000,-76.449578125,0,Outside,Sidewalk Outside,FALSE
+3144,87H52G4X+FXC,41.006187500000000,-76.450109375,0,Outside,Sidewalk Outside,FALSE
+3145,87H52G4X+FR9,41.0061625,-76.450390625,0,Outside,Sidewalk Outside,FALSE
+3146,87H52G4X+CQP,41.00608750000000,-76.450546875,0,Outside,Sidewalk Outside,FALSE
+3148,87H52G4X+FPW,41.0062375,-76.450671875,0,Outside,Sidewalk Outside,FALSE
+3149,87H52G4X+GM4,41.006262500000000,-76.45079687500000,0,Outside,Sidewalk Outside,FALSE
+3150,87H52G4X+CPV,41.0061125,-76.45070312500000,0,Outside,Sidewalk Outside,FALSE
+3151,87H52G4X+CP5,41.0060125,-76.450640625,0,Outside,Sidewalk Outside,FALSE
+3152,87H52G4X+8RJ,41.0058375,-76.450484375,0,Outside,Sidewalk Outside,FALSE
+3153,87H52G4X+8Q4,41.0057625,-76.450546875,0,Outside,Sidewalk Outside,FALSE
+3154,87H52G4X+9JV,41.0059875,-76.450953125,0,Outside,Sidewalk Outside,FALSE
+3155,87H52G4X+9J9,41.005912500000000,-76.450890625,0,Outside,Sidewalk Outside,FALSE
+3156,87H52G4X+7HX,41.005737500000000,-76.451015625,0,Outside,Sidewalk Outside,FALSE
+3157,87H52G4X+7J2,41.005637500000000,-76.45098437500000,0,Outside,Sidewalk Outside,FALSE
+3158,87H52G4X+6Q7,41.0055375,-76.45057812500000,0,Outside,Sidewalk Outside,FALSE
+3161,87H52G4X+5W6,41.005412500000000,-76.45023437500000,0,Outside,Sidewalk Outside,FALSE
+3162,87H52G4X+4VW,41.005362500000000,-76.45029687500000,0,Outside,Sidewalk Outside,FALSE
+3163,87H52G4X+4RP,41.005337500000000,-76.450421875,0,Outside,Sidewalk Outside,FALSE
+3164,87H52G4X+CF4,41.0060125,-76.451296875,0,Outside,Sidewalk Outside,FALSE
+3165,87H52G4X+FF4,41.006137500000000,-76.451296875,0,Outside,Sidewalk Outside,FALSE
+3166,87H52G4X+CH3,41.0060125,-76.45107812500000,0,Outside,Sidewalk Outside,FALSE
+3167,87H52G4X+PH5,41.006762500000000,-76.451015625,0,Outside,Sidewalk Outside,FALSE
+3168,87H52G4X+PGH,41.006812500000000,-76.451140625,0,Outside,Sidewalk Outside,FALSE
+3169,87H52G4X+J9V,41.0066125,-76.451578125,0,Outside,Sidewalk Outside,FALSE
+3170,87H52G4X+QFW,41.006987500000000,-76.451296875,0,Outside,Sidewalk Outside,FALSE
+3171,87H52G4X+RCW,41.007112500000000,-76.451421875,0,Outside,Sidewalk Outside,FALSE
+3172,87H52G4X+RG8,41.007037500000000,-76.451171875,0,Outside,Sidewalk Outside,FALSE
+3173,87H52H53+3FX,41.007737500000000,-76.446265625,0,Outside,Sidewalk Outside,FALSE
+3174,87H52H64+3M6,41.0101625,-76.443359375,0,Outside,Student Recreation Main Entrance,TRUE
+3175,87H52H64+3G8,41.0101625,-76.443671875,0,Outside,Sidewalk Outside,FALSE
+3176,87H52H54+RGG,41.0095625,-76.443671875,0,Outside,Sidewalk Outside,FALSE
+3177,87H52H42+MM9,41.006662500000000,-76.448265625,0,Outside,Sidewalk Outside,FALSE
