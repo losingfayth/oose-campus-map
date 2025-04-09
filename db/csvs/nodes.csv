@@ -538,7 +538,7 @@ id,locationCode,latitude,longitude,floor,building,name,isValidDestination
 809,x,-1,-1,0,Student Services Center,hallway9,FALSE
 810,x,-1,-1,0,Student Services Center,Ground Floor Elevator,FALSE
 811,x,-1,-1,0,Student Services Center,First Floor Elevator,FALSE
-812,x,-1,-1,0,Student Services Center,Second Floor Elevator,FALSE
+812, 87H52H52+4PM,41.0078275268533,-76.4482088723781,0,Student Services Center,Second Floor Elevator,FALSE
 813,x,-1,-1,0.5,Student Services Center,stair1,FALSE
 814,x,-1,-1,0.5,Student Services Center,stair2,FALSE
 815,x,-1,-1,0.5,Student Services Center,stair3,FALSE
@@ -581,11 +581,11 @@ id,locationCode,latitude,longitude,floor,building,name,isValidDestination
 852,x,-1,-1,0,Student Services Center,Room 14A,TRUE
 853,x,-1,-1,0,Student Services Center,Room 21,TRUE
 854,x,-1,-1,0,Student Services Center,Room 22,TRUE
-855,x,-1,-1,1.5,Student Services Center,stair10,FALSE
-856,x,-1,-1,1.5,Student Services Center,stair6,FALSE
-857,x,-1,-1,1.5,Student Services Center,stair7,FALSE
-858,x,-1,-1,1.5,Student Services Center,stair8,FALSE
-859,x,-1,-1,1.5,Student Services Center,stair9,FALSE
+855,87H52H52+4R6 ,41.007778593715800,-76.44798275716750,1.5,Student Services Center,stair10,FALSE
+856,87H52H52+4PV ,41.00785690830390,-76.44818926718760,1.5,Student Services Center,stair6,FALSE
+857,87H52H52+6V3 ,41.00801418712780,-76.44783718181710,1.5,Student Services Center,stair7,FALSE
+858,87H52H52+2RF ,41.00755800474870,-76.44794837604130,1.5,Student Services Center,stair8,FALSE
+859,87H52H52+3XJ ,-41.0077205908472,76.44761062265690,1.5,Student Services Center,stair9,FALSE
 860,x,-1,-1,1,Student Services Center,First Floor Main Entrance,tru
 861,x,-1,-1,1,Student Services Center,hallway10,FALSE
 862,x,-1,-1,1,Student Services Center,hallway11,FALSE
@@ -624,58 +624,58 @@ id,locationCode,latitude,longitude,floor,building,name,isValidDestination
 895,x,-1,-1,1,Student Services Center,Room 156,TRUE
 896,x,-1,-1,1,Student Services Center,Commuter Lounge,TRUE
 897,x,-1,-1,1,Student Services Center,Room 162,TRUE
-898,x,-1,-1,2,Student Services Center,hallway18,FALSE
-899,x,-1,-1,2,Student Services Center,hallway19,FALSE
-900,x,-1,-1,2,Student Services Center,hallway20,FALSE
-901,x,-1,-1,2,Student Services Center,hallway21,FALSE
-902,x,-1,-1,2,Student Services Center,hallway22,FALSE
-903,x,-1,-1,2,Student Services Center,hallway23,FALSE
-904,x,-1,-1,2,Student Services Center,hallway24,FALSE
-905,x,-1,-1,2,Student Services Center,hallway25,FALSE
-906,x,-1,-1,2,Student Services Center,hallway26,FALSE
-907,x,-1,-1,2,Student Services Center,Room 203,TRUE
-908,x,-1,-1,2,Student Services Center,Room 204,TRUE
-909,x,-1,-1,2,Student Services Center,Room 206,TRUE
-910,x,-1,-1,2,Student Services Center,Room 207,TRUE
-911,x,-1,-1,2,Student Services Center,Room 209,TRUE
-912,x,-1,-1,2,Student Services Center,Room 211,TRUE
-913,x,-1,-1,2,Student Services Center,Room 212,TRUE
-914,x,-1,-1,2,Student Services Center,Room 216,TRUE
-915,x,-1,-1,2,Student Services Center,Room 217,TRUE
-916,x,-1,-1,2,Student Services Center,Room 218,TRUE
-917,x,-1,-1,2,Student Services Center,Room 219,TRUE
-918,x,-1,-1,2,Student Services Center,Room 220,TRUE
-919,x,-1,-1,2,Student Services Center,Room 221,TRUE
-920,x,-1,-1,2,Student Services Center,Room 222,TRUE
-921,x,-1,-1,2,Student Services Center,Room 223,TRUE
-922,x,-1,-1,2,Student Services Center,Room 224,TRUE
-923,x,-1,-1,2,Student Services Center,Room 225,TRUE
-924,x,-1,-1,2,Student Services Center,Room 228,TRUE
-925,x,-1,-1,2,Student Services Center,hallway27,FALSE
-926,x,-1,-1,2,Student Services Center,Room 234,TRUE
-927,x,-1,-1,2,Student Services Center,Room 235,TRUE
-928,x,-1,-1,2,Student Services Center,Room 238,TRUE
-929,x,-1,-1,2,Student Services Center,Room 240,TRUE
-930,x,-1,-1,2,Student Services Center,Room 242,TRUE
-931,x,-1,-1,2,Student Services Center,Room 246,TRUE
-932,x,-1,-1,2,Student Services Center,Room 247,TRUE
-933,x,-1,-1,2,Student Services Center,Room 248,TRUE
-934,x,-1,-1,2,Student Services Center,Room 249,TRUE
-935,x,-1,-1,2,Student Services Center,Room 251,TRUE
-936,x,-1,-1,2,Student Services Center,hallway28,FALSE
-937,x,-1,-1,2,Student Services Center,Room 243,TRUE
-938,x,-1,-1,2,Student Services Center,Room 254,TRUE
-939,x,-1,-1,2,Student Services Center,Room 259,TRUE
-940,x,-1,-1,2,Student Services Center,Room 261,TRUE
-941,x,-1,-1,2,Student Services Center,Room 262,TRUE
-942,x,-1,-1,2,Student Services Center,Room 264,TRUE
-943,x,-1,-1,2,Student Services Center,Room 265,TRUE
-944,x,-1,-1,2,Student Services Center,Room 266,TRUE
-945,x,-1,-1,2,Student Services Center,Room 268,TRUE
-946,x,-1,-1,2,Student Services Center,Room 270,TRUE
-947,x,-1,-1,2,Student Services Center,Room 274,TRUE
-948,x,-1,-1,2,Student Services Center,Room 275,TRUE
-949,x,-1,-1,2,Student Services Center,hallway29,FALSE
+898,87H52H52+3RR ,41.00773151504200,-76.44799871138310,2,Student Services Center,hallway18,FALSE
+899,87H52H52+4QQ ,41.00784921048420,-76.44800376080760,2,Student Services Center,hallway19,FALSE
+900,87H52H52+3RH ,41.00768670544360,-76.44787678814460,2,Student Services Center,hallway20,FALSE
+901,87H52H52+4VC ,41.00780913960960,-76.44786116861210,2,Student Services Center,hallway21,FALSE
+902,87H52H52+2VV ,41.00762306593830,-76.44782273312200,2,Student Services Center,hallway22,FALSE
+903,87H52H52+3WX ,41.007745472612000,-76.44764854856180,2,Student Services Center,hallway23,FALSE
+904,87H52H52+5R9 ,-41.0079227042793,76.44789820512530,2,Student Services Center,hallway24,FALSE
+905,87H52H52+4PQ ,41.00783152532000,-76.44814841227230,2,Student Services Center,hallway25,FALSE
+906,87H52H52+2RM ,41.00759888782020,-76.4479656719521,2,Student Services Center,hallway26,FALSE
+907,87H52H52+3R2 ,41.007644487599700,-76.4479838753406,2,Student Services Center,Room 203,TRUE
+908,87H52H52+3Q5 ,-41.0076257795424,76.44801728493340,2,Student Services Center,Room 204,TRUE
+909,87H52H52+3Q8 ,41.007660350579400,-76.44804173086850,2,Student Services Center,Room 206,TRUE
+910,87H52H52+3Q3 ,41.00764541760470,-76.44807133048620,2,Student Services Center,Room 207,TRUE
+911,87H52H52+3QR ,41.007747204969100,-76.4481126664664,2,Student Services Center,Room 209,TRUE
+912,87H52H52+4Q6 ,41.00779790646260,-76.4480969353115,2,Student Services Center,Room 211,TRUE
+913,87H52H52+4P9 ,41.00778237283670,-76.44813012832470,2,Student Services Center,Room 214,TRUE
+914,87H52H52+4QV ,41.00785859893110,-76.44809311743660,2,Student Services Center,Room 216,TRUE
+915,87H52H52+5Q4 ,41.007887657132900,-76.44805496485630,2,Student Services Center,Room 217,TRUE
+916,87H52H52+4QW ,41.007871606159200,-76.44803151599400,2,Student Services Center,Room 218,TRUE
+917,87H52H52+4QW ,41.00786127893790,-76.44805660306910,2,Student Services Center,Room 219,TRUE
+918,87H52H52+5Q2 ,-41.0078773432809,76.44810445373050,2,Student Services Center,Room 220,TRUE
+919,87H52H52+5Q2 ,41.007897665297600,-76.44809467061660,2,Student Services Center,Room 221,TRUE
+920,87H52H52+5Q8 ,41.00791847181330,-76.44804529345810,2,Student Services Center,Room 222,TRUE
+921,87H52H52+5R3 ,-41.0078970600775,76.44796004307210,2,Student Services Center,Room 223,TRUE
+922,87H52H52+5R7 ,41.00792304089740,-76.44794115431420,2,Student Services Center,Room 224,TRUE
+923,87H52H52+5RM ,41.007950038846200,-76.44795287611210,2,Student Services Center,Room 225,TRUE
+924,87H52H52+5RQ ,41.00797272908260,-76.44789820328480,2,Student Services Center,Room 228,TRUE
+925,87H52H52+5V6 ,41.00792097225490,-76.4478494170712,2,Student Services Center,hallway27,FALSE
+926,87H52H52+5WC ,41.00793718601470,-76.44774900471020,2,Student Services Center,Room 234,TRUE
+927,87H52H52+5V8 ,41.007919015943900,-76.44779028979610,2,Student Services Center,Room 235,TRUE
+928,87H52H52+4VR ,41.00787206889420,-76.44785097735820,2,Student Services Center,Room 238,TRUE
+929,87H52H52+4VM ,41.00783438609040,-76.44781527911420,2,Student Services Center,Room 240,TRUE
+930,87H52H52+4VG ,41.00781698938250,-76.44780500141380,2,Student Services Center,Room 242,TRUE
+931,87H52H52+4WC ,41.007815411343900,-76.4477461712774,2,Student Services Center,Room 246,TRUE
+932,87H52H52+4VW ,41.00786685256400,-76.44778319146370,2,Student Services Center,Room 247,TRUE
+933,87H52H52+4VX ,41.00787210635110,-76.44775005391200,2,Student Services Center,Room 248,TRUE
+934,87H52H52+5W3 ,41.00788869302670,-76.44771226779730,2,Student Services Center,Room 249,TRUE
+935,87H52H52+4WV ,41.00785443759740,-76.44769958788950,2,Student Services Center,Room 251,TRUE
+936,87H52H52+3VX ,41.00774436491040,-76.44775134145850,2,Student Services Center,hallway28,FALSE
+937,87H52H52+4V5 ,41.00775912899400,-76.44777310191290,2,Student Services Center,Room 243,TRUE
+938,87H52H52+4W9 ,41.00779210060520,-76.4476526538352,2,Student Services Center,Room 254,TRUE
+939,87H52H52+3WJ ,41.00772479753070,-76.44774748909460,2,Student Services Center,Room 259,TRUE
+940,87H52H52+3WG ,41.00769523497870,-76.4476734520545,2,Student Services Center,Room 261,TRUE
+941,87H52H52+3W8 ,41.00766992893620,-76.4476874505721,2,Student Services Center,Room 262,TRUE
+942,87H52H52+3V9 ,41.00767469286780,-76.44775623617260,2,Student Services Center,Room 264,TRUE
+943,87H52H52+3VF ,41.007678189011900,-76.44784028677160,2,Student Services Center,Room 265,TRUE
+944,87H52H52+3V6 ,41.00766846626220,-76.44786517113240,2,Student Services Center,Room 266,TRUE
+945,87H52H52+3R4 ,41.00763890063820,-76.44792257366990,2,Student Services Center,Room 268,TRUE
+946,87H52H52+3V2 ,41.007626126502000,-76.44785562636330,2,Student Services Center,Room 270,TRUE
+947,87H52H52+2VJ ,41.00759490489260,-76.44785210492780,2,Student Services Center,Room 274,TRUE
+948,87H52H52+2RX ,41.00760401399350,-76.44788636170750,2,Student Services Center,Room 275,TRUE
+949,87H52H52+3QP ,41.0077093515202,-76.448046257632,2,Student Services Center,hallway29,FALSE
 1000,87H52H53+JRC,41.0090625,-76.445484375,1,Andruss Library, First Floor Main Entrance,TRUE
 1001,87H52H53+HRV,41.0089875,-76.445453125,1,Andruss Library,First Floor Study Entrance,TRUE
 1002,87H52H53+HRP,41.008962500000000,-76.445421875,1,Andruss Library,Starbucks Entrance,TRUE

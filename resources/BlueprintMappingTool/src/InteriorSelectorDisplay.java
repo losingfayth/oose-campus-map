@@ -106,11 +106,13 @@ public class InteriorSelectorDisplay extends Application
     {
 
 /*
-/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Sutliff Hall/SH-3RD FL.png
+/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/SSC/1ST FL.png
 L
-41.007749, -76.446363
-41.007440, -76.447036
-41.008018, -76.446582
+41.007807, -76.448380
+41.008093, -76.447748
+41.007448, -76.448098
+898
+
  */
 
 
@@ -269,7 +271,7 @@ L
                         return;
                     }
 
-                    System.out.printf("%n%s %f %f ",
+                    System.out.printf("%n%d: %s %f %f ", counter.getValue(),
                             labelLocationText.getLocationCode(), p.x, p.y);
 
                     labelLocationText.setFill(c);
@@ -513,16 +515,39 @@ L
 
             for (int i = 0; i < points.length; i++) {
                 System.out.printf("%nEnter coordinate %d.%n", (i+1));
-                String string = input.nextLine();
-                String lat = string.substring(0, string.indexOf(','));
-                String lng = string.substring(string.indexOf(',')+2);
-                x = Double.parseDouble(lat);
-                y = Double.parseDouble(lng);
-                points[i] = new Point(x, y);
+                char[] inputArray = input.nextLine().toCharArray();
+                points[i] = getGcsFromConsole(inputArray);
+
+
             }
         }
 
         return points;
+    }
+
+    private Point getGcsFromConsole(char[] inputArray)
+    {
+
+        StringBuilder lat = new StringBuilder();
+        StringBuilder lng = new StringBuilder();
+        int j;
+        for (j = 0; j < inputArray.length && isValidFloatCharacter(inputArray[j]); j++ ) {
+            lat.append(inputArray[j]);
+        }
+        while (!isValidFloatCharacter(inputArray[j])) {
+            j++;
+        }
+        for (; j < inputArray.length; j++) {
+            lng.append(inputArray[j]);
+        }
+
+        return new Point(Double.parseDouble(lat.toString()),
+                Double.parseDouble(lng.toString()));
+    }
+
+    private boolean isValidFloatCharacter(char c)
+    {
+        return (Character.isDigit(c) || c == '-' || c == '.');
     }
 
     private ToggleLabel initAndSet(String txt, ToggleGroup group, Color color) {
