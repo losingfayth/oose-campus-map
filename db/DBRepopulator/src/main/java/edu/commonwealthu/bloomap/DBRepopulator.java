@@ -33,11 +33,11 @@ public class DBRepopulator {
         final CSV connections = new CSV(connectedToFile);
         final CSV areas = new CSV(areaFile);
 
-        long startTime = 0;
+        long startTime;
         try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
             driver.verifyConnectivity();
             System.out.println("Connected to database as user " + dbUser + ".\n" +
-                    "Beginning repopulation...");
+                    "Beginning repopulation...\n");
             try (Session session = driver.session()) {
                 startTime = System.nanoTime();
 
@@ -55,6 +55,7 @@ public class DBRepopulator {
             System.err.println("An error prevented database repopulation. The database remains unmodified.\n" +
                     "See the error below:");
             e.printStackTrace();
+            return;
         }
 
         long endTime = System.nanoTime();
@@ -92,8 +93,7 @@ public class DBRepopulator {
      */
     private static void insertLocations(TransactionContext tx, CSV locations) {
         if (locations.isEmpty()) {
-            System.err.println("No Locations found.");
-            return;
+            throw new RuntimeException("No Locations found.");
         }
 
         for (int i = 0; i < locations.size(); i++) {
@@ -111,8 +111,7 @@ public class DBRepopulator {
      */
     private static void insertAreas(TransactionContext tx, CSV areas) {
         if (areas.isEmpty()) {
-            System.err.println("No areas found.");
-            return;
+            throw new RuntimeException("No Areas found.");
         }
 
         for (int i = 0; i < areas.size(); i++) {
@@ -133,8 +132,7 @@ public class DBRepopulator {
      */
     private static void createConnectedTo(TransactionContext tx, CSV connectedTo) {
         if (connectedTo.isEmpty()) {
-            System.out.println("No edge data found.");
-            return;
+            throw new RuntimeException("No CONNECTED_TO relations found.");
         }
 
         if (!connectedTo.containsColumn("startId") || !connectedTo.containsColumn("endId")) {
@@ -162,11 +160,28 @@ public class DBRepopulator {
     }
 
     /**
-     * Populates the database with IS_IN relations between Location nodes and areas.
-     * This method assumes that the location CSV has a header areaId, whose entries contain integer type values
-     * referring to the Area nodes that should have the relation.
+     * Populates the database with IS_IN relations between Location and Area nodes.
+     * This method assumes that Locations have an areaId, whose entries contain integer type values referring to the
+     * Areas that should have the relation.
      */
     private static void createIsIn(TransactionContext tx, CSV locations) {
+        if (!locations.containsColumn("areaId")) {
+            throw new RuntimeException("Locations do not contain buildingId.");
+        }
 
+        if (!locations.getColumnType("areaId").equals("int")) {
+            throw new RuntimeException("Locations.csv data malformed; ensure areaIds are integers.");
+        }
+
+        for (int i = 0; i < locations.size(); i++) {
+            Map<String, Object> row = locations.getRow(i);
+
+            String query = """
+                        MATCH (l:Location {id: $id}), (a:Area {id: $areaId})
+                        CREATE (l)-[:IS_IN]->(a)
+                    """;
+
+            tx.run(query, row);
+        }
     }
 }

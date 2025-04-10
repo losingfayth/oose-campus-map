@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Helper class that represents a CSV file in memory.
+ * Helper class that represents a CSV file in memory. Contains methods for retrieving information about said CSV.
  *
  * @author Brandon Ikeler
  */
