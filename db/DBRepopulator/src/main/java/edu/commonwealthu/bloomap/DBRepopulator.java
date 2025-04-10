@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
  * Location.csv (storing the information that Location nodes will hold)
  * CONNECTED_TO.csv (storing the edges between Location nodes)
  * Area.csv (storing the names of the buildings around campus, like Ben Franklin)
+ * Some of the code duplication is intentional. For example, insertLocations and insertAreas are very similar. My design
+ * philosophy for this program is that each query used to populate the database has exactly one unique Java method
+ * associated with it.
  */
 public class DBRepopulator {
     public static void main(String[] args) {
@@ -41,8 +44,10 @@ public class DBRepopulator {
                 session.executeWrite(tx -> {
                     executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
                     executeLabeledAndTimed(() -> insertLocations(tx, locations), "Inserting Location nodes...");
+                    executeLabeledAndTimed(() -> insertAreas(tx, areas), "Inserting Area nodes...");
                     executeLabeledAndTimed(() -> createConnectedTo(tx, connections),
                             "Creating CONNECTED_TO relationships...");
+                    executeLabeledAndTimed(() -> createIsIn(tx, locations), "Creating IS_IN relationships...");
                     return null;
                 });
             }
@@ -57,6 +62,10 @@ public class DBRepopulator {
         System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
     }
 
+    /**
+     * Runs the specified task after printing the specified string. The task is timed, and at its successful conclusion,
+     * the duration in seconds that it took for the task to complete is printed.
+     */
     private static void executeLabeledAndTimed(Runnable task, String startMessage) {
         if (startMessage != null) {
             System.out.println(startMessage);
@@ -68,7 +77,7 @@ public class DBRepopulator {
 
         long endTime = System.nanoTime();
         double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Operation completed in %.2f seconds.%n", durationSeconds);
+        System.out.printf("Operation completed in %.2f seconds.%n%n", durationSeconds);
     }
 
     /**
@@ -78,14 +87,17 @@ public class DBRepopulator {
         tx.run("MATCH (n) WHERE n:Location OR n:Area DETACH DELETE n");
     }
 
-    private static void insertLocations(TransactionContext tx, CSV nodes) {
-        if (nodes.isEmpty()) {
+    /**
+     * Uses the locations CSV to populate the database with Location nodes.
+     */
+    private static void insertLocations(TransactionContext tx, CSV locations) {
+        if (locations.isEmpty()) {
             System.err.println("No Locations found.");
             return;
         }
 
-        for (int i = 0; i < nodes.size(); i++) {
-            Map<String, Object> row = nodes.getRow(i);
+        for (int i = 0; i < locations.size(); i++) {
+            Map<String, Object> row = locations.getRow(i);
             String props = row.keySet().stream()
                     .map(key -> key + ": $" + key)
                     .collect(Collectors.joining(", "));
@@ -94,22 +106,47 @@ public class DBRepopulator {
         }
     }
 
-    public static void createConnectedTo(TransactionContext tx, CSV edges) {
-        if (edges.isEmpty()) {
+    /**
+     * Uses the areas CSV to populate the database with Area nodes.
+     */
+    private static void insertAreas(TransactionContext tx, CSV areas) {
+        if (areas.isEmpty()) {
+            System.err.println("No areas found.");
+            return;
+        }
+
+        for (int i = 0; i < areas.size(); i++) {
+            Map<String, Object> row = areas.getRow(i);
+            String props = row.keySet().stream()
+                    .map(key -> key + ": $" + key)
+                    .collect(Collectors.joining(", "));
+            String query = "CREATE (:Area {" + props + "})";
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * Uses the connectedTo CSV to populate the database with CONNECTED_TO relations between Location nodes.
+     * This method assumes that the connectedTo CSV has headers startId and endId, whose entries contain integer type
+     * values referring to the Location nodes that should have the relation.
+     * The relation is symmetric; if Location node a is CONNECTED_TO Location node b, then b is also CONNECTED_TO a.
+     */
+    private static void createConnectedTo(TransactionContext tx, CSV connectedTo) {
+        if (connectedTo.isEmpty()) {
             System.out.println("No edge data found.");
             return;
         }
 
-        if (!edges.containsColumn("startId") || !edges.containsColumn("endId")) {
+        if (!connectedTo.containsColumn("startId") || !connectedTo.containsColumn("endId")) {
             throw new RuntimeException("CONNECTED_TO.csv missing startId or endId columns.");
         }
-        if (!edges.getColumnType("startId").equals("int")
-                || !edges.getColumnType("endId").equals("int")) {
+        if (!connectedTo.getColumnType("startId").equals("int")
+                || !connectedTo.getColumnType("endId").equals("int")) {
             throw new RuntimeException("CONNECTED_TO.csv data malformed; ensure startId and endId are all integers.");
         }
 
-        for (int i = 0; i < edges.size(); i++) {
-            Map<String, Object> row = edges.getRow(i);
+        for (int i = 0; i < connectedTo.size(); i++) {
+            Map<String, Object> row = connectedTo.getRow(i);
 
             List<String> relProps = row.keySet().stream()
                     .filter(k -> !k.equals("startId") && !k.equals("endId"))
@@ -122,5 +159,14 @@ public class DBRepopulator {
                     "(b)-[:CONNECTED_TO" + relPropsString + "]->(a)";
             tx.run(query, row);
         }
+    }
+
+    /**
+     * Populates the database with IS_IN relations between Location nodes and areas.
+     * This method assumes that the location CSV has a header areaId, whose entries contain integer type values
+     * referring to the Area nodes that should have the relation.
+     */
+    private static void createIsIn(TransactionContext tx, CSV locations) {
+
     }
 }

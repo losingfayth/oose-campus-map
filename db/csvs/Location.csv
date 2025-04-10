@@ -1,4 +1,4 @@
-id,locationCode,latitude,longitude,floor,buildingId,name,isValidDestination
+id,locationCode,latitude,longitude,floor,areaId,name,isValidDestination
 1,87H52H42+QP6,41.0069125,-76.448234375,1,1,First Floor Main Entrance,TRUE
 2,87H52H42+QM3,41.006887500000000,-76.448328125,1,1,hallway1,FALSE
 3,87H52H42+PMH,41.006812500000000,-76.448265625,1,1,hallway2,FALSE

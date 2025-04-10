@@ -88,6 +88,7 @@ public class CSV {
 
     /**
      * Reads a CSV at the specified file into memory.
+     * The first row of the CSV must be its headers.
      */
     private void parse(File file) {
         try (Scanner scanner = new Scanner(file)) {
