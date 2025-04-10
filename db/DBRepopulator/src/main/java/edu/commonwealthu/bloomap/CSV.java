@@ -48,27 +48,47 @@ public class CSV {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Returns whether this CSV has a column with the specified name.
+     */
     public boolean containsColumn(String columnName) {
         return headers.containsKey(columnName);
     }
 
+    /**
+     * Returns the number of rows in this CSV.
+     */
     public int size() {
         return rows.size();
     }
 
+    /**
+     * Returns the ith row of this CSV.
+     */
     public Map<String, Object> getRow(int i) {
         return rows.get(i);
     }
 
+    /**
+     * Returns true if this CSV has no rows.
+     */
     public boolean isEmpty() {
         return rows.isEmpty();
     }
 
+    /**
+     * Returns a string that specifies the type of data that entries in the specified column are.
+     *
+     * @return "string", "boolean", "double", or "int"
+     */
     public String getColumnType(String columnName) {
         // Possibly null
         return headers.get(columnName);
     }
 
+    /**
+     * Reads a CSV at the specified file into memory.
+     */
     private void parse(File file) {
         try (Scanner scanner = new Scanner(file)) {
             String[] headerArray = scanner.nextLine().split(",");
@@ -101,6 +121,16 @@ public class CSV {
         }
     }
 
+    /**
+     * Determines what type of data that entries in the specified column are.
+     *
+     * @param data the raw data from the CSV file. Outer list is rows, and inner list is the data at each position in
+     *             the row.
+     * @param columnIndex the index of the column (i.e., which header) to infer the type of.
+     *
+     * @return a string that specifies the type of data that entries in the specified column are. (either "string",
+     *         "boolean", "double", or "int")
+     */
     private String inferColumnType(List<List<String>> data, int columnIndex) {
         boolean allInt = true, allDouble = true, allBoolean = true;
 
@@ -129,6 +159,9 @@ public class CSV {
         return "string";
     }
 
+    /**
+     * Converts the specified value to the type specified by the string.
+     */
     private Object convertValue(String value, String type) {
         return switch (type.toLowerCase()) {
             case "int" -> Integer.parseInt(value);

@@ -6,6 +6,14 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Helper program that nukes all the Location and Area nodes in the database and repopulates them (and their edges) from
+ * the CSV files we've been working with.
+ * This program expects the following files with the following names:
+ * Location.csv (storing the information that Location nodes will hold)
+ * CONNECTED_TO.csv (storing the edges between Location nodes)
+ * Area.csv (storing the names of the buildings around campus, like Ben Franklin)
+ */
 public class DBRepopulator {
     public static void main(String[] args) {
         final String dbUri = "neo4j+ssc://apibloomap.xyz:7687";
@@ -15,10 +23,12 @@ public class DBRepopulator {
             throw new RuntimeException("Environment variables DB_USER and/or DB_PASSWORD are not set.");
         }
 
-        final File nodesFile = new File("../csvs/nodes.csv");
-        final File edgesFile = new File("../csvs/edges.csv");
-        final CSV nodes = new CSV(nodesFile);
-        final CSV edges = new CSV(edgesFile);
+        final File locationFile = new File("../csvs/Location.csv");
+        final File connectedToFile = new File("../csvs/CONNECTED_TO.csv");
+        final File areaFile = new File("../csvs/Area.csv");
+        final CSV locations = new CSV(locationFile);
+        final CSV connections = new CSV(connectedToFile);
+        final CSV areas = new CSV(areaFile);
 
         long startTime = 0;
         try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
@@ -30,8 +40,8 @@ public class DBRepopulator {
 
                 session.executeWrite(tx -> {
                     executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
-                    executeLabeledAndTimed(() -> insertLocations(tx, nodes), "Inserting Location nodes...");
-                    executeLabeledAndTimed(() -> createConnectedTo(tx, edges),
+                    executeLabeledAndTimed(() -> insertLocations(tx, locations), "Inserting Location nodes...");
+                    executeLabeledAndTimed(() -> createConnectedTo(tx, connections),
                             "Creating CONNECTED_TO relationships...");
                     return null;
                 });
