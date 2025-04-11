@@ -19,3 +19,4 @@ async function findPath(currLoc, destination) {
     } catch (error) {
       console.error("Error fetching path: ", error);
     }
+}
