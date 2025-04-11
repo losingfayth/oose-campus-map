@@ -7,12 +7,16 @@ Establishes a web API controller to handle server-side requests from front-end.
 
 **API Enpoints**
 
-get-locations
+get-buildings
 - HttpGet request that takes no arguments. When called, does a DB query to Neo4j
   to retrieve building name, room number, and unique id of every node for every room
   on campus. Returns an IActionResult object that indicates the status of request
   completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
   node contains the previously queried data about each location on campus.
+
+get-rooms
+- HttpPut request that recieves a JSON object containing a string that defines the
+  name of a building in the database. Queries for all valid destinations inside that buidling and adds them to a list
 */
 
 namespace CampusMapApi.Controllers;
@@ -31,43 +35,51 @@ public class CampusMapController : ControllerBase
   }
 
 
-  // // http POST endpoint accessible at POST /api/CampusMap/find-path
-  // [HttpPost("find-path")]
-  // public async Task<IActionResult> FindPath(int currLoc, int dest) {
+  // http POST endpoint accessible at POST /api/CampusMap/find-path
+  [HttpPost("find-path")]
+  public async Task<IActionResult> FindPath(int currLoc, int dest) {
 
-  //   var path = new List<LocationNode>();
+    var path = new List<LocationNode>();
 
-  //   // initial db connection
-  //   var uri = "neo4j+s://apibloomap.xyz:7687";
-  //   var username = Environment.GetEnvironmentVariable("DB_USER") 
-  //     ?? throw new InvalidOperationException("DB_USER is not set");
-  //   var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
-  //     ?? throw new InvalidOperationException("DB_PASSWORD is not set");
-  //   IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-  //   await using var session = _driver.AsyncSession();
+    // initial db connection
+    var uri = "neo4j+s://apibloomap.xyz:7687";
+    var username = Environment.GetEnvironmentVariable("DB_USER") 
+      ?? throw new InvalidOperationException("DB_USER is not set");
+    var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+      ?? throw new InvalidOperationException("DB_PASSWORD is not set");
+    IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+    await using var session = _driver.AsyncSession();
 
-  //   // query to use A* algorithm on database
-  //   var query = @"
-  //   MATCH (n:Location)
-  //   SET n.latitude = 0, n.longitude = n.id;
+    // query to use A* algorithm on database
+    var query = @"
+    MATCH (start:Location {id: $startId})
+    MATCH (end:Location)
+    WHERE end.isValidDestination = true
 
-  //   MATCH (start:Location {id: $startId}), (end:Location {id: $endId})
-  //   CALL gds.shortestPath.astar.stream('campusGraph', {
-  //       sourceNode: start,
-  //       targetNode: end,
-  //       relationshipWeightProperty: 'distance',
-  //       latitudeProperty: 'latitude',
-  //       longitudeProperty: 'longitude'
-  //   })
-  //   YIELD nodeIds, totalCost
-  //   RETURN nodeIds, totalCost;";
+    CALL {
+      WITH start, end
+      CALL gds.shortestPath.astar.stream('campusGraph', {
+        sourceNode: start,
+        targetNode: end,
+        relationshipWeightProperty: 'distance',
+        latitudeProperty: 'latitude',
+        longitudeProperty: 'longitude'
+      })
+      YIELD nodeIds, totalCost
+      RETURN nodeIds, totalCost, end.id AS endId
+    }
 
-  //   var result = await session.RunAsync(query, new { currLoc, dest });
-  //   var records = await result.ToListAsync();
-  //   return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+    RETURN nodeIds, totalCost, endId
+    ORDER BY totalCost ASC
+    LIMIT 1;";
 
-  //   return Ok(path);
-  // }
+
+    var result = await session.RunAsync(query, new { currLoc, dest });
+    var records = await result.ToListAsync();
+    return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+
+    return Ok(path);
+  }
 
   /** 
   Queries database for all nodes and returns a list of location objects.
@@ -149,11 +161,7 @@ public class CampusMapController : ControllerBase
         WHERE n.name IS NOT NULL AND n.building = $building
         RETURN n.building AS building, n.name AS name, n.id AS id
     ";
-    // var query = @"
-    //     MATCH (n:Location)
-    //     WHERE n.id IS NOT NULL AND n.building = $building
-    //     RETURN n.building AS building, n.roomNumber AS roomNumber, n.id AS id
-    // ";
+
     var locations = new List<LocationNode>();
 
     try
