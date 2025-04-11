@@ -116,6 +116,7 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+      Console.WriteLine("Error in GetBuildigns()");
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -173,6 +174,7 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+      Console.WriteLine("Error in GetRooms");
       Console.WriteLine($"Error: {e.Message}");
     }
 
