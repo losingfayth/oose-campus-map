@@ -91,7 +91,7 @@ public class CampusMapController : ControllerBase
     var query = @"
           MATCH (a:Area)
           WHERE a.name <> 'Outside'
-          RETURN a.name
+          RETURN a.name AS name
         ";
 
     var locations = new List<string>(); // list of locations being queried
