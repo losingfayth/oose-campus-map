@@ -98,7 +98,6 @@ public class CampusMapController : ControllerBase
 
     try
     {
-
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
 
@@ -107,7 +106,7 @@ public class CampusMapController : ControllerBase
       await result.ForEachAsync(record =>
       {
 
-        string building = record["building"].As<string>();
+        string building = record["name"].As<string>();
         locations.Add(building);
 
       });
