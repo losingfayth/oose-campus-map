@@ -76,7 +76,7 @@ public class CampusMapController : ControllerBase
 
     var result = await session.RunAsync(query, new { currLoc, dest });
     var records = await result.ToListAsync();
-    return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+    // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
     return Ok(path);
   }
