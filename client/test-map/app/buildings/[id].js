@@ -52,10 +52,6 @@ export default function Building() {
 
   let imageReferencePoints = getImageReference(locs[currIndex]);
 
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    parsedPoints[currIndex],
-    locs[currIndex]
-  );
   // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
@@ -74,9 +70,6 @@ export default function Building() {
       });
     }
   }, [currIndex, locs, router]);
-
-  const { width, height } = useWindowDimensions(); // returns object with current devices dimensions
-  const { isFetching, resolution } = useImageResolution({ uri }); // get the resolution of the image (uri)
 
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
