@@ -51,38 +51,70 @@ public class CampusMapController : ControllerBase
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    // query to use A* algorithm on database
-    var query = @"
-      MATCH (start:Location {id: $start})
-      MATCH (end:Location {id: $destination})
-      WHERE end.isValidDestination = 'TRUE'
+    try {
 
-      CALL {
-        WITH start, end
-        CALL gds.shortestPath.astar.stream('campusGraph', {
-          sourceNode: start,
-          targetNode: end,
-          relationshipWeightProperty: 'distance',
-          latitudeProperty: 'latitude',
-          longitudeProperty: 'longitude'
-        })
-        YIELD nodeIds, totalCost
-        RETURN nodeIds, totalCost
+      var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
+          var existsResult = await session.RunAsync(checkQuery);
+          var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
+
+          // Step 2: Create graph if it doesn't exist
+          if (!exists)
+          {
+              var createQuery = @"
+              CALL gds.graph.project(
+                  'campusGraph',
+                  {
+                      Location: {
+                          properties: ['latitude', 'longitude']
+                      }
+                  },
+                  {
+                      CONNECTED_TO: {
+                          type: 'CONNECTED_TO',
+                          properties: 'distance'
+                      }
+                  }
+              )";
+              await session.RunAsync(createQuery);
+          }
+
+      // query to use A* algorithm on database
+      var query = @"
+          MATCH (start:Location {id: $start})
+          MATCH (end:Location {id: $destination})
+          WHERE end.isValidDestination = 'TRUE'
+
+          CALL {
+            WITH start, end
+            CALL gds.shortestPath.astar.stream('campusGraph', {
+              sourceNode: start,
+              targetNode: end,
+              relationshipWeightProperty: 'distance',
+              latitudeProperty: 'latitude',
+              longitudeProperty: 'longitude'
+            })
+            YIELD nodeIds, totalCost
+            RETURN nodeIds, totalCost
+          }
+
+          RETURN nodeIds, totalCost
+          ";
+
+
+      var result = await session.RunAsync(query, new { start, destination });
+      var records = await result.ToListAsync();
+
+      if (records.Count > 0) {
+        var path = records[0]["nodeIds"].As<List<long>>();
+        return Ok(path);
       }
+      // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
-      RETURN nodeIds, totalCost
-      ";
-
-    var result = await session.RunAsync(query, new { start, destination });
-    var records = await result.ToListAsync();
-
-    if (records.Count > 0) {
-      var path = records[0]["nodeIds"].As<List<long>>();
-      return Ok(path);
+      return Ok(new { message = "No Path Found! :()" });
+    } catch(Exception e) {
+        Console.WriteLine($"Error: {e.Message}");
+        return StatusCode(500, new { error = e.Message });
     }
-    // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
-
-    return Ok(new { message = "No Path Found! :(" });
   }
 
   /** 
