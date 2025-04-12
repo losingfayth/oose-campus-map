@@ -1,13 +1,8 @@
 // src/assets/imagePaths.js
 import { Image } from "react-native";
 
-const imagePaths = {
-  "BFB-1": require("../../assets/build_images/BFB-1.png"),
-  "BFB-2": require("../../assets/build_images/BFB-2.png"),
-  OUT: require("../../assets/build_images/OUT.jpg"),
-  "NAVY-1": require("../../assets/build_images/NAVY-1.png"),
-  "NAVY-2": require("../../assets/build_images/NAVY-2.png"),
-};
+
+
 
 const buildingNames = [
   "OUT",
@@ -30,6 +25,7 @@ const buildingCorners = [
   [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-1  edit
   [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-2  edit
   [41.007673, -76.449043, 41.008044, -76.449326, 41.007794, -76.448855], // NAVY-A  edit
+
 ];
 
 var ImageReferences = [];
