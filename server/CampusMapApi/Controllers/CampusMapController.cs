@@ -37,8 +37,10 @@ public class CampusMapController : ControllerBase
 
   // http POST endpoint accessible at POST /api/CampusMap/find-path
   [HttpPost("find-path")]
-  public async Task<IActionResult> FindPath(int currLoc, int dest) {
-
+  public async Task<IActionResult> FindPath([FromBody] PathRequest request) {
+    
+    int start = request.start;
+    int destination = request.destination;
     var path = new List<LocationNode>();
 
     // initial db connection
@@ -73,7 +75,7 @@ public class CampusMapController : ControllerBase
     ORDER BY totalCost ASC
     LIMIT 1;";
 
-    var result = await session.RunAsync(query, new { currLoc, dest });
+    var result = await session.RunAsync(query, new { start, destination });
     var records = await result.ToListAsync();
     // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
