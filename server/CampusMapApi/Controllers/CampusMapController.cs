@@ -200,7 +200,7 @@ public class CampusMapController : ControllerBase
 
   public class PathRequest
 {
-    public int currLoc { get; set; }
+    public int start { get; set; }
     public int destination { get; set; }
 }
 
