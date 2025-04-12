@@ -53,26 +53,25 @@ public class CampusMapController : ControllerBase
 
     // query to use A* algorithm on database
     var query = @"
-    MATCH (start:Location {id: $start})
-    MATCH (end:Location)
-    WHERE end.isValidDestination = true
+      MATCH (start:Location {id: $start})
+      MATCH (end:Location {id: $destination})
+      WHERE end.isValidDestination = 'TRUE'
 
-    CALL {
-      WITH start, end
-      CALL gds.shortestPath.astar.stream('campusGraph', {
-        sourceNode: start,
-        targetNode: end,
-        relationshipWeightProperty: 'distance',
-        latitudeProperty: 'latitude',
-        longitudeProperty: 'longitude'
-      })
-      YIELD nodeIds, totalCost
-      RETURN nodeIds, totalCost, end.id AS endId
-    }
+      CALL {
+        WITH start, end
+        CALL gds.shortestPath.astar.stream('campusGraph', {
+          sourceNode: start,
+          targetNode: end,
+          relationshipWeightProperty: 'distance',
+          latitudeProperty: 'latitude',
+          longitudeProperty: 'longitude'
+        })
+        YIELD nodeIds, totalCost
+        RETURN nodeIds, totalCost
+      }
 
-    RETURN nodeIds, totalCost, endId
-    ORDER BY totalCost ASC
-    LIMIT 1;";
+      RETURN nodeIds, totalCost
+      ";
 
     var result = await session.RunAsync(query, new { start, destination });
     var records = await result.ToListAsync();
