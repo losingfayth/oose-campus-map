@@ -41,7 +41,6 @@ public class CampusMapController : ControllerBase
     
     int start = request.start;
     int destination = request.destination;
-    var path = new List<LocationNode>();
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -75,32 +74,18 @@ public class CampusMapController : ControllerBase
     ORDER BY totalCost ASC
     LIMIT 1;";
 
-    try
-    {
+    var result = await session.RunAsync(query, new { start, destination });
+    var records = await result.ToListAsync();
 
-      // run the query on the database at store result set            
-      var result = await session.RunAsync(query, new { start, destination });
-
-      // get the key attributes from each record and create a location 
-      // node with those attributes. add the node to the list
-      var records = await result.ForEachAsync(record =>
-      {
-
-        string building = record["building"].As<string>();
-        locations.Add(building);
-
-      });
-
-      // catch and display any errors encountered
+    if (records.Count > 0) {
+      var path = records[0]["nodeIds"].As<List<long>>();
+      return Ok(path);
     }
-    catch (Exception e)
-    {
-      Console.WriteLine($"Error: {e.Message}");
-    }
-
     // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
-    return Ok(path);
+    var noPathFound = "No Path Found! :(";
+
+    return Ok(noPathFound);
   }
 
   /** 
@@ -128,39 +113,33 @@ public class CampusMapController : ControllerBase
           RETURN building, node.id AS id
         ";
 
-    //var locations = new List<string>(); // list of locations being queried
+    var locations = new List<string>(); // list of locations being queried
 
-    try {
+    try
+    {
 
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      // await result.ForEachAsync(record =>
-      // {
+      await result.ForEachAsync(record =>
+      {
 
-      //   string building = record["building"].As<string>();
-      //   locations.Add(building);
+        string building = record["building"].As<string>();
+        locations.Add(building);
 
-      // });
-
-      var records = await result.ToListAsync();
-
-      if (records.Count > 0) {
-        var nodeIds = records[0]["nodeIds"].As<List<long>>();
-        return Ok(nodeIds);
-      }
+      });
 
       // catch and display any errors encountered
-    } catch (Exception e) {
+    }
+    catch (Exception e)
+    {
       Console.WriteLine($"Error: {e.Message}");
     }
 
-    var noPathFound = "No path found! :(";
-
     // return the list of location nodes and the status of the call
-    return Ok(noPathFound);
+    return Ok(locations);
   }
 
   /** 
