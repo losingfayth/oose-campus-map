@@ -1,4 +1,4 @@
-async function findPath(currLoc, destination) {
+async function findPath(start, destination) {
     console.log("Running FindPath()");
     try {
       // use fetch to make an http request to server at find-path endpoint
@@ -7,7 +7,7 @@ async function findPath(currLoc, destination) {
         {
           method: "POST", // http POST request
           headers: { "Content-Type": "application/json" }, // sending data as json
-          body: JSON.stringify({ currLoc, destination }), // convert js to json before sending
+          body: JSON.stringify({ start, destination }), // convert js to json before sending
         }
       );
   
