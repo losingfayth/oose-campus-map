@@ -128,10 +128,9 @@ public class CampusMapController : ControllerBase
           RETURN building, node.id AS id
         ";
 
-    var locations = new List<string>(); // list of locations being queried
+    //var locations = new List<string>(); // list of locations being queried
 
-    try
-    {
+    try {
 
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
@@ -154,14 +153,14 @@ public class CampusMapController : ControllerBase
       }
 
       // catch and display any errors encountered
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       Console.WriteLine($"Error: {e.Message}");
     }
 
+    var noPathFound = "No path found! :("
+
     // return the list of location nodes and the status of the call
-    return Ok(locations);
+    return Ok(noPathFound);
   }
 
   /** 
