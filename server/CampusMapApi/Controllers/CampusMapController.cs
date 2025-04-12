@@ -89,9 +89,6 @@ public class CampusMapController : ControllerBase
   [HttpGet("get-buildings")]
   public async Task<IActionResult> GetBuildings([FromBody] PathRequest request) {
 
-    int currLoc = request.currLoc;
-    int dest = request.destination;
-
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
     var username = Environment.GetEnvironmentVariable("DB_USER")
