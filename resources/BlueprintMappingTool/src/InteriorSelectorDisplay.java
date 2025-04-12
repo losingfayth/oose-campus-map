@@ -105,28 +105,21 @@ public class InteriorSelectorDisplay extends Application
     {
 
 /*
-/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/1ST FL.png
+'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/2ND FL.png'
 L
 41.007292, -76.448117
 41.007633, -76.447336
 41.006672, -76.447640
-4638
+1723
 
  */
-
-
         HBox controlPane = new HBox();
         controlPane.setSpacing(10);
-
 
         String[] nodeTypes = new String[]{"Point", "Entrance", "Bathroom", "Stairs",
                 "Elevator"};
         Color[] nodeLabelColors = new Color[]{Color.RED, Color.GREEN, Color.BLUE,
                 Color.ORANGE, Color.PURPLE};
-
-
-
-
 
         String saveLocation = "";
 
@@ -144,13 +137,10 @@ L
         System.out.println(inputFileName + " accessed.");
         Image image = new Image(inputStream);
 
-
-
         ScrollableImageView imageView = new ScrollableImageView(image,
                 maxDisplayDim);
         BorderPane root = new BorderPane();
-
-
+        
         imageView.setPreserveRatio(true);
 
         Point[] points = Controls.getPointsFromConsole(input);
@@ -180,11 +170,6 @@ L
 
         imageView.fitWidthProperty().bind(imagePane.widthProperty());
         imageView.fitHeightProperty().bind(imagePane.heightProperty());
-
-        System.out.println("Mapping generated.");
-
-        LocationGraph enteredLocations = new LocationGraph();
-        ArrayList<Edge> lines = new ArrayList<>();
 
         Scene scene = new Scene(root, imageView.getDisplayWidth(),
                 imageView.getDisplayHeight() + controlHeight);

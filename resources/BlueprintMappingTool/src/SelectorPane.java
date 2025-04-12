@@ -202,6 +202,7 @@ public class SelectorPane extends Pane
                         getChildren().addAll(enteredLocations.getNodes());
                         getChildren().addAll(edges);
                         System.out.println("Deleted: " + l.getText());
+                        idCounter.decrement();
                         return;
                     }
                 }
