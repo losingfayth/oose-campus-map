@@ -75,8 +75,29 @@ public class CampusMapController : ControllerBase
     ORDER BY totalCost ASC
     LIMIT 1;";
 
-    var result = await session.RunAsync(query, new { start, destination });
-    var records = await result.ToListAsync();
+    try
+    {
+
+      // run the query on the database at store result set            
+      var result = await session.RunAsync(query, new { start, destination });
+
+      // get the key attributes from each record and create a location 
+      // node with those attributes. add the node to the list
+      var records = await result.ForEachAsync(record =>
+      {
+
+        string building = record["building"].As<string>();
+        locations.Add(building);
+
+      });
+
+      // catch and display any errors encountered
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine($"Error: {e.Message}");
+    }
+
     // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
     return Ok(path);
@@ -117,13 +138,20 @@ public class CampusMapController : ControllerBase
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      await result.ForEachAsync(record =>
-      {
+      // await result.ForEachAsync(record =>
+      // {
 
-        string building = record["building"].As<string>();
-        locations.Add(building);
+      //   string building = record["building"].As<string>();
+      //   locations.Add(building);
 
-      });
+      // });
+
+      var records = await result.ToListAsync();
+
+      if (records.Count > 0) {
+        var nodeIds = records[0]["nodeIds"].As<List<long>>();
+        return Ok(nodeIds);
+      }
 
       // catch and display any errors encountered
     }
