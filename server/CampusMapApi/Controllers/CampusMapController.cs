@@ -157,7 +157,7 @@ public class CampusMapController : ControllerBase
       Console.WriteLine($"Error: {e.Message}");
     }
 
-    var noPathFound = "No path found! :("
+    var noPathFound = "No path found! :(";
 
     // return the list of location nodes and the status of the call
     return Ok(noPathFound);
