@@ -54,7 +54,7 @@ public class CampusMapController : ControllerBase
 
     // query to use A* algorithm on database
     var query = @"
-    MATCH (start:Location {id: $startId})
+    MATCH (start:Location {id: $start})
     MATCH (end:Location)
     WHERE end.isValidDestination = true
 
