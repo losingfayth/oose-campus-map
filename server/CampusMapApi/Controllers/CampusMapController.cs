@@ -83,9 +83,7 @@ public class CampusMapController : ControllerBase
     }
     // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
 
-    var noPathFound = "No Path Found! :(";
-
-    return Ok(noPathFound);
+    return Ok(new { message = "No Path Found! :(" });
   }
 
   /** 
