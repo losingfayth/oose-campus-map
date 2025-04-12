@@ -41,8 +41,8 @@ if (app.Environment.IsDevelopment()) {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection(); // redirect http requests to https
 app.UseCors("AllowAllOrigins"); // allow javascript to call api from browswer
+app.UseHttpsRedirection(); // redirect http requests to https
 app.UseAuthorization();
 app.MapControllers(); // tell ASP.NET Core to use controller-based routes
 app.Run(); // start web server and begin listening for requests
