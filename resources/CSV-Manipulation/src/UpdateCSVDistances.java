@@ -51,6 +51,7 @@ public class UpdateCSVDistances
         try (Scanner scanner = new Scanner(new File(edgesCSVinPath))) {
             while (scanner.hasNextLine()) {
                 ArrayList<String> row = getRecordFromLine(scanner.nextLine());
+
                 edgeRecords.add(row);
             }
         }
@@ -60,13 +61,15 @@ public class UpdateCSVDistances
         System.out.println(edgeRecords.size());
         for (int i = 1; i < edgeRecords.size(); i++) {
             ArrayList<String> row = edgeRecords.get(i);
-            if (row.get(2).equals("1")) {
+
+            if (row.get(2).equals("1") || row.get(2).equals("-1")) {
                 ArrayList<String> n1 = nodeRecords.get(idtoRowMap.get(row.get(0)));
                 ArrayList<String> n2 = nodeRecords.get(idtoRowMap.get(row.get(1)));
 
                 if (!(n1.get(1).equals("x") || n2.get(1).equals("x"))) {
 //                    printList(n1);
 //                    printList(n2);
+
                     row.set(2, String.valueOf(calculateTravelTime(n1, n2)));
 
                 }

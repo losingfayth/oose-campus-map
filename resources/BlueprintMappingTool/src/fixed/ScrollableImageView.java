@@ -20,11 +20,21 @@ public class ScrollableImageView extends ImageView
     static int MIN_PIXELS = 10;
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
-    public ScrollableImageView(Image image, double displayImageWidth,
-                               double displayImageHeight) {
+    public ScrollableImageView(Image image, double maxDisplayDim) {
         super(image);
-        this.displayImageHeight = displayImageHeight;
-        this.displayImageWidth = displayImageWidth;
+        double ix =  image.getWidth();
+        double iy = image.getHeight();
+
+        if (ix >= (iy))
+        {
+            this.displayImageWidth = maxDisplayDim;
+            this.displayImageHeight = (int) Math.floor((iy / ix) * maxDisplayDim);
+        } else
+        {
+            this.displayImageHeight = maxDisplayDim;
+            this.displayImageWidth = (int) Math.floor((ix / iy) * maxDisplayDim);
+        }
+
         reset();
 
         setOnMousePressed(e ->
@@ -182,5 +192,14 @@ public class ScrollableImageView extends ImageView
         return new Point2D(
                 viewport.getMinX() + xProportion * viewport.getWidth(),
                 viewport.getMinY() + yProportion * viewport.getHeight());
+    }
+
+    public double getDisplayWidth()
+    {
+        return displayImageWidth;
+    }
+
+    public double getDisplayHeight() {
+        return displayImageHeight;
     }
 }
