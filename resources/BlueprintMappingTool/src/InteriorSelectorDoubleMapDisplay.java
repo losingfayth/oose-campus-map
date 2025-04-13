@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Point;
 import mapping.*;
@@ -84,13 +83,14 @@ import java.util.Scanner;
     Press and hold CTRL to pan. When node is toggled on, click on a previously placed node to delete it.    When edge is toggled on, press and hold "r" to choose a root; press and hold "d" while clicking a node    to delete all edges attached to that node.
  */
 
-public class InteriorSelectorDisplay extends Application
+public class InteriorSelectorDoubleMapDisplay extends Application
 {
 
 
     int maxDisplayDim = 800;
     int controlHeight = 50;
-
+    int displayImageHeight;
+    int displayImageWidth;
     CoordinateSystem imageCoordinateSystem;
     CoordinateSystem realWorldCoordinates;
     Map map;
@@ -105,21 +105,14 @@ public class InteriorSelectorDisplay extends Application
     {
 
 /*
-'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/GR FL.png'
+'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/BS FL.png'
 L
-41.007292, -76.448117
-41.007633, -76.447336
-41.006672, -76.447640
-1563
+41.00723073341936 -76.44782408196845
+41.00730710607756 -76.44756333833864
+41.00681283614087 -76.44751589823797
+1501
 
  */
-        HBox controlPane = new HBox();
-        controlPane.setSpacing(10);
-
-        String[] nodeTypes = new String[]{"Point", "Entrance", "Bathroom", "Stairs",
-                "Elevator"};
-        Color[] nodeLabelColors = new Color[]{Color.RED, Color.GREEN, Color.BLUE,
-                Color.ORANGE, Color.PURPLE};
 
         String saveLocation = "";
 
@@ -137,39 +130,45 @@ L
         System.out.println(inputFileName + " accessed.");
         Image image = new Image(inputStream);
 
+
         ScrollableImageView imageView = new ScrollableImageView(image,
                 maxDisplayDim);
         BorderPane root = new BorderPane();
 
+
         imageView.setPreserveRatio(true);
 
         Point[] points = Controls.getPointsFromConsole(input);
+        realWorldCoordinates = new CoordinateSystem(points[0], points[1], points[2]);
+
 
         int sIndex = Controls.getStartingIndexFromConsole(input);
+
+        System.out.println("Click the three locations on the image that match the " +
+                "locationCodes or latitude/longitude points entered above.");
+
         Counter counter = new Counter(sIndex);
 
-        ArrayList<Point> referencePoints = new ArrayList<>();
-        referencePoints.add(new Point(0, 0));
-        referencePoints.add(new Point(imageView.getImage().getWidth(), 0));
-        referencePoints.add(new Point(0, imageView.getImage().getHeight()));
+        String[] nodeTypes = new String[]{
+                "Point", "Entrance", "Stairs",
+                "Elevator", "Bathroom"
+        };
+        Color[] nodeLabelColors = new Color[]{
+                Color.RED, Color.GREEN, Color.BLUE,
+                Color.ORANGE, Color.PURPLE
+        };
 
-        imageCoordinateSystem =
-                new CoordinateSystem(referencePoints.get(0),
-                        referencePoints.get(1), referencePoints.get(2));
-
-        System.out.println(imageCoordinateSystem);
-
-        realWorldCoordinates = new CoordinateSystem(points[0], points[1], points[2]);
 
         SelectorPane imagePane = new SelectorPane(imageView, realWorldCoordinates,
                 counter, nodeTypes, nodeLabelColors, inputFileName, saveLocation);
-        imagePane.setDomain(imageCoordinateSystem);
+
 
         root.setCenter(imagePane);
         root.setBottom(imagePane.getControlPane());
 
         imageView.fitWidthProperty().bind(imagePane.widthProperty());
         imageView.fitHeightProperty().bind(imagePane.heightProperty());
+
 
         Scene scene = new Scene(root, imageView.getDisplayWidth(),
                 imageView.getDisplayHeight() + controlHeight);
@@ -183,17 +182,10 @@ L
     }
 
 
-
-
-
-
     public static void main(String[] args)
     {
         launch(args);
     }
-
-
-
 
 
     public static void printMatrix(double[] arr)
@@ -201,6 +193,3 @@ L
         System.out.printf("[%f, %f]%n[%f,%f]%n", arr[0], arr[1], arr[2], arr[3]);
     }
 }
-
-
-

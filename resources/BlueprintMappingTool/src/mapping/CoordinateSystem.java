@@ -33,6 +33,12 @@ public class CoordinateSystem {
 
     }
 
+    @Override
+    public String toString()
+    {
+        return ("iHat: " + iHat + ", jHat: " + jHat);
+    }
+
     public Vector getBasisProportion(Point p)
     {
         Vector wrtOrigin = new Vector(p.x - topLeft.x, p.y - topLeft.y);
