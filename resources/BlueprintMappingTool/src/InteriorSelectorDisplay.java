@@ -105,12 +105,12 @@ public class InteriorSelectorDisplay extends Application
     {
 
 /*
-'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/2ND FL.png'
+'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/GR FL.png'
 L
 41.007292, -76.448117
 41.007633, -76.447336
 41.006672, -76.447640
-1723
+1563
 
  */
         HBox controlPane = new HBox();
@@ -140,7 +140,7 @@ L
         ScrollableImageView imageView = new ScrollableImageView(image,
                 maxDisplayDim);
         BorderPane root = new BorderPane();
-        
+
         imageView.setPreserveRatio(true);
 
         Point[] points = Controls.getPointsFromConsole(input);
