@@ -21,9 +21,6 @@ import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
 import imagePaths, {
-  ImageReferences,
-  buildingCorners,
-  getImageReferences,
   getImageReference,
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
@@ -48,7 +45,7 @@ function mapPointsToPixels(points, coordinateMap) {
   });
 }
 
- 
+
 export default function Building() {
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
