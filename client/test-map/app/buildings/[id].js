@@ -24,8 +24,7 @@ import imagePaths, {
   getImageReference,
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
-import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/test-map/app/apis/api_functions.js";
-
+import { getRooms, getBuildings } from "../apis/api_functions";
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
@@ -37,14 +36,12 @@ import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oos
  *  @author Ethan Broskoskie
  */
 
-
 function mapPointsToPixels(points, coordinateMap) {
   return points.map((point) => {
     const mapped = coordinateMap.convert(point.latitude, point.longitude);
     return { x: mapped.x, y: mapped.y };
   });
 }
-
 
 export default function Building() {
   // from here---------------------------------------------------------------------------------
@@ -62,8 +59,6 @@ export default function Building() {
   };
   const uri = getImageUri(locs[currIndex]);
 
-
-
   // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
@@ -76,11 +71,8 @@ export default function Building() {
     console.log("ID: " + buildings);
     var rooms = await getRooms(buildings[0]);
     console.log("ID building: " + rooms[0].building);
-
   }
   getBuildingTest();
-
-
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
@@ -117,8 +109,6 @@ export default function Building() {
   });
   // to here-----------------------------------------------------------------------------------
   // must move as one big block ---------------------------------------------------------------
-
-
 
   // console.log(normalizedPoints);
 
