@@ -1,3 +1,5 @@
+package components;
+
 public class Counter {
     int v;
     public Counter(int init) {
