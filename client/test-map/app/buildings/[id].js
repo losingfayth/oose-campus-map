@@ -24,7 +24,7 @@ import imagePaths, {
   getImageReference,
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
-import { getBuildings, getRooms } from "../api_functions.js";
+import { getBuildings, getRooms, findPath } from "../apis/api_functions.js";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
@@ -79,6 +79,7 @@ export default function Building() {
 
   }
   getBuildingTest();
+
 
 
 
