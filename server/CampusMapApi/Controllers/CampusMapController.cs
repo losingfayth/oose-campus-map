@@ -53,54 +53,50 @@ public class CampusMapController : ControllerBase
 
     try {
 
-      var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
-          var existsResult = await session.RunAsync(checkQuery);
-          var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
+      // drop existing graph projection
+      CALL gds.graph.drop('campusGraph', false);
 
-          // Step 2: Create graph if it doesn't exist
-          if (!exists)
-          {
-              var createQuery = @"
-              CALL gds.graph.project(
-                  'campusGraph',
-                  {
-                      Location: {
-                          properties: ['latitude', 'longitude']
-                      }
-                  },
-                  {
-                      CONNECTED_TO: {
-                          type: 'CONNECTED_TO',
-                          properties: 'distance'
-                      }
-                  }
-              )";
-              await session.RunAsync(createQuery);
+      // create new graph projection
+      var createProjection = @"
+        CALL gds.graph.project(
+          'campusGraph', {
+            Location: {
+                properties: ['latitude', 'longitude']
+            }
+          }, {
+          CONNECTED_TO: {
+              type: 'CONNECTED_TO',
+              properties: 'distance'
           }
+          }
+        )";
+      
+      // run prjection creation query
+      await session.RunAsync(createProjection);
 
       // query to use A* algorithm on database
       var query = @"
-          MATCH (start:Location {id: $start})
-          MATCH (end:Location {id: $destination})
-          WHERE end.isValidDestination = 'TRUE'
+        MATCH (start:Location {id: $start})
+        MATCH (end:Location {id: $destination})
+        WHERE end.isValidDestination = 'TRUE'
 
-          CALL {
-            WITH start, end
-            CALL gds.shortestPath.astar.stream('campusGraph', {
-              sourceNode: start,
-              targetNode: end,
-              relationshipWeightProperty: 'distance',
-              latitudeProperty: 'latitude',
-              longitudeProperty: 'longitude'
-            })
-            YIELD nodeIds, totalCost
-            RETURN nodeIds, totalCost
-          }
+        CALL {
+          WITH start, end
+          CALL gds.shortestPath.astar.stream('campusGraph', {
+            sourceNode: start,
+            targetNode: end,
+            relationshipWeightProperty: 'distance',
+            latitudeProperty: 'latitude',
+            longitudeProperty: 'longitude'
+          })
+          YIELD nodeIds, totalCost
+          RETURN nodeIds, totalCost
+        }
 
-          UNWIND nodeIds AS nodeId
-          MATCH (n) WHERE id(n) = nodeId
-          RETURN n.latitude AS latitude, n.longitude AS longitude
-          ";
+        UNWIND nodeIds AS nodeId
+        MATCH (n) WHERE id(n) = nodeId
+        RETURN n.latitude AS latitude, n.longitude AS longitude
+        ";
 
 
       var result = await session.RunAsync(query, new { start, destination });
