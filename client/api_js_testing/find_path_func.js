@@ -3,7 +3,7 @@ async function findPath(start, destination) {
     try {
       // use fetch to make an http request to server at find-path endpoint
       const response = await fetch(
-        "https://apibloomap.xyz:5164/api/CampusMap/find-path",
+        "https://75.97.208.114:5164/api/CampusMap/find-path",
         {
           method: "POST", // http POST request
           headers: { "Content-Type": "application/json" }, // sending data as json
