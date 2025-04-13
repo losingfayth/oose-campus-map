@@ -17,6 +17,7 @@ public class Location extends Text
         String type;
         Point GCSCoordinates;
         Point2D fixedPoint;
+        private static String toStringSpacing = "    ";
 
         public Location(String displayText, String type, Point GCSCoordinates,
                         Point2D fixedPoint) {
@@ -103,8 +104,8 @@ public class Location extends Text
     @Override
     public String toString()
     {
-        return this.id + " " + this.getLocationCode() + " " + this.GCSCoordinates.x +
-                " " + this.GCSCoordinates.y;
+        return this.id + toStringSpacing + this.getLocationCode() + toStringSpacing + this.GCSCoordinates.x +
+                toStringSpacing + this.GCSCoordinates.y;
     }
 }
 
