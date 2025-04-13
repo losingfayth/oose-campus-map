@@ -1,31 +1,18 @@
-import fixed.Edge;
-import fixed.Location;
-import fixed.LocationGraph;
+import components.Controls;
+import components.Counter;
+import components.SelectorPane;
+
 import fixed.ScrollableImageView;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mapping.*;
-import mapping.Map;
 import mapping.Point;
-import mapping.Vector;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ExteriorSelectorDisplay extends Application

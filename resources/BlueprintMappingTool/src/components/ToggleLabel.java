@@ -1,3 +1,5 @@
+package components;
+
 import javafx.scene.control.ToggleButton;
 import javafx.scene.paint.Color;
 
