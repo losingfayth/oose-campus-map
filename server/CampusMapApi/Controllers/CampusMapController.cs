@@ -56,7 +56,7 @@ public class CampusMapController : ControllerBase
       // drop existing graph projection
       var dropProjection = @"
       CALL gds.graph.drop('campusGraph', false);";
-      await session.RunAsync(createProjection);
+      await session.RunAsync(dropProjection);
       
 
       // create new graph projection
