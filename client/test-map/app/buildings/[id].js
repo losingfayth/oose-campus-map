@@ -24,7 +24,7 @@ import imagePaths, {
   getImageReference,
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
-import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/test-map/app/apis/api_functions.js";
+import { getBuildings, getRooms } from "../api_functions.js";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
