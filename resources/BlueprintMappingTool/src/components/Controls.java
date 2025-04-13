@@ -1,3 +1,5 @@
+package components;
+
 import fixed.ScrollableImageView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
