@@ -20,7 +20,12 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../utils/PointsNormalizer";
 import generatePath from "../components/PathGenerator";
 
-import imagePaths, { getImageReference } from "../assets/build_images/imagePaths";
+import imagePaths, {
+  ImageReferences,
+  buildingCorners,
+  getImageReferences,
+  getImageReference,
+} from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
 import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/test-map/app/apis/api_functions.js";
 
@@ -35,6 +40,15 @@ import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oos
  *  @author Ethan Broskoskie
  */
 
+
+function mapPointsToPixels(points, coordinateMap) {
+  return points.map((point) => {
+    const mapped = coordinateMap.convert(point.latitude, point.longitude);
+    return { x: mapped.x, y: mapped.y };
+  });
+}
+
+ 
 export default function Building() {
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
@@ -51,12 +65,8 @@ export default function Building() {
   };
   const uri = getImageUri(locs[currIndex]);
 
-  let imageReferencePoints = getImageReference(locs[currIndex]);
 
-  const normalizedPoints = PointNormalizer.normalizePoints(
-    parsedPoints[currIndex],
-    locs[currIndex]
-  );
+
   // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
@@ -115,22 +125,27 @@ export default function Building() {
 
   // console.log(normalizedPoints);
 
+  let imageReferencePoints = getImageReference(locs[currIndex]);
 
   let m = new CoordinateMap(
     CoordinateMap.fromReference(imageReferencePoints.referencePoints),
 
-    [
-      0, 0,
-      size.width, 0,
-      0, size.height,
-    ],
+    [0, 0, size.width, 0, 0, size.height]
   );
 
   // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  let mapped = m.convert(41.0068, -76.4483);
-  console.log("mapped: " + mapped.x + ", " + mapped.y);
+  // console.log(
+  //   "New Image Width: ",
+  //   size.width,
+  //   " and New Image Height: ",
+  //   size.height
+  // );
 
-
+  const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
+  // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
+  // console.log("Dakotah points: ", pixelPoints);
+  // console.log("-------------------\n");
+  const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
     return (

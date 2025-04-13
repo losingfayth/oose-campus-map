@@ -89,17 +89,15 @@ public class CampusMapController : ControllerBase
 
     // query to retrieve all nodes' building and room number attributes
     var query = @"
-          MATCH (n:Location) 
-          WHERE n.building IS NOT NULL 
-          WITH n.building AS building, COLLECT(n)[0] AS node
-          RETURN building, node.id AS id
+          MATCH (a:Area)
+          WHERE a.name <> 'Outside'
+          RETURN a.name AS name
         ";
 
     var locations = new List<string>(); // list of locations being queried
 
     try
     {
-
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
 
@@ -108,7 +106,7 @@ public class CampusMapController : ControllerBase
       await result.ForEachAsync(record =>
       {
 
-        string building = record["building"].As<string>();
+        string building = record["name"].As<string>();
         locations.Add(building);
 
       });
@@ -117,6 +115,7 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+      Console.WriteLine("Error in GetBuildigns()");
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -145,9 +144,8 @@ public class CampusMapController : ControllerBase
 
     // Cypher query that filters by building
     var query = @"
-        MATCH (n:Location)
-        WHERE n.name IS NOT NULL AND n.building = $building
-        RETURN n.building AS building, n.name AS name, n.id AS id
+        MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+        RETURN a.name AS building, l.name AS name, l.id AS id
     ";
     // var query = @"
     //     MATCH (n:Location)
@@ -175,6 +173,7 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+      Console.WriteLine("Error in GetRooms");
       Console.WriteLine($"Error: {e.Message}");
     }
 

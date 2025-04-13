@@ -8,9 +8,8 @@ class PointNormalizer {
   }
 
   static normalizePoints(points, imageKey) {
-    const imageInfo = this.getImageSize(imageKey);
-    const imageWidth = imageInfo.width;
-    const imageHeight = imageInfo.height;
+    const imageWidth = imageKey.width;
+    const imageHeight = imageKey.height;
 
     return points.map((point) => ({
       x: point.x / imageWidth,
