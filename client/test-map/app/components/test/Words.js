@@ -24,25 +24,4 @@ export const searchables = [
   },
 ];
 
-export const roomNumbers = [
-  {
-    name: "103",
-    id: "1",
-  },
-  {
-    name: "115",
-    id: "2",
-  },
-  {
-    name: "211",
-    id: "3",
-  },
-  {
-    name: "218",
-    id: "4",
-  },
-  {
-    name: "220",
-    id: "5",
-  },
-];
+export const roomNumbers = ["103", "115", "201", "210", "220"];

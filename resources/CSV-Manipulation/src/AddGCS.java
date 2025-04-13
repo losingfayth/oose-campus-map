@@ -18,10 +18,10 @@ public class AddGCS
         ArrayList<ArrayList<String>> nodeRecords = new ArrayList<>();
         ArrayList<ArrayList<String>> edgeRecords = new ArrayList<>();
 
-        String nodesCSVinPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db/nodes.csv";
+        String nodesCSVinPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db/csvs/nodes.csv";
 
-        String outPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db" +
-                "/nodeUpdated.csv";
+        String outPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db/csvs" +
+                "/nodesUpdated.csv";
         PrintWriter outStream = new PrintWriter(new File(outPath));
 
         try (Scanner scanner = new Scanner(new File(nodesCSVinPath)))
@@ -43,7 +43,12 @@ public class AddGCS
             updatedRow.add(currentRow.get(0));
             updatedRow.add(currentRow.get(1));
 
-            if (!currentRow.get(1).toLowerCase(Locale.ROOT).equals("x")) {
+            if (currentRow.get(2).charAt(0) == '-' && currentRow.get(3).charAt(0) != '-') {
+                currentRow.set(2, currentRow.get(2).substring(1));
+                currentRow.set(3, "-" + currentRow.get(3));
+            }
+
+            if (!currentRow.get(1).toLowerCase(Locale.ROOT).equals("x") && currentRow.get(2).equals("-1")) {
                 Point p = new Point(currentRow.get(1));
                 updatedRow.add(String.valueOf(p.lat));
                 updatedRow.add(String.valueOf(p.lng));
