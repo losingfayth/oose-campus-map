@@ -22,6 +22,7 @@ import generatePath from "../components/PathGenerator";
 
 import imagePaths, { getImageReference } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
+import { getBuildings, getRooms } from "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/test-map/app/apis/api_functions.js";
 
 /**
  *  To run this code, make sure you have the following libraries installed:
@@ -60,6 +61,19 @@ export default function Building() {
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
+
+  var buildings;
+  async function getBuildingTest() {
+    buildings = await getBuildings();
+
+    console.log("ID: " + buildings);
+    var rooms = await getRooms(buildings[0]);
+    console.log("ID building: " + rooms[0].building);
+
+  }
+  getBuildingTest();
+
+
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
