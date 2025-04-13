@@ -97,20 +97,26 @@ public class CampusMapController : ControllerBase
             RETURN nodeIds, totalCost
           }
 
-          RETURN nodeIds, totalCost
+          UNWIND nodeIds AS nodeId
+          MATCH (n) WHERE id(n) = nodeId
+          RETURN n.latitude AS latitude, n.longitude AS longitude
           ";
 
 
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      if (records.Count > 0) {
-        var path = records[0]["nodeIds"].As<List<long>>();
-        return Ok(path);
+      var path = new List<List<string>>();
+
+     foreach (var record in records) {
+        var latitude = record["latitude"].ToString();
+        var longitude = record["longitude"].ToString();
+        path.Add(new List<string> { latitude, longitude });
       }
-      // return records.Count > 0 ? records[0]["path"].As<List<string>>() : new List<string>();
+
 
       return Ok(new { message = "No Path Found! :()" });
+
     } catch(Exception e) {
         Console.WriteLine($"Error: {e.Message}");
         return StatusCode(500, new { error = e.Message });
