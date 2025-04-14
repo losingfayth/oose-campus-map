@@ -105,11 +105,12 @@ public class CampusMapController : ControllerBase {
 
         UNWIND nodeIds AS nodeId
         MATCH (n) WHERE id(n) = nodeId
+        OPTIONAL MATCH (n)-[:IS_IN]->(a:Area)
         RETURN 
           n.latitude AS latitude, 
           n.longitude AS longitude,
           n.floor AS floor,
-          n.building AS building
+          a.name AS building
         ";
 
       // run the above query on the database with the provided starting and ending
@@ -122,10 +123,10 @@ public class CampusMapController : ControllerBase {
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
       foreach (var record in records) {
-          var latitude = record["latitude"]?.ToString();
-          var longitude = record["longitude"]?.ToString();
-          var floor = record["floor"]?.ToString();
-          var building = record["building"]?.ToString() ?? "Unknown";
+          var latitude = record["latitude"].ToString();
+          var longitude = record["longitude"].ToString();
+          var floor = record["floor"].ToString();
+          var building = record["building"].ToString();
           path.Add(new List<string> { latitude, longitude, floor, building});
       }
 
