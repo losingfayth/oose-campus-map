@@ -81,7 +81,7 @@ public class CampusMapController : ControllerBase
       var query = @"
         MATCH (start:Location {id: $start})
         MATCH (end:Location {id: $destination})
-        WHERE end.isValidDestination = 'TRUE'
+        WHERE end.isValidDestination = 'true'
 
         CALL {
           WITH start, end
