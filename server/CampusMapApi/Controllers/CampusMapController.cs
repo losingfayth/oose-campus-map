@@ -124,8 +124,8 @@ public class CampusMapController : ControllerBase {
       foreach (var record in records) {
           var latitude = record["latitude"].ToString();
           var longitude = record["longitude"].ToString();
-          var floor = record["floor"].toString();
-          var building = record["building"].toString();
+          var floor = record["floor"].ToString();
+          var building = record["building"].ToString();
           path.Add(new List<string> { latitude, longitude, floor, building});
       }
 
