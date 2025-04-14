@@ -122,10 +122,10 @@ public class CampusMapController : ControllerBase {
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
       foreach (var record in records) {
-          var latitude = record["latitude"].ToString();
-          var longitude = record["longitude"].ToString();
-          var floor = record["floor"].ToString();
-          var building = record["building"].ToString();
+          var latitude = record["latitude"]?.ToString();
+          var longitude = record["longitude"]?.ToString();
+          var floor = record["floor"]?.ToString();
+          var building = record["building"]?.ToString() ?? "Unknown";
           path.Add(new List<string> { latitude, longitude, floor, building});
       }
 
