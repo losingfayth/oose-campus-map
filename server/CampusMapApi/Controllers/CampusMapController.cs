@@ -155,10 +155,9 @@ public class CampusMapController : ControllerBase {
 
     // query to retrieve all nodes' building and room number attributes
     var query = @"
-          MATCH (n:Location) 
-          WHERE n.building IS NOT NULL 
-          WITH n.building AS building, COLLECT(n)[0] AS node
-          RETURN building, node.id AS id
+          MATCH (a:Area)
+          WHERE a.name <> 'Outside'
+          RETURN a.name AS name
         ";
 
     var buildings = new List<string>(); // list of locations being queried
@@ -204,9 +203,8 @@ public class CampusMapController : ControllerBase {
 
     // query to get every room in a building from database
     var query = @"
-        MATCH (n:Location)
-        WHERE n.name IS NOT NULL AND n.building = $building
-        RETURN n.building AS building, n.name AS name, n.id AS id
+        MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+        RETURN a.name AS building, l.name AS name, l.id AS id
     ";
 
     // list to hold locations

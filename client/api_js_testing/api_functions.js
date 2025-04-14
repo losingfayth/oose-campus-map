@@ -2,7 +2,7 @@
 
 /* 
 Makes an Http GET request to server endpoint get-buildings.
-Returns a list of nodes representing all buidling locations stored in database. Each node
+Returns a list of nodes representing all building locations stored in database. Each node
 contains the following attributes: location code, floor, building, display name, isValidDestination
 */
 export async function getBuildings() {
