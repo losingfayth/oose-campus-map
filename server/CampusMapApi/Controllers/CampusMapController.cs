@@ -30,13 +30,11 @@ namespace CampusMapApi.Controllers;
 
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
-public class CampusMapController : ControllerBase
-{
+public class CampusMapController : ControllerBase {
 
   private readonly ILogger<CampusMapController> _logger;
 
-  public CampusMapController(ILogger<CampusMapController> logger)
-  {
+  public CampusMapController(ILogger<CampusMapController> logger) {
     _logger = logger;
   }
 
