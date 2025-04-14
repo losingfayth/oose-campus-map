@@ -24,7 +24,8 @@ import imagePaths, {
   getImageReference,
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
-import { getRooms, getBuildings } from "../apis/api_functions";
+import { getBuildings, getRooms, findPath } from "../apis/api_functions.js";
+
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
