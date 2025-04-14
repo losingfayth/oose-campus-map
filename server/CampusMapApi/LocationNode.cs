@@ -9,11 +9,11 @@ namespace CampusMapApi
     public class LocationNode
     {
         public string id { get; set; } = string.Empty; // unique node identifier
-        public string locationCode { get; set; } = string.Empty;
-        public int floor { get; set; } // floor level
         public string building { get; set; } = string.Empty; // building name
-        public string roomNumber { get; set; } = string.Empty; // room number
-        public string name { get; set; } = string.Empty; // name
+        public float latitude { get; set; } // latitude
+        public float longitude { get; set; } // longitude
+        public float floor { get; set; } // floor level
+        public string name { get; set; } = string.Empty; // room descriptor
         public bool isValidDestination { get; set; } // can a user end at this destination?
     }
 }
