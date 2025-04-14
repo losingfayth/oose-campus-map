@@ -105,7 +105,11 @@ public class CampusMapController : ControllerBase {
 
         UNWIND nodeIds AS nodeId
         MATCH (n) WHERE id(n) = nodeId
-        RETURN n.latitude AS latitude, n.longitude AS longitude
+        RETURN 
+          n.latitude AS latitude, 
+          n.longitude AS longitude,
+          n.floor AS floor,
+          n.building AS building
         ";
 
       // run the above query on the database with the provided starting and ending
@@ -120,7 +124,9 @@ public class CampusMapController : ControllerBase {
       foreach (var record in records) {
           var latitude = record["latitude"].ToString();
           var longitude = record["longitude"].ToString();
-          path.Add(new List<string> { latitude, longitude });
+          var floor = record["floor"].toString();
+          var building = record["building"].toString();
+          path.Add(new List<string> { latitude, longitude, floor, building});
       }
 
       // check if a path was found and return it if it was
