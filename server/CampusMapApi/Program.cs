@@ -11,10 +11,8 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "5159";
 var urls = $"https://0.0.0.0:{port}";
 
 // configure Kestrel
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(int.Parse(port), listenOptions =>
-    {
+builder.WebHost.ConfigureKestrel(options => {
+    options.ListenAnyIP(int.Parse(port), listenOptions => {
         listenOptions.UseHttps("certs/cert.pfx", "BlooMap");
     });
 });
@@ -26,8 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // add support for calling api endpoints from brower
-builder.Services.AddCors(options =>
-{
+builder.Services.AddCors(options => {
     options.AddPolicy("AllowAllOrigins",
         policy => policy.AllowAnyOrigin()
                         .AllowAnyMethod()
@@ -38,15 +35,14 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection(); // redirect http requests to https
 app.UseCors("AllowAllOrigins"); // allow javascript to call api from browswer
+app.UseHttpsRedirection(); // redirect http requests to https
 app.UseAuthorization();
 app.MapControllers(); // tell ASP.NET Core to use controller-based routes
 app.Run(); // start web server and begin listening for requests
