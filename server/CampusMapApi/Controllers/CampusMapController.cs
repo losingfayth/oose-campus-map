@@ -62,26 +62,25 @@ public class CampusMapController : ControllerBase
 
     try {
 
-      // create and run query to see if there is an existing graph projection
-      // var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
-      // var existsResult = await session.RunAsync(checkQuery);
-      // var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
-      
-      // if it does not exist, run query to make it
-      // if (!exists) {
-        var createQuery = @"
-        CALL gds.graph.project(
-          'campusGraph', {
-            Location: {
-              properties: ['latitude', 'longitude']
-            }
-          }, {
+      // drop existing graph projection
+      CALL gds.graph.drop('campusGraph', false);
+
+      // create new graph projection
+      var createProjection = @"
+      CALL gds.graph.project(
+        'campusGraph', {
+          Location: {
+            properties: ['latitude', 'longitude']
+          }
+        } , {
           CONNECTED_TO: {
-            type: 'CONNECTED_TO',
-            properties: 'distance' 
-        }})";
-        await session.RunAsync(createQuery);
-      // }
+          type: 'CONNECTED_TO',
+          properties: 'distance'
+          }
+        })";
+
+        // run prjection creation query
+        await session.RunAsync(createProjection);
 
       // query to use A* algorithm on database
       var query = @"
