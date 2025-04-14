@@ -79,15 +79,17 @@ public class CampusMapController : ControllerBase
 
       // query to use A* algorithm on database
       var query = @"
-        MATCH (start:Location {id: $start})
-        MATCH (end:Location {id: $destination})
-        WHERE end.isValidDestination = 'true'
+        MATCH (startNode:Location {id: $start})
+        MATCH (endNode:Location {id: $destination})
+        WHERE endNode.isValidDestination = true
+
+        WITH id(startNode) AS startId, id(endNode) AS endId
 
         CALL {
-          WITH start, end
+          WITH startId, endId
           CALL gds.shortestPath.astar.stream('campusGraph', {
-            sourceNode: start,
-            targetNode: end,
+            sourceNode: startId,
+            targetNode: endId,
             relationshipWeightProperty: 'distance',
             latitudeProperty: 'latitude',
             longitudeProperty: 'longitude'
