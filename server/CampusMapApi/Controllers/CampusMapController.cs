@@ -115,7 +115,7 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
-      Console.WriteLine("Error in GetBuildigns()");
+      Console.WriteLine("Error in GetBuildings()");
       Console.WriteLine($"Error: {e.Message}");
     }
 
