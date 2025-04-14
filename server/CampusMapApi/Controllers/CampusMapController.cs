@@ -107,14 +107,29 @@ public class CampusMapController : ControllerBase
 
       var path = new List<List<string>>();
 
-     foreach (var record in records) {
-        var latitude = record["latitude"].ToString();
-        var longitude = record["longitude"].ToString();
-        path.Add(new List<string> { latitude, longitude });
+      foreach (var record in records)
+      {
+          var latitude = record["latitude"].ToString();
+          var longitude = record["longitude"].ToString();
+          path.Add(new List<string> { latitude, longitude });
       }
 
+      if (path.Count > 0)
+      {
+          return Ok(new { message = "Path found!", path });
+      }
+      else
+      {
+          return Ok(new { message = "No Path Found! :(" });
 
-      return Ok(new { message = "No Path Found! :()" });
+    //  foreach (var record in records) {
+    //     var latitude = record["latitude"].ToString();
+    //     var longitude = record["longitude"].ToString();
+    //     path.Add(new List<string> { latitude, longitude });
+    //   }
+
+
+      // return Ok(new { message = "No Path Found! :()" });
 
     } catch(Exception e) {
         Console.WriteLine($"Error: {e.Message}");
