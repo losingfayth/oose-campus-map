@@ -121,6 +121,7 @@ public class CampusMapController : ControllerBase
       else
       {
           return Ok(new { message = "No Path Found! :(" });
+      }
 
     //  foreach (var record in records) {
     //     var latitude = record["latitude"].ToString();
