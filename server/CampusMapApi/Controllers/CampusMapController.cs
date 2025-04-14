@@ -7,6 +7,12 @@ Establishes a web API controller to handle server-side requests from front-end.
 
 **API Enpoints**
 
+find-path
+- HttpPost request that recieves a JSON object containing two database node ids for
+  a starting location and destination. Runs a query that finds the shortest path
+  between two points. Returns a list of lists. Internal lists are length 2 and contain
+  the latitude and longitude associated with each node along the shortest path.
+
 get-buildings
 - HttpGet request that takes no arguments. When called, does a DB query to Neo4j
   to retrieve building name, room number, and unique id of every node for every room
@@ -35,12 +41,15 @@ public class CampusMapController : ControllerBase
   }
 
 
-  // http POST endpoint accessible at POST /api/CampusMap/find-path
+  /*
+  Queries database for shortest path between two points using A* GDS plugin for
+  Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
+  */ 
   [HttpPost("find-path")]
   public async Task<IActionResult> FindPath([FromBody] PathRequest request) {
     
-    int start = request.start;
-    int destination = request.destination;
+    int start = request.start; // get starting node id
+    int destination = request.destination; // get destination node id
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -53,29 +62,26 @@ public class CampusMapController : ControllerBase
 
     try {
 
-      // drop existing graph projection
-      var dropProjection = @"
-      CALL gds.graph.drop('campusGraph', false);";
-      await session.RunAsync(dropProjection);
+      // create and run query to see if there is an existing graph projection
+      var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
+      var existsResult = await session.RunAsync(checkQuery);
+      var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
       
-
-      // create new graph projection
-      var createProjection = @"
+      // if it does not exist, run query to make it
+      if (!exists) {
+        var createQuery = @"
         CALL gds.graph.project(
           'campusGraph', {
             Location: {
-                properties: ['latitude', 'longitude']
+              properties: ['latitude', 'longitude']
             }
           }, {
           CONNECTED_TO: {
-              type: 'CONNECTED_TO',
-              properties: 'distance'
-          }
-          }
-        )";
-      
-      // run prjection creation query
-      await session.RunAsync(createProjection);
+            type: 'CONNECTED_TO',
+            properties: 'distance' 
+        }})";
+        await session.RunAsync(createQuery);
+      }
 
       // query to use A* algorithm on database
       var query = @"
@@ -103,36 +109,27 @@ public class CampusMapController : ControllerBase
         RETURN n.latitude AS latitude, n.longitude AS longitude
         ";
 
-
+      // run the above query on the database with the provided starting and ending
+      // ids, then put it into a list
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      var path = new List<List<string>>();
+      var path = new List<List<string>>(); // list of lists for lat and longs
 
-      foreach (var record in records)
-      {
+      // iterate over the list of nodes, getting each lat and long value and adding
+      // it to the path List<>
+      foreach (var record in records) {
           var latitude = record["latitude"].ToString();
           var longitude = record["longitude"].ToString();
           path.Add(new List<string> { latitude, longitude });
       }
 
-      if (path.Count > 0)
-      {
-          return Ok(new { message = "Path found!", path });
+      // check if a path was found and return it if it was
+      if (path.Count > 0) {
+        return Ok(new { message = "Path found!", path });
+      } else {
+        return Ok(new { message = "No Path Found!" });
       }
-      else
-      {
-          return Ok(new { message = "No Path Found! :(" });
-      }
-
-    //  foreach (var record in records) {
-    //     var latitude = record["latitude"].ToString();
-    //     var longitude = record["longitude"].ToString();
-    //     path.Add(new List<string> { latitude, longitude });
-    //   }
-
-
-      // return Ok(new { message = "No Path Found! :()" });
 
     } catch(Exception e) {
         Console.WriteLine($"Error: {e.Message}");
@@ -141,7 +138,7 @@ public class CampusMapController : ControllerBase
   }
 
   /** 
-  Queries database for all nodes and returns a list of location objects.
+  Queries database for all nodes and returns a list of building names.
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
   */
   [HttpGet("get-buildings")]
@@ -165,42 +162,35 @@ public class CampusMapController : ControllerBase
           RETURN building, node.id AS id
         ";
 
-    var locations = new List<string>(); // list of locations being queried
+    var buildings = new List<string>(); // list of locations being queried
 
-    try
-    {
+    try {
 
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      await result.ForEachAsync(record =>
-      {
-
+      await result.ForEachAsync(record => {
         string building = record["building"].As<string>();
-        locations.Add(building);
-
+        buildings.Add(building);
       });
 
-      // catch and display any errors encountered
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       Console.WriteLine($"Error: {e.Message}");
     }
 
     // return the list of location nodes and the status of the call
-    return Ok(locations);
+    return Ok(buildings);
   }
 
   /** 
-  Queries database for all nodes and returns a list of location objects.
-  http POST api endpoint accessible at GET /api/CampusMap/get-rooms
+  Queries database for all rooms withing a building and returns a 
+  list of location objects. Http POST api endpoint accessible at 
+  GET /api/CampusMap/get-rooms
   */
   [HttpPost("get-rooms")]
-  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
-  {
+  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request) {
     var building = request.building;
 
     // initial db connection
@@ -213,48 +203,47 @@ public class CampusMapController : ControllerBase
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    // Cypher query that filters by building
+    // query to get every room in a building from database
     var query = @"
         MATCH (n:Location)
         WHERE n.name IS NOT NULL AND n.building = $building
         RETURN n.building AS building, n.name AS name, n.id AS id
     ";
 
-    var locations = new List<LocationNode>();
+    // list to hold locations
+    var rooms = new List<LocationNode>();
 
-    try
-    {
+    try {
+
+      // run the building query
       var result = await session.RunAsync(query, new { building });
 
-      await result.ForEachAsync(record =>
-      {
-        LocationNode node = new LocationNode
-        {
+      // iterate over results to get all of the buildings and their ids
+      await result.ForEachAsync(record => {
+        LocationNode node = new LocationNode {
           building = record["building"].As<string>(),
           name = record["name"].As<string>(),
           id = record["id"].As<string>()
         };
 
-        locations.Add(node);
+        // add each location node to the list
+        rooms.Add(node);
       });
 
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       Console.WriteLine($"Error: {e.Message}");
     }
 
-    return Ok(locations);
+    return Ok(rooms);
   }
+  
 
   // DTO for request body
-  public class BuildingRequest
-  {
+  public class BuildingRequest {
     public string building { get; set; }
   }
 
-  public class PathRequest
-{
+  public class PathRequest {
     public int start { get; set; }
     public int destination { get; set; }
 }
