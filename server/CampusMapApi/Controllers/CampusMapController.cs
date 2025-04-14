@@ -63,12 +63,12 @@ public class CampusMapController : ControllerBase
     try {
 
       // create and run query to see if there is an existing graph projection
-      var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
-      var existsResult = await session.RunAsync(checkQuery);
-      var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
+      // var checkQuery = "CALL gds.graph.exists('campusGraph') YIELD exists RETURN exists";
+      // var existsResult = await session.RunAsync(checkQuery);
+      // var exists = await existsResult.SingleAsync(r => r["exists"].As<bool>());
       
       // if it does not exist, run query to make it
-      if (!exists) {
+      // if (!exists) {
         var createQuery = @"
         CALL gds.graph.project(
           'campusGraph', {
@@ -81,7 +81,7 @@ public class CampusMapController : ControllerBase
             properties: 'distance' 
         }})";
         await session.RunAsync(createQuery);
-      }
+      // }
 
       // query to use A* algorithm on database
       var query = @"
