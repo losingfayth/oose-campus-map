@@ -10,114 +10,90 @@ import java.util.Scanner;
 
 public class UpdateCSVDistances
 {
-    private static int AVG_MPH_WALKING_SPEED = 3;
-    private static int STAIRWELL_TRAVERSAL_TIME = 20;
-    private static double STAIRWELL_SLOWING_FACTOR = 1.2;
-    private static double EARTH_RADIUS_MILES = 3963.1;
-    private static int SECONDS_PER_HOUR = 3600;
+    private static final int HOW_MANY_FEET_IS_ONE_FLIGHT_OF_STAIRS_WORTH_APPROXIMATION_ID_SAY = 50;
+    private static final double HOW_MANY_FEET_PER_MILE = 5280.0;
+    private static final double EARTH_RADIUS_MILES = 3963.1;
 
-    public static void main(String[] args) throws FileNotFoundException
+
+    public static void main(String[] args) throws Exception
     {
-        HashMap<String, Integer> idtoRowMap = new HashMap<>();
+        HashMap<String, Integer> idToPoint = new HashMap<>();
 
         ArrayList<ArrayList<String>> nodeRecords = new ArrayList<>();
-        ArrayList<ArrayList<String>> edgeRecords = new ArrayList<>();
 
-        String nodesCSVinPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db/nodes.csv";
-        String edgesCSVinPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map" +
-                "/db/edges.csv";
-        String outPath = "/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/db" +
-                "/edgesUpdated.csv";
+        String relativePath = "../..";
+        String nodesCSVinPath = relativePath + "/db/csvs/Location.csv";
+        String edgesCSVinPath = relativePath + "/db/csvs/CONNECTED_TO.csv";
+        String outPath = relativePath + "/db/csvs/CONNECTED_TO_Updated.csv";
+
+        CSVRecord locationRecords = CSVRecord.ReadCSV(nodesCSVinPath);
+        CSVRecord edgeRecords = CSVRecord.ReadCSV(edgesCSVinPath);
+
+        for (int i = 0; i < locationRecords.rows.size(); i++) {
+            if (idToPoint.containsKey(locationRecords.rows.get(i).get("id"))) {
+                throw new Exception("at row " + i + " duplicate id: " + locationRecords.rows.get(i).get("id") + " found");
+            }
+            idToPoint.put(locationRecords.rows.get(i).get("id"), i);
+
+        }
+// startId	endId	distance
+        CSVRecord updatedEdges = new CSVRecord(edgeRecords.getColumnHeaders());
+
+        for (int i = 0; i < edgeRecords.rows.size(); i++) {
+            CSVRecord.CSVRow currRow = edgeRecords.rows.get(i);
+            String startID = currRow.get("startId");
+            String endID = currRow.get("endId");
+            System.out.printf("%d | %s -> %s | ", i, startID, endID);
+
+            if (i + 1 < edgeRecords.rows.size()) {
+                CSVRecord.CSVRow nextRow = edgeRecords.rows.get(i+1);
+                if ((startID.equals(nextRow.get("endId")) && endID.equals(nextRow.get(
+                        "startId")))) {
+                    continue;
+                }
+            }
+
+            int startIndex = idToPoint.get(startID);
+            int endIndex = idToPoint.get(endID);
+            System.out.printf(" %d -> %d = ", startIndex, endIndex);
+            double distanceInNauticalMiles =
+                    calculateDistance(locationRecords.rows.get(startIndex),
+                    locationRecords.rows.get(endIndex));
+            System.out.printf("%f%n", distanceInNauticalMiles);
+            currRow.setValue("distance", String.valueOf(distanceInNauticalMiles));
+            updatedEdges.addRow(currRow);
+        }
+
+
         PrintWriter outStream = new PrintWriter(new File(outPath));
+        outStream.print(updatedEdges.getCSVFormat());
+        outStream.flush();
+        outStream.close();
 
-        try (Scanner scanner = new Scanner(new File(nodesCSVinPath)))
-        {
-            while (scanner.hasNextLine())
-            {
-                ArrayList<String> row = getRecordFromLine(scanner.nextLine());
-                for (int i = 0; i < row.size(); i++) {
-                    outStream.print(row.get(i));
-                    if (i + 1 < row.size()) {
-                        outStream.print(",");
-                    }
-                }
-                idtoRowMap.put(row.get(0), nodeRecords.size());
-                nodeRecords.add(row);
-            }
-        }
-
-        System.out.println(nodeRecords.get(idtoRowMap.get("3001")));
-
-        try (Scanner scanner = new Scanner(new File(edgesCSVinPath))) {
-            while (scanner.hasNextLine()) {
-                ArrayList<String> row = getRecordFromLine(scanner.nextLine());
-
-                edgeRecords.add(row);
-            }
-        }
-
-//        System.out.println(nodeRecords.get(idtoRowMap.get("153")));
-//        System.out.println(nodeRecords.get(idtoRowMap.get("167")));
-        System.out.println(edgeRecords.size());
-        for (int i = 1; i < edgeRecords.size(); i++) {
-            ArrayList<String> row = edgeRecords.get(i);
-
-            if (row.get(2).equals("1") || row.get(2).equals("-1")) {
-                ArrayList<String> n1 = nodeRecords.get(idtoRowMap.get(row.get(0)));
-                ArrayList<String> n2 = nodeRecords.get(idtoRowMap.get(row.get(1)));
-
-                if (!(n1.get(1).equals("x") || n2.get(1).equals("x"))) {
-//                    printList(n1);
-//                    printList(n2);
-
-                    row.set(2, String.valueOf(calculateTravelTime(n1, n2)));
-
-                }
-            }
-        }
-        System.out.println(edgeRecords.size());
-
-//        outStream = new PrintWriter(new File(outPath));
-//        for (ArrayList<String> list : edgeRecords) {
-//            for (int i = 0; i < list.size(); i++) {
-//                System.out.print(list.get(i));
-//                outStream.print(list.get(i));
-//                if (i+1 < list.size()) {
-//                    outStream.print(",");
-//                    System.out.print(",");
-//                }
-//            }
-//            outStream.print("\n");
-//            System.out.print("\n");
-//        }
-
-
-//        for (ArrayList<String> list : edgeRecords) {
-//            for (String s : list) {
-//                System.out.printf("%s | ", s);
-//            }
-//            System.out.println();
-//        }
+        System.out.println(updatedEdges.getCSVFormat());
 
 
     }
 
-    private static int calculateTravelTime(ArrayList<String> n1, ArrayList<String> n2)
+    private static double calculateDistance(CSVRecord.CSVRow locStart,
+                                            CSVRecord.CSVRow locEnd)
     {
-        Point p1 = new Point(n1.get(1));
-        Point p2 = new Point(n2.get(1));
-        int travelTime = 0;
-
-        int floorChange = floorChange(n1, n2);
-        
-        if (floorChange != 0) {
-            for (int i = 0; i < floorChange; i++) {
-                travelTime += Math.floor(STAIRWELL_TRAVERSAL_TIME * ((Math.pow(STAIRWELL_SLOWING_FACTOR, i))));
-            }
-        } 
-        
-        return (int) Math.floor((travelTime + (distance(p1, p2) / AVG_MPH_WALKING_SPEED) * SECONDS_PER_HOUR));
+        double distance = distance(pointFromRow(locStart), pointFromRow(locEnd));
+        if (locStart.get("areaId").equals("10") || locStart.get("floor").equals(locEnd.get("floor"))) {
+            return distance;
+        } else { // then we're inside and changing floors
+            double floorsChanged = Math.abs(
+                    Double.parseDouble(locStart.get("floor")) - Double.parseDouble(locEnd.get("floor")));
+            distance += floorsChanged * HOW_MANY_FEET_IS_ONE_FLIGHT_OF_STAIRS_WORTH_APPROXIMATION_ID_SAY / HOW_MANY_FEET_PER_MILE;
+            return distance;
+        }
     }
+
+    private static Point pointFromRow(CSVRecord.CSVRow row) {
+        return new Point(Double.parseDouble(row.get("latitude")),
+                Double.parseDouble(row.get("longitude")));
+    }
+
 
     private static double distance(Point p1, Point p2)
     {
@@ -133,46 +109,4 @@ public class UpdateCSVDistances
         return degrees * Math.PI / 180;
     }
 
-    private static int floorChange(ArrayList<String> n1, ArrayList<String> n2)
-    {
-        return (int) Math.floor(Double.parseDouble(n1.get(2)) - Double.parseDouble(n2.get(2)));
-    }
-
-
-    private static class Point {
-        double lat, lng;
-
-        public Point(double lat, double lng) {
-            this.lat = lat;
-            this.lng = lng;
-        }
-
-        public Point(String openLocationCode) {
-            this.lat = (OpenLocationCode.decode(openLocationCode).getCenterLatitude());
-            this.lng = OpenLocationCode.decode(openLocationCode).getCenterLongitude();
-        }
-    }
-
-    private static void printList(ArrayList<String> n1)
-    {
-        for (String s : n1) {
-            System.out.printf("%s | ",s);
-        }
-        System.out.println();
-    }
-
-
-    private static ArrayList<String> getRecordFromLine(String line)
-    {
-        ArrayList<String> values = new ArrayList<String>();
-        try (Scanner rowScanner = new Scanner(line))
-        {
-            rowScanner.useDelimiter(",");
-            while (rowScanner.hasNext())
-            {
-                values.add(rowScanner.next());
-            }
-        }
-        return values;
-    }
 }
