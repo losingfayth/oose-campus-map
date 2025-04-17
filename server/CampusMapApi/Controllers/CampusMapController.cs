@@ -110,6 +110,7 @@ public class CampusMapController : ControllerBase {
           n.latitude AS latitude, 
           n.longitude AS longitude,
           n.floor AS floor,
+          n.id AS id,
           a.name AS building
         ";
 
@@ -129,9 +130,10 @@ public class CampusMapController : ControllerBase {
       foreach (var record in records) {
 
         // initialize records from node
-        var latitude = record["latitude"].ToString();
-        var longitude = record["longitude"].ToString();
-        var floor = record["floor"].ToString();
+        var latitude = record["latitude"];
+        var longitude = record["longitude"];
+        var floor = record["floor"];
+        var id = record["id"].ToString();
         var area = record["building"].ToString();
 
         // check if this is the first pass-through the records. if so, initialize
@@ -206,7 +208,7 @@ public class CampusMapController : ControllerBase {
       // node with those attributes. add the node to the list
       await result.ForEachAsync(record => {
         BuildingDto node = new BuildingDto();
-        node.building = record["building"].As<string>();
+        node.name = record["building"].As<string>();
         buildings.Add(node);
       });
 
@@ -260,7 +262,7 @@ public class CampusMapController : ControllerBase {
         };
 
         // add each location node to the list
-        rooms.Add(node);
+        rooms.Add(room);
       });
 
     } catch (Exception e) {
