@@ -153,6 +153,13 @@ public class CampusMapController : ControllerBase
     }
   }
 
+  [HttpGet("get-hello")]
+
+  public async Task<IActionResult> GetHello()
+  {
+    return Ok("hello");
+  }
+
   /** 
   Queries database for all nodes and returns a list of building names.
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
