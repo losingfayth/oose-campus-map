@@ -120,8 +120,8 @@ public class CampusMapController : ControllerBase {
 
       var path = new List<List<string>>(); // list of lists for lat and longs
       bool firstPass = true; // flags if it is first pass-through records
-      var currArea; // tracking variable to store current area nodes are in
-      var currFloor; // tracking variable to store current floor nodes are in
+      string currArea = ""; // tracking variable to store current area nodes are in
+      string currFloor = ""; // tracking variable to store current floor nodes are in
       int i = -1; // iterator var
 
       // iterate over the list of nodes, getting each lat and long value and adding
