@@ -46,11 +46,11 @@ public class CampusMapController : ControllerBase
   Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
   */
   [HttpPost("find-path")]
-  public async Task<IActionResult> FindPath(int idStart, int idEnd)
+  public async Task<IActionResult> FindPath([FromBody] PathRequest request)
   {
 
-    int start = idStart; // get starting node id
-    int destination = idEnd; // get destination node id
+    int start = request.start; // get starting node id
+    int destination = request.destination; // get destination node id
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -160,53 +160,6 @@ public class CampusMapController : ControllerBase
     return Ok("hello");
   }
 
-  // [HttpGet("get-ben")]
-  // public async Task<IActionResult> GetBen()
-  // {
-
-  //   // initial db connection
-  //   var uri = "neo4j+s://apibloomap.xyz:7687";
-  //   var username = Environment.GetEnvironmentVariable("DB_USER")
-  //     ?? throw new InvalidOperationException("DB_USER is not set");
-  //   var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
-  //     ?? throw new InvalidOperationException("DB_PASSWORD is not set");
-
-  //   IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-  //   await using var session = _driver.AsyncSession();
-
-  //   // query to retrieve all nodes' building and room number attributes
-  //   var query = @"
-  //         MATCH (a:Area)
-  //         WHERE a.name = 'Ben Franklin Hall'
-  //         RETURN a.name AS name
-  //       ";
-
-  //   var buildings = new string(""); // list of locations being queried
-
-  //   try
-  //   {
-
-  //     // run the query on the database at store result set            
-  //     var result = await session.RunAsync(query);
-
-  //     buildings = result[""]
-  //     // get the key attributes from each record and create a location 
-  //     // node with those attributes. add the node to the list
-  //     await result.ForEachAsync(record =>
-  //     {
-  //       string building = record["name"].As<string>();
-  //       buildings.Add(building);
-  //     });
-
-  //   }
-  //   catch (Exception e)
-  //   {
-  //     Console.WriteLine($"Error: {e.Message}");
-  //   }
-
-  //   // return the list of location nodes and the status of the call
-  //   return Ok(buildings);
-  // }
 
   /** 
   Queries database for all nodes and returns a list of building names.
