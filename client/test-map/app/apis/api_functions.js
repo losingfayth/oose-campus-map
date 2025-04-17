@@ -1,5 +1,7 @@
 // functions to make calls to server
 
+const PORT = "5159";
+
 /* 
 Makes an Http GET request to server endpoint get-buildings.
 Returns a list of nodes representing all buidling locations stored in database. Each node
@@ -10,7 +12,7 @@ export async function getBuildings() {
   try {
     // use fetch to make an http request to server at get-location endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5159/api/CampusMap/get-buildings"
+      "https://apibloomap.xyz:" + PORT + "/api/CampusMap/get-buildings"
     );
 
     // console.log("Raw response:", response); // check the full response object
@@ -37,7 +39,7 @@ export async function getRooms(building) {
     // use fetch to make an http request to server at get-location endpoint
     // use fetch to make an http request to server at find-path endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5159/api/CampusMap/get-rooms",
+      "https://apibloomap.xyz:" + PORT + "/api/CampusMap/get-rooms",
       {
         method: "POST", // http POST request
         headers: { "Content-Type": "application/json" }, // sending data as json
@@ -63,21 +65,25 @@ Returns
 */
 export async function findPath(currLoc, destination) {
   console.log("Running FindPath()");
+  var request = {
+    "start": currLoc,
+    "destination": destination,
+  }
   try {
     // use fetch to make an http request to server at find-path endpoint
     const response = await fetch(
-      "https://apibloomap.xyz:5159/api/CampusMap/find-path",
+      "https://apibloomap.xyz:" + PORT + "/api/CampusMap/find-path",
       {
         method: "POST", // http POST request
         headers: { "Content-Type": "application/json" }, // sending data as json
-        body: JSON.stringify({ currLoc, destination }), // convert js to json before sending
+        body: JSON.stringify(request), // convert js to json before sending
       }
     );
 
-    console.log("Raw response:", response); // check the full response object
+    // console.log("Raw response:", response); // check the full response object
     const data = await response.json();
-    console.log("Parsed JSON:", data);
 
+    return data;
     // throw error if fetch is unsuccessful
   } catch (error) {
     console.error("Error fetching path: ", error);

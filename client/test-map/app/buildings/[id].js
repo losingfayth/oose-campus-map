@@ -25,7 +25,7 @@ import imagePaths, {
 } from "../assets/build_images/imagePaths";
 import CoordinateMap from "../utils/CoordinateMap";
 import { getBuildings, getRooms, findPath } from "../apis/api_functions.js";
-
+import LocationNode from "../dataObjects/LocationNode.js";
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
@@ -75,7 +75,8 @@ export default function Building() {
 
     console.log("ID: " + buildings);
     var rooms = await getRooms(buildings[0]);
-    console.log("ID building: " + rooms[0].building);
+    let n = new LocationNode(rooms[0]);
+    console.log("ID building: " + n.getID());
 
   }
   getBuildingTest();

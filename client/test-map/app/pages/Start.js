@@ -18,6 +18,7 @@ import { points } from "../components/Points";
 import { loadImageReferences } from "../assets/build_images/imagePaths";
 
 import { getBuildings, getRooms, findPath } from "../apis/api_functions";
+import ProcessedPath from "../dataObjects/ProcessedPath";
 
 export default function Start() {
   const [location, setLocation] = useState(null);
@@ -170,10 +171,41 @@ export default function Start() {
           ) {
             console.log("Not null");
 
-            // Create array of room IDs: [fromRoomId, toRoomId]
-            const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-            console.log("Room ID array:", roomIdArray);
+            async function getPath() {
+              try {
+                // Create array of room IDs: [fromRoomId, toRoomId]
+                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                const roomIdArray = [22, 28];
 
+                console.log("Room ID array:", roomIdArray);
+
+                var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
+                console.log(pathData)
+                const processedPath = new ProcessedPath(pathData.path);
+                for (let i = 0; i < processedPath.locations.length; i++) {
+                  console.log(i + " | " + processedPath.locations[i].getID());
+                }
+                // console.log("Get Rooms: ", await getRooms("Navy"));
+                // setBuildingOptions(buildings); // save to state
+              } catch (e) {
+                console.error("Error fetching path:", e);
+              }
+            }
+
+            getPath();
+
+
+
+
+            // let parsedJson = JSON.parse(path);
+            // let array = parsedJson.data;
+            // console.log(array.length);
+
+            // let processedPath = new ProcessedPath(path.data);
+
+            // for (let i = 0; i < processedPath.length; i++) {
+            //   console.log(i + " | " + processedPath.locations[i].getID());
+            // }
             // Proceed with navigation
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({

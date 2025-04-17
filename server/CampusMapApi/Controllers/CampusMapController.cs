@@ -122,17 +122,21 @@ public class CampusMapController : ControllerBase
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      var path = new List<List<string>>(); // list of lists for lat and longs
+      var path = new List<LocationNode>(); // list of lists for lat and longs
 
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
       foreach (var record in records)
       {
-        var latitude = record["latitude"].ToString();
-        var longitude = record["longitude"].ToString();
-        var floor = record["floor"].ToString();
-        var building = record["building"].ToString();
-        path.Add(new List<string> { latitude, longitude, floor, building });
+        LocationNode node = new LocationNode
+        {
+          latitude = record["latitude"].As<float>(),
+          longitude = record["longitude"].As<float>(),
+          floor = record["floor"].As<string>(),
+          building = record["building"].As<string>(),
+        };
+
+        path.Add(node);
       }
 
       // check if a path was found and return it if it was

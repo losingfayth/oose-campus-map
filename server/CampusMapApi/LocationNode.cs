@@ -10,6 +10,8 @@ namespace CampusMapApi
     {
         public string id { get; set; } = string.Empty; // unique node identifier
         public string locationCode { get; set; } = string.Empty;
+        public float latitude { get; set; }
+        public float longitude { get; set; }
         public int floor { get; set; } // floor level
         public string building { get; set; } = string.Empty; // building name
         public string roomNumber { get; set; } = string.Empty; // room number
