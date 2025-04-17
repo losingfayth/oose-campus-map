@@ -33,6 +33,23 @@ public class DBRepopulator {
         final CSV connections = new CSV(connectedToFile);
         final CSV areas = new CSV(areaFile);
 
+        // Test cases
+        var locationsHeaders = locations.getHeaders();
+        if (locationsHeaders.containsKey("latitude")) {
+            assert locations.getColumnType("latitude").equals("double");
+        }
+        if (locationsHeaders.containsKey("longitude")) {
+            assert locations.getColumnType("longitude").equals("double");
+        }
+        if (locationsHeaders.containsKey("isValidDestination")) {
+            assert locations.getColumnType("isValidDestination").equals("boolean");
+        }
+
+        var connectionsHeaders = connections.getHeaders();
+        if (connectionsHeaders.containsKey("distance")) {
+            assert connections.getColumnType("distance").equals("int");
+        }
+
         long startTime;
         try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
             driver.verifyConnectivity();
