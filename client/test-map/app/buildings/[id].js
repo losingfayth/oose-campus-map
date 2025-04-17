@@ -74,7 +74,7 @@ export default function Building() {
     buildings = await getBuildings();
 
     console.log("ID: " + buildings);
-    var rooms = await getRooms(buildings[0]);
+    var rooms = await getRooms("Ben Franklin");
     console.log("ID building: " + rooms[0].building);
 
   }
