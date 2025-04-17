@@ -119,7 +119,7 @@ public class CampusMapController : ControllerBase {
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      var path = new List<List<string>>(); // list of lists for lat and longs
+      var path = new List<List<PathNodeDto>>(); // list of lists for node data
       bool firstPass = true; // flags if it is first pass-through records
       string currArea = ""; // tracking variable to store current area nodes are in
       string currFloor = ""; // tracking variable to store current floor nodes are in
@@ -146,14 +146,14 @@ public class CampusMapController : ControllerBase {
           path.Add(new List<PathNodeDto>());
           i++;
           currArea = area;
-          currFloor = float.Parse(floor);
+          currFloor = floor;
           firstPass = false;
         } 
 
         // add a new node at the correct index
         path[i].Add(new PathNodeDto {
           latitude = float.Parse(latitude),
-          longitude = float.parse(longitude),
+          longitude = float.Parse(longitude),
           floor = float.Parse(floor),
           building = area,
           id = id
