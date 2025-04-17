@@ -130,9 +130,9 @@ public class CampusMapController : ControllerBase {
       foreach (var record in records) {
 
         // initialize records from node
-        var latitude = record["latitude"];
-        var longitude = record["longitude"];
-        var floor = record["floor"];
+        float latitude = record["latitude"];
+        flaot longitude = record["longitude"];
+        float floor = record["floor"];
         var id = record["id"].ToString();
         var area = record["building"].ToString();
 
