@@ -130,9 +130,9 @@ public class CampusMapController : ControllerBase {
       foreach (var record in records) {
 
         // initialize records from node
-        float latitude = record["latitude"];
-        flaot longitude = record["longitude"];
-        float floor = record["floor"];
+        var latitude = record["latitude"].ToString();
+        var longitude = record["longitude"].ToString();
+        var floor = record["floor"].ToString();
         var id = record["id"].ToString();
         var area = record["building"].ToString();
 
@@ -146,14 +146,14 @@ public class CampusMapController : ControllerBase {
           path.Add(new List<PathNodeDto>());
           i++;
           currArea = area;
-          currFloor = floor;
+          currFloor = float.Parse(floor);
           firstPass = false;
         } 
 
         // add a new node at the correct index
         path[i].Add(new PathNodeDto {
-          latitude = latitude,
-          longitude = longitude,
+          latitude = float.Parse(latitude),
+          longitude = float.parse(longitude),
           floor = float.Parse(floor),
           building = area,
           id = id
