@@ -46,11 +46,11 @@ public class CampusMapController : ControllerBase
   Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
   */
   [HttpPost("find-path")]
-  public async Task<IActionResult> FindPath([FromBody] PathRequest request)
+  public async Task<IActionResult> FindPath(int idStart, int idEnd)
   {
 
-    int start = request.start; // get starting node id
-    int destination = request.destination; // get destination node id
+    int start = idStart; // get starting node id
+    int destination = idEnd; // get destination node id
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
