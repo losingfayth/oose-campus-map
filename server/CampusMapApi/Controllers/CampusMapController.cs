@@ -79,8 +79,8 @@ public class CampusMapController : ControllerBase {
           }
         })";
 
-        // run prjection creation query
-        await session.RunAsync(createProjection);
+      // run prjection creation query
+      await session.RunAsync(createProjection);
 
       // query to use A* algorithm on database
       var query = @"
@@ -119,15 +119,43 @@ public class CampusMapController : ControllerBase {
       var records = await result.ToListAsync();
 
       var path = new List<List<string>>(); // list of lists for lat and longs
+      bool firstPass = true; // flags if it is first pass-through records
+      var currArea; // tracking variable to store current area nodes are in
+      var currFloor; // tracking variable to store current floor nodes are in
+      int i = -1; // iterator var
 
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
       foreach (var record in records) {
-          var latitude = record["latitude"].ToString();
-          var longitude = record["longitude"].ToString();
-          var floor = record["floor"].ToString();
-          var building = record["building"].ToString();
-          path.Add(new List<string> { latitude, longitude, floor, building});
+
+        // initialize records from node
+        var latitude = record["latitude"].ToString();
+        var longitude = record["longitude"].ToString();
+        var floor = record["floor"].ToString();
+        var area = record["building"].ToString();
+
+        // check if this is the first pass-through the records. if so, initialize
+        // what area and building we are starting in
+  
+
+        // check if the area and floor of the current node matches those of the
+        // prvious one. if not, increment the index of path
+        if (firstPass || currArea != area || currFloor != floor) {
+          path.Add(new List<PathNodeDto>());
+          i++;
+          currArea = area;
+          currFloor = floor;
+          firstPass = false;
+        } 
+
+        // add a new node at the correct index
+        path[i].Add(new PathNodeDto {
+          latitude = latitude,
+          longitude = longitude,
+          floor = float.Parse(floor),
+          building = area,
+          id = id
+          });
       }
 
       // check if a path was found and return it if it was
@@ -167,7 +195,7 @@ public class CampusMapController : ControllerBase {
           RETURN a.name AS name
         ";
 
-    var buildings = new List<string>(); // list of locations being queried
+    var buildings = new List<BuildingDto>(); // list of locations being queried
 
     try {
 
@@ -177,8 +205,9 @@ public class CampusMapController : ControllerBase {
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
       await result.ForEachAsync(record => {
-        string building = record["building"].As<string>();
-        buildings.Add(building);
+        BuildingDto node = new BuildingDto();
+        node.building = record["building"].As<string>();
+        buildings.Add(node);
       });
 
     } catch (Exception e) {
@@ -215,7 +244,7 @@ public class CampusMapController : ControllerBase {
     ";
 
     // list to hold locations
-    var rooms = new List<LocationNode>();
+    var rooms = new List<RoomDto>();
 
     try {
 
@@ -224,7 +253,7 @@ public class CampusMapController : ControllerBase {
 
       // iterate over results to get all of the buildings and their ids
       await result.ForEachAsync(record => {
-        LocationNode node = new LocationNode {
+        RoomDto room = new RoomDto {
           building = record["building"].As<string>(),
           name = record["name"].As<string>(),
           id = record["id"].As<string>()
