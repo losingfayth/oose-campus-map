@@ -132,7 +132,7 @@ public class CampusMapController : ControllerBase
         {
           latitude = record["latitude"].As<float>(),
           longitude = record["longitude"].As<float>(),
-          floor = record["floor"].As<string>(),
+          floor = record["floor"].As<int>(),
           building = record["building"].As<string>(),
         };
 
