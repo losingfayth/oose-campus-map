@@ -11,13 +11,13 @@ import {
 } from "react-native";
 import { Link, router } from "expo-router";
 import * as Location from "expo-location";
-import SearchBar from "../components/SearchBar";
-import { searchables, roomNumbers } from "../components/test/Words";
-import { points } from "../components/Points";
+import SearchBar from "../../components/SearchBar";
+import { points } from "../../utils/Points";
 
-import { loadImageReferences } from "../assets/build_images/imagePaths";
+import { loadImageReferences } from "../../utils/imagePaths.js";
 
-import { getBuildings, getRooms, findPath } from "../apis/api_functions";
+import { getBuildings, getRooms, findPath } from "../../utils/api_functions";
+import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
 export default function Start() {
   const [location, setLocation] = useState(null);
@@ -149,7 +149,7 @@ export default function Start() {
             }}
           >
             <Image
-              source={require("../assets/cropped-huskie.png")}
+              source={require("../../assets/cropped-huskie.png")}
               style={{ height: 40, width: 40 }}
             />
           </Marker>
@@ -170,11 +170,28 @@ export default function Start() {
           ) {
             console.log("Not null");
 
-            // Create array of room IDs: [fromRoomId, toRoomId]
-            const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-            console.log("Room ID array:", roomIdArray);
+            async function getPath() {
+              try {
+                // Create array of room IDs: [fromRoomId, toRoomId]
+                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                const roomIdArray = [22, 28];
 
-            // Proceed with navigation
+                console.log("Room ID array:", roomIdArray);
+
+                var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
+                console.log("entire path: " + pathData)
+                const processedPath = new ProcessedPath(pathData.path);
+
+                console.log(processedPath.getStringRepresentation());
+                // console.log("Get Rooms: ", await getRooms("Navy"));
+                // setBuildingOptions(buildings); // save to state
+              } catch (e) {
+                console.error("Error fetching path:", e);
+              }
+            }
+
+            getPath();
+
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
               pathname: `/buildings/${locs[0]}`,

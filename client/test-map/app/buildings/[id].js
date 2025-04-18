@@ -17,15 +17,15 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Svg, Path, Circle } from "react-native-svg";
 // import { points, originalImageSize } from "../components/Points";
-import PointNormalizer from "../utils/PointsNormalizer";
-import generatePath from "../components/PathGenerator";
+import PointNormalizer from "../../utils/PointsNormalizer.js";
+import generatePath from "../../utils/PathGenerator.js";
 
 import imagePaths, {
   getImageReference,
-} from "../assets/build_images/imagePaths";
-import CoordinateMap from "../utils/CoordinateMap";
-import { getBuildings, getRooms, findPath } from "../apis/api_functions.js";
-
+} from "../../utils/imagePaths.js";
+import CoordinateMap from "../../utils/CoordinateMap.js";
+import { getBuildings, getRooms, findPath } from "../../utils/api_functions.js";
+import LocationNode from "../../dataObject/LocationNode.js";
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
@@ -75,7 +75,8 @@ export default function Building() {
 
     console.log("ID: " + buildings);
     var rooms = await getRooms(buildings[0]);
-    console.log("ID building: " + rooms[0].building);
+    let n = new LocationNode(rooms[0]);
+    console.log("ID building: " + n.getID());
 
   }
   getBuildingTest();
