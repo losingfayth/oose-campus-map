@@ -1,5 +1,5 @@
 import { Image } from "react-native";
-import imagePaths from "../assets/build_images/imagePaths";
+import imagePaths from "./imagePaths";
 
 class PointNormalizer {
   // Gets the width and height of an image
