@@ -178,7 +178,7 @@ public class CampusMapController : ControllerBase {
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
   */
   [HttpGet("get-buildings")]
-  public async Task<IActionResult> GetBuildings([FromBody] PathRequest request) {
+  public async Task<IActionResult> GetBuildings() {
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -208,7 +208,7 @@ public class CampusMapController : ControllerBase {
       // node with those attributes. add the node to the list
       await result.ForEachAsync(record => {
         BuildingDto node = new BuildingDto();
-        node.name = record["building"].As<string>();
+        node.name = record["name"].As<string>();
         buildings.Add(node);
       });
 
