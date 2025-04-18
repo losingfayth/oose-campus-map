@@ -114,6 +114,7 @@ public class CampusMapController : ControllerBase
           n.latitude AS latitude, 
           n.longitude AS longitude,
           n.floor AS floor,
+          n.id AS id,
           a.name AS building
         ";
 
@@ -122,21 +123,45 @@ public class CampusMapController : ControllerBase
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      var path = new List<LocationNode>(); // list of lists for lat and longs
+      var path = new List<List<PathNodeDto>>(); // list of lists for node data
+      bool firstPass = true; // flags if it is first pass-through records
+      string currArea = ""; // tracking variable to store current area nodes are in
+      string currFloor = ""; // tracking variable to store current floor nodes are in
+      int i = -1; // iterator var
 
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
-      foreach (var record in records)
-      {
-        LocationNode node = new LocationNode
-        {
-          latitude = record["latitude"].As<float>(),
-          longitude = record["longitude"].As<float>(),
-          floor = record["floor"].As<int>(),
-          building = record["building"].As<string>(),
-        };
+      foreach (var record in records) {
 
-        path.Add(node);
+        // initialize records from node
+        var latitude = record["latitude"].ToString();
+        var longitude = record["longitude"].ToString();
+        var floor = record["floor"].ToString();
+        var id = record["id"].ToString();
+        var area = record["building"].ToString();
+
+        // check if this is the first pass-through the records. if so, initialize
+        // what area and building we are starting in
+  
+
+        // check if the area and floor of the current node matches those of the
+        // prvious one. if not, increment the index of path
+        if (firstPass || currArea != area || currFloor != floor) {
+          path.Add(new List<PathNodeDto>());
+          i++;
+          currArea = area;
+          currFloor = floor;
+          firstPass = false;
+        } 
+
+        // add a new node at the correct index
+        path[i].Add(new PathNodeDto {
+          latitude = float.Parse(latitude),
+          longitude = float.Parse(longitude),
+          floor = float.Parse(floor),
+          building = area,
+          id = id
+          });
       }
 
       // check if a path was found and return it if it was
@@ -170,8 +195,7 @@ public class CampusMapController : ControllerBase
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
   */
   [HttpGet("get-buildings")]
-  public async Task<IActionResult> GetBuildings()
-  {
+  public async Task<IActionResult> GetBuildings() {
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -190,7 +214,7 @@ public class CampusMapController : ControllerBase
           RETURN a.name AS name
         ";
 
-    var buildings = new List<string>(); // list of locations being queried
+    var buildings = new List<BuildingDto>(); // list of locations being queried
 
     try
     {
@@ -200,10 +224,10 @@ public class CampusMapController : ControllerBase
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      await result.ForEachAsync(record =>
-      {
-        string building = record["name"].As<string>();
-        buildings.Add(building);
+      await result.ForEachAsync(record => {
+        BuildingDto node = new BuildingDto();
+        node.name = record["name"].As<string>();
+        buildings.Add(node);
       });
 
     }
@@ -243,7 +267,7 @@ public class CampusMapController : ControllerBase
     ";
 
     // list to hold locations
-    var rooms = new List<LocationNode>();
+    var rooms = new List<RoomDto>();
 
     try
     {
@@ -252,17 +276,15 @@ public class CampusMapController : ControllerBase
       var result = await session.RunAsync(query, new { building });
 
       // iterate over results to get all of the buildings and their ids
-      await result.ForEachAsync(record =>
-      {
-        LocationNode node = new LocationNode
-        {
+      await result.ForEachAsync(record => {
+        RoomDto room = new RoomDto {
           building = record["building"].As<string>(),
           name = record["name"].As<string>(),
           id = record["id"].As<string>()
         };
 
         // add each location node to the list
-        rooms.Add(node);
+        rooms.Add(room);
       });
 
     }
