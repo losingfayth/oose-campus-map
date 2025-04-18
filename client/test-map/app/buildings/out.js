@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import * as Location from "expo-location";
-import SearchBar from "../components/SearchBar";
-import { searchables, roomNumbers } from "../components/test/Words";
+import SearchBar from "../../components/SearchBar";
+// import { searchables, roomNumbers } from "../components/test/Words";
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -112,7 +112,7 @@ export default function App() {
         //showsUserLocation={true}
 
         onRegionChangeComplete={handleRegionChangeComplete} // update the zoom level when the user changes it
-        // minZoomLevel={16}
+      // minZoomLevel={16}
       >
         {/* Draw the path */}
         <Polyline
@@ -131,7 +131,7 @@ export default function App() {
             }}
           >
             <Image
-              source={require("../assets/cropped-huskie.png")}
+              source={require("../../assets/cropped-huskie.png")}
               style={{ height: 40, width: 40 }}
             />
           </Marker>
@@ -139,7 +139,7 @@ export default function App() {
       </MapView>
 
       {/* Button with icon in the center of the screen */}
-      <Pressable style={styles.button} onPress={() => {}}>
+      <Pressable style={styles.button} onPress={() => { }}>
         {/* <Text style={styles.centerButtonText}>Search</Text> */}
         <Link
           href={{
