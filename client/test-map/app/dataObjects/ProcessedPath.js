@@ -14,18 +14,49 @@ import LocationNode from "./LocationNode";
 class ProcessedPath {
 
     constructor(pathData) {
-        console.log("ProcessedPath: " + pathData)
+        this.index = 0;
         this.pathData = pathData;
         this.locations = [];
-        for (let i = 0; i < pathData.length; i += 4) {
+        for (let i = 0; i < pathData.length; i++) {
             let data = {
-                "latitude": pathData[i],
-                "longitude": pathData[i + 1],
-                "floor": pathData[i + 2],
-                "building": pathData[i + 3],
+                "latitude": pathData[i].latitude,
+                "longitude": pathData[i].longitude,
+                "floor": pathData[i].floor,
+                "building": pathData[i].building,
             }
             this.locations.push(new LocationNode(data));
         }
+    }
+
+    hasNext() {
+        return this.index < this.locations.length;
+    }
+
+    getNext() {
+        if (this.hasNext()) {
+            let next = this.locations[this.index];
+            this.index++;
+            return next;
+        } else {
+            return false;
+        }
+    }
+
+    getLocation(index) {
+        if (index >= 0 && index < this.locations.length) {
+            return this.locations.index;
+        } else {
+            return false;
+        }
+    }
+
+    getStringRepresentation() {
+        let s = "";
+        while (this.hasNext()) {
+            let n = this.getNext();
+            s += (n.getBuilding() + " FL" + n.getFloor() + " (" + n.getLatitude() + ", " + n.getLongitude() + ")\n");
+        }
+        return s;
     }
 
 }

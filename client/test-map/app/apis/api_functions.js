@@ -1,6 +1,6 @@
 // functions to make calls to server
 
-const PORT = "5159";
+const PORT = "5162";
 
 /* 
 Makes an Http GET request to server endpoint get-buildings.
@@ -17,7 +17,7 @@ export async function getBuildings() {
 
     // console.log("Raw response:", response); // check the full response object
     const data = await response.json();
-    // console.log("Parsed JSON:", data);
+    // console.log("getBuildings Parsed JSON:", data);
 
     return data;
 
@@ -82,7 +82,7 @@ export async function findPath(currLoc, destination) {
 
     // console.log("Raw response:", response); // check the full response object
     const data = await response.json();
-
+    console.log("find-path parsed json: " + data.path);
     return data;
     // throw error if fetch is unsuccessful
   } catch (error) {

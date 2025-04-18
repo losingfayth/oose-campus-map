@@ -180,11 +180,10 @@ export default function Start() {
                 console.log("Room ID array:", roomIdArray);
 
                 var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
-                console.log(pathData)
+                console.log("entire path: " + pathData)
                 const processedPath = new ProcessedPath(pathData.path);
-                for (let i = 0; i < processedPath.locations.length; i++) {
-                  console.log(i + " | " + processedPath.locations[i].getID());
-                }
+
+                console.log(processedPath.getStringRepresentation());
                 // console.log("Get Rooms: ", await getRooms("Navy"));
                 // setBuildingOptions(buildings); // save to state
               } catch (e) {
@@ -194,19 +193,6 @@ export default function Start() {
 
             getPath();
 
-
-
-
-            // let parsedJson = JSON.parse(path);
-            // let array = parsedJson.data;
-            // console.log(array.length);
-
-            // let processedPath = new ProcessedPath(path.data);
-
-            // for (let i = 0; i < processedPath.length; i++) {
-            //   console.log(i + " | " + processedPath.locations[i].getID());
-            // }
-            // Proceed with navigation
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
               pathname: `/buildings/${locs[0]}`,

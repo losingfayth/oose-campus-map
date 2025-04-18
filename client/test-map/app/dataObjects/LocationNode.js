@@ -12,7 +12,13 @@
 class LocationNode {
 
     constructor(data) {
+
         this.data = data;
+
+    }
+
+    getBuilding() {
+        return this.data.building;
     }
 
     getAreaID() {
