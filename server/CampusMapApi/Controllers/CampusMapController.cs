@@ -32,9 +32,13 @@ namespace CampusMapApi.Controllers;
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
+public class CampusMapController : ControllerBase
+{
 
   private readonly ILogger<CampusMapController> _logger;
 
+  public CampusMapController(ILogger<CampusMapController> logger)
+  {
   public CampusMapController(ILogger<CampusMapController> logger)
   {
     _logger = logger;
@@ -45,7 +49,11 @@ public class CampusMapController : ControllerBase
   Queries database for shortest path between two points using A* GDS plugin for
   Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
   */
+  */
   [HttpPost("find-path")]
+  public async Task<IActionResult> FindPath([FromBody] PathRequest request)
+  {
+
   public async Task<IActionResult> FindPath([FromBody] PathRequest request)
   {
 
@@ -55,12 +63,16 @@ public class CampusMapController : ControllerBase
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
     var username = Environment.GetEnvironmentVariable("DB_USER")
+    var username = Environment.GetEnvironmentVariable("DB_USER")
       ?? throw new InvalidOperationException("DB_USER is not set");
+    var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
     var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
       ?? throw new InvalidOperationException("DB_PASSWORD is not set");
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
+    try
+    {
     try
     {
 
@@ -83,6 +95,8 @@ public class CampusMapController : ControllerBase
           }
         })";
 
+      // run prjection creation query
+      await session.RunAsync(createProjection);
       // run prjection creation query
       await session.RunAsync(createProjection);
 
@@ -167,13 +181,23 @@ public class CampusMapController : ControllerBase
       // check if a path was found and return it if it was
       if (path.Count > 0)
       {
+      if (path.Count > 0)
+      {
         return Ok(new { message = "Path found!", path });
+      }
+      else
+      {
       }
       else
       {
         return Ok(new { message = "No Path Found!" });
       }
 
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine($"Error: {e.Message}");
+      return StatusCode(500, new { error = e.Message });
     }
     catch (Exception e)
     {
@@ -218,6 +242,8 @@ public class CampusMapController : ControllerBase
 
     try
     {
+    try
+    {
 
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
@@ -233,6 +259,9 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+    }
+    catch (Exception e)
+    {
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -240,12 +269,15 @@ public class CampusMapController : ControllerBase
     return Ok(buildings);
   }
 
+
   /** 
   Queries database for all rooms withing a building and returns a 
   list of location objects. Http POST api endpoint accessible at 
   GET /api/CampusMap/get-rooms
   */
   [HttpPost("get-rooms")]
+  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
+  {
   public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
   {
     var building = request.building;
@@ -271,6 +303,8 @@ public class CampusMapController : ControllerBase
 
     try
     {
+    try
+    {
 
       // run the building query
       var result = await session.RunAsync(query, new { building });
@@ -290,6 +324,9 @@ public class CampusMapController : ControllerBase
     }
     catch (Exception e)
     {
+    }
+    catch (Exception e)
+    {
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -297,7 +334,10 @@ public class CampusMapController : ControllerBase
   }
 
 
+
   // DTO for request body
+  public class BuildingRequest
+  {
   public class BuildingRequest
   {
     public string building { get; set; }
@@ -305,8 +345,11 @@ public class CampusMapController : ControllerBase
 
   public class PathRequest
   {
+  public class PathRequest
+  {
     public int start { get; set; }
     public int destination { get; set; }
+  }
   }
 
 
