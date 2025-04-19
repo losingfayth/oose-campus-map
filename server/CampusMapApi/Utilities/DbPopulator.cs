@@ -43,9 +43,9 @@ namespace CampusMapApi.Utilities
 			//{ Console.WriteLine(poi.Value.Name + " " + poi.Value.Category); }
 
 			var neo4j = Neo4jServiceLocator.GetNeo4jService();
-			var query = "MATCH (n:Area) RETURN n LIMIT 25";
+			var query = "MATCH (n:$Area) RETURN n LIMIT 25";
 
-			var result = await neo4j.ExecuteReadQueryAsync(query, new Dictionary<string, object>());
+			var result = await neo4j.ExecuteReadQueryAsync(query, "Area");
 
 			Console.WriteLine(result);
 

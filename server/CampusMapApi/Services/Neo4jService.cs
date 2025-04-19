@@ -9,7 +9,7 @@ namespace CampusMapApi.Services
 	{
 		private readonly IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, pswd));
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters)
+		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, string areaName)
 		{
 			//parameters ??= new Dictionary<string, object>();
 
@@ -17,7 +17,7 @@ namespace CampusMapApi.Services
 
 			return await session.ExecuteReadAsync(async tx =>
 			{
-				var result = await tx.RunAsync(qry, new {} );
+				var result = await tx.RunAsync(qry, new { Area = areaName } );
 				return await result.ToListAsync();
 			});
 		}
