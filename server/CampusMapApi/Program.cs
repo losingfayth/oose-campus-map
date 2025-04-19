@@ -2,6 +2,8 @@
 Sets up the web server, enables HTTPS, configures services, and enables controller to begin handling incoming API endpoint requests
 */ 
 using CampusMapApi;
+using CampusMapApi.Services;
+using CampusMapApi.Utilities;
 
 // creates new instance of the web application (loads configs from appsettings.json)
 var builder = WebApplication.CreateBuilder(args);
@@ -31,8 +33,17 @@ builder.Services.AddCors(options => {
                         .AllowAnyHeader());
 });
 
+builder.Services.AddSingleton<Neo4jService>(provider =>
+    new Neo4jService(
+        builder.Configuration["neo4j+s://apibloomap.xyz:7687"],
+        builder.Configuration[Environment.GetEnvironmentVariable("DB_USER")],
+        builder.Configuration[Environment.GetEnvironmentVariable("DB_PASSWORD") ]
+    )
+);
+
 // finalize app configurations
 var app = builder.Build();
+Neo4jServiceLocator.Services = app.Services;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

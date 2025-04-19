@@ -1,5 +1,5 @@
 using CampusMapApi;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusMapApi
 {
