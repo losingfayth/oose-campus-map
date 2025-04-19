@@ -32,13 +32,11 @@ namespace CampusMapApi.Controllers;
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController : ControllerBase
 {
-public class CampusMapController : ControllerBase
-{
+
 
   private readonly ILogger<CampusMapController> _logger;
 
-  public CampusMapController(ILogger<CampusMapController> logger)
-  {
+
   public CampusMapController(ILogger<CampusMapController> logger)
   {
     _logger = logger;
@@ -49,10 +47,7 @@ public class CampusMapController : ControllerBase
   Queries database for shortest path between two points using A* GDS plugin for
   Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
   */
-  */
   [HttpPost("find-path")]
-  public async Task<IActionResult> FindPath([FromBody] PathRequest request)
-  {
 
   public async Task<IActionResult> FindPath([FromBody] PathRequest request)
   {
@@ -63,16 +58,13 @@ public class CampusMapController : ControllerBase
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
     var username = Environment.GetEnvironmentVariable("DB_USER")
-    var username = Environment.GetEnvironmentVariable("DB_USER")
       ?? throw new InvalidOperationException("DB_USER is not set");
-    var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
     var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
       ?? throw new InvalidOperationException("DB_PASSWORD is not set");
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    try
-    {
+
     try
     {
 
@@ -95,8 +87,7 @@ public class CampusMapController : ControllerBase
           }
         })";
 
-      // run prjection creation query
-      await session.RunAsync(createProjection);
+
       // run prjection creation query
       await session.RunAsync(createProjection);
 
@@ -145,7 +136,8 @@ public class CampusMapController : ControllerBase
 
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
-      foreach (var record in records) {
+      foreach (var record in records)
+      {
 
         // initialize records from node
         var latitude = record["latitude"].ToString();
@@ -156,48 +148,42 @@ public class CampusMapController : ControllerBase
 
         // check if this is the first pass-through the records. if so, initialize
         // what area and building we are starting in
-  
+
 
         // check if the area and floor of the current node matches those of the
         // prvious one. if not, increment the index of path
-        if (firstPass || currArea != area || currFloor != floor) {
+        if (firstPass || currArea != area || currFloor != floor)
+        {
           path.Add(new List<PathNodeDto>());
           i++;
           currArea = area;
           currFloor = floor;
           firstPass = false;
-        } 
+        }
 
         // add a new node at the correct index
-        path[i].Add(new PathNodeDto {
+        path[i].Add(new PathNodeDto
+        {
           latitude = float.Parse(latitude),
           longitude = float.Parse(longitude),
           floor = float.Parse(floor),
           building = area,
           id = id
-          });
+        });
       }
 
       // check if a path was found and return it if it was
-      if (path.Count > 0)
-      {
+
       if (path.Count > 0)
       {
         return Ok(new { message = "Path found!", path });
       }
-      else
-      {
-      }
+
       else
       {
         return Ok(new { message = "No Path Found!" });
       }
 
-    }
-    catch (Exception e)
-    {
-      Console.WriteLine($"Error: {e.Message}");
-      return StatusCode(500, new { error = e.Message });
     }
     catch (Exception e)
     {
@@ -219,7 +205,8 @@ public class CampusMapController : ControllerBase
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
   */
   [HttpGet("get-buildings")]
-  public async Task<IActionResult> GetBuildings() {
+  public async Task<IActionResult> GetBuildings()
+  {
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -240,8 +227,7 @@ public class CampusMapController : ControllerBase
 
     var buildings = new List<BuildingDto>(); // list of locations being queried
 
-    try
-    {
+
     try
     {
 
@@ -250,15 +236,13 @@ public class CampusMapController : ControllerBase
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      await result.ForEachAsync(record => {
+      await result.ForEachAsync(record =>
+      {
         BuildingDto node = new BuildingDto();
         node.name = record["name"].As<string>();
         buildings.Add(node);
       });
 
-    }
-    catch (Exception e)
-    {
     }
     catch (Exception e)
     {
@@ -276,8 +260,7 @@ public class CampusMapController : ControllerBase
   GET /api/CampusMap/get-rooms
   */
   [HttpPost("get-rooms")]
-  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
-  {
+
   public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
   {
     var building = request.building;
@@ -301,8 +284,7 @@ public class CampusMapController : ControllerBase
     // list to hold locations
     var rooms = new List<RoomDto>();
 
-    try
-    {
+
     try
     {
 
@@ -310,8 +292,10 @@ public class CampusMapController : ControllerBase
       var result = await session.RunAsync(query, new { building });
 
       // iterate over results to get all of the buildings and their ids
-      await result.ForEachAsync(record => {
-        RoomDto room = new RoomDto {
+      await result.ForEachAsync(record =>
+      {
+        RoomDto room = new RoomDto
+        {
           building = record["building"].As<string>(),
           name = record["name"].As<string>(),
           id = record["id"].As<string>()
@@ -322,9 +306,7 @@ public class CampusMapController : ControllerBase
       });
 
     }
-    catch (Exception e)
-    {
-    }
+
     catch (Exception e)
     {
       Console.WriteLine($"Error: {e.Message}");
@@ -338,19 +320,16 @@ public class CampusMapController : ControllerBase
   // DTO for request body
   public class BuildingRequest
   {
-  public class BuildingRequest
-  {
     public string building { get; set; }
   }
 
-  public class PathRequest
-  {
+
   public class PathRequest
   {
     public int start { get; set; }
     public int destination { get; set; }
   }
-  }
+
 
 
 }

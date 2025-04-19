@@ -81,33 +81,30 @@ public class InteriorSelectorDisplay extends Application
 
     CoordinateSystem imageCoordinateSystem;
     CoordinateSystem realWorldCoordinates;
-    Map map;
-    boolean rootSelectMode = false;
-    boolean deleteEdgeMode = false;
-    ArrayList<KeyCode> list = new ArrayList<>();
-    Counter saveCounter = new Counter(1);
 
+    // adjust the below booleans if you are marking either of the referenced blueprints
+    static final boolean AM_MARKING_SSC_BASEMENT = false;
+    static final boolean AM_MARKING_HARTLINE_BASEMENT = false;
 
     @Override
     public void start(Stage stage) throws Exception
     {
 
-/*
-'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/Hartline/GR FL.png'
-L
-41.007292, -76.448117
-41.007633, -76.447336
-41.006672, -76.447640
-1563
+        if (AM_MARKING_HARTLINE_BASEMENT && AM_MARKING_SSC_BASEMENT) {
+            throw new Exception("YOU CAN ONLY MARK ONE BLUEPRINT AT A TIME");
+        }
 
- */
         HBox controlPane = new HBox();
         controlPane.setSpacing(10);
 
-        String[] nodeTypes = new String[]{"Point", "Entrance", "Bathroom", "Stairs",
-                "Elevator"};
-        Color[] nodeLabelColors = new Color[]{Color.RED, Color.GREEN, Color.BLUE,
-                Color.ORANGE, Color.PURPLE};
+        String[] nodeTypes = new String[]{
+                "Point", "Entrance", "Bathroom", "Stairs",
+                "Elevator"
+        };
+        Color[] nodeLabelColors = new Color[]{
+                Color.RED, Color.GREEN, Color.BLUE,
+                Color.ORANGE, Color.PURPLE
+        };
 
         String saveLocation = "";
 
@@ -131,15 +128,33 @@ L
 
         imageView.setPreserveRatio(true);
 
-        Point[] points = Controls.getPointsFromConsole(input);
+        Point[] points;
+        ArrayList<Point> referencePoints = new ArrayList<>();
+
+        if (AM_MARKING_SSC_BASEMENT) {
+            points = new Point[]{new Point(41.007854149685514, -76.4481847202929),
+                    new Point(41.008009218293864, -76.44784113111152),
+                    new Point(41.007558985857244, -76.44794850998309)};
+            referencePoints.add(new Point(466.5825, 111.83999817795224));
+            referencePoints.add(new Point(1141.1175, 113.58749814948276));
+            referencePoints.add(new Point(471.82500000000005, 866.7599858791299));
+
+        } else if (AM_MARKING_HARTLINE_BASEMENT) {
+            points = new Point[]{new Point(41.00723073341936, -76.44782408196845),
+                    new Point(41.00730710607756, -76.44756333833864),
+                    new Point(41.00681283614087, -76.44751589823797)};
+            referencePoints.add(new Point(216.7897623400366, 175.305307275939));
+            referencePoints.add(new Point(544.6508226691042, 224.8190200179981));
+            referencePoints.add(new Point(202.06946983546618, 940.7605420991231));
+        } else {
+            points = Controls.getPointsFromConsole(input);
+            referencePoints.add(new Point(0, 0));
+            referencePoints.add(new Point(imageView.getImage().getWidth(), 0));
+            referencePoints.add(new Point(0, imageView.getImage().getHeight()));
+        }
 
         int sIndex = Controls.getStartingIndexFromConsole(input);
         Counter counter = new Counter(sIndex);
-
-        ArrayList<Point> referencePoints = new ArrayList<>();
-        referencePoints.add(new Point(0, 0));
-        referencePoints.add(new Point(imageView.getImage().getWidth(), 0));
-        referencePoints.add(new Point(0, imageView.getImage().getHeight()));
 
         imageCoordinateSystem =
                 new CoordinateSystem(referencePoints.get(0),
@@ -171,23 +186,17 @@ L
     }
 
 
-
-
-
-
     public static void main(String[] args)
     {
         launch(args);
     }
 
 
-
-
-
     public static void printMatrix(double[] arr)
     {
         System.out.printf("[%f, %f]%n[%f,%f]%n", arr[0], arr[1], arr[2], arr[3]);
     }
+
 }
 
 

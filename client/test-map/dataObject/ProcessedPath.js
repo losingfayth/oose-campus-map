@@ -1,4 +1,5 @@
 import LocationNode from "./LocationNode";
+import SubPath from "./SubPath";
 
 /*
     "areaId": 1,
@@ -14,37 +15,28 @@ import LocationNode from "./LocationNode";
 class ProcessedPath {
 
     constructor(pathData) {
-        this.index = 0;
+        this.areaIndex = 0;
         this.pathData = pathData;
-        this.locations = [];
-        for (let i = 0; i < pathData.length; i++) {
-            let data = {
-                "latitude": pathData[i].latitude,
-                "longitude": pathData[i].longitude,
-                "floor": pathData[i].floor,
-                "building": pathData[i].building,
-            }
-            this.locations.push(new LocationNode(data));
-        }
+        this.subPaths = [];
+
+        pathData.forEach((segment) => {
+            this.subPaths.push(new SubPath(segment));
+
+
+        });
+
+        this.numSubPaths = this.subPaths.length;
     }
 
     hasNext() {
-        return this.index < this.locations.length;
+        return this.areaIndex < this.subPaths.length;
     }
 
     getNext() {
         if (this.hasNext()) {
-            let next = this.locations[this.index];
-            this.index++;
+            let next = this.subPaths[this.areaIndex];
+            this.areaIndex++;
             return next;
-        } else {
-            return false;
-        }
-    }
-
-    getLocation(index) {
-        if (index >= 0 && index < this.locations.length) {
-            return this.locations.index;
         } else {
             return false;
         }
@@ -54,7 +46,7 @@ class ProcessedPath {
         let s = "";
         while (this.hasNext()) {
             let n = this.getNext();
-            s += (n.getBuilding() + " FL" + n.getFloor() + " (" + n.getLatitude() + ", " + n.getLongitude() + ")\n");
+            s += n.getStringRepresentation() + "\n******\n";
         }
         return s;
     }
