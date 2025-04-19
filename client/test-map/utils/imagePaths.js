@@ -23,6 +23,7 @@ const buildingNames = [
   "NAVY-2",
   "NAVY-A",
 ];
+
 const buildingCorners = [
   [1.0, -1.0, 1.0, -1.0, 1.0, -1.0], // OUTSIDE (OUT)
 

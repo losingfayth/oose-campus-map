@@ -115,7 +115,11 @@ export default function Start() {
 
         console.log(buildings);
         // console.log("Get Rooms: ", await getRooms("Navy"));
-        setBuildingOptions(buildings); // save to state
+        var buildingNames = [];
+        for (let i = 0; i < buildings.length; i++) {
+          buildingNames.push(buildings[i].name);
+        }
+        setBuildingOptions(buildingNames); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }
@@ -174,15 +178,21 @@ export default function Start() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
                 // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                const roomIdArray = [22, 28];
+                const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
                 var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
-                console.log("entire path: " + pathData)
-                const processedPath = new ProcessedPath(pathData.path);
+
+                var processedPath = new ProcessedPath(pathData.path);
 
                 console.log(processedPath.getStringRepresentation());
+                // console.log("entire pathData: " + pathData);
+
+                // console.log("pathData.path: " + pathData.path);
+                // console.log("Prayer: " + pathData.path[0])
+
+                // console.log(processedPath.getStringRepresentation());
                 // console.log("Get Rooms: ", await getRooms("Navy"));
                 // setBuildingOptions(buildings); // save to state
               } catch (e) {
