@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Neo4j.Driver; // DB related functions
 using CampusMapApi.Utilities;
+using CampusMapApi.Services;
 
 /**
 Establishes a web API controller to handle server-side requests from front-end.
@@ -31,20 +32,18 @@ namespace CampusMapApi.Controllers;
 
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
-public class CampusMapController : ControllerBase {
+public class CampusMapController(ILogger<CampusMapController> logger, Neo4jService neo4jService) : ControllerBase {
 
-  private readonly ILogger<CampusMapController> _logger;
+  private readonly Neo4jService _neo4j = neo4jService;
 
-  public CampusMapController(ILogger<CampusMapController> logger) {
-    _logger = logger;
-  }
+  private readonly ILogger<CampusMapController> _logger = logger;
 
 
-  /*
-  Queries database for shortest path between two points using A* GDS plugin for
-  Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
-  */ 
-  [HttpPost("find-path")]
+	/*
+	Queries database for shortest path between two points using A* GDS plugin for
+	Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
+	*/
+	[HttpPost("find-path")]
   public async Task<IActionResult> FindPath([FromBody] PathRequest request) {
     
     int start = request.start; // get starting node id
@@ -244,7 +243,7 @@ public class CampusMapController : ControllerBase {
 
   [HttpPost("PopulateDb")]
   public async Task<IActionResult> PopulateDb() {
-    await DbPopulator.PopulatePoi();
+    await DbPopulator.PopulatePoi(_neo4j);
 
     return Ok();
   }

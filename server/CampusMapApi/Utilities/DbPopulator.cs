@@ -17,7 +17,7 @@ namespace CampusMapApi.Utilities
 			return true;
 		}
 
-		public async static Task<bool> PopulatePoi()
+		public async static Task<bool> PopulatePoi(Neo4jService neo4j)
 		{
 			// File Path
 			string fp = "../../db/jsons/poa.json";
@@ -42,7 +42,7 @@ namespace CampusMapApi.Utilities
 			//foreach (KeyValuePair<string, PointOfInterest> poi in pois)
 			//{ Console.WriteLine(poi.Value.Name + " " + poi.Value.Category); }
 
-			var neo4j = Neo4jServiceLocator.GetNeo4jService();
+			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
 			var query = "MATCH (n:Area) RETURN n LIMIT 25";
 
 			var result = await neo4j.ExecuteReadQueryAsync(query);
