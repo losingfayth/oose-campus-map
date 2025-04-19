@@ -38,8 +38,8 @@ namespace CampusMapApi.Utilities
 
 			//List<PointOfInterest> poas = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
 
-			foreach (KeyValuePair<string, PointOfInterest> poi in pois)
-			{ Console.WriteLine(poi.Value.Name + " " + poi.Value.Category); }
+			//foreach (KeyValuePair<string, PointOfInterest> poi in pois)
+			//{ Console.WriteLine(poi.Value.Name + " " + poi.Value.Category); }
 
 			var neo4j = Neo4jServiceLocator.GetNeo4jService();
 			var query = "MATCH (n:Area) RETURN n LIMIT 25";

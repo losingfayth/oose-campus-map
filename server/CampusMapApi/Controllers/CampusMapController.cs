@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Neo4j.Driver; // DB related functions
+using CampusMapApi.Utilities;
 
 /**
 Establishes a web API controller to handle server-side requests from front-end.
@@ -239,6 +240,13 @@ public class CampusMapController : ControllerBase {
     }
 
     return Ok(rooms);
+  }
+
+  [HttpPost("PopulateDb")]
+  public async Task<IActionResult> PopulateDb() {
+    await DbPopulator.PopulatePoi();
+
+    return Ok();
   }
   
 
