@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using CampusMapApi.Models;
 using System.Text.Json.Serialization;
+using CampusMapApi.Services;
 
 namespace CampusMapApi.Utilities
 {
@@ -43,6 +44,8 @@ namespace CampusMapApi.Utilities
 
 			var neo4j = Neo4jServiceLocator.GetNeo4jService();
 			var query = "MATCH (n:Area) RETURN n LIMIT 25";
+
+			//var params = new Dictionary<string, object>
 
 			var result = await neo4j.ExecuteReadQueryAsync(query);
 
