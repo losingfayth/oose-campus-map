@@ -9,9 +9,9 @@ namespace CampusMapApi.Services
 	{
 		private readonly IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, pswd));
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters = new Dictionary<string, object>)
+		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters)
 		{
-			parameters ??= new Dictionary<string, object>();
+			//parameters ??= new Dictionary<string, object>();
 
 			using var session = _driver.AsyncSession();
 
