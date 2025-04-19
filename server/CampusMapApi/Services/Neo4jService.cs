@@ -13,11 +13,14 @@ namespace CampusMapApi.Services
 		{
 			using var session = _driver.AsyncSession();
 
-			return await session.ExecuteReadAsync(async tx =>
+			/*return await session.ExecuteReadAsync(async tx =>
 			{
 				var result = await tx.RunAsync(qry);
 				return await result.ToListAsync();
-			});
+			});*/
+
+			var result = await session.RunAsync(qry);
+			return await result.ToListAsync();
 		}
 
 		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters)
