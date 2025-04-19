@@ -151,10 +151,10 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
   public async Task<IActionResult> GetBuildings([FromBody] PathRequest request) {
 
     // initial db connection
-    var uri = "neo4j+s://apibloomap.xyz:7687";
-    var username = Environment.GetEnvironmentVariable("DB_USER")
+    string uri = "neo4j+s://apibloomap.xyz:7687";
+    string username = Environment.GetEnvironmentVariable("DB_USER")
       ?? throw new InvalidOperationException("DB_USER is not set");
-    var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
+    string password = Environment.GetEnvironmentVariable("DB_PASSWORD")
       ?? throw new InvalidOperationException("DB_PASSWORD is not set");
 
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));

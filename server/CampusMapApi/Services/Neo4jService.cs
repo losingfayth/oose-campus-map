@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CampusMapApi.Services
 {
-	public class Neo4jService(var uri, var user, var pswd) : IDisposable
+	public class Neo4jService(string uri, string user, string pswd) : IDisposable
 	{
 		private readonly IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, pswd));
 
