@@ -7,7 +7,7 @@ namespace CampusMapApi.Services
 {
 	public class Neo4jService(string uri, string user, string pswd) : IDisposable
 	{
-		private readonly IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, pswd));
+		private readonly IDriver _driver = GraphDatabase.Driver("neo4j+s://apibloomap.xyz:7687", AuthTokens.Basic(user, pswd));
 
 		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry)
 		{
