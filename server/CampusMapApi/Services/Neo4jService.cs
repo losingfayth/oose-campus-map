@@ -23,7 +23,7 @@ namespace CampusMapApi.Services
 			return await result.ToListAsync();
 		}
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters)
+		public async Task<List<IRecord>> ExecuteReadQueryAsyncParams(string qry, IDictionary<string, object> parameters)
 		{
 			//parameters ??= new Dictionary<string, object>();
 
