@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 
 namespace CampusMapApi.Services
 {
-	public class Neo4jService(string uri1, string user, string pswd) : IDisposable
+	public class Neo4jService : IDisposable
 	{
 		//private readonly IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, pswd));
 
-		    string uri = "neo4j+s://apibloomap.xyz:7687";
+    IDriver _driver;
+
+	public Neo4jService() {
+				    string uri = "neo4j+s://apibloomap.xyz:7687";
 string username = Environment.GetEnvironmentVariable("DB_USER")
       ?? throw new InvalidOperationException("DB_USER is not set");
     string password = Environment.GetEnvironmentVariable("DB_PASSWORD")
       ?? throw new InvalidOperationException("DB_PASSWORD is not set");
 
-    IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+	  _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+	}
 
 		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry)
 		{

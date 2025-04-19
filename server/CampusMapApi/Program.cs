@@ -34,11 +34,7 @@ builder.Services.AddCors(options => {
 });
 
 builder.Services.AddSingleton<Neo4jService>(provider =>
-    new Neo4jService(
-        "neo4j+s://apibloomap.xyz:7687",
-        builder.Configuration[Environment.GetEnvironmentVariable("DB_USER")],
-        builder.Configuration[Environment.GetEnvironmentVariable("DB_PASSWORD") ]
-    )
+    new Neo4jService()
 );
 
 // finalize app configurations
