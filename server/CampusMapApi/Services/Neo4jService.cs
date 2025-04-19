@@ -17,7 +17,7 @@ namespace CampusMapApi.Services
 
 			return await session.ExecuteReadAsync(async tx =>
 			{
-				var result = await tx.RunAsync(qry, parameters);
+				var result = await tx.RunAsync(qry, new {} );
 				return await result.ToListAsync();
 			});
 		}
