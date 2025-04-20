@@ -37,7 +37,6 @@ builder.Services.AddSingleton<Neo4jService>(provider => new Neo4jService());
 
 // finalize app configurations
 var app = builder.Build();
-Neo4jServiceLocator.Services = app.Services;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

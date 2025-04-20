@@ -20,7 +20,8 @@ namespace CampusMapApi.Services
 			_driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
 		}
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry)
+		/*
+		public async Task<List<IRecord>> ExecuteReadQueryAsync(string query)
 		{
 			using var session = _driver.AsyncSession();
 
@@ -28,19 +29,22 @@ namespace CampusMapApi.Services
 			{
 				var result = await tx.RunAsync(qry);
 				return await result.ToListAsync();
-			});*/
+			});
 
-			var result = await session.RunAsync(qry);
+			var result = await session.RunAsync(query);
 			return await result.ToListAsync();
 		}
+		*/
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string qry, IDictionary<string, object> parameters)
+		public async Task<List<IRecord>> ExecuteReadQueryAsync(string query, IDictionary<string, object> parameters = null)
 		{
 			using var session = _driver.AsyncSession();
 
+			parameters ??= new Dictionary<string, object>();
+
 			return await session.ExecuteReadAsync(async tx =>
 			{
-				var result = await tx.RunAsync(qry, parameters);
+				var result = await tx.RunAsync(query, parameters);
 				return await result.ToListAsync();
 			});
 		}
