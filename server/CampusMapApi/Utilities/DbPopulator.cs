@@ -49,7 +49,7 @@ namespace CampusMapApi.Utilities
 
 			//Console.WriteLine(result);
 
-			await result.ForEachAsync(record => {
+			result.ForEach(record => {
 				Console.WriteLine(record);
 			});
 
