@@ -47,7 +47,11 @@ namespace CampusMapApi.Utilities
 
 			var result = await neo4j.ExecuteReadQueryAsync(query);
 
-			Console.WriteLine(result);
+			//Console.WriteLine(result);
+
+			await result.ForEachAsync(record => {
+				Console.WriteLine(record);
+			});
 
 			return true;
 		}
