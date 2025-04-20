@@ -50,7 +50,10 @@ namespace CampusMapApi.Utilities
 			//Console.WriteLine(result);
 
 			result.ForEach(record => {
-				Console.WriteLine(record["name"]);
+				//Console.WriteLine(record["name"]);
+				foreach (var rec in record) {
+					Console.WriteLine(rec.Key)
+				}
 			});
 
 			return true;
