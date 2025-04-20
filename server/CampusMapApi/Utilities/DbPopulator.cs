@@ -4,6 +4,7 @@ using System.Text.Json;
 using CampusMapApi.Models;
 using System.Text.Json.Serialization;
 using CampusMapApi.Services;
+using Neo4j.Driver;
 
 namespace CampusMapApi.Utilities
 {
