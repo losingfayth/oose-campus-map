@@ -51,9 +51,7 @@ namespace CampusMapApi.Utilities
 
 			result.ForEach(record => {
 				//Console.WriteLine(record["name"]);
-				foreach (var rec in record) {
-					Console.WriteLine(rec.Value.ToString());
-				}
+				Console.WriteLine(record["n"].As<INode>().Properties["name"].As<string>());
 			});
 
 			return true;
