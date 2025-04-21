@@ -245,7 +245,7 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
   public async Task<IActionResult> PopulateDb() {
     //await DbPopulator.PopulatePoi(_neo4j);
 
-    DbPopulator.PopulatePoiCategories();
+    await DbPopulator.PopulatePoiCategories();
 
     return Ok();
   }

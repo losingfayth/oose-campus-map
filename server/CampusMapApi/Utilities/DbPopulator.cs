@@ -10,13 +10,14 @@ namespace CampusMapApi.Utilities
 {
 	public static class DbPopulator
 	{
-		public static bool PopulatePoiCategories()
+		public async static Task<bool> PopulatePoiCategories()
 		{
-			var query = "CREATE ($nodeLabel:PointOfInterestCategory {name:'$nameField'})";
+			var query = @"
+			CREATE ($nodeLabel:PointOfInterestCategory { name:$nameField })";
 
 			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
 			{
-				Console.WriteLine(cat.ToString());
+				await neo4j.ExecuteWriteQueryAsync(query, new {nodeLabe: cat.ToString().ToLower(), nameField: cat.ToString() })
 			}
 
 			return true;
