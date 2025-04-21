@@ -13,11 +13,14 @@ namespace CampusMapApi.Utilities
 		public async static Task<bool> PopulatePoiCategories()
 		{
 			var query = @"
-			CREATE ($nodeLabel:PointOfInterestCategory { name: $nameField })";
+			CREATE (n:PointOfInterestCategory { name: $name })";
 
 			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
 			{
-				await neo4j.ExecuteWriteQueryAsync(query, new { nodeLabel: cat.ToString().ToLower(), nameField: cat.ToString() });
+				await neo4j.ExecuteWriteQueryAsync(query, 
+					new {
+							"name": cat.ToString()
+						});
 			}
 
 			return true;
