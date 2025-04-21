@@ -18,9 +18,7 @@ namespace CampusMapApi.Utilities
 			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
 			{
 				await neo4j.ExecuteWriteQueryAsync(query, 
-					new {
-							"name": cat.ToString()
-						});
+					new Dictionary<string, object> { "name": cat.ToString() });
 			}
 
 			return true;
