@@ -10,7 +10,7 @@ namespace CampusMapApi.Utilities
 {
 	public static class DbPopulator
 	{
-		public async static Task<bool> PopulatePoiCategories()
+		public async static Task<bool> PopulatePoiCategories(Neo4jService neo4j)
 		{
 			var query = @"
 			CREATE (n:PointOfInterestCategory { name: $name })";
