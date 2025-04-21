@@ -13,7 +13,7 @@ namespace CampusMapApi.Utilities
 		public async static Task<bool> PopulatePoiCategories()
 		{
 			var query = @"
-			CREATE ($nodeLabel:PointOfInterestCategory { name:$nameField })";
+			CREATE ($nodeLabel:PointOfInterestCategory { name: $nameField })";
 
 			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
 			{
