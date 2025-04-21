@@ -12,8 +12,12 @@ namespace CampusMapApi.Utilities
 	{
 		public static bool PopulatePoiCategories()
 		{
+			var query = "CREATE ($nodeLabel:PointOfInterestCategory {name:'$nameField'})";
 
-			var query = "";
+			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
+			{
+				Console.WriteLine(cat.ToString());
+			}
 
 			return true;
 		}
@@ -36,14 +40,13 @@ namespace CampusMapApi.Utilities
 
 			var pois = JsonSerializer.Deserialize<Dictionary<string, PointOfInterest>>(json, options);
 
-
-
 			//List<PointOfInterest> poas = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
 
 			//foreach (KeyValuePair<string, PointOfInterest> poi in pois)
 			//{ Console.WriteLine(poi.Value.Name + " " + poi.Value.Category); }
 
 			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
+
 			var query = "MATCH (n:Area) RETURN n LIMIT 25";
 
 			var result = await neo4j.ExecuteReadQueryAsync(query);
