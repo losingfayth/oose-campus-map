@@ -36,8 +36,10 @@ namespace CampusMapApi.Services
 		}
 		*/
 
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string query, IDictionary<string, object> parameters = null)
-		{
+		public async Task<QueryResult> ExecuteReadQueryAsync(
+			string query,
+			IDictionary<string, object> parameters = null
+		){
 			using var session = _driver.AsyncSession();
 
 			parameters ??= new Dictionary<string, object>();
@@ -45,15 +47,20 @@ namespace CampusMapApi.Services
 			return await session.ExecuteReadAsync(async tx =>
 			{
 				var result = await tx.RunAsync(query, parameters);
-				return await result.ToListAsync();
+				var records = await result.ToListAsync();
+				
+				return new QueryResult(records);
 			});
 		}
 
-		public async Task<List<IRecord>> ExecuteWriteQueryAsync(string query, IDictionary<string, object> parameters = null)
-		{
+		public async Task<List<IRecord>> ExecuteWriteQueryAsync(
+			string query, 
+			IDictionary<string, object> parameters = null
+		){
+			using var session = _driver.AsyncSession();
+
 			parameters ??= new Dictionary<string, object>();
 
-			using var session = _driver.AsyncSession();
 			return await session.ExecuteWriteAsync(async tx =>
 			{
 				var result = await tx.RunAsync(query, parameters);
@@ -65,6 +72,22 @@ namespace CampusMapApi.Services
 		{
 			_driver?.Dispose();
 			GC.SuppressFinalize(this);
+		}
+	}
+
+	public class QueryResult
+	{
+		List<INode> values;
+
+		public QueryResult(List<IRecord> records)
+		{
+			/*
+			result.ForEach(record => {
+				Console.WriteLine(record["n"].As<INode>().Properties["name"].As<string>());
+			});
+			*/
+
+			records.ForEach(record => values.Add(record["n"].As<INode>()) );
 		}
 	}
 }

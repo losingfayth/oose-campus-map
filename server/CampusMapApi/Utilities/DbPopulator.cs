@@ -45,6 +45,7 @@ namespace CampusMapApi.Utilities
 
 			//List<PointOfInterest> poas = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
 
+			/*
 			var query = @"
 				CREATE (n:PointOfInterest { name: $name })
 			";
@@ -66,21 +67,20 @@ namespace CampusMapApi.Utilities
 					}
 				}
 			}
+			*/
 
 			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
 
-			//var query = "MATCH (n:Area) RETURN n LIMIT 25";
+			var query = "MATCH (n:Area) RETURN n LIMIT 25";
 
-			//var result = await neo4j.ExecuteReadQueryAsync(query);
+			var result = await neo4j.ExecuteReadQueryAsync(query);
 
 			//Console.WriteLine(result);
-
-			/*
+			
 			result.ForEach(record => {
 				//Console.WriteLine(record["name"]);
-				Console.WriteLine(record["n"].As<INode>().Properties["name"].As<string>());
+				Console.WriteLine(record.Properties["name"].As<string>());
 			});
-			*/
 
 			return true;
 		}
