@@ -2,6 +2,7 @@ using Neo4j.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CampusMapApi.Models;
 
 namespace CampusMapApi.Services
 {
@@ -72,22 +73,6 @@ namespace CampusMapApi.Services
 		{
 			_driver?.Dispose();
 			GC.SuppressFinalize(this);
-		}
-	}
-
-	public class QueryResult
-	{
-		List<INode> values = new List<INode>();
-
-		public QueryResult(List<IRecord> records)
-		{
-			/*
-			result.ForEach(record => {
-				Console.WriteLine(record["n"].As<INode>().Properties["name"].As<string>());
-			});
-			*/
-
-			records.ForEach(record => values.Add(record["n"].As<INode>()) );
 		}
 	}
 }
