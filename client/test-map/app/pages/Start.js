@@ -191,6 +191,8 @@ export default function Start() {
 
                 var blueprintNames = processedPath.getBlueprintNames();
                 console.log(blueprintNames);
+                var points = processedPath.getPoints();
+                console.log(points);
                 // console.log("entire pathData: " + pathData);
 
                 // console.log("pathData.path: " + pathData.path);
@@ -204,7 +206,10 @@ export default function Start() {
               }
             }
 
-            getPath();
+            // getPath();
+
+            // console.log("Currently: ");
+            // console.log(points);
 
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({

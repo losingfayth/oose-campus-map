@@ -26,13 +26,21 @@ class ProcessedPath {
             let subPath = new SubPath(segment);
             this.subPaths.push(subPath);
 
-            if (Math.floor(subPath.getFloor()) == subPath.getFloor()) {
-                let abbr = getBuildingAbbreviation(subPath.getBuildingName());
-                if (!(abbr === "OUT")) {
-                    abbr += subPath.getFloor();
-                }
-                this.blueprintNames.push(abbr);
+            let abbr = getBuildingAbbreviation(subPath.getBuildingName());
+            if (!(abbr === "OUT")) {
+                abbr += "-" + Math.floor(subPath.getFloor());
             }
+            this.blueprintNames.push(abbr);
+
+            let subPathPoints = [];
+            subPath.locations.forEach((location) => {
+                subPathPoints.push({
+                    latitude: location.getLatitude(),
+                    longitude: location.getLongitude(),
+                })
+            })
+            this.points.push(subPathPoints);
+
         });
 
         // for (let i = 0; i < pathData.length; i++) {
@@ -72,6 +80,10 @@ class ProcessedPath {
         // }
         // return blueprintNames;
         return this.blueprintNames;
+    }
+
+    getPoints() {
+        return this.points;
     }
 
 }

@@ -47,6 +47,8 @@ function mapPointsToPixels(points, coordinateMap) {
 
 
 export default function Building() {
+
+  console.log("Made it to BUILDING")
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
@@ -58,7 +60,7 @@ export default function Building() {
   console.log(locs[currIndex]);
 
   const getImageUri = (building) => {
-    return Image.resolveAssetSource(blueprintImageData[building]).uri;
+    return Image.resolveAssetSource(blueprintImageData[building].image).uri;
   };
   const uri = getImageUri(locs[currIndex]);
 
@@ -103,6 +105,7 @@ export default function Building() {
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
+    console.log("Returning null")
     return null;
   }
 
@@ -122,8 +125,18 @@ export default function Building() {
   // to here-----------------------------------------------------------------------------------
   // must move as one big block ---------------------------------------------------------------
 
+  let imageReferencePoints = blueprintImageData[locs[currIndex]].reference;
+  let m = new CoordinateMap(
+    CoordinateMap.fromReference(imageReferencePoints),
+    [
+      0, 0,
+      size.width, 0,
+      0, size.height
+    ]
+  );
 
-
+  const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
+  const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
   // console.log(normalizedPoints);
 
   // let imageReferencePoints = getImageReference(locs[currIndex]);
