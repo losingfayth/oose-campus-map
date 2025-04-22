@@ -18,43 +18,16 @@ namespace CampusMapApi.Services
 			string password = Environment.GetEnvironmentVariable("DB_PASSWORD")
 				?? throw new InvalidOperationException("DB_PASSWORD is not set");
 
-			_driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+			_driver = GraphDatabase.Driver(
+				uri,
+				AuthTokens.Basic(username, password)
+			);
 		}
-
-		/*
-		public async Task<List<IRecord>> ExecuteReadQueryAsync(string query)
-		{
-			using var session = _driver.AsyncSession();
-
-			/*return await session.ExecuteReadAsync(async tx =>
-			{
-				var result = await tx.RunAsync(qry);
-				return await result.ToListAsync();
-			});
-
-			var result = await session.RunAsync(query);
-			return await result.ToListAsync();
-		}
-		*/
 
 		public async Task<QueryResult> ExecuteReadQueryAsync(
 			string query,
 			IDictionary<string, object> parameters = null
 		){
-			/**
-			using var session = _driver.AsyncSession();
-
-			parameters ??= new Dictionary<string, object>();
-
-			return await session.ExecuteReadAsync(async tx =>
-			{
-				var result = await tx.RunAsync(query, parameters);
-				var records = await result.ToListAsync();
-				
-				return new QueryResult(records);
-			});
-			**/
-
 			return await ExecuteAsync(query, parameters);
 		}
 
@@ -62,18 +35,6 @@ namespace CampusMapApi.Services
 			string query, 
 			IDictionary<string, object> parameters = null
 		){
-			/*
-			using var session = _driver.AsyncSession();
-
-			parameters ??= new Dictionary<string, object>();
-
-			return await session.ExecuteWriteAsync(async tx =>
-			{
-				var result = await tx.RunAsync(query, parameters);
-				return await result.ToListAsync();
-			});
-			*/
-
 			return await ExecuteAsync(query, parameters, false);
 		}
 

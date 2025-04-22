@@ -1,9 +1,9 @@
 async function findPath(start, destination) {
     console.log("Running FindPath()");
     try {
-      // use fetch to make an http request to server at find-path endpoint
+      // use fetch to make an http request to server at FindPath endpoint
       const response = await fetch(
-        "https://75.97.208.114:5164/api/CampusMap/find-path",
+        "https://75.97.208.114:5164/api/CampusMap/FindPath",
         {
           method: "POST", // http POST request
           headers: { "Content-Type": "application/json" }, // sending data as json

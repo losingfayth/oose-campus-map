@@ -9,20 +9,20 @@ Establishes a web API controller to handle server-side requests from front-end.
 
 **API Enpoints**
 
-find-path
+FindPath
 - HttpPost request that recieves a JSON object containing two database node ids for
 	a starting location and destination. Runs a query that finds the shortest path
 	between two points. Returns a list of lists. Internal lists are length 2 and contain
 	the latitude and longitude associated with each node along the shortest path.
 
-get-buildings
+GetBuildings
 - HttpGet request that takes no arguments. When called, does a DB query to Neo4j
 	to retrieve building name, room number, and unique id of every node for every room
 	on campus. Returns an IActionResult object that indicates the status of request
 	completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
 	node contains the previously queried data about each location on campus.
 
-get-rooms
+GetRooms
 - HttpPut request that recieves a JSON object containing a string that defines the
 	name of a building in the database. Queries for all valid destinations inside that buidling and adds them to a list
 */
@@ -41,7 +41,7 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 
 	/*
 	Queries database for shortest path between two points using A* GDS plugin for
-	Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
+	Neo4j. http POST endpoint accessible at POST /api/CampusMap/FindPath
 	*/
 	[HttpPost("FindPath")]
 
@@ -194,7 +194,7 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 
 	/** 
 	Queries database for all nodes and returns a list of building names.
-	http GET api endpoint accessible at GET /api/CampusMap/get-buildings
+	http GET api endpoint accessible at GET /api/CampusMap/GetBuildings
 	*/
 	[HttpGet("GetBuildings")]
 	public async Task<IActionResult> GetBuildings()
@@ -244,9 +244,9 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 	/** 
 	Queries database for all rooms withing a building and returns a 
 	list of location objects. Http POST api endpoint accessible at 
-	GET /api/CampusMap/get-rooms
+	GET /api/CampusMap/GetRooms
 	*/
-	[HttpPost("get-rooms")]
+	[HttpPost("GetRooms")]
 
 	public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
 	{
@@ -296,7 +296,8 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 	}
 
 	[HttpPost("PopulateDb")]
-	public async Task<IActionResult> PopulateDb() {
+	public async Task<IActionResult> PopulateDb()
+	{
 		await DbPopulator.PopulatePoi(_neo4j);
 
 		//await DbPopulator.PopulatePoiCategories(_neo4j);
