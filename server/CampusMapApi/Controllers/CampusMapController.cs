@@ -142,10 +142,11 @@ public class CampusMapController : ControllerBase
         // initialize records from node
         var latitude = record["latitude"].ToString();
         var longitude = record["longitude"].ToString();
-        var floor = record["floor"].ToFloat();
+        var floor = record["floor"].ToString();
         var id = record["id"].ToString();
         var area = record["building"].ToString();
 
+        floor = float.Parse(floor);
         // check if this is the first pass-through the records. if so, initialize
         // what area and building we are starting in
 
