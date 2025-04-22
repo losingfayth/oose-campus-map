@@ -41,6 +41,7 @@ namespace CampusMapApi.Services
 			string query,
 			IDictionary<string, object> parameters = null
 		){
+			/**
 			using var session = _driver.AsyncSession();
 
 			parameters ??= new Dictionary<string, object>();
@@ -52,12 +53,16 @@ namespace CampusMapApi.Services
 				
 				return new QueryResult(records);
 			});
+			**/
+
+			return ExecuteAsync(query, parameters);
 		}
 
-		public async Task<List<IRecord>> ExecuteWriteQueryAsync(
+		public async Task<QueryResult> ExecuteWriteQueryAsync(
 			string query, 
 			IDictionary<string, object> parameters = null
 		){
+			/*
 			using var session = _driver.AsyncSession();
 
 			parameters ??= new Dictionary<string, object>();
@@ -67,6 +72,40 @@ namespace CampusMapApi.Services
 				var result = await tx.RunAsync(query, parameters);
 				return await result.ToListAsync();
 			});
+			*/
+
+			return ExecuteAsync(query, parameters, false);
+		}
+
+		private async Task<QueryResult> ExecuteAsync(
+			string query,
+			IDictionary<string, object> parameters,
+			bool read = true
+		){
+			using var session = _driver.AsyncSession();
+
+			parameters ??= new Dictionary<string, object>();
+
+			if (read)
+			{
+				return await session.ExecuteReadAsync(async tx =>
+				{
+					var result = await tx.RunAsync(query, parameters);
+					var records = await result.ToListAsync();
+					
+					return new QueryResult(records);
+				});
+			}
+			else
+			{
+				return await session.ExecuteWriteAsync(async tx =>
+				{
+					var result = await tx.RunAsync(query, parameters);
+					var records = await result.ToListAsync();
+					
+					return new QueryResult(records);
+				});
+			}
 		}
 
 		public void Dispose()
