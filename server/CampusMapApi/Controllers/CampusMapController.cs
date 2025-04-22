@@ -142,7 +142,7 @@ public class CampusMapController : ControllerBase
         // initialize records from node
         var latitude = record["latitude"].ToString();
         var longitude = record["longitude"].ToString();
-        var floor = record["floor"].ToString();
+        var floor = record["floor"].ToFloat();
         var id = record["id"].ToString();
         var area = record["building"].ToString();
 
@@ -152,7 +152,7 @@ public class CampusMapController : ControllerBase
 
         // check if the area and floor of the current node matches those of the
         // prvious one. if not, increment the index of path
-        if (firstPass || currArea != area || currFloor != floor)
+        if (firstPass || currArea != area || (currFloor != floor && Math.Abs(currFloor - floor) > .5))
         {
           path.Add(new List<PathNodeDto>());
           i++;

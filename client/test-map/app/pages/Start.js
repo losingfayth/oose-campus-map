@@ -174,6 +174,7 @@ export default function Start() {
           ) {
             console.log("Not null");
 
+            var processedPath;
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
@@ -184,12 +185,12 @@ export default function Start() {
 
                 var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
 
-                var processedPath = new ProcessedPath(pathData.path);
+                processedPath = new ProcessedPath(pathData.path);
 
                 console.log(processedPath.getStringRepresentation());
-                
-                const locs = processedPath.getBlueprintNames();
 
+                var blueprintNames = processedPath.getBlueprintNames();
+                console.log(blueprintNames);
                 // console.log("entire pathData: " + pathData);
 
                 // console.log("pathData.path: " + pathData.path);
@@ -207,7 +208,7 @@ export default function Start() {
 
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
-              pathname: `/buildings/${locs[0]}`,
+              pathname: "/buildings/${locs[0]}",
               params: {
                 categories: JSON.stringify(locs),
                 coords: JSON.stringify(points),

@@ -1,7 +1,7 @@
 // src/assets/imagePaths.js
 import { Image } from "react-native";
 
-var buildingNames = [
+const buildingNames = [
   ["Ben Franklin Hall", "BFB"],
   ["Navy Hall", "NAVY"],
   ["Bakeless Center for Humanities", "BCH"],
@@ -10,13 +10,14 @@ var buildingNames = [
   ["Warren Student Services Center", "SSC"],
   ["Andruss Library", "AL"],
   ["Arts & Administration Building", "A&A"],
-  ["Hartline Science Center", "HSC"]
+  ["Hartline Science Center", "HSC"],
+  ["Outside", "OUT"],
 ]
 
 const buildingToAbbreviationMap = new Map();
 
 buildingNames.forEach((pair) => {
-  buildingToAbbreviationMap.put(pair[0], pair[1]);
+  buildingToAbbreviationMap.set(pair[0], pair[1]);
 });
 
 const buildingToReferencePoints = {
@@ -129,7 +130,7 @@ const blueprintImageData = {
     image: require("../assets/build_images/Centennial Hall/CEH-3.png"),
     reference: buildingToReferencePoints["CEH"],
   },
-  "CEH-B": {
+  "CEH-0": {
     image: require("../assets/build_images/Centennial Hall/CEH-B.png"),
     reference: buildingToReferencePoints["CEH"],
   },
@@ -162,65 +163,79 @@ const blueprintImageData = {
     reference: buildingToReferencePoints["SSC"],
   },
   "SUT-1": {
-    image: require("../assets/build_images/Sutliff Hall/SH-1ST.png"),
+    image: require("../assets/build_images/Sutliff Hall/SH-1ST FL.png"),
     reference: buildingToReferencePoints["SUT"],
   },
   "SUT-2": {
-    image: require("../assets/build_images/Sutliff Hall/SH-2ND.png"),
+    image: require("../assets/build_images/Sutliff Hall/SH-2ND FL.png"),
     reference: buildingToReferencePoints["SUT"],
   },
   "SUT-3": {
-    image: require("../assets/build_images/Sutliff Hall/SH-3RD.png"),
+    image: require("../assets/build_images/Sutliff Hall/SH-3RD FL.png"),
     reference: buildingToReferencePoints["SUT"],
   },
 };
 
-
-const blueprintNames = [
-  "OUT",
-  "BFB-G",
-  "BFB-1",
-  "BFB-2",
-  "NAVY-G",
-  "NAVY-1",
-  "NAVY-2",
-  "NAVY-A",
-];
-
-
-
-
-
-var ImageReferences = [];
-
-const getImageReferences = function () {
-  if (ImageReferences == null || ImageReferences.length == 0) {
-    ImageReferences = loadImageReferences();
-  }
-  return ImageReferences;
-};
-
-const getImageReference = function (building) {
-  ImageReferences = getImageReferences();
-
-  for (let i = 0; i < ImageReferences.length; i++) {
-    if (ImageReferences[i].building == building) {
-      return ImageReferences[i];
-    }
-  }
-  console.log("Unable to find reference points for building " + building);
-};
-
-function loadImageReferences() {
-  let arr = [];
-  for (let i = 0; i < blueprintNames.length; i++) {
-    arr.push(
-      ImageReference(blueprintNames[i], ReferencePoints(buildingCorners[i]))
-    );
-  }
-
-  return arr;
+function getImageData(buildingName) {
+  let abbreviation = buildingToAbbreviationMap.get(buildingName);
+  return blueprintImageData[abbreviation];
 }
+
+function getBuildingAbbreviation(buildingName) {
+  return buildingToAbbreviationMap.get(buildingName);
+}
+
+
+
+// const blueprintNames = [
+//   "OUT",
+//   "BFB-G",
+//   "BFB-1",
+//   "BFB-2",
+//   "NAVY-G",
+//   "NAVY-1",
+//   "NAVY-2",
+//   "NAVY-A",
+// ];
+// var ImageReferences = [];
+
+// const getImageReferences = function () {
+//   if (ImageReferences == null || ImageReferences.length == 0) {
+//     ImageReferences = loadImageReferences();
+//   }
+//   return ImageReferences;
+// };
+
+// const getImageReference = function (building) {
+//   ImageReferences = getImageReferences();
+
+//   for (let i = 0; i < ImageReferences.length; i++) {
+//     if (ImageReferences[i].building == building) {
+//       return ImageReferences[i];
+//     }
+//   }
+//   console.log("Unable to find reference points for building " + building);
+// };
+
+// function loadImageReferences() {
+//   let arr = [];
+//   for (let i = 0; i < blueprintNames.length; i++) {
+//     arr.push(
+//       ImageReference(blueprintNames[i], ReferencePoints(buildingCorners[i]))
+//     );
+//   }
+
+//   return arr;
+// }
+
+
+
+// function ImageReference(building, referencePoints) {
+//   return {
+//     building: building,
+//     referencePoints: referencePoints,
+//   };
+// }
 
 function GmcCoordinate(latitude, longitude) {
   return {
@@ -237,13 +252,6 @@ function ReferencePoints(pointsArr) {
   };
 }
 
-function ImageReference(building, referencePoints) {
-  return {
-    building: building,
-    referencePoints: referencePoints,
-  };
-}
-
 // Add width and height to each entry
 Object.keys(blueprintImageData).forEach((key) => {
   const { width, height } = Image.resolveAssetSource(blueprintImageData[key]);
@@ -253,8 +261,6 @@ Object.keys(blueprintImageData).forEach((key) => {
 
 export default blueprintImageData;
 export {
-  ImageReferences,
-  buildingCorners,
-  getImageReferences,
-  getImageReference,
+  getImageData,
+  getBuildingAbbreviation,
 };

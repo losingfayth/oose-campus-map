@@ -1,3 +1,4 @@
+import { getBuildingAbbreviation } from "../utils/imagePaths";
 import LocationNode from "./LocationNode";
 import SubPath from "./SubPath";
 
@@ -18,10 +19,25 @@ class ProcessedPath {
         this.areaIndex = 0;
         this.pathData = pathData;
         this.subPaths = [];
+        this.blueprintNames = [];
+        this.points = [];
 
         pathData.forEach((segment) => {
-            this.subPaths.push(new SubPath(segment));
+            let subPath = new SubPath(segment);
+            this.subPaths.push(subPath);
+
+            if (Math.floor(subPath.getFloor()) == subPath.getFloor()) {
+                let abbr = getBuildingAbbreviation(subPath.getBuildingName());
+                if (!(abbr === "OUT")) {
+                    abbr += subPath.getFloor();
+                }
+                this.blueprintNames.push(abbr);
+            }
         });
+
+        // for (let i = 0; i < pathData.length; i++) {
+        //     let 
+        // }
 
         this.numSubPaths = this.subPaths.length;
     }
@@ -50,10 +66,12 @@ class ProcessedPath {
     }
 
     getBlueprintNames() {
-        let blueprintNames = [];
-        this.pathData.forEach((subpath) => {
-            blueprintNames.push()
-        })
+        // let blueprintNames = [];
+        // for (let i = 0; i < this.subPaths.length; i++) {
+        //     blueprintNames.push(getBuildingAbbreviation(this.subPaths[i].getBuildingName()) + this.subPaths[i].getFloor());
+        // }
+        // return blueprintNames;
+        return this.blueprintNames;
     }
 
 }

@@ -22,6 +22,14 @@ class SubPath {
         return this.currIndex < this.locations.length;
     }
 
+    getBuildingName() {
+        return this.building;
+    }
+
+    getFloor() {
+        return this.floor;
+    }
+
     getNext() {
         if (this.hasNext()) {
             let n = this.locations[this.currIndex];
