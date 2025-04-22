@@ -77,7 +77,7 @@ namespace CampusMapApi.Services
 
 	public class QueryResult
 	{
-		List<INode> values;
+		List<INode> values = new List<INode>();
 
 		public QueryResult(List<IRecord> records)
 		{
