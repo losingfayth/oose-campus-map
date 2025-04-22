@@ -4,7 +4,7 @@ namespace CampusMapApi.Models
 {
 	public class QueryResult
 	{
-		List<INode> values = new List<INode>();
+		public List<INode> values = new List<INode>();
 
 		public QueryResult(List<IRecord> records)
 		{
