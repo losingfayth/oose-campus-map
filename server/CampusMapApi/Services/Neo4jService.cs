@@ -55,7 +55,7 @@ namespace CampusMapApi.Services
 			});
 			**/
 
-			return ExecuteAsync(query, parameters);
+			return await ExecuteAsync(query, parameters);
 		}
 
 		public async Task<QueryResult> ExecuteWriteQueryAsync(
@@ -74,7 +74,7 @@ namespace CampusMapApi.Services
 			});
 			*/
 
-			return ExecuteAsync(query, parameters, false);
+			return await ExecuteAsync(query, parameters, false);
 		}
 
 		private async Task<QueryResult> ExecuteAsync(
