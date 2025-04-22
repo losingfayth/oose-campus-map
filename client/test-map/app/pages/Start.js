@@ -11,13 +11,13 @@ import {
 } from "react-native";
 import { Link, router } from "expo-router";
 import * as Location from "expo-location";
-import SearchBar from "../components/SearchBar";
-import { searchables, roomNumbers } from "../components/test/Words";
-import { points } from "../components/Points";
+import SearchBar from "../../components/SearchBar";
+import { points } from "../../utils/Points";
 
-import { loadImageReferences } from "../assets/build_images/imagePaths";
+import { loadImageReferences } from "../../utils/imagePaths.js";
 
-import { getBuildings, getRooms, findPath } from "../apis/api_functions";
+import { getBuildings, getRooms, findPath } from "../../utils/api_functions";
+import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
 export default function Start() {
   const [location, setLocation] = useState(null);
@@ -115,7 +115,11 @@ export default function Start() {
 
         console.log(buildings);
         // console.log("Get Rooms: ", await getRooms("Navy"));
-        setBuildingOptions(buildings); // save to state
+        var buildingNames = [];
+        for (let i = 0; i < buildings.length; i++) {
+          buildingNames.push(buildings[i].name);
+        }
+        setBuildingOptions(buildingNames); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }
@@ -149,7 +153,7 @@ export default function Start() {
             }}
           >
             <Image
-              source={require("../assets/cropped-huskie.png")}
+              source={require("../../assets/cropped-huskie.png")}
               style={{ height: 40, width: 40 }}
             />
           </Marker>
@@ -170,11 +174,34 @@ export default function Start() {
           ) {
             console.log("Not null");
 
-            // Create array of room IDs: [fromRoomId, toRoomId]
-            const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-            console.log("Room ID array:", roomIdArray);
+            async function getPath() {
+              try {
+                // Create array of room IDs: [fromRoomId, toRoomId]
+                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                const roomIdArray = [22, 1078];
 
-            // Proceed with navigation
+                console.log("Room ID array:", roomIdArray);
+
+                var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
+
+                var processedPath = new ProcessedPath(pathData.path);
+
+                console.log(processedPath.getStringRepresentation());
+                // console.log("entire pathData: " + pathData);
+
+                // console.log("pathData.path: " + pathData.path);
+                // console.log("Prayer: " + pathData.path[0])
+
+                // console.log(processedPath.getStringRepresentation());
+                // console.log("Get Rooms: ", await getRooms("Navy"));
+                // setBuildingOptions(buildings); // save to state
+              } catch (e) {
+                console.error("Error fetching path:", e);
+              }
+            }
+
+            getPath();
+
             const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
             router.push({
               pathname: `/buildings/${locs[0]}`,

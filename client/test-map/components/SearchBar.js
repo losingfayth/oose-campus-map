@@ -51,7 +51,7 @@ const SearchBar = ({
             onTypingChange && onTypingChange(false); // Notify parent that typing has stopped
           }}
           customStyles={searchFilterStyles}
-          //onSelect={handleSelect} // Pass handleSelect to SearchFilter
+        //onSelect={handleSelect} // Pass handleSelect to SearchFilter
         />
       )}
     </SafeAreaView>

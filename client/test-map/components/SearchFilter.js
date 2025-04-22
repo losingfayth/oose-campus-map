@@ -19,6 +19,7 @@ const SearchFilter = ({ data, input, setInput, customStyles }) => {
     item.toLowerCase().includes(input.toLowerCase())
   );
 
+
   // If input is not empty and no matches, render nothing
   if (input !== "" && filteredData.length === 0) {
     return null;

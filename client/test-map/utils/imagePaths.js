@@ -2,14 +2,14 @@
 import { Image } from "react-native";
 
 const imagePaths = {
-  OUT: require("../../assets/build_images/OUT.jpg"),
-  "BFB-G": require("../../assets/build_images/BFB-GR.png"),
-  "BFB-1": require("../../assets/build_images/BFB-1.png"),
-  "BFB-2": require("../../assets/build_images/BFB-2.png"),
-  "NAVY-G": require("../../assets/build_images/NAVY-GR.png"),
-  "NAVY-1": require("../../assets/build_images/NAVY-1.png"),
-  "NAVY-2": require("../../assets/build_images/NAVY-2.png"),
-  "NAVY-A": require("../../assets/build_images/NAVY-A.png"),
+  OUT: require("../assets/build_images/OUT.jpg"),
+  "BFB-G": require("../assets/build_images/BFB-GR.png"),
+  "BFB-1": require("../assets/build_images/BFB-1.png"),
+  "BFB-2": require("../assets/build_images/BFB-2.png"),
+  "NAVY-G": require("../assets/build_images/NAVY-GR.png"),
+  "NAVY-1": require("../assets/build_images/NAVY-1.png"),
+  "NAVY-2": require("../assets/build_images/NAVY-2.png"),
+  "NAVY-A": require("../assets/build_images/NAVY-A.png"),
 };
 
 
@@ -23,6 +23,7 @@ const buildingNames = [
   "NAVY-2",
   "NAVY-A",
 ];
+
 const buildingCorners = [
   [1.0, -1.0, 1.0, -1.0, 1.0, -1.0], // OUTSIDE (OUT)
 

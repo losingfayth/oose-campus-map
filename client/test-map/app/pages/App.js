@@ -123,7 +123,7 @@ export default function App() {
             }}
           >
             <Image
-              source={require("../assets/cropped-huskie.png")}
+              source={require("../../assets/cropped-huskie.png")}
               style={{ height: 40, width: 40 }}
             />
           </Marker>

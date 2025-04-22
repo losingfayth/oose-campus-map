@@ -39,26 +39,30 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
   private readonly ILogger<CampusMapController> _logger = logger;
 
 
-	/*
-	Queries database for shortest path between two points using A* GDS plugin for
-	Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
-	*/
-	[HttpPost("find-path")]
-  public async Task<IActionResult> FindPath([FromBody] PathRequest request) {
-    
+  /*
+  Queries database for shortest path between two points using A* GDS plugin for
+  Neo4j. http POST endpoint accessible at POST /api/CampusMap/find-path
+  */
+  [HttpPost("find-path")]
+
+  public async Task<IActionResult> FindPath([FromBody] PathRequest request)
+  {
+
     int start = request.start; // get starting node id
     int destination = request.destination; // get destination node id
 
     // initial db connection
     var uri = "neo4j+s://apibloomap.xyz:7687";
-    var username = Environment.GetEnvironmentVariable("DB_USER") 
+    var username = Environment.GetEnvironmentVariable("DB_USER")
       ?? throw new InvalidOperationException("DB_USER is not set");
-    var password = Environment.GetEnvironmentVariable("DB_PASSWORD") 
+    var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
       ?? throw new InvalidOperationException("DB_PASSWORD is not set");
     IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
     await using var session = _driver.AsyncSession();
 
-    try {
+
+    try
+    {
 
       // drop existing graph projection
       var dropProjection = @"
@@ -79,8 +83,9 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
           }
         })";
 
-        // run prjection creation query
-        await session.RunAsync(createProjection);
+
+      // run prjection creation query
+      await session.RunAsync(createProjection);
 
       // query to use A* algorithm on database
       var query = @"
@@ -110,6 +115,7 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
           n.latitude AS latitude, 
           n.longitude AS longitude,
           n.floor AS floor,
+          n.id AS id,
           a.name AS building
         ";
 
@@ -118,37 +124,85 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
       var result = await session.RunAsync(query, new { start, destination });
       var records = await result.ToListAsync();
 
-      var path = new List<List<string>>(); // list of lists for lat and longs
+      var path = new List<List<PathNodeDto>>(); // list of lists for node data
+      bool firstPass = true; // flags if it is first pass-through records
+      string currArea = ""; // tracking variable to store current area nodes are in
+      string currFloor = ""; // tracking variable to store current floor nodes are in
+      int i = -1; // iterator var
 
       // iterate over the list of nodes, getting each lat and long value and adding
       // it to the path List<>
-      foreach (var record in records) {
-          var latitude = record["latitude"].ToString();
-          var longitude = record["longitude"].ToString();
-          var floor = record["floor"].ToString();
-          var building = record["building"].ToString();
-          path.Add(new List<string> { latitude, longitude, floor, building});
+      foreach (var record in records)
+      {
+
+        // initialize records from node
+        var latitude = record["latitude"].ToString();
+        var longitude = record["longitude"].ToString();
+        var floor = record["floor"].ToString();
+        var id = record["id"].ToString();
+        var area = record["building"].ToString();
+
+        // check if this is the first pass-through the records. if so, initialize
+        // what area and building we are starting in
+
+
+        // check if the area and floor of the current node matches those of the
+        // prvious one. if not, increment the index of path
+        if (firstPass || currArea != area || currFloor != floor)
+        {
+          path.Add(new List<PathNodeDto>());
+          i++;
+          currArea = area;
+          currFloor = floor;
+          firstPass = false;
+        }
+
+        // add a new node at the correct index
+        path[i].Add(new PathNodeDto
+        {
+          latitude = float.Parse(latitude),
+          longitude = float.Parse(longitude),
+          floor = float.Parse(floor),
+          building = area,
+          id = id
+        });
       }
 
       // check if a path was found and return it if it was
-      if (path.Count > 0) {
+
+      if (path.Count > 0)
+      {
         return Ok(new { message = "Path found!", path });
-      } else {
+      }
+
+      else
+      {
         return Ok(new { message = "No Path Found!" });
       }
 
-    } catch(Exception e) {
-        Console.WriteLine($"Error: {e.Message}");
-        return StatusCode(500, new { error = e.Message });
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine($"Error: {e.Message}");
+      return StatusCode(500, new { error = e.Message });
     }
   }
+
+  [HttpGet("get-hello")]
+
+  public async Task<IActionResult> GetHello()
+  {
+    return Ok("hello");
+  }
+
 
   /** 
   Queries database for all nodes and returns a list of building names.
   http GET api endpoint accessible at GET /api/CampusMap/get-buildings
   */
   [HttpGet("get-buildings")]
-  public async Task<IActionResult> GetBuildings([FromBody] PathRequest request) {
+  public async Task<IActionResult> GetBuildings()
+  {
 
     // initial db connection
     string uri = "neo4j+s://apibloomap.xyz:7687";
@@ -167,21 +221,27 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
           RETURN a.name AS name
         ";
 
-    var buildings = new List<string>(); // list of locations being queried
+    var buildings = new List<BuildingDto>(); // list of locations being queried
 
-    try {
+
+    try
+    {
 
       // run the query on the database at store result set            
       var result = await session.RunAsync(query);
 
       // get the key attributes from each record and create a location 
       // node with those attributes. add the node to the list
-      await result.ForEachAsync(record => {
-        string building = record["building"].As<string>();
-        buildings.Add(building);
+      await result.ForEachAsync(record =>
+      {
+        BuildingDto node = new BuildingDto();
+        node.name = record["name"].As<string>();
+        buildings.Add(node);
       });
 
-    } catch (Exception e) {
+    }
+    catch (Exception e)
+    {
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -189,13 +249,16 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
     return Ok(buildings);
   }
 
+
   /** 
   Queries database for all rooms withing a building and returns a 
   list of location objects. Http POST api endpoint accessible at 
   GET /api/CampusMap/get-rooms
   */
   [HttpPost("get-rooms")]
-  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request) {
+
+  public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
+  {
     var building = request.building;
 
     // initial db connection
@@ -215,26 +278,33 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
     ";
 
     // list to hold locations
-    var rooms = new List<LocationNode>();
+    var rooms = new List<RoomDto>();
 
-    try {
+
+    try
+    {
 
       // run the building query
       var result = await session.RunAsync(query, new { building });
 
       // iterate over results to get all of the buildings and their ids
-      await result.ForEachAsync(record => {
-        LocationNode node = new LocationNode {
+      await result.ForEachAsync(record =>
+      {
+        RoomDto room = new RoomDto
+        {
           building = record["building"].As<string>(),
           name = record["name"].As<string>(),
           id = record["id"].As<string>()
         };
 
         // add each location node to the list
-        rooms.Add(node);
+        rooms.Add(room);
       });
 
-    } catch (Exception e) {
+    }
+
+    catch (Exception e)
+    {
       Console.WriteLine($"Error: {e.Message}");
     }
 
@@ -252,14 +322,18 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
   
 
   // DTO for request body
-  public class BuildingRequest {
+  public class BuildingRequest
+  {
     public string building { get; set; }
   }
 
-  public class PathRequest {
+
+  public class PathRequest
+  {
     public int start { get; set; }
     public int destination { get; set; }
-}
+  }
+
 
 
 }
