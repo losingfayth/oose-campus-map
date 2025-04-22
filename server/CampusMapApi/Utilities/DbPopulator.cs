@@ -77,7 +77,7 @@ namespace CampusMapApi.Utilities
 
 			//Console.WriteLine(result);
 			
-			result.ForEach(record => {
+			result.values.ForEach(record => {
 				//Console.WriteLine(record["name"]);
 				Console.WriteLine(record.Properties["name"].As<string>());
 			});
