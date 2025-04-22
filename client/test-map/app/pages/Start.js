@@ -187,6 +187,9 @@ export default function Start() {
                 var processedPath = new ProcessedPath(pathData.path);
 
                 console.log(processedPath.getStringRepresentation());
+                
+                const locs = processedPath.getBlueprintNames();
+
                 // console.log("entire pathData: " + pathData);
 
                 // console.log("pathData.path: " + pathData.path);

@@ -21,8 +21,6 @@ class ProcessedPath {
 
         pathData.forEach((segment) => {
             this.subPaths.push(new SubPath(segment));
-
-
         });
 
         this.numSubPaths = this.subPaths.length;
@@ -49,6 +47,13 @@ class ProcessedPath {
             s += n.getStringRepresentation() + "\n******\n";
         }
         return s;
+    }
+
+    getBlueprintNames() {
+        let blueprintNames = [];
+        this.pathData.forEach((subpath) => {
+            blueprintNames.push()
+        })
     }
 
 }
