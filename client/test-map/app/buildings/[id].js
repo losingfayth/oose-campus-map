@@ -20,7 +20,7 @@ import { Svg, Path, Circle } from "react-native-svg";
 import PointNormalizer from "../../utils/PointsNormalizer.js";
 import generatePath from "../../utils/PathGenerator.js";
 
-import imagePaths, {
+import blueprintImageData, {
   getImageReference,
 } from "../../utils/imagePaths.js";
 import CoordinateMap from "../../utils/CoordinateMap.js";
@@ -47,6 +47,8 @@ function mapPointsToPixels(points, coordinateMap) {
 
 
 export default function Building() {
+
+  console.log("Made it to BUILDING")
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
@@ -58,11 +60,11 @@ export default function Building() {
   console.log(locs[currIndex]);
 
   const getImageUri = (building) => {
-    return Image.resolveAssetSource(imagePaths[building]).uri;
+    return Image.resolveAssetSource(blueprintImageData[building].image).uri;
   };
   const uri = getImageUri(locs[currIndex]);
 
-
+  // console.log("Building - path: " + path);
 
   // console.log(normalizedPoints);
 
@@ -103,6 +105,7 @@ export default function Building() {
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
+    console.log("Returning null")
     return null;
   }
 
@@ -122,31 +125,41 @@ export default function Building() {
   // to here-----------------------------------------------------------------------------------
   // must move as one big block ---------------------------------------------------------------
 
-
-
-  // console.log(normalizedPoints);
-
-  let imageReferencePoints = getImageReference(locs[currIndex]);
-
+  let imageReferencePoints = blueprintImageData[locs[currIndex]].reference;
   let m = new CoordinateMap(
-    CoordinateMap.fromReference(imageReferencePoints.referencePoints),
-
-    [0, 0, size.width, 0, 0, size.height]
+    CoordinateMap.fromReference(imageReferencePoints),
+    [
+      0, 0,
+      size.width, 0,
+      0, size.height
+    ]
   );
 
-  // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  // console.log(
-  //   "New Image Width: ",
-  //   size.width,
-  //   " and New Image Height: ",
-  //   size.height
+  const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
+  const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
+  // console.log(normalizedPoints);
+
+  // let imageReferencePoints = getImageReference(locs[currIndex]);
+
+  // let m = new CoordinateMap(
+  //   CoordinateMap.fromReference(imageReferencePoints.referencePoints),
+
+  //   [0, 0, size.width, 0, 0, size.height]
   // );
 
-  const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
-  // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
-  // console.log("Dakotah points: ", pixelPoints);
-  // console.log("-------------------\n");
-  const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
+  // // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
+  // // console.log(
+  // //   "New Image Width: ",
+  // //   size.width,
+  // //   " and New Image Height: ",
+  // //   size.height
+  // // );
+
+  // const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
+  // // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
+  // // console.log("Dakotah points: ", pixelPoints);
+  // // console.log("-------------------\n");
+  // const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
     return (
