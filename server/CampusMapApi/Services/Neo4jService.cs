@@ -53,6 +53,8 @@ namespace CampusMapApi.Services
 				{
 					var result = await tx.RunAsync(query, parameters);
 					var records = await result.ToListAsync();
+
+					records.ForEach(record => Console.WriteLine(record["bldg"].As<string>()));
 					
 					return new QueryResult(records);
 				});
