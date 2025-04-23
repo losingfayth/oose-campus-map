@@ -64,7 +64,7 @@ namespace CampusMapApi.Services
 					var result = await tx.RunAsync(query, parameters);
 					var records = await result.ToListAsync();
 
-					Console.WriteLine(result);
+					Console.WriteLine(records);
 					
 					return new QueryResult(records);
 				});

@@ -54,6 +54,7 @@ namespace CampusMapApi.Utilities
 					abbreviation: $abbr
 				})-[:IN_CATEGORY]->(cat)
 				CREATE (poi)-[:AT_LOCATION]->(loc)
+				RETURN poi
 			";
 			
 
