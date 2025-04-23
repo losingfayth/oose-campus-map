@@ -28,8 +28,7 @@ namespace CampusMapApi.Utilities
 		public async static Task<bool> PopulatePoi(Neo4jService neo4j)
 		{
 			// File Path
-			string fp = "../../db/jsons/poa.json";
-			//D:\Code\SP25\oose-campus-map\db\jsons\poa.json
+			string fp = "../../db/jsons/poi.json";
 
 			string json = File.ReadAllText(fp);
 
@@ -43,12 +42,21 @@ namespace CampusMapApi.Utilities
 
 			var pois = JsonSerializer.Deserialize<Dictionary<string, PointOfInterest>>(json, options);
 
-			//List<PointOfInterest> poas = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
+			//List<PointOfInterest> pois = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
 
-			/*
+			
 			var query = @"
-				CREATE (n:PointOfInterest { name: $name })
+				MATCH (bldg:Area) WHERE bldg.name = $bldg
+				MATCH (loc:Location) WHERE loc.name = 'Room $room' AND (loc)-[:IS_IN]->(bldg)
+				MATCH (cat:PointOfInterestCategory) where cat.name = $cat
+				CREATE (poi:PointOfInterest {
+					name: $name,
+					abbreviation: $abbr
+				})-[:IN_CATEGORY]->(cat)
+				CREATE (poi)-[:AT_LOCATION]->(loc)
 			";
+			
+
 
 			foreach (KeyValuePair<string, PointOfInterest> poi in pois)
 			{ 
@@ -56,31 +64,34 @@ namespace CampusMapApi.Utilities
 
 				if (poi.Value.Room != "")
 				{
-					if (poi.Value.Room != null)
-					{
-
-					}
-					else
-					{
-						var abbrQuery = @"
-							CREATE (n:PointOfInterest { name: $name, abbr: $abbr })";
-					}
+					await neo4j.ExecuteWriteQueryAsync(
+						query,
+						new Dictionary<string, object> {
+							{ "name", poi.Value.Name },
+							{ "abbr", poi.Value.Abbreviation ?? "" },
+							{ "room", poi.Value.Room ?? "" },
+							{ "bldg", poi.Value.Building },
+							{ "cat", poi.Value.Category }
+						}
+					);
 				}
 			}
-			*/
+			
 
 			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
 
-			var query = "MATCH (n:Area) RETURN n LIMIT 25";
+			//var query = "MATCH (n:Area) RETURN n LIMIT 25";
 
-			var result = await neo4j.ExecuteReadQueryAsync(query);
+			//var result = await neo4j.ExecuteReadQueryAsync(query);
 
 			//Console.WriteLine(result);
 			
+			/*
 			result.values.ForEach(record => {
 				//Console.WriteLine(record["name"]);
 				Console.WriteLine(record.Properties["name"].As<string>());
 			});
+			*/
 
 			return true;
 		}
