@@ -65,6 +65,8 @@ namespace CampusMapApi.Services
 					var records = await result.ToListAsync();
 
 					//Console.WriteLine(records);
+
+					records.ForEach(record => Console.WriteLine(record["poi"].As<string>()));
 					
 					return new QueryResult(records);
 				});
