@@ -178,8 +178,8 @@ export default function Start() {
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
-                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                const roomIdArray = [22, 1078];
+                const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                // const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
@@ -201,26 +201,37 @@ export default function Start() {
                 // console.log(processedPath.getStringRepresentation());
                 // console.log("Get Rooms: ", await getRooms("Navy"));
                 // setBuildingOptions(buildings); // save to state
+
+                router.push({
+                  pathname: "/buildings/${blueprintNames[0]}",
+                  params: {
+                    categories: JSON.stringify(blueprintNames),
+                    coords: JSON.stringify(points),
+                    currLoc: 0,
+                    maxLocs: blueprintNames.length - 1,
+                  }
+                });
+
               } catch (e) {
                 console.error("Error fetching path:", e);
               }
             }
 
-            // getPath();
+            getPath();
 
             // console.log("Currently: ");
             // console.log(points);
 
-            const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
-            router.push({
-              pathname: "/buildings/${locs[0]}",
-              params: {
-                categories: JSON.stringify(locs),
-                coords: JSON.stringify(points),
-                currLoc: 0,
-                maxLocs: locs.length - 1,
-              },
-            });
+            // const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
+            // router.push({
+            //   pathname: "/buildings/${locs[0]}",
+            //   params: {
+            //     categories: JSON.stringify(locs),
+            //     coords: JSON.stringify(points),
+            //     currLoc: 0,
+            //     maxLocs: locs.length - 1,
+            //   },
+            // });
           } else {
             console.log("One or more values are null");
           }
