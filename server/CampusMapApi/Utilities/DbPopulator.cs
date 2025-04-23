@@ -47,6 +47,11 @@ namespace CampusMapApi.Utilities
 			
 			var query = @"
 				MATCH (bldg:Area) WHERE bldg.name = $bldg
+
+				RETURN bldg
+			";
+
+			/*
 				MATCH (loc:Location) WHERE loc.name = 'Room $room' AND (loc)-[:IS_IN]->(bldg)
 				MATCH (cat:PointOfInterestCategory) where cat.name = $cat
 				CREATE (poi:PointOfInterest {
@@ -55,7 +60,7 @@ namespace CampusMapApi.Utilities
 				})-[:IN_CATEGORY]->(cat)
 				CREATE (poi)-[:AT_LOCATION]->(loc)
 				RETURN poi
-			";
+			*/
 			
 
 
@@ -76,10 +81,6 @@ namespace CampusMapApi.Utilities
 							{ "cat", poi.Value.Category.ToString() }
 						}
 					);
-
-					results.values.ForEach(result => {
-						Console.WriteLine(result.As<string>());
-					});
 				}
 			}
 			

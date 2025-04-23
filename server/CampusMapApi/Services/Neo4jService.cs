@@ -66,7 +66,7 @@ namespace CampusMapApi.Services
 
 					//Console.WriteLine(records);
 
-					records.ForEach(record => Console.WriteLine(record["poi"].As<string>()));
+					records.ForEach(record => Console.WriteLine(record["bldg"].As<string>()));
 					
 					return new QueryResult(records);
 				});
