@@ -59,14 +59,13 @@ namespace CampusMapApi.Services
 			}
 			else
 			{
-				Console.WriteLine("WRITE 1");
 				return await session.ExecuteWriteAsync(async tx =>
 				{
-					Console.WriteLine("WRITE 2");
 					var result = await tx.RunAsync(query, parameters);
 					var records = await result.ToListAsync();
+
+					Console.WriteLine(result);
 					
-					Console.WriteLine("WRITE 3");
 					return new QueryResult(records);
 				});
 			}
