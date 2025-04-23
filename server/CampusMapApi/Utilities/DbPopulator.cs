@@ -71,7 +71,7 @@ namespace CampusMapApi.Utilities
 							{ "abbr", poi.Value.Abbreviation ?? "" },
 							{ "room", poi.Value.Room ?? "" },
 							{ "bldg", poi.Value.Building },
-							{ "cat", poi.Value.Category }
+							{ "cat", poi.Value.Category.ToString() }
 						}
 					);
 				}
