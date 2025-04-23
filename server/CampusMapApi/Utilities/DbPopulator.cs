@@ -77,10 +77,9 @@ namespace CampusMapApi.Utilities
 						}
 					);
 
-					foreach (INode result in results.values)
-					{
-						Console.WriteLine(result);
-					}
+					results.values.ForEach(result => {
+						Console.WriteLine(result.As<string>());
+					});
 				}
 			}
 			
