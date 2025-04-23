@@ -162,13 +162,11 @@ public class SelectorPane extends Pane
         {
             return;
         }
-        System.out.println("mouseClickHandler");
         double cx = event.getX();
         double cy = event.getY();
         Point2D onImage = imageView.imageViewToImage(new Point2D(cx, cy));
 
         if (!domainDefined) {
-            System.out.println("1");
             referencePoints.add(new Point(onImage.getX(), onImage.getY()));
             System.out.println("clicked " + cx + ", " + cy);
             System.out.println("At pixel x,y: " + onImage.getX() + ", " + onImage.getY());
@@ -185,7 +183,6 @@ public class SelectorPane extends Pane
             return;
         }
 
-        System.out.println("2");
 
             if (nodesSelected) {
                 for (Location l : enteredLocations.getNodes()) {
@@ -266,10 +263,8 @@ public class SelectorPane extends Pane
                         } else {
                             if (enteredLocations.getCurrentRoot() != null && !clicked.equals(enteredLocations.getCurrentRoot())) {
                                 enteredLocations.getCurrentRoot().markConnection(clicked);
-                                clicked.markConnection(enteredLocations.getCurrentRoot());
-                                System.out.printf("%nEdge added | %d -> %d, %d -> %d " +
-                                                "%n",
-                                        enteredLocations.getCurrentRoot().getKeyID(), clicked.getKeyID(), clicked.getKeyID(), enteredLocations.getCurrentRoot().getKeyID());
+                                System.out.printf("%nEdge added | %d -> %d %n",
+                                        enteredLocations.getCurrentRoot().getKeyID(), clicked.getKeyID());
 
                                 Vector v1 = new Vector(cx, cy);
                                 Vector v2 = new Vector(enteredLocations.getCurrentRoot().getX(),
