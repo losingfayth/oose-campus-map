@@ -81,6 +81,10 @@ namespace CampusMapApi.Utilities
 							{ "cat", poi.Value.Category.ToString() }
 						}
 					);
+
+				results.values.ForEach(record => {
+				Console.WriteLine(record.Properties["name"].As<string>());
+			});
 				}
 			}
 			
