@@ -174,19 +174,25 @@ export default function Start() {
           ) {
             console.log("Not null");
 
+            var processedPath;
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
-                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                const roomIdArray = [22, 1078];
+                const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                // const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
                 var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
 
-                var processedPath = new ProcessedPath(pathData.path);
+                processedPath = new ProcessedPath(pathData.path);
 
                 console.log(processedPath.getStringRepresentation());
+
+                var blueprintNames = processedPath.getBlueprintNames();
+                console.log(blueprintNames);
+                var points = processedPath.getPoints();
+                console.log(points);
                 // console.log("entire pathData: " + pathData);
 
                 // console.log("pathData.path: " + pathData.path);
@@ -195,6 +201,17 @@ export default function Start() {
                 // console.log(processedPath.getStringRepresentation());
                 // console.log("Get Rooms: ", await getRooms("Navy"));
                 // setBuildingOptions(buildings); // save to state
+
+                router.push({
+                  pathname: "/buildings/${blueprintNames[0]}",
+                  params: {
+                    categories: JSON.stringify(blueprintNames),
+                    coords: JSON.stringify(points),
+                    currLoc: 0,
+                    maxLocs: blueprintNames.length - 1,
+                  }
+                });
+
               } catch (e) {
                 console.error("Error fetching path:", e);
               }
@@ -202,16 +219,19 @@ export default function Start() {
 
             getPath();
 
-            const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
-            router.push({
-              pathname: `/buildings/${locs[0]}`,
-              params: {
-                categories: JSON.stringify(locs),
-                coords: JSON.stringify(points),
-                currLoc: 0,
-                maxLocs: locs.length - 1,
-              },
-            });
+            // console.log("Currently: ");
+            // console.log(points);
+
+            // const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
+            // router.push({
+            //   pathname: "/buildings/${locs[0]}",
+            //   params: {
+            //     categories: JSON.stringify(locs),
+            //     coords: JSON.stringify(points),
+            //     currLoc: 0,
+            //     maxLocs: locs.length - 1,
+            //   },
+            // });
           } else {
             console.log("One or more values are null");
           }

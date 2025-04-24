@@ -131,7 +131,7 @@ public class CampusMapController : ControllerBase
       var path = new List<List<PathNodeDto>>(); // list of lists for node data
       bool firstPass = true; // flags if it is first pass-through records
       string currArea = ""; // tracking variable to store current area nodes are in
-      string currFloor = ""; // tracking variable to store current floor nodes are in
+      float currFloor = 0; // tracking variable to store current floor nodes are in
       int i = -1; // iterator var
 
       // iterate over the list of nodes, getting each lat and long value and adding
@@ -146,18 +146,19 @@ public class CampusMapController : ControllerBase
         var id = record["id"].ToString();
         var area = record["building"].ToString();
 
+        var floorFloat = float.Parse(floor);
         // check if this is the first pass-through the records. if so, initialize
         // what area and building we are starting in
 
 
         // check if the area and floor of the current node matches those of the
         // prvious one. if not, increment the index of path
-        if (firstPass || currArea != area || currFloor != floor)
+        if (firstPass || currArea != area || (currFloor != floorFloat && Math.Abs(currFloor - floorFloat) > .5))
         {
           path.Add(new List<PathNodeDto>());
           i++;
           currArea = area;
-          currFloor = floor;
+          currFloor = floorFloat;
           firstPass = false;
         }
 
