@@ -279,6 +279,7 @@ public class CampusMapController : ControllerBase
     // query to get every room in a building from database
     var query = @"
         MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+        WHERE l.isValidDestination = TRUE
         RETURN a.name AS building, l.name AS name, l.id AS id
     ";
 

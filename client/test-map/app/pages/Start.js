@@ -178,8 +178,8 @@ export default function Start() {
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
-                const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                // const roomIdArray = [22, 1078];
+                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
@@ -219,19 +219,6 @@ export default function Start() {
 
             getPath();
 
-            // console.log("Currently: ");
-            // console.log(points);
-
-            // const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
-            // router.push({
-            //   pathname: "/buildings/${locs[0]}",
-            //   params: {
-            //     categories: JSON.stringify(locs),
-            //     coords: JSON.stringify(points),
-            //     currLoc: 0,
-            //     maxLocs: locs.length - 1,
-            //   },
-            // });
           } else {
             console.log("One or more values are null");
           }
@@ -257,7 +244,8 @@ export default function Start() {
             .then((rooms) => {
               // Filter only rooms that include the word "room" in their name
               const filteredRooms = rooms.filter((room) =>
-                room.name.toLowerCase().includes("room")
+                // room.name.toLowerCase().includes("room")
+                room.name.toLowerCase()
               );
 
               // Save the full filtered room objects (not just names)

@@ -43,10 +43,11 @@ class SubPath {
 
     getStringRepresentation() {
         let s = "";
-        while (this.hasNext()) {
-            let n = this.getNext();
+        this.locations.forEach((n) => {
             s += (n.getBuilding() + " FL" + n.getFloor() + " (" + n.getLatitude() + ", " + n.getLongitude() + ")\n");
-        }
+
+        })
+
         return s;
     }
 }
