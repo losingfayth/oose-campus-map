@@ -26,6 +26,7 @@ import blueprintImageData, {
 import CoordinateMap from "../../utils/CoordinateMap.js";
 import { getBuildings, getRooms, findPath } from "../../utils/api_functions.js";
 import LocationNode from "../../dataObject/LocationNode.js";
+import PathControls from "../../components/PathControls.js";
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
@@ -48,7 +49,6 @@ function mapPointsToPixels(points, coordinateMap) {
 
 export default function Building() {
 
-  console.log("Made it to BUILDING")
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
@@ -56,8 +56,7 @@ export default function Building() {
   const parsedPoints = coords ? JSON.parse(coords) : [];
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
-  console.log("-----------------");
-  console.log(locs[currIndex]);
+
 
   const getImageUri = (building) => {
     return Image.resolveAssetSource(blueprintImageData[building].image).uri;
@@ -83,7 +82,7 @@ export default function Building() {
     // console.log("ID building: " + n.getID());
 
   }
-  getBuildingTest();
+  // getBuildingTest();
 
 
 
@@ -137,29 +136,6 @@ export default function Building() {
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
   const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
-  // console.log(normalizedPoints);
-
-  // let imageReferencePoints = getImageReference(locs[currIndex]);
-
-  // let m = new CoordinateMap(
-  //   CoordinateMap.fromReference(imageReferencePoints.referencePoints),
-
-  //   [0, 0, size.width, 0, 0, size.height]
-  // );
-
-  // // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  // // console.log(
-  // //   "New Image Width: ",
-  // //   size.width,
-  // //   " and New Image Height: ",
-  // //   size.height
-  // // );
-
-  // const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
-  // // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
-  // // console.log("Dakotah points: ", pixelPoints);
-  // // console.log("-------------------\n");
-  // const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
     return (
@@ -212,62 +188,13 @@ export default function Building() {
           </ImageBackground>
         </ResumableZoom>
 
-        {/* Previous button (only if not at the first location) */}
-        {currIndex > 0 && (
-          <View style={[styles.buttonWrapper, styles.leftButton]}>
-            <Button
-              title="Prev"
-              onPress={() => {
-                router.push({
-                  pathname: `/buildings/${locs[currIndex - 1]}`,
-                  params: {
-                    categories: JSON.stringify(locs),
-                    coords: JSON.stringify(parsedPoints),
-                    currLoc: currIndex - 1,
-                    maxLocs,
-                  },
-                });
-              }}
-            />
-          </View>
-        )}
+        <PathControls
+          locs={locs}
+          parsedPoints={parsedPoints}
+          currIndex={currIndex}
+          maxLocs={maxLocs}
+        />
 
-        <View style={[styles.buttonWrapper, styles.centerButton]}>
-          <Button
-            title="Home"
-            onPress={() => {
-              router.push({
-                pathname: "../pages/Start",
-                params: {
-                  categories: null,
-                  coords: null,
-                  currLoc: 0,
-                  maxLocs: 0,
-                },
-              });
-            }}
-          />
-        </View>
-
-        {/* Next button (only if there are more locations) */}
-        {currIndex < maxLocs && (
-          <View style={[styles.buttonWrapper, styles.rightButton]}>
-            <Button
-              title="Next"
-              onPress={() => {
-                router.push({
-                  pathname: `/buildings/${locs[currIndex + 1]}`,
-                  params: {
-                    categories: JSON.stringify(locs),
-                    coords: JSON.stringify(parsedPoints),
-                    currLoc: currIndex + 1,
-                    maxLocs,
-                  },
-                });
-              }}
-            />
-          </View>
-        )}
       </GestureHandlerRootView>
     );
   } else {
