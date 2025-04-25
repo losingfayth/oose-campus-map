@@ -14,9 +14,11 @@ namespace CampusMapApi.Models
 		public string? Room { get; set; }
 		
 		[JsonPropertyName("bldg")]
-		public string Building { get; set; } = string.Empty;
+		public string? Building { get; set; } = string.Empty;
 
 		[JsonPropertyName("cat")]
 		public PointOfInterestCategory Category { get; set; }
+
+		public int? LocationId { get; set; }
 	}
 }

@@ -24,21 +24,21 @@ namespace CampusMapApi.Services
 			);
 		}
 
-		public async Task<QueryResult> ExecuteReadQueryAsync(
+		public async Task<List<IRecord>> ExecuteReadQueryAsync(
 			string query,
 			IDictionary<string, object> parameters = null
 		){
 			return await ExecuteAsync(query, parameters);
 		}
 
-		public async Task<QueryResult> ExecuteWriteQueryAsync(
+		public async Task<List<IRecord>> ExecuteWriteQueryAsync(
 			string query, 
 			IDictionary<string, object> parameters = null
 		){
 			return await ExecuteAsync(query, parameters, false);
 		}
 
-		private async Task<QueryResult> ExecuteAsync(
+		private async Task<List<IRecord>> ExecuteAsync(
 			string query,
 			IDictionary<string, object> parameters,
 			bool read = true
@@ -54,7 +54,7 @@ namespace CampusMapApi.Services
 					var result = await tx.RunAsync(query, parameters);
 					var records = await result.ToListAsync();
 					
-					return new QueryResult(records);
+					return records;
 				});
 			}
 			else
@@ -63,12 +63,8 @@ namespace CampusMapApi.Services
 				{
 					var result = await tx.RunAsync(query, parameters);
 					var records = await result.ToListAsync();
-
-					//Console.WriteLine(records);
-
-					//records.ForEach(record => Console.WriteLine(record["bldg"].As<string>()));
 					
-					return new QueryResult(records);
+					return records;
 				});
 			}
 		}

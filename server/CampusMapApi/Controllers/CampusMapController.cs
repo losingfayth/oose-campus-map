@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Neo4j.Driver; // DB related functions
 using CampusMapApi.Utilities;
 using CampusMapApi.Services;
+using CampusMapApi.Models;
 
 /**
 Establishes a web API controller to handle server-side requests from front-end.
@@ -271,7 +272,6 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 		// list to hold locations
 		var rooms = new List<RoomDto>();
 
-
 		try {
 			// run the building query
 			var result = await session.RunAsync(query, new { building });
@@ -295,13 +295,37 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 		return Ok(rooms);
 	}
 
+	[HttpGet("GetPois")]
+	public async Task<IActionResult> GetPois()
+	{
+		const string query = @"
+			MATCH (poi:PointOfInterest)
+			MATCH (loc:Location) WHERE (poi)-[:LOCATED_AT]->(loc)
+			MATCH (cat:PointOfInterestCategory) WHERE (poi)-[:IN_CATEGORY]->(cat)
+			RETURN poi.name AS name, poi.abbreviation AS abbr, cat.name AS cat, loc.id AS locId 
+		";
+
+		var results = await _neo4j.ExecuteReadQueryAsync(query);
+
+		List<PointOfInterest> pois = [];
+
+		results.ForEach(record => {
+			PointOfInterest poi = new();
+
+			poi.Name = record["name"].As<string>();
+			poi.Abbreviation = record["abbr"].As<string>();
+			poi.Category = (PointOfInterestCategory) Enum.Parse(typeof(PointOfInterestCategory), record["cat"].As<string>());
+			poi.LocationId = record["locId"].As<int>();
+
+			pois.Add(poi);
+		});
+
+		return Ok(pois);
+	}
+
 	[HttpPost("PopulateDb")]
 	public async Task<IActionResult> PopulateDb()
 	{
-		await DbPopulator.PopulatePoi(_neo4j);
-
-		//await DbPopulator.PopulatePoiCategories(_neo4j);
-
 		return Ok();
 	}
 	
