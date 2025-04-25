@@ -45,11 +45,15 @@ namespace CampusMapApi.Utilities
 			//List<PointOfInterest> pois = JsonSerializer.Deserialize<List<PointOfInterest>>(json);
 
 			
-			var query = @"
-				MATCH (bldg:Area) WHERE bldg.name = $bldg
-
-				RETURN bldg
-			";
+			const string query = @"
+        MATCH (cat:PointOfInterestCategory) WHERE cat.name = $category
+        MATCH (bldg:Area) WHERE bldg.name = $building
+        MATCH (loc:Location) WHERE loc.name = 'Room ' + $room AND (loc)-[:IS_IN]->(bldg)
+        CREATE (n:PointOfInterest { 
+            name: $name, 
+            abbreviation: $abbreviation 
+        })-[:IN_CATEGORY]->(cat)
+        CREATE (n)-[:LOCATED_AT]->(loc)";
 
 			/*
 				MATCH (loc:Location) WHERE loc.name = 'Room $room' AND (loc)-[:IS_IN]->(bldg)
@@ -81,13 +85,13 @@ namespace CampusMapApi.Utilities
 							{ "cat", poi.Value.Category.ToString() }
 						}
 					);
-
+/*
 				results.values.ForEach(record => {
 				Console.WriteLine(record.Properties["name"].As<string>());
 			});
 				}
 			}
-			
+			*/
 
 			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
 
