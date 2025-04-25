@@ -178,8 +178,8 @@ export default function Start() {
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
-                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                const roomIdArray = [22, 1078];
+                const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                // const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
@@ -192,15 +192,6 @@ export default function Start() {
                 var blueprintNames = processedPath.getBlueprintNames();
                 // console.log(blueprintNames);
                 var points = processedPath.getPoints();
-                // console.log(points);
-                // console.log("entire pathData: " + pathData);
-
-                // console.log("pathData.path: " + pathData.path);
-                // console.log("Prayer: " + pathData.path[0])
-
-                // console.log(processedPath.getStringRepresentation());
-                // console.log("Get Rooms: ", await getRooms("Navy"));
-                // setBuildingOptions(buildings); // save to state
 
                 router.push({
                   pathname: `/buildings/${blueprintNames[0]}`,
