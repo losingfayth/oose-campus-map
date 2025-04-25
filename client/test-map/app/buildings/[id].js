@@ -49,7 +49,6 @@ function mapPointsToPixels(points, coordinateMap) {
 
 export default function Building() {
 
-  console.log("Made it to BUILDING")
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
@@ -57,8 +56,7 @@ export default function Building() {
   const parsedPoints = coords ? JSON.parse(coords) : [];
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
-  console.log("-----------------");
-  console.log(locs[currIndex]);
+
 
   const getImageUri = (building) => {
     return Image.resolveAssetSource(blueprintImageData[building].image).uri;
@@ -84,7 +82,7 @@ export default function Building() {
     // console.log("ID building: " + n.getID());
 
   }
-  getBuildingTest();
+  // getBuildingTest();
 
 
 
@@ -138,29 +136,6 @@ export default function Building() {
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
   const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
-  // console.log(normalizedPoints);
-
-  // let imageReferencePoints = getImageReference(locs[currIndex]);
-
-  // let m = new CoordinateMap(
-  //   CoordinateMap.fromReference(imageReferencePoints.referencePoints),
-
-  //   [0, 0, size.width, 0, 0, size.height]
-  // );
-
-  // // example, the input to m.convert is the lat/lng value of the point that needs to be scaled onto the blueprint
-  // // console.log(
-  // //   "New Image Width: ",
-  // //   size.width,
-  // //   " and New Image Height: ",
-  // //   size.height
-  // // );
-
-  // const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
-  // // console.log("Given lat/lon points: ", parsedPoints[currIndex]);
-  // // console.log("Dakotah points: ", pixelPoints);
-  // // console.log("-------------------\n");
-  // const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
 
   if (locs[currIndex] !== "OUT") {
     return (
