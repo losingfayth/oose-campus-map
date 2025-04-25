@@ -51,9 +51,11 @@ namespace CampusMapApi.Utilities
         MATCH (loc:Location) WHERE loc.name = 'Room ' + $room AND (loc)-[:IS_IN]->(bldg)
         CREATE (n:PointOfInterest { 
             name: $name, 
-            abbreviation: $abbreviation 
+            abbreviation: $abbreviation
         })-[:IN_CATEGORY]->(cat)
-        CREATE (n)-[:LOCATED_AT]->(loc)";
+        CREATE (n)-[:LOCATED_AT]->(loc)
+		RETURN n
+		";
 
 			/*
 				MATCH (loc:Location) WHERE loc.name = 'Room $room' AND (loc)-[:IS_IN]->(bldg)
@@ -79,10 +81,10 @@ namespace CampusMapApi.Utilities
 						query,
 						new Dictionary<string, object> {
 							{ "name", poi.Value.Name },
-							{ "abbr", poi.Value.Abbreviation ?? "" },
+							{ "abbreviation", poi.Value.Abbreviation ?? "" },
 							{ "room", poi.Value.Room ?? "" },
-							{ "bldg", poi.Value.Building },
-							{ "cat", poi.Value.Category.ToString() }
+							{ "building", poi.Value.Building },
+							{ "category", poi.Value.Category.ToString() }
 						}
 					);
 /*
