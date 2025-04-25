@@ -74,11 +74,7 @@ class ProcessedPath {
     }
 
     getBlueprintNames() {
-        // let blueprintNames = [];
-        // for (let i = 0; i < this.subPaths.length; i++) {
-        //     blueprintNames.push(getBuildingAbbreviation(this.subPaths[i].getBuildingName()) + this.subPaths[i].getFloor());
-        // }
-        // return blueprintNames;
+
         return this.blueprintNames;
     }
 
