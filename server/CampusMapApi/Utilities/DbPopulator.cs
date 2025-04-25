@@ -77,7 +77,7 @@ namespace CampusMapApi.Utilities
 				if (poi.Value.Room != "")
 				{
 					//Console.WriteLine(poi.Value.Name);
-					var results = await neo4j.ExecuteReadQueryAsync(
+					var results = await neo4j.ExecuteWriteQueryAsync(
 						query,
 						new Dictionary<string, object> {
 							{ "name", poi.Value.Name },
