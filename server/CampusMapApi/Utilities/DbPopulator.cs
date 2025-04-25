@@ -87,13 +87,8 @@ namespace CampusMapApi.Utilities
 							{ "category", poi.Value.Category.ToString() }
 						}
 					);
-/*
-				results.values.ForEach(record => {
-				Console.WriteLine(record.Properties["name"].As<string>());
-			});
 				}
 			}
-			*/
 
 			//var neo4j = Neo4jServiceLocator.GetNeo4jService();
 
