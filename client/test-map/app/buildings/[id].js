@@ -26,6 +26,7 @@ import blueprintImageData, {
 import CoordinateMap from "../../utils/CoordinateMap.js";
 import { getBuildings, getRooms, findPath } from "../../utils/api_functions.js";
 import LocationNode from "../../dataObject/LocationNode.js";
+import PathControls from "../../components/PathControls.js";
 /**
  *  To run this code, make sure you have the following libraries installed:
  *  npm install react-native-zoom-toolkit
@@ -212,62 +213,13 @@ export default function Building() {
           </ImageBackground>
         </ResumableZoom>
 
-        {/* Previous button (only if not at the first location) */}
-        {currIndex > 0 && (
-          <View style={[styles.buttonWrapper, styles.leftButton]}>
-            <Button
-              title="Prev"
-              onPress={() => {
-                router.push({
-                  pathname: `/buildings/${locs[currIndex - 1]}`,
-                  params: {
-                    categories: JSON.stringify(locs),
-                    coords: JSON.stringify(parsedPoints),
-                    currLoc: currIndex - 1,
-                    maxLocs,
-                  },
-                });
-              }}
-            />
-          </View>
-        )}
+        <PathControls
+          locs={locs}
+          parsedPoints={parsedPoints}
+          currIndex={currIndex}
+          maxLocs={maxLocs}
+        />
 
-        <View style={[styles.buttonWrapper, styles.centerButton]}>
-          <Button
-            title="Home"
-            onPress={() => {
-              router.push({
-                pathname: "../pages/Start",
-                params: {
-                  categories: null,
-                  coords: null,
-                  currLoc: 0,
-                  maxLocs: 0,
-                },
-              });
-            }}
-          />
-        </View>
-
-        {/* Next button (only if there are more locations) */}
-        {currIndex < maxLocs && (
-          <View style={[styles.buttonWrapper, styles.rightButton]}>
-            <Button
-              title="Next"
-              onPress={() => {
-                router.push({
-                  pathname: `/buildings/${locs[currIndex + 1]}`,
-                  params: {
-                    categories: JSON.stringify(locs),
-                    coords: JSON.stringify(parsedPoints),
-                    currLoc: currIndex + 1,
-                    maxLocs,
-                  },
-                });
-              }}
-            />
-          </View>
-        )}
       </GestureHandlerRootView>
     );
   } else {
