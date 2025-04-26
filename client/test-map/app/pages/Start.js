@@ -174,27 +174,35 @@ export default function Start() {
           ) {
             console.log("Not null");
 
+            var processedPath;
             async function getPath() {
               try {
                 // Create array of room IDs: [fromRoomId, toRoomId]
-                // const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-                const roomIdArray = [22, 1078];
+                const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+                // const roomIdArray = [22, 1078];
 
                 console.log("Room ID array:", roomIdArray);
 
                 var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
 
-                var processedPath = new ProcessedPath(pathData.path);
+                processedPath = new ProcessedPath(pathData.path);
 
                 console.log(processedPath.getStringRepresentation());
-                // console.log("entire pathData: " + pathData);
 
-                // console.log("pathData.path: " + pathData.path);
-                // console.log("Prayer: " + pathData.path[0])
+                var blueprintNames = processedPath.getBlueprintNames();
+                // console.log(blueprintNames);
+                var points = processedPath.getPoints();
 
-                // console.log(processedPath.getStringRepresentation());
-                // console.log("Get Rooms: ", await getRooms("Navy"));
-                // setBuildingOptions(buildings); // save to state
+                router.push({
+                  pathname: `/buildings/${blueprintNames[0]}`,
+                  params: {
+                    categories: JSON.stringify(blueprintNames),
+                    coords: JSON.stringify(points),
+                    currLoc: 0,
+                    maxLocs: blueprintNames.length - 1,
+                  }
+                });
+
               } catch (e) {
                 console.error("Error fetching path:", e);
               }
@@ -202,16 +210,6 @@ export default function Start() {
 
             getPath();
 
-            const locs = ["BFB-1", "OUT", "NAVY-1", "NAVY-2"];
-            router.push({
-              pathname: `/buildings/${locs[0]}`,
-              params: {
-                categories: JSON.stringify(locs),
-                coords: JSON.stringify(points),
-                currLoc: 0,
-                maxLocs: locs.length - 1,
-              },
-            });
           } else {
             console.log("One or more values are null");
           }
@@ -222,10 +220,9 @@ export default function Start() {
 
       {/* Search bar with first being for building and second for room number */}
       {/* "From" Building Search Bar */}
-      {/* "From" Building Search Bar */}
       <SearchBar
         searchFilterData={buildingOptions} // options for buildings
-        customStyles={{ left: "5%", width: "60%" }}
+        customStyles={{ left: "5%", width: "60%", zIndex: "2" }}
         placeholderText="From"
         onTypingChange={setIsBuildingTyping} // updates typing state if needed
         onSelect={(building) => {
@@ -237,7 +234,8 @@ export default function Start() {
             .then((rooms) => {
               // Filter only rooms that include the word "room" in their name
               const filteredRooms = rooms.filter((room) =>
-                room.name.toLowerCase().includes("room")
+                // room.name.toLowerCase().includes("room")
+                room.name.toLowerCase()
               );
 
               // Save the full filtered room objects (not just names)
@@ -255,10 +253,10 @@ export default function Start() {
 
       {/* "From" Room Search Bar */}
       <SearchBar
-        customStyles={{ width: "31%", left: "64%", borderColor: "black" }}
+        customStyles={{ width: "31%", left: "64%", borderColor: "black", zIndex: "2" }}
         showIcon={false}
         searchFilterData={filteredRoomNumbers.map((r) => r.name)} // show only room names in dropdown
-        searchFilterStyles={{ width: "100%" }}
+        searchFilterStyles={{ width: "100%", }}
         placeholderText="Room #"
         onTypingChange={setIsRoomTyping}
         onSelect={(selectedName) => {
@@ -287,7 +285,7 @@ export default function Start() {
           getRooms(building)
             .then((rooms) => {
               const filteredRooms = rooms.filter((room) =>
-                room.name.toLowerCase().includes("room")
+                room.name.toLowerCase()
               );
 
               // Save filtered room objects for "To" field
@@ -310,10 +308,11 @@ export default function Start() {
           width: "31%",
           left: "64%",
           borderColor: "black",
+
         }}
         showIcon={false}
         searchFilterData={filteredEndRoomNumbers.map((r) => r.name)} // only names in dropdown
-        searchFilterStyles={{ width: "100%" }}
+        searchFilterStyles={{ width: "100%", }}
         placeholderText="Room #"
         onSelect={(selectedName) => {
           // Find the full room object from the selected name
@@ -347,7 +346,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f1f1f1",
     padding: 10,
     borderRadius: 5,
-    zIndex: 10, // Ensures it stays on top of other content
+    // zIndex: 10, // Ensures it stays on top of other content
   },
   text: {
     fontSize: 18,

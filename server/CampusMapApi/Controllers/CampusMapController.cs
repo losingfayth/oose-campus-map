@@ -125,19 +125,11 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 	
 			var records = await result.ToListAsync();
 
-			// list of lists for node data
-			var path = new List<List<PathNodeDto>>(); 
-
-			// flags if it is first pass-through records
-			bool firstPass = true;
-
-			// tracking variable to store current area nodes are in
-			string currArea = ""; 
-
-			// tracking variable to store current floor nodes are in
-			string currFloor = "";
-
-			int i = -1; // iterator var
+      var path = new List<List<PathNodeDto>>(); // list of lists for node data
+      bool firstPass = true; // flags if it is first pass-through records
+      string currArea = ""; // tracking variable to store current area nodes are in
+      float currFloor = 0; // tracking variable to store current floor nodes are in
+      int i = -1; // iterator var
 
 			// iterate over the list of nodes, getting each lat and long value and adding
 			// it to the path List<>
@@ -150,19 +142,21 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 				var id = record["id"].ToString();
 				var area = record["building"].ToString();
 
-				// check if this is the first pass-through the records. if so, initialize
-				// what area and building we are starting in
+        var floorFloat = float.Parse(floor);
+        // check if this is the first pass-through the records. if so, initialize
+        // what area and building we are starting in
 
-				// check if the area and floor of the current node matches those of the
-				// prvious one. if not, increment the index of path
-				if (firstPass || currArea != area || currFloor != floor)
-				{
-					path.Add(new List<PathNodeDto>());
-					i++;
-					currArea = area;
-					currFloor = floor;
-					firstPass = false;
-				}
+
+        // check if the area and floor of the current node matches those of the
+        // prvious one. if not, increment the index of path
+        if (firstPass || currArea != area || (currFloor != floorFloat && Math.Abs(currFloor - floorFloat) > .5))
+        {
+          path.Add(new List<PathNodeDto>());
+          i++;
+          currArea = area;
+          currFloor = floorFloat;
+          firstPass = false;
+        }
 
 				// add a new node at the correct index
 				path[i].Add(new PathNodeDto
@@ -263,11 +257,12 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 		IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
 		await using var session = _driver.AsyncSession();
 
-		// query to get every room in a building from database
-		var query = @"
-				MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
-				RETURN a.name AS building, l.name AS name, l.id AS id
-		";
+    // query to get every room in a building from database
+    var query = @"
+        MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+        WHERE l.isValidDestination = TRUE
+        RETURN a.name AS building, l.name AS name, l.id AS id
+    ";
 
 		// list to hold locations
 		var rooms = new List<RoomDto>();
