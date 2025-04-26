@@ -16,8 +16,35 @@ import { points } from "../../utils/Points";
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
-import { getBuildings, getRooms, findPath } from "../../utils/api_functions";
+import { getBuildings, getRooms, findPath, get } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
+
+function onBuildingSearchOptionSelect(option) {
+
+		if (!option) return; // safety check
+
+		setStartBuilding(building); // save selected building
+
+		// Fetch all rooms for the selected building
+		getRooms(building)
+		.then((rooms) => {
+			// Filter only rooms that include the word "room" in their name
+			const filteredRooms = rooms.filter((room) =>
+			// room.name.toLowerCase().includes("room")
+			room.name.toLowerCase()
+			);
+
+			// Save the full filtered room objects (not just names)
+			setFilteredRoomNumbers(filteredRooms);
+		})
+		.catch((error) => {
+			console.error(
+			"Error fetching rooms for building:",
+			building,
+			error
+			);
+		});
+}
 
 export default function Start() {
   const [location, setLocation] = useState(null);
@@ -40,12 +67,15 @@ export default function Start() {
   const [selectedEndRoom, setEndRoom] = useState(null);
 
   const [buildingOptions, setBuildingOptions] = useState([]);
-  //const [pois, setPois] = useState([]);
+  const [pois, setPois] = useState([]);
 
   const [filteredRoomNumbers, setFilteredRoomNumbers] = useState([]);
   const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
   const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
   const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+
+  const [fromRoomSearchDisabled, setFromRoomSearchDisabled] = useState(false);
+  const [toRoomSearchDisabled, setToRoomSearchDisabled] = useState(false);
 
   // set up a useEffect to request permissions, fetch user location, and track location
   useEffect(() => {
@@ -74,17 +104,14 @@ export default function Start() {
           setLocation(location_update.coords);
         }
       );
+
       setTracker(newTracker);
     }
 
     getPermissionsAndStartWatching();
 
     // Stop watching location when the app closes or user navigates to another screen
-    return () => {
-      if (subscription) {
-        subscription.remove();
-      }
-    };
+    return () => { if (subscription) { subscription.remove(); } };
   }, []);
 
   // Handle region change only if the region hasn't been set yet
@@ -113,18 +140,11 @@ export default function Start() {
     async function fetchBuildings() {
       try {
         const buildings = await getBuildings();
-		//const pois = await get("Pois")
+		const pois = await get("Pois")
 
-        console.log(buildings);
-        // console.log("Get Rooms: ", await getRooms("Navy"));
-        var buildingNames = [];
-        for (let i = 0; i < buildings.length; i++) {
-          buildingNames.push(buildings[i].name);
-        }
+		setPois(pois);
 
-		//setPois(pois);
-
-        setBuildingOptions(buildingNames); // save to state
+        setBuildingOptions(buildings.map(building => building.name)); // save to state
       } catch (e) {
         console.error("Error fetching buildings:", e);
       }
@@ -227,11 +247,19 @@ export default function Start() {
       {/* "From" Building Search Bar */}
       <SearchBar
         searchFilterData={buildingOptions} // options for buildings
-        customStyles={{ left: "5%", width: "60%", zIndex: "2" }}
+        customStyles={{ left: "5%", width: "60%", zIndex: 2 }}
         placeholderText="From"
         onTypingChange={setIsBuildingTyping} // updates typing state if needed
         onSelect={(building) => {
           if (!building) return; // safety check
+
+			///////////////////////////////////////////////
+			///////////////////////////////////////////////
+			///////////////////////////////////////////////
+			///////////////////////////////////////////////
+			///////////////////////////////////////////////
+
+
           setStartBuilding(building); // save selected building
 
           // Fetch all rooms for the selected building
@@ -258,7 +286,7 @@ export default function Start() {
 
       {/* "From" Room Search Bar */}
       <SearchBar
-        customStyles={{ width: "31%", left: "64%", borderColor: "black", zIndex: "2" }}
+        customStyles={{ width: "31%", left: "64%", borderColor: "black", zIndex: 2 }}
         showIcon={false}
         searchFilterData={filteredRoomNumbers.map((r) => r.name)} // show only room names in dropdown
         searchFilterStyles={{ width: "100%", }}
@@ -279,7 +307,7 @@ export default function Start() {
 
       {/* "To" Building Search Bar */}
       <SearchBar
-        searchFilterData={buildingOptions} // same list of buildings
+        searchFilterData={buildingOptions.concat(pois.map(poi => poi.name))} // same list of buildings
         customStyles={{ top: "16%", left: "5%", width: "60%" }}
         placeholderText="To"
         onSelect={(building) => {

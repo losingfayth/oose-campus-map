@@ -296,8 +296,9 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 		const string query = @"
 			MATCH (poi:PointOfInterest)
 			MATCH (loc:Location) WHERE (poi)-[:LOCATED_AT]->(loc)
+			MATCH (bldg:Area) WHERE (loc)-[:IS_IN]->(bldg)
 			MATCH (cat:PointOfInterestCategory) WHERE (poi)-[:IN_CATEGORY]->(cat)
-			RETURN poi.name AS name, poi.abbreviation AS abbr, cat.name AS cat, loc.id AS locId 
+			RETURN poi.name AS name, poi.abbreviation AS abbr, cat.name AS cat, loc.id AS locId, loc.name AS room, bldg.name AS bldg
 		";
 
 		var results = await _neo4j.ExecuteReadQueryAsync(query);
