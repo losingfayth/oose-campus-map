@@ -311,6 +311,8 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 			poi.Name = record["name"].As<string>();
 			poi.Abbreviation = record["abbr"].As<string>();
 			poi.Category = (PointOfInterestCategory) Enum.Parse(typeof(PointOfInterestCategory), record["cat"].As<string>());
+			poi.Room = record["room"].As<string>();
+			poi.Building = record["bldg"].As<string>();
 			poi.LocationId = record["locId"].As<int>();
 
 			pois.Add(poi);
