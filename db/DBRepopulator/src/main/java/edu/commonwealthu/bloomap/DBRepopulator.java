@@ -1,6 +1,7 @@
 package edu.commonwealthu.bloomap;
 
 import org.neo4j.driver.*;
+import reactor.util.function.Tuple2;
 
 import java.io.File;
 import java.util.*;
@@ -34,50 +35,50 @@ public class DBRepopulator {
         final CSV areas = new CSV(areaFile);
 
         // Test cases
-        var locationsHeaders = locations.getHeaders();
-        if (locationsHeaders.containsKey("latitude")) {
-            assert locations.getColumnType("latitude").equals("double");
-        }
-        if (locationsHeaders.containsKey("longitude")) {
-            assert locations.getColumnType("longitude").equals("double");
-        }
-        if (locationsHeaders.containsKey("isValidDestination")) {
-            assert locations.getColumnType("isValidDestination").equals("boolean");
-        }
+        assert locations.containsColumn("id") && locations.getColumnType("id").equals("int");
+        assert locations.containsColumn("latitude") && locations.getColumnType("latitude").equals("double");
+        assert locations.containsColumn("longitude") && locations.getColumnType("longitude").equals("double");
+        assert locations.containsColumn("floor") && locations.getColumnType("floor").equals("double");
+        assert locations.containsColumn("areaId") && locations.getColumnType("areaId").equals("int");
+        assert locations.containsColumn("name") && locations.getColumnType("name").equals("string");
+        assert locations.containsColumn("isValidDestination") && locations.getColumnType("isValidDestination").equals("boolean");
 
-        var connectionsHeaders = connections.getHeaders();
-        if (connectionsHeaders.containsKey("distance")) {
-            assert connections.getColumnType("distance").equals("int");
-        }
+        assert connections.containsColumn("startId") && connections.getColumnType("startId").equals("int");
+        assert connections.containsColumn("endId") && connections.getColumnType("endId").equals("int");
+        assert connections.containsColumn("distance") && connections.getColumnType("distance").equals("double");
 
-        long startTime;
-        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
-            driver.verifyConnectivity();
-            System.out.println("Connected to database as user " + dbUser + ".\n" +
-                    "Beginning repopulation...\n");
-            try (Session session = driver.session()) {
-                startTime = System.nanoTime();
+        assert areas.containsColumn("id") && areas.getColumnType("id").equals("int");
+        assert areas.containsColumn("name") && areas.getColumnType("id").equals("string");
+        assert areas.containsColumn("abbreviation") && areas.getColumnType("abbreviation").equals("string");
 
-                session.executeWrite(tx -> {
-                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
-                    executeLabeledAndTimed(() -> insertLocations(tx, locations), "Inserting Location nodes...");
-                    executeLabeledAndTimed(() -> insertAreas(tx, areas), "Inserting Area nodes...");
-                    executeLabeledAndTimed(() -> createConnectedTo(tx, connections),
-                            "Creating CONNECTED_TO relationships...");
-                    executeLabeledAndTimed(() -> createIsIn(tx, locations), "Creating IS_IN relationships...");
-                    return null;
-                });
-            }
-        } catch (Exception e) {
-            System.err.println("An error prevented database repopulation. The database remains unmodified.\n" +
-                    "See the error below:");
-            e.printStackTrace();
-            return;
-        }
-
-        long endTime = System.nanoTime();
-        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
+//        long startTime;
+//        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
+//            driver.verifyConnectivity();
+//            System.out.println("Connected to database as user " + dbUser + ".\n" +
+//                    "Beginning repopulation...\n");
+//            try (Session session = driver.session()) {
+//                startTime = System.nanoTime();
+//
+//                session.executeWrite(tx -> {
+//                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
+//                    executeLabeledAndTimed(() -> insertLocations(tx, locations), "Inserting Location nodes...");
+//                    executeLabeledAndTimed(() -> insertAreas(tx, areas), "Inserting Area nodes...");
+//                    executeLabeledAndTimed(() -> createConnectedTo(tx, connections),
+//                            "Creating CONNECTED_TO relationships...");
+//                    executeLabeledAndTimed(() -> createIsIn(tx, locations), "Creating IS_IN relationships...");
+//                    return null;
+//                });
+//            }
+//        } catch (Exception e) {
+//            System.err.println("An error prevented database repopulation. The database remains unmodified.\n" +
+//                    "See the error below:");
+//            e.printStackTrace();
+//            return;
+//        }
+//
+//        long endTime = System.nanoTime();
+//        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
+//        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
     }
 
     /**
