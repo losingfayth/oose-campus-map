@@ -40,7 +40,7 @@ export default function Start() {
   const [selectedEndRoom, setEndRoom] = useState(null);
 
   const [buildingOptions, setBuildingOptions] = useState([]);
-  const [pois, setPois] = useState([]);
+  //const [pois, setPois] = useState([]);
 
   const [filteredRoomNumbers, setFilteredRoomNumbers] = useState([]);
   const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
@@ -113,7 +113,7 @@ export default function Start() {
     async function fetchBuildings() {
       try {
         const buildings = await getBuildings();
-		const pois = await get("Pois")
+		//const pois = await get("Pois")
 
         console.log(buildings);
         // console.log("Get Rooms: ", await getRooms("Navy"));
@@ -122,7 +122,7 @@ export default function Start() {
           buildingNames.push(buildings[i].name);
         }
 
-		setPois(pois);
+		//setPois(pois);
 
         setBuildingOptions(buildingNames); // save to state
       } catch (e) {
@@ -279,7 +279,7 @@ export default function Start() {
 
       {/* "To" Building Search Bar */}
       <SearchBar
-        searchFilterData={pois} // same list of buildings
+        searchFilterData={buildingOptions} // same list of buildings
         customStyles={{ top: "16%", left: "5%", width: "60%" }}
         placeholderText="To"
         onSelect={(building) => {
