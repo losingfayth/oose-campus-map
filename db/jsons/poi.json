@@ -26,7 +26,7 @@
 	"poi_child": {
 		"name": "Early Childhood Education and Exceptionality Programs",
 		"room": "106",
-		"bldg": "Navy Hall Hall",
+		"bldg": "Navy Hall",
 		"cat": "academic"
 	},
 	"poi_lang": {
@@ -135,7 +135,7 @@
 		"cat": "office"
 	},
 	"poi_aod": {
-		"name": "Alcohol and Other Drugs Prevention and Intervention",
+		"name": "Alcohol and Other Drugs Prevention and Intervention Center",
 		"abbr": "AOD",
 		"room": "236",
 		"bldg": "Warren Student Services Center",
@@ -154,7 +154,7 @@
 		"cat": "office"
 	},
 	"poi_reg": {
-		"name": "Registrar",
+		"name": "Registrar's Office",
 		"room": "125",
 		"bldg": "Arts & Administration Building",
 		"cat": "office"
@@ -241,7 +241,7 @@
 		"cat": "center"
 	},
 	"poi_stusucc": {
-		"name": "Student Success",
+		"name": "Student Success Center",
 		"room": "109",
 		"bldg": "Warren Student Services Center",
 		"cat": "center"
