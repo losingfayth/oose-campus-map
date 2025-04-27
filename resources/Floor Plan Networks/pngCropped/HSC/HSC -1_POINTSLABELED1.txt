@@ -235,4 +235,4 @@ Total # of nodes: 110 **********
 1547 1577
 1548 1549
 1549 1487
-Total # of Edges: 111
+Total # of Edges: 110
