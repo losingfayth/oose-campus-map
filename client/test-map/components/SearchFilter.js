@@ -15,15 +15,25 @@ const SearchFilter = ({ data, input, setInput, customStyles }) => {
   };
 
   // Filter data based on user input
-  const filteredData = data.filter((item) =>
-    item.toLowerCase().includes(input.toLowerCase())
-  );
+  const filteredData = data
+  	.filter((item) =>
+    	item.toLowerCase().includes(input.toLowerCase()))
+	.sort((a,b) => {
+		// Determine whether either element begins with the user input
+		let aS = a.toLowerCase().startsWith(input.toLowerCase());
+		let bS = b.toLowerCase().startsWith(input.toLowerCase());
+
+		// Prioritize the one that does
+		if (aS && !bS) return -1;
+		if (!aS && bS) return 1;
+
+		// If both do, sort alphabetically
+		return a.localeCompare(b);
+	})
 
 
   // If input is not empty and no matches, render nothing
-  if (input !== "" && filteredData.length === 0) {
-    return null;
-  }
+  if (input !== "" && filteredData.length === 0) return null;
 
   return (
     <View style={StyleSheet.flatten([styles.container, customStyles])}>

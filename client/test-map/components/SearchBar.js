@@ -30,7 +30,7 @@ const SearchBar = ({
         onChangeText={(text) => {
           console.log(text);
           setInput(text);
-          setShowList(text.length > 0); // Show list when typing
+          setShowList(true); // Show list when typing
           onTypingChange && onTypingChange(text.length > 0); // Notify parent when user starts/stops typing
         }}
         onBlur={() => {

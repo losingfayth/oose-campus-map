@@ -152,8 +152,8 @@ export default function Start() {
 	useEffect(() => {
 		async function fetchBuildingSearchOptions() {
 			try {
-				let bldgs = await getBuildings();
-				let pois = await getPois();
+				let bldgs = (await getBuildings()).sort();
+				let pois = (await getPois()).sort();
 
 				setBuildingSearchOptions(bldgs.map(building => building.name)
 					.concat(pois.map(poi => poi.name)));
