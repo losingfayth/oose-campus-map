@@ -82,12 +82,12 @@ export default function Start() {
 			if (isStart) {
 				setSelectedStartBuilding(pointsOfInterest[poiId].bldg)
 				setSelectedStartRoom(pointsOfInterest[poiId].room)
-				setSelectedStartRoomId(pointsOfInterest[poiId].locationId)
+				setSelectedStartRoomId(pointsOfInterest[poiId].locId)
 			}
 			else {
 				setSelectedEndBuilding(pointsOfInterest[poiId].bldg)
 				setSelectedEndRoom(pointsOfInterest[poiId].room)
-				setSelectedEndRoomId(pointsOfInterest[poiId].locationId)
+				setSelectedEndRoomId(pointsOfInterest[poiId].locId)
 			}
 		}
 	})

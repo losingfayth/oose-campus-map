@@ -5,29 +5,6 @@ using CampusMapApi.Utilities;
 using CampusMapApi.Services;
 using CampusMapApi.Models;
 
-/**
-Establishes a web API controller to handle server-side requests from front-end.
-
-**API Enpoints**
-
-FindPath
-- HttpPost request that recieves a JSON object containing two database node ids for
-	a starting location and destination. Runs a query that finds the shortest path
-	between two points. Returns a list of lists. Internal lists are length 2 and contain
-	the latitude and longitude associated with each node along the shortest path.
-
-GetBuildings
-- HttpGet request that takes no arguments. When called, does a DB query to Neo4j
-	to retrieve building name, room number, and unique id of every node for every room
-	on campus. Returns an IActionResult object that indicates the status of request
-	completeion (400/404 bad, 200 good), and an List<> of LocationNode objects. Each
-	node contains the previously queried data about each location on campus.
-
-GetRooms
-- HttpPut request that recieves a JSON object containing a string that defines the
-	name of a building in the database. Queries for all valid destinations inside that buidling and adds them to a list
-*/
-
 namespace CampusMapApi.Controllers;
 
 /// <summary>
@@ -54,7 +31,7 @@ public class CampusMapController(
 	/// Queries the database for the shortest path between two points using 
 	/// A* GDS plugin
 	/// HttpPost request that recieves a JSON object containing two database 
-	/// node ids for a starting location and destination. Runs a query that 
+	/// node ids for a starting location and End. Runs a query that 
 	/// finds the shortest path between two points. Returns a list of lists. 
 	/// Internal lists are length 2 and contain the latitude and longitude 
 	/// associated with each node along the shortest path.
@@ -67,8 +44,8 @@ public class CampusMapController(
 	public async Task<IActionResult> FindPath([FromBody] PathRequest request)
 	{
 
-		int start = request.start; // get starting node id
-		int destination = request.destination; // get destination node id
+		int start = request.Start; // get starting node id
+		int End = request.End; // get End node id
 
 		// initial db connection
 		var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -109,7 +86,7 @@ public class CampusMapController(
 			// query to use A* algorithm on database
 			var query = @"
 				MATCH (startNode:Location {id: $start})
-				MATCH (endNode:Location {id: $destination})
+				MATCH (endNode:Location {id: $End})
 				WHERE endNode.isValidDestination = true
 
 				WITH id(startNode) AS startId, id(endNode) AS endId
@@ -139,7 +116,7 @@ public class CampusMapController(
 				";
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
-			var result = await session.RunAsync(query, new { start, destination });
+			var result = await session.RunAsync(query, new { start, End });
 	
 			var records = await result.ToListAsync();
 
@@ -154,48 +131,49 @@ public class CampusMapController(
 			foreach (var record in records)
 			{
 				// initialize records from node
-				var latitude = record["latitude"].ToString();
-				var longitude = record["longitude"].ToString();
-				var floor = record["floor"].ToString();
-				var id = record["id"].ToString();
-				var area = record["building"].ToString();
+				var latitude = record["latitude"].ToString() ?? "";
+				var longitude = record["longitude"].ToString() ?? "";
+				var floor = record["floor"].ToString() ?? "";
+				var id = record["id"].ToString() ?? "";
+				var area = record["building"].ToString() ?? "";
 
-        var floorFloat = float.Parse(floor);
-        // check if this is the first pass-through the records. if so, initialize
-        // what area and building we are starting in
+				var floorFloat = float.Parse(floor);
+				// check if this is the first pass-through the records. if so, initialize
+				// what area and building we are starting in
 
-
-        // check if the area and floor of the current node matches those of the
-        // prvious one. if not, increment the index of path
-        if (firstPass || currArea != area || (currFloor != floorFloat && Math.Abs(currFloor - floorFloat) > .5))
-        {
-          path.Add(new List<PathNodeDto>());
-          i++;
-          currArea = area;
-          currFloor = floorFloat;
-          firstPass = false;
-        }
-
-				// add a new node at the correct index
-				path[i].Add(new PathNodeDto
+				// check if the area and floor of the current node matches those of the
+				// prvious one. if not, increment the index of path
+				if (firstPass 
+					|| currArea != area 
+					|| (currFloor != floorFloat 
+						&& Math.Abs(currFloor - floorFloat) > .5))
 				{
-					Latitude = float.Parse(latitude),
-					Longitude = float.Parse(longitude),
-					Floor = float.Parse(floor),
-					Building = area,
-					Id = id
-				});
-			}
+					path.Add([]);
+					i++;
+					currArea = area;
+					currFloor = floorFloat;
+					firstPass = false;
+				}
+
+					// add a new node at the correct index
+					path[i].Add(new PathNodeDto
+					{
+						Latitude = float.Parse(latitude),
+						Longitude = float.Parse(longitude),
+						Floor = float.Parse(floor),
+						Building = area,
+						Id = id
+					});
+				}
 
 			// check if a path was found and return it if it was
-
 			if (path.Count > 0) return Ok(new { message = "Path found!", path });
 			else return Ok(new { message = "No Path Found!" });
 
 		}
 		catch (Exception e)
 		{
-			Console.WriteLine($"Error: {e.Message}");
+			Console.WriteLine($"Error: { e.Message }");
 			return StatusCode(500, new { error = e.Message });
 		}
 	}
@@ -244,8 +222,7 @@ public class CampusMapController(
 			// node with those attributes. add the node to the list
 			await result.ForEachAsync(record =>
 			{
-				BuildingDto node = new BuildingDto();
-				node.Name = record["name"].As<string>();
+				BuildingDto node = new() { Name = record["name"].As<string>() };
 				buildings.Add(node);
 			});
 
@@ -272,7 +249,7 @@ public class CampusMapController(
 
 	public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
 	{
-		var building = request.building;
+		var building = request.Building;
 
 		// initial db connection
 		var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -284,12 +261,12 @@ public class CampusMapController(
 		IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
 		await using var session = _driver.AsyncSession();
 
-    // query to get every room in a building from database
-    var query = @"
-        MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
-        WHERE l.isValidDestination = TRUE
-        RETURN a.name AS building, l.name AS name, l.id AS id
-    ";
+		// query to get every room in a building from database
+		var query = @"
+			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+			WHERE l.isValidDestination = TRUE
+			RETURN a.name AS building, l.name AS name, l.id AS id
+		";
 
 		// list to hold locations
 		var rooms = new List<RoomDto>();
@@ -301,7 +278,7 @@ public class CampusMapController(
 			// iterate over results to get all of the buildings and their ids
 			await result.ForEachAsync(record =>
 			{
-				RoomDto room = new RoomDto
+				RoomDto room = new()
 				{
 					Building = record["building"].As<string>(),
 					Name = record["name"].As<string>(),
@@ -312,7 +289,7 @@ public class CampusMapController(
 				rooms.Add(room);
 			});
 		}
-		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
+		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
 
 		return Ok(rooms);
 	}
@@ -337,14 +314,15 @@ public class CampusMapController(
 		List<PointOfInterest> pois = [];
 
 		results.ForEach(record => {
-			PointOfInterest poi = new();
-
-			poi.Name = record["name"].As<string>();
-			poi.Abbreviation = record["abbr"].As<string>();
-			poi.Category = (PointOfInterestCategory) Enum.Parse(typeof(PointOfInterestCategory), record["cat"].As<string>());
-			poi.Room = record["room"].As<string>();
-			poi.Building = record["bldg"].As<string>();
-			poi.LocationId = record["locId"].As<int>();
+			PointOfInterest poi = new()
+			{
+				Name = record["name"].As<string>(),
+				Abbreviation = record["abbr"].As<string>(),
+				Category = Enum.Parse<PointOfInterestCategory>(record["cat"].As<string>()),
+				Room = record["room"].As<string>(),
+				Building = record["bldg"].As<string>(),
+				LocationId = record["locId"].As<int>()
+			};
 
 			pois.Add(poi);
 		});
@@ -355,13 +333,13 @@ public class CampusMapController(
 	// DTO for request body
 	public class BuildingRequest
 	{
-		public string building { get; set; }
+		public string Building { get; set; } = string.Empty;
 	}
 
 	public class PathRequest
 	{
-		public int start { get; set; }
-		public int destination { get; set; }
+		public int Start { get; set; }
+		public int End { get; set; }
 	}
 }
 

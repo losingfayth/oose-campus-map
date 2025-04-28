@@ -19,6 +19,7 @@ namespace CampusMapApi.Models
 		[JsonPropertyName("cat")]
 		public PointOfInterestCategory Category { get; set; }
 
+		[JsonPropertyName("locId")]
 		public int? LocationId { get; set; }
 	}
 }
