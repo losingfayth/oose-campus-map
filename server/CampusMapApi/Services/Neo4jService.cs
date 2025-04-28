@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CampusMapApi.Models;
 
+/**
+ * <summary>
+ * 	Neo4j Service
+ * 		This class provides functions for other classes to connect to the neo4j database
+ * </summary>
+*/
 namespace CampusMapApi.Services
 {
 	public class Neo4jService : IDisposable
@@ -11,6 +17,9 @@ namespace CampusMapApi.Services
 
     	IDriver _driver;
 
+		/**
+		* <summary> Sets up the connection to the database </summary>
+		*/
 		public Neo4jService() {
 			string uri = "neo4j+s://apibloomap.xyz:7687";
 			string username = Environment.GetEnvironmentVariable("DB_USER")
@@ -24,6 +33,12 @@ namespace CampusMapApi.Services
 			);
 		}
 
+		/**
+		 * <summary> Executes a read query in the database </summary>
+		 * <param name="query">A neo4j cypher query</param>
+		 * <param name="parameters">A string/object dictionary with parameter values</param> 
+		 * <return>An IRecord containing the query result</return>
+		 */
 		public async Task<List<IRecord>> ExecuteReadQueryAsync(
 			string query,
 			IDictionary<string, object> parameters = null
@@ -31,6 +46,12 @@ namespace CampusMapApi.Services
 			return await ExecuteAsync(query, parameters);
 		}
 
+		/**
+		 * <summary> Executes a write query in the database </summary>
+		 * <param name="query">A neo4j cypher query</param>
+		 * <param name="parameters">A string/object dictionary with parameter values</param> 
+		 * <return>An IRecord containing the query result</return>
+		 */
 		public async Task<List<IRecord>> ExecuteWriteQueryAsync(
 			string query, 
 			IDictionary<string, object> parameters = null
@@ -38,6 +59,12 @@ namespace CampusMapApi.Services
 			return await ExecuteAsync(query, parameters, false);
 		}
 
+		/**
+		 * <summary> Executes a query in the database </summary>
+		 * <param name="query">A neo4j cypher query</param>
+		 * <param name="parameters">A string/object dictionary with parameter values</param> 
+		 * <return>An IRecord containing the query result</return>
+		 */
 		private async Task<List<IRecord>> ExecuteAsync(
 			string query,
 			IDictionary<string, object> parameters,
@@ -69,6 +96,9 @@ namespace CampusMapApi.Services
 			}
 		}
 
+		/// <summary>
+		/// Disposes the connection object
+		/// </summary>
 		public void Dispose()
 		{
 			_driver?.Dispose();

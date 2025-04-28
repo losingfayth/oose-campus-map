@@ -30,20 +30,38 @@ GetRooms
 
 namespace CampusMapApi.Controllers;
 
+/// <summary>
+/// Establishes a web API controller to handle server-side requests from the 
+/// front end
+/// 
+/// 
+/// 
+/// </summary>
+/// <param name="logger">Logger running for reporting and errors</param>
+/// <param name="neo4jService">Service to access database</param>
 
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
-public class CampusMapController(ILogger<CampusMapController> logger, Neo4jService neo4jService) : ControllerBase {
+public class CampusMapController(
+	ILogger<CampusMapController> logger, 
+	Neo4jService neo4jService) : ControllerBase {
 
 	private readonly Neo4jService _neo4j = neo4jService;
 
 	private readonly ILogger<CampusMapController> _logger = logger;
 
-
-	/*
-	Queries database for shortest path between two points using A* GDS plugin for
-	Neo4j. http POST endpoint accessible at POST /api/CampusMap/FindPath
-	*/
+	/// <summary>
+	/// Queries the database for the shortest path between two points using 
+	/// A* GDS plugin
+	/// HttpPost request that recieves a JSON object containing two database 
+	/// node ids for a starting location and destination. Runs a query that 
+	/// finds the shortest path between two points. Returns a list of lists. 
+	/// Internal lists are length 2 and contain the latitude and longitude 
+	/// associated with each node along the shortest path.
+	/// </summary>
+	/// <param name="request">The start and end location node ids</param>
+	/// <returns>A list of location nodes</returns>
+	/// <exception cref="InvalidOperationException"></exception>
 	[HttpPost("FindPath")]
 
 	public async Task<IActionResult> FindPath([FromBody] PathRequest request)
@@ -161,11 +179,11 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 				// add a new node at the correct index
 				path[i].Add(new PathNodeDto
 				{
-					latitude = float.Parse(latitude),
-					longitude = float.Parse(longitude),
-					floor = float.Parse(floor),
-					building = area,
-					id = id
+					Latitude = float.Parse(latitude),
+					Longitude = float.Parse(longitude),
+					Floor = float.Parse(floor),
+					Building = area,
+					Id = id
 				});
 			}
 
@@ -181,16 +199,19 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 			return StatusCode(500, new { error = e.Message });
 		}
 	}
-
-	[HttpGet("GetHello")]
-
-	public async Task<IActionResult> GetHello() { return Ok("hello"); }
-
-
-	/** 
-	Queries database for all nodes and returns a list of building names.
-	http GET api endpoint accessible at GET /api/CampusMap/GetBuildings
-	*/
+	
+	/// <summary>
+	/// Queries database for all nodes and returns a list of building names.
+	/// http GET api endpoint accessible at GET /api/CampusMap/GetBuildings
+	/// 
+	/// When called, does a DB query to Neo4j to retrieve building name, room 
+	/// number, and unique id of every node for every room on campus. Returns 
+	/// an IActionResult object that indicates the status of request 
+	/// completeion (400/404 bad, 200 good), and an List<> of LocationNode 
+	/// objects. Each node contains the previously queried data about each 
+	/// location on campus.
+	/// </summary>
+	/// <returns>A list of Building objects</returns>
 	[HttpGet("GetBuildings")]
 	public async Task<IActionResult> GetBuildings()
 	{
@@ -224,7 +245,7 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 			await result.ForEachAsync(record =>
 			{
 				BuildingDto node = new BuildingDto();
-				node.name = record["name"].As<string>();
+				node.Name = record["name"].As<string>();
 				buildings.Add(node);
 			});
 
@@ -236,11 +257,17 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 	}
 
 
-	/** 
-	Queries database for all rooms withing a building and returns a 
-	list of location objects. Http POST api endpoint accessible at 
-	GET /api/CampusMap/GetRooms
-	*/
+	/// <summary>
+	/// Queries database for all rooms withing a building and returns a
+	/// list of location objects.
+	/// 
+	/// Http POST api endpoint accessible at GET api CampusMap/GetRooms
+	/// HttpPut request that recieves a JSON object containing a string that 
+	/// defines the name of a building in the database. Queries for all valid 
+	/// destinations inside that buidling and adds them to a list
+	/// </summary>
+	/// <param name="BuildingRequest">The building the rooms are in</param>
+	/// <returns>A list of location objects</returns>
 	[HttpPost("GetRooms")]
 
 	public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
@@ -276,9 +303,9 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 			{
 				RoomDto room = new RoomDto
 				{
-					building = record["building"].As<string>(),
-					name = record["name"].As<string>(),
-					id = record["id"].As<string>()
+					Building = record["building"].As<string>(),
+					Name = record["name"].As<string>(),
+					Id = record["id"].As<string>()
 				};
 
 				// add each location node to the list
@@ -290,6 +317,10 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 		return Ok(rooms);
 	}
 
+	/// <summary>
+	/// Retrieves all the PointsOfInterest stored in the database
+	/// </summary>
+	/// <returns>A list of PointOfInterests</returns>
 	[HttpGet("GetPois")]
 	public async Task<IActionResult> GetPois()
 	{
@@ -320,13 +351,6 @@ public class CampusMapController(ILogger<CampusMapController> logger, Neo4jServi
 
 		return Ok(pois);
 	}
-
-	[HttpPost("PopulateDb")]
-	public async Task<IActionResult> PopulateDb()
-	{
-		return Ok();
-	}
-	
 
 	// DTO for request body
 	public class BuildingRequest
