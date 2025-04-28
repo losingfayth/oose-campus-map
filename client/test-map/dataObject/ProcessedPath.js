@@ -66,19 +66,15 @@ class ProcessedPath {
 
     getStringRepresentation() {
         let s = "";
-        while (this.hasNext()) {
-            let n = this.getNext();
-            s += n.getStringRepresentation() + "\n******\n";
-        }
+        this.subPaths.forEach((sp) => {
+            s += sp.getStringRepresentation();
+        })
+
         return s;
     }
 
     getBlueprintNames() {
-        // let blueprintNames = [];
-        // for (let i = 0; i < this.subPaths.length; i++) {
-        //     blueprintNames.push(getBuildingAbbreviation(this.subPaths[i].getBuildingName()) + this.subPaths[i].getFloor());
-        // }
-        // return blueprintNames;
+
         return this.blueprintNames;
     }
 
