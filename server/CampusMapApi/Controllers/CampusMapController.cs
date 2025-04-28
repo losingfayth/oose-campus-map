@@ -273,9 +273,8 @@ public class CampusMapController(
 
 		try {
 			// run the building query
-			//var result = await session.RunAsync(query, new { building });
 
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { request.Building });
 
 			/*
 			// iterate over results to get all of the buildings and their ids
