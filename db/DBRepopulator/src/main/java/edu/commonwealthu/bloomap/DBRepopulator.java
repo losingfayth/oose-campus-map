@@ -38,7 +38,8 @@ public class DBRepopulator {
 
         runTests(locations, connections, areas);
 
-        Scanner scanner = new Scanner(connectedToFile);
+        File file = new File("../csvs/CONNECTED_TO2.csv");
+        Scanner scanner = new Scanner(file);
         File newFile = new File("../csvs/CONNECTED_TO3.csv");
         try (PrintWriter printWriter = new PrintWriter(newFile)) {
             printWriter.write("startId,endId,distance");
