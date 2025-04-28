@@ -41,9 +41,9 @@ namespace CampusMapApi.Services
 		 */
 		public async Task<List<IRecord>> ExecuteReadQueryAsync(
 			string query,
-			IDictionary<string, object> parameters = null
+			object parameters = null
 		){
-			return await ExecuteAsync(query, parameters);
+			return await ExecuteAsync(query, parameters.ToNeo4jParameters());
 		}
 
 		/**
@@ -54,9 +54,9 @@ namespace CampusMapApi.Services
 		 */
 		public async Task<List<IRecord>> ExecuteWriteQueryAsync(
 			string query, 
-			IDictionary<string, object> parameters = null
+			object parameters = null
 		){
-			return await ExecuteAsync(query, parameters, false);
+			return await ExecuteAsync(query, parameters.ToNeo4jParameters(), false);
 		}
 
 		/**
@@ -103,6 +103,24 @@ namespace CampusMapApi.Services
 		{
 			_driver?.Dispose();
 			GC.SuppressFinalize(this);
+		}
+	}
+
+	public static class Neo4jExtensions
+	{
+		public static Dictionary<string, object> ToNeo4jParameters(this object parameters)
+		{
+			if (parameters == null) return [];
+			
+			if (parameters is Dictionary<string, object> dict)
+				return dict;
+				
+			return parameters.GetType()
+				.GetProperties()
+				.ToDictionary(
+					p => p.Name,
+					p => p.GetValue(parameters) ?? "null" // Neo4j prefers strings for nulls
+				);
 		}
 	}
 }
