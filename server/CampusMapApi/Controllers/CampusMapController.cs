@@ -251,16 +251,6 @@ public class CampusMapController(
 	{
 		var building = request.Building;
 
-		// initial db connection
-		var uri = "neo4j+s://apibloomap.xyz:7687";
-		var username = Environment.GetEnvironmentVariable("DB_USER")
-				?? throw new InvalidOperationException("DB_USER is not set");
-		var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
-				?? throw new InvalidOperationException("DB_PASSWORD is not set");
-
-		IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-		await using var session = _driver.AsyncSession();
-
 		// query to get every room in a building from database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
@@ -273,24 +263,7 @@ public class CampusMapController(
 
 		try {
 			// run the building query
-
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
-
-			/*
-			// iterate over results to get all of the buildings and their ids
-			await results.ForEachAsync(record =>
-			{
-				RoomDto room = new()
-				{
-					Building = record["building"].As<string>(),
-					Name = record["name"].As<string>(),
-					Id = record["id"].As<string>()
-				};
-
-				// add each location node to the list
-				rooms.Add(room);
-			});
-			*/
 
 			results.ForEach(record => {
 				RoomDto room = new()
