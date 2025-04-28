@@ -120,9 +120,10 @@ public class CampusMapController(
 				";
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
-			var result = await session.RunAsync(query, new { start, End });
+			//var result = await session.RunAsync(query, new { start, End });
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, End } );
 	
-			var records = await result.ToListAsync();
+			//var records = await result.ToListAsync();
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
@@ -132,7 +133,7 @@ public class CampusMapController(
 
 			// iterate over the list of nodes, getting each lat and long value and adding
 			// it to the path List<>
-			foreach (var record in records)
+			foreach (var record in results)
 			{
 				// initialize records from node
 				var latitude = record["latitude"].ToString() ?? "";
