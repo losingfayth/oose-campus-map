@@ -4,6 +4,8 @@ import org.neo4j.driver.*;
 import reactor.util.function.Tuple2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
  * associated with it.
  */
 public class DBRepopulator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         final String dbUri = "neo4j+ssc://apibloomap.xyz:7687";
         final String dbUser = System.getenv("DB_USER");
         final String dbPass = System.getenv("DB_PASSWORD");
@@ -34,22 +36,7 @@ public class DBRepopulator {
         final CSV connections = new CSV(connectedToFile);
         final CSV areas = new CSV(areaFile);
 
-        // Test cases
-        assert locations.containsColumn("id") && locations.getColumnType("id").equals("int");
-        assert locations.containsColumn("latitude") && locations.getColumnType("latitude").equals("double");
-        assert locations.containsColumn("longitude") && locations.getColumnType("longitude").equals("double");
-        assert locations.containsColumn("floor") && locations.getColumnType("floor").equals("double");
-        assert locations.containsColumn("areaId") && locations.getColumnType("areaId").equals("int");
-        assert locations.containsColumn("name") && locations.getColumnType("name").equals("string");
-        assert locations.containsColumn("isValidDestination") && locations.getColumnType("isValidDestination").equals("boolean");
-
-        assert connections.containsColumn("startId") && connections.getColumnType("startId").equals("int");
-        assert connections.containsColumn("endId") && connections.getColumnType("endId").equals("int");
-        assert connections.containsColumn("distance") && connections.getColumnType("distance").equals("double");
-
-        assert areas.containsColumn("id") && areas.getColumnType("id").equals("int");
-        assert areas.containsColumn("name") && areas.getColumnType("id").equals("string");
-        assert areas.containsColumn("abbreviation") && areas.getColumnType("abbreviation").equals("string");
+        runTests(locations, connections, areas);
 
 //        long startTime;
 //        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
@@ -201,5 +188,49 @@ public class DBRepopulator {
 
             tx.run(query, row);
         }
+    }
+
+    /**
+     * Runs all tests specified.
+     */
+    private static void runTests(CSV locations, CSV connections, CSV areas) {
+        // Ensures the headers for each CSV are in the correct format (e.g., Location.csv has booleans for entries in
+        // the isValidDestination column)
+        locationsHeaderTypeTest(locations);
+        connectionsHeaderTypeTest(connections);
+        areasHeaderTypeTest(areas);
+
+        // Will write more later if time permits
+    }
+
+    /**
+     * Test cases for ensuring Location.csv headers are in the correct format.
+     */
+    private static void locationsHeaderTypeTest(CSV locations) {
+        assert locations.containsColumn("id") && locations.getColumnType("id").equals("int");
+        assert locations.containsColumn("latitude") && locations.getColumnType("latitude").equals("double");
+        assert locations.containsColumn("longitude") && locations.getColumnType("longitude").equals("double");
+        assert locations.containsColumn("floor") && locations.getColumnType("floor").equals("double");
+        assert locations.containsColumn("areaId") && locations.getColumnType("areaId").equals("int");
+        assert locations.containsColumn("name") && locations.getColumnType("name").equals("string");
+        assert locations.containsColumn("isValidDestination") && locations.getColumnType("isValidDestination").equals("boolean");
+    }
+
+    /**
+     * Test cases for ensuring CONNECTED_TO.csv headers are in the correct format.
+     */
+    private static void connectionsHeaderTypeTest(CSV connections) {
+        assert connections.containsColumn("startId") && connections.getColumnType("startId").equals("int");
+        assert connections.containsColumn("endId") && connections.getColumnType("endId").equals("int");
+        assert connections.containsColumn("distance") && connections.getColumnType("distance").equals("double");
+    }
+
+    /**
+     * Test cases for ensuring Area.csv headers are in the correct format.
+     */
+    private static void areasHeaderTypeTest(CSV areas) {
+        assert areas.containsColumn("id") && areas.getColumnType("id").equals("int");
+        assert areas.containsColumn("name") && areas.getColumnType("id").equals("string");
+        assert areas.containsColumn("abbreviation") && areas.getColumnType("abbreviation").equals("string");
     }
 }
