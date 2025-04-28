@@ -41,23 +41,16 @@ public class DBRepopulator {
         File file = new File("../csvs/Location2.csv");
         Scanner scanner = new Scanner(file);
         File newFile = new File("../csvs/Location3.csv");
-//        try (PrintWriter printWriter = new PrintWriter(newFile)) {
-//            printWriter.write(scanner.nextLine());
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                int id = Integer.parseInt(line.split(",")[0]);
-//                int areaId = getAreaId(id);
-//                printWriter.print("\n" + line + "," + areaId);
-//            }
-//        }
-        scanner.nextLine();
-        while (scanner.hasNextLine()) {
-            String s = scanner.nextLine();
-            if (s.split(",").length != 7) {
-                System.out.println(s);
+        try (PrintWriter printWriter = new PrintWriter(newFile)) {
+            printWriter.write(scanner.nextLine());
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                int id = Integer.parseInt(line.split(",")[0]);
+                boolean valid = getIsValid(id);
+                String boolString = valid ? "TRUE" : "FALSE";
+                printWriter.print("\n" + line + "," + boolString);
             }
         }
-        System.out.println("done");
 
 //        long startTime;
 //        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
@@ -90,20 +83,102 @@ public class DBRepopulator {
     }
 
     /**
-     * Dumb brute force assignment for area IDs because I can't be bothered to type the area ID 3.5 thousand
-     * times.
+     * Dumb brute force assignment for isValidDestination because I can't be bothered to type true and false 3.5
+     * thousand times.
      * @param id the id of the (indoor) location.
      */
-    private static int getAreaId(int id) {
-        if (id <= 596) return 0;
-        if (id <= 917) return 1;
-        if (id <= 1100) return 2;
-        if (id <= 1482) return 3;
-        if (id <= 2168) return 4;
-        if (id <= 2473) return 5;
-        if (id <= 2667) return 6;
-        if (id <= 2993) return 7;
-        return 8;
+    private static boolean getIsValid(int id) {
+        if (id <= 82) {
+            return id >= 63;
+        }
+        if (id <= 264) {
+            return id >= 211;
+        }
+        if (id <= 455) {
+            return id >= 392;
+        }
+        if (id <= 596) {
+            return id >= 542;
+        }
+        if (id <= 618) {
+            return id >= 614;
+        }
+        if (id <= 740) {
+            return id >= 706 && id <= 739;
+        }
+        if (id <= 835) {
+            return id >= 808;
+        }
+        if (id <= 917) {
+            return id >= 891;
+        }
+        if (id <= 961) {
+            return id >= 955;
+        }
+        if (id <= 1017) {
+            return id >= 1000;
+        }
+        if (id <= 1100) {
+            return id >= 1065;
+        }
+        if (id <= 1288) {
+            return id == 1141 || id >= 1245;
+        }
+        if (id <= 1387) {
+            return id >= 1359;
+        }
+        if (id <= 1482) {
+            return id >= 1444;
+        }
+        if (id <= 1592) {
+            return id >= 1550;
+        }
+        if (id <= 1806) {
+            return id >= 1750;
+        }
+        if (id <= 2011) {
+            return id >= 1940 && id <= 2010;
+        }
+        if (id <= 2168) {
+            return id >= 2112;
+        }
+        if (id <= 2233) {
+            return id >= 2218 && id <= 2232;
+        }
+        if (id <= 2323) {
+            return id >= 2297;
+        }
+        if (id <= 2423) {
+            return id >= 2393;
+        }
+        if (id <= 2473) {
+            return id >= 2459;
+        }
+        if (id <= 2542) {
+            return id >= 2523;
+        }
+        if (id <= 2618) {
+            return id >= 2598;
+        }
+        if (id <= 2667) {
+            return id >= 2651;
+        }
+        if (id <= 2721) {
+            return id >= 2706;
+        }
+        if (id <= 2838) {
+            return id >= 2797;
+        }
+        if (id <= 2993) {
+            return id >= 2923;
+        }
+        if (id <= 3113) {
+            return id >= 3069;
+        }
+        if (id <= 3246) {
+            return id >= 3214;
+        }
+        return id == 3318 || (id >= 3341 && id <= 3389);
     }
 
     /**
