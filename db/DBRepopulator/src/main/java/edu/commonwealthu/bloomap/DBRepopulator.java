@@ -1,11 +1,7 @@
 package edu.commonwealthu.bloomap;
 
 import org.neo4j.driver.*;
-import reactor.util.function.Tuple2;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +17,7 @@ import java.util.stream.Collectors;
  * associated with it.
  */
 public class DBRepopulator {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         final String dbUri = "neo4j+ssc://apibloomap.xyz:7687";
         final String dbUser = System.getenv("DB_USER");
         final String dbPass = System.getenv("DB_PASSWORD");
