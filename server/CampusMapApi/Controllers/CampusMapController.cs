@@ -63,7 +63,9 @@ public class CampusMapController(
 			var dropProjection = @"
 			CALL gds.graph.drop('campusGraph', false);";
 
-			await session.RunAsync(dropProjection);
+			//await session.RunAsync(dropProjection);
+
+			await _neo4j.ExecuteWriteQueryAsync(dropProjection);
 
 			// create new graph projection
 			var createProjection = @"
@@ -81,7 +83,9 @@ public class CampusMapController(
 
 
 			// run prjection creation query
-			await session.RunAsync(createProjection);
+			//await session.RunAsync(createProjection);
+
+			await _neo4j.ExecuteWriteQueryAsync(createProjection);
 
 			// query to use A* algorithm on database
 			var query = @"
@@ -120,11 +124,11 @@ public class CampusMapController(
 	
 			var records = await result.ToListAsync();
 
-      var path = new List<List<PathNodeDto>>(); // list of lists for node data
-      bool firstPass = true; // flags if it is first pass-through records
-      string currArea = ""; // tracking variable to store current area nodes are in
-      float currFloor = 0; // tracking variable to store current floor nodes are in
-      int i = -1; // iterator var
+			var path = new List<List<PathNodeDto>>(); // list of lists for node data
+			bool firstPass = true; // flags if it is first pass-through records
+			string currArea = ""; // tracking variable to store current area nodes are in
+			float currFloor = 0; // tracking variable to store current floor nodes are in
+			int i = -1; // iterator var
 
 			// iterate over the list of nodes, getting each lat and long value and adding
 			// it to the path List<>
