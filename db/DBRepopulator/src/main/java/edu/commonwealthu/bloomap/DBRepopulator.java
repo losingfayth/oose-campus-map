@@ -38,6 +38,20 @@ public class DBRepopulator {
 
         runTests(locations, connections, areas);
 
+        Scanner locationScanner = new Scanner(locationFile);
+        File newLocationFile = new File("../csvs/Location2.csv");
+        try (PrintWriter printWriter = new PrintWriter(newLocationFile)) {
+            String string = locationScanner.nextLine();
+            System.out.println(string);
+            printWriter.write(string);
+            while (locationScanner.hasNextLine()) {
+                String[] s = locationScanner.nextLine().split(",");
+                s[5] = String.valueOf(9);
+                List<String> entries = new ArrayList<>(Arrays.asList(s));
+                printWriter.print("\n" + String.join(",", entries));
+            }
+        }
+
 //        long startTime;
 //        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
 //            driver.verifyConnectivity();
