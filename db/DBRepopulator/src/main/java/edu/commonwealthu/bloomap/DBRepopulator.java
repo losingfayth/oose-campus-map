@@ -42,13 +42,12 @@ public class DBRepopulator {
         Scanner scanner = new Scanner(file);
         File newFile = new File("../csvs/Location3.csv");
         try (PrintWriter printWriter = new PrintWriter(newFile)) {
-            printWriter.write("id,locationCode,latitude,longitude,floor,areaId,name,isValidDestination");
             printWriter.write(scanner.nextLine());
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 int id = Integer.parseInt(line.split(",")[0]);
-                int floor = getFloor(id);
-                printWriter.print("\n" + line + "," + floor);
+                int areaId = getAreaId(id);
+                printWriter.print("\n" + line + "," + areaId);
             }
         }
 
@@ -83,97 +82,20 @@ public class DBRepopulator {
     }
 
     /**
-     * Dumb brute force assignment for floor numbers because I can't be bothered to type the floor number 3.5 thousand
+     * Dumb brute force assignment for area IDs because I can't be bothered to type the area ID 3.5 thousand
      * times.
      * @param id the id of the (indoor) location.
-     * @return the floor number that this location is on, or 999 if it is a stair and must be determined manually.
      */
-    private static int getFloor(int id) {
-        if (id <= 82) { // A&A 0
-            if (id < 2 || id > 6) return 0;
-            else return 999;
-        } else if (id <= 264) { // A&A 1
-            if (id < 85 || id > 89) return 1;
-            else return 999;
-        } else if (id <= 455) { // A&A 2
-            if (id < 265 || id > 267) return 2;
-            else return 999;
-        } else if (id <= 596) { // A&A 3
-            return 3;
-        } else if (id <= 618) { // BCH 0
-            if (id != 598) return 0;
-            else return 999;
-        } else if (id <= 740) { // BCH 1
-            if (id < 623 || id > 628) return 1;
-            else return 999;
-        } else if (id <= 835) { // BCH 2
-            if (id < 741 || id > 744) return 2;
-            else return 999;
-        } else if (id <= 917) { // BCH 3
-            return 3;
-        } else if (id <= 961) { // BFH 0
-            if (id < 920 || id > 923) return 0;
-            else return 999;
-        } else if (id <= 1017) { // BFH 1
-            if (id < 963 || id > 965) return 1;
-            else return 999;
-        } else if (id <= 1100) { // BFH 2
-            return 2;
-        } else if (id <= 1288) { // CH 1
-            if (id < 1113 || id > 1120) return 1;
-            else return 999;
-        } else if (id <= 1387) { // CH 2
-            if (id < 1289 || id > 1290) return 2;
-            else return 999;
-        } else if (id <= 1482) { // CH 3
-            return 3;
-        } else if (id <= 1592) { // HSC -1
-            if (id < 1484 || id > 1487) return -1;
-            else return 999;
-        } else if (id <= 1806) { // HSC 0
-            if (id < 1598 || id > 1607) return 0;
-            else return 999;
-        } else if (id <= 2011) { // HSC 1
-            if (id < 1809 || id > 1815) return 1;
-            else return 999;
-        } else if (id <= 2168) { // HSC 2
-            return 2;
-        } else if (id <= 2233) { // LIB 1
-            if (id < 2172 || id > 2174) return 1;
-            else return 999;
-        } else if (id <= 2323) { // LIB 2
-            if (id < 2234 || id > 2236) return 2;
-            else return 999;
-        } else if (id <= 2423) { // LIB 3
-            if (id < 2324 || id > 2326) return 3;
-            else return 999;
-        } else if (id <= 2474) { // LIB 4
-            return 4;
-        } else if (id <= 2542) { // NH 0
-            if (id < 2477 || id > 2480) return 0;
-            else return 999;
-        } else if (id <= 2619) { // NH 1
-            if (id < 2544 || id > 2546) return 1;
-            else return 999;
-        } else if (id <= 2667) { // NH 2
-            return 2;
-        } else if (id <= 2721) { // SH 1
-            if (id < 2669 || id > 2671) return 1;
-            else return 999;
-        } else if (id <= 2838) { // SH 2
-            if (id < 2722 || id > 2725) return 2;
-            else return 999;
-        } else if (id <= 2993) { // SH 3
-            return 3;
-        } else if (id <= 3113) { // SSC 0
-            if (id < 2995 || id > 3000) return 0;
-            else return 999;
-        } else if (id <= 3246) { // SSC 1
-            if (id < 3115 || id > 3119) return 1;
-            else return 999;
-        } else { // SSC 2
-            return 2;
-        }
+    private static int getAreaId(int id) {
+        if (id <= 596) return 0;
+        if (id <= 917) return 1;
+        if (id <= 1100) return 2;
+        if (id <= 1482) return 3;
+        if (id <= 2168) return 4;
+        if (id <= 2473) return 5;
+        if (id <= 2667) return 6;
+        if (id <= 2993) return 7;
+        return 8;
     }
 
     /**
