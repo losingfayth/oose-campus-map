@@ -50,9 +50,11 @@ export default function Start() {
 	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
 		if (!building) return;
 
-		let poiId = pointsOfInterest.findIndex((p) => p.name == building)
+		//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
 
-		if (poiId == -1) {
+		let poi = pointsOfInterest.find((p) => ("\u2605 " + p.name) == building);
+
+		if (poi == null) {
 			if (isStart) {
 				setSelectedStartBuilding(building); // save destination building
 				setSelectedStartRoom(null);
@@ -80,14 +82,14 @@ export default function Start() {
 		}
 		else {
 			if (isStart) {
-				setSelectedStartBuilding(pointsOfInterest[poiId].bldg)
-				setSelectedStartRoom(pointsOfInterest[poiId].room)
-				setSelectedStartRoomId(pointsOfInterest[poiId].locId)
+				setSelectedStartBuilding(poi.bldg)
+				setSelectedStartRoom(poi.room)
+				setSelectedStartRoomId(poi.locId)
 			}
 			else {
-				setSelectedEndBuilding(pointsOfInterest[poiId].bldg)
-				setSelectedEndRoom(pointsOfInterest[poiId].room)
-				setSelectedEndRoomId(pointsOfInterest[poiId].locId)
+				setSelectedEndBuilding(poi.bldg)
+				setSelectedEndRoom(poi.room)
+				setSelectedEndRoomId(poi.locId)
 			}
 		}
 	})
@@ -156,7 +158,7 @@ export default function Start() {
 				let pois = (await getPois()).sort();
 
 				setBuildingSearchOptions(bldgs.map(building => building.name)
-					.concat(pois.map(poi => poi.name)));
+					.concat(pois.map(poi => "\u2605 " + poi.name)));
 				setPointsOfInterest(pois);
 				
 			} catch (e) 

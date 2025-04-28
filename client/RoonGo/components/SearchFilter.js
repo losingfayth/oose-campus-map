@@ -19,6 +19,12 @@ const SearchFilter = ({ data, input, setInput, customStyles }) => {
   	.filter((item) =>
     	item.toLowerCase().includes(input.toLowerCase()))
 	.sort((a,b) => {
+		let aIsPoi = a.startsWith("\u2605 ");
+		let bIsPoi = b.startsWith("\u2605 ");
+
+		if (aIsPoi) a = a.slice(2);
+		if (bIsPoi) b = b.slice(2);
+
 		// Determine whether either element begins with the user input
 		let aS = a.toLowerCase().startsWith(input.toLowerCase());
 		let bS = b.toLowerCase().startsWith(input.toLowerCase());
@@ -26,6 +32,9 @@ const SearchFilter = ({ data, input, setInput, customStyles }) => {
 		// Prioritize the one that does
 		if (aS && !bS) return -1;
 		if (!aS && bS) return 1;
+
+		if (aIsPoi && !bIsPoi) return 1;
+		if (!aIsPoi && bIsPoi) return -1;
 
 		// If both do, sort alphabetically
 		return a.localeCompare(b);
