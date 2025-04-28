@@ -11,8 +11,6 @@ namespace CampusMapApi.Controllers;
 /// Establishes a web API controller to handle server-side requests from the 
 /// front end
 /// 
-/// 
-/// 
 /// </summary>
 /// <param name="logger">Logger running for reporting and errors</param>
 /// <param name="neo4jService">Service to access database</param>
@@ -45,7 +43,7 @@ public class CampusMapController(
 	{
 
 		int start = request.Start; // get starting node id
-		int End = request.End; // get End node id
+		int end = request.End; // get End node id
 
 		// initial db connection
 		var uri = "neo4j+s://apibloomap.xyz:7687";
@@ -90,7 +88,7 @@ public class CampusMapController(
 			// query to use A* algorithm on database
 			var query = @"
 				MATCH (startNode:Location {id: $start})
-				MATCH (endNode:Location {id: $End})
+				MATCH (endNode:Location {id: $end})
 				WHERE endNode.isValidDestination = true
 
 				WITH id(startNode) AS startId, id(endNode) AS endId
@@ -121,9 +119,7 @@ public class CampusMapController(
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
 			//var result = await session.RunAsync(query, new { start, End });
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, End } );
-	
-			//var records = await result.ToListAsync();
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end } );
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
