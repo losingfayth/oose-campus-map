@@ -67,9 +67,10 @@ export async function findPath(currLoc, destination) {
 	console.log("Running FindPath()");
 	var request = {
 		"start": currLoc,
-		"destination": destination,
+		"end": destination,
 	}
 	try {
+
 		// use fetch to make an http request to server at FindPath endpoint
 		const response = await fetch(
 			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/FindPath",

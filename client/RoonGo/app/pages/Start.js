@@ -156,7 +156,7 @@ export default function Start() {
 				let pois = (await getPois()).sort();
 
 				setBuildingSearchOptions(bldgs.map(building => building.name)
-					.concat(pois.map(poi => "\u2605 " + poi.name)));
+					.concat(pois.map(poi => poi.name)));
 				setPointsOfInterest(pois);
 				
 			} catch (e) 
