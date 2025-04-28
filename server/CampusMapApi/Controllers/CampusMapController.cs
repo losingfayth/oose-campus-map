@@ -273,10 +273,13 @@ public class CampusMapController(
 
 		try {
 			// run the building query
-			var result = await session.RunAsync(query, new { building });
+			//var result = await session.RunAsync(query, new { building });
 
+			var results = await _neo4j.ExecuteReadQueryAsync(query);
+
+			/*
 			// iterate over results to get all of the buildings and their ids
-			await result.ForEachAsync(record =>
+			await results.ForEachAsync(record =>
 			{
 				RoomDto room = new()
 				{
@@ -286,6 +289,18 @@ public class CampusMapController(
 				};
 
 				// add each location node to the list
+				rooms.Add(room);
+			});
+			*/
+
+			results.ForEach(record => {
+				RoomDto room = new()
+				{
+					Building = record["building"].As<string>(),
+					Name = record["name"].As<string>(),
+					Id = record["id"].As<string>()
+				};
+
 				rooms.Add(room);
 			});
 		}
