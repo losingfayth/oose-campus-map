@@ -41,15 +41,23 @@ public class DBRepopulator {
         File file = new File("../csvs/Location2.csv");
         Scanner scanner = new Scanner(file);
         File newFile = new File("../csvs/Location3.csv");
-        try (PrintWriter printWriter = new PrintWriter(newFile)) {
-            printWriter.write(scanner.nextLine());
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                int id = Integer.parseInt(line.split(",")[0]);
-                int areaId = getAreaId(id);
-                printWriter.print("\n" + line + "," + areaId);
+//        try (PrintWriter printWriter = new PrintWriter(newFile)) {
+//            printWriter.write(scanner.nextLine());
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                int id = Integer.parseInt(line.split(",")[0]);
+//                int areaId = getAreaId(id);
+//                printWriter.print("\n" + line + "," + areaId);
+//            }
+//        }
+        scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            String s = scanner.nextLine();
+            if (s.split(",").length != 7) {
+                System.out.println(s);
             }
         }
+        System.out.println("done");
 
 //        long startTime;
 //        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
