@@ -17,7 +17,7 @@ namespace CampusMapApi.Utilities
 
 			foreach (var cat in Enum.GetValues(typeof(PointOfInterestCategory)))
 			{
-				var parameters = new Dictionary<string, object> { { "name", cat.ToString() } };
+				var parameters = new Dictionary<string, object> { { "name", cat.ToString() ?? ""} };
 
 				await neo4j.ExecuteWriteQueryAsync(query, parameters);
 			}
@@ -51,21 +51,24 @@ namespace CampusMapApi.Utilities
 				RETURN n
 			";
 
-			foreach (KeyValuePair<string, PointOfInterest> poi in pois)
-			{ 
+			if (pois != null)
+			{
+				foreach (KeyValuePair<string, PointOfInterest> poi in pois)
+				{ 
 
-				if (poi.Value.Room != "")
-				{
-					var results = await neo4j.ExecuteWriteQueryAsync(
-						query,
-						new Dictionary<string, object> {
-							{ "name", poi.Value.Name },
-							{ "abbreviation", poi.Value.Abbreviation ?? "" },
-							{ "room", poi.Value.Room ?? "" },
-							{ "building", poi.Value.Building ?? "" },
-							{ "category", poi.Value.Category.ToString() }
-						}
-					);
+					if (poi.Value.Room != "")
+					{
+						var results = await neo4j.ExecuteWriteQueryAsync(
+							query,
+							new Dictionary<string, object> {
+								{ "name", poi.Value.Name },
+								{ "abbreviation", poi.Value.Abbreviation ?? "" },
+								{ "room", poi.Value.Room ?? "" },
+								{ "building", poi.Value.Building ?? "" },
+								{ "category", poi.Value.Category.ToString() }
+							}
+						);
+					}
 				}
 			}
 
