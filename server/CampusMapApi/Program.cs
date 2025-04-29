@@ -2,12 +2,14 @@
 Sets up the web server, enables HTTPS, configures services, and enables controller to begin handling incoming API endpoint requests
 */ 
 using CampusMapApi;
+using CampusMapApi.Services;
+using CampusMapApi.Utilities;
 
 // creates new instance of the web application (loads configs from appsettings.json)
 var builder = WebApplication.CreateBuilder(args);
 
 // sets default port to 5159 and server will listen on all available network interfaces
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5159";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5163";
 var urls = $"https://0.0.0.0:{port}";
 
 // configure Kestrel
@@ -30,6 +32,8 @@ builder.Services.AddCors(options => {
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });
+
+builder.Services.AddSingleton<Neo4jService>(provider => new Neo4jService());
 
 // finalize app configurations
 var app = builder.Build();

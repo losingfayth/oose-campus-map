@@ -1,0 +1,268 @@
+{
+	"poi_roongos": {
+		"name": "Roongo's Cafe",
+		"room": "",
+		"bldg": "Warren Student Services Center",
+		"cat": "dining"
+	},
+	"poi_ascjsw": {
+		"name": "Anthropology, Sociology, Criminal Justice, and Social Work",
+		"room": "27",
+		"bldg": "Warren Student Services Center",
+		"cat": "academic"
+	},
+	"poi_biohealth": {
+		"name": "Biological and Health Sciences",
+		"room": "117",
+		"bldg": "Hartline Science Center",
+		"cat": "academic"
+	},
+	"poi_biztech": {
+		"name": "Business, Innovation, and Technology",
+		"room": "360",
+		"bldg": "Sutliff Hall",
+		"cat": "academic"
+	},
+	"poi_child": {
+		"name": "Early Childhood Education and Exceptionality Programs",
+		"room": "106",
+		"bldg": "Navy Hall",
+		"cat": "academic"
+	},
+	"poi_lang": {
+		"name": "Languages, Literatures, and Writing",
+		"room": "115",
+		"bldg": "Bakeless Center for Humanities",
+		"cat": "academic"
+	},
+	"poi_mgmt": {
+		"name": "Management",
+		"room": "358",
+		"bldg": "Sutliff Hall",
+		"cat": "academic"
+	},
+	"poi_mads": {
+		"name": "Mathematics, Computer Science, and Digital Forensics",
+		"abbr": "MADS",
+		"room": "215",
+		"bldg": "Ben Franklin Hall",
+		"cat": "academic"
+	},
+	"poi_physed": {
+		"name": "Physical and Environmental Sciences: Biochemistry, Chemistry, Engineering, Geography, Geology, and Physics",
+		"room": "218",
+		"bldg": "Hartline Science Center",
+		"cat": "academic"
+	},
+	"poi_rehab": {
+		"name": "Rehabilitation Services",
+		"room": "0122",
+		"bldg": "Centennial Hall",
+		"cat": "academic"
+	},
+	"poi_visual": {
+		"name": "Visual Arts",
+		"room": "256",
+		"bldg": "Arts & Administration Building",
+		"cat": "academic"
+	},
+	"poi_finaid": {
+		"name": "Financial Aid",
+		"room": "106",
+		"bldg": "Arts & Administration Building",
+		"cat": "admin"
+	},
+	"poi_oinkies": {
+		"name": "University Police",
+		"room": "",
+		"bldg": "Andruss Library",
+		"cat": "admin"
+	},
+	"poi_acaadvise": {
+		"name": "Academic Advisement",
+		"room": "",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	},
+	"poi_nurse": {
+		"name": "Breiner School of Nursing",
+		"room": "176",
+		"bldg": "Hartline Science Center",
+		"cat": "college"
+	},
+	"poi_healthtechcol": {
+		"name": "College of Health, Science, and Technology",
+		"room": "176",
+		"bldg": "Hartline Science Center",
+		"cat": "college"
+	},
+	"poi_honorscol": {
+		"name": "Eileen G. Jones Honors College",
+		"room": "249",
+		"bldg": "Arts & Administration Building",
+		"cat": "college"
+	},
+	"poi_bizcol": {
+		"name": "Zeigler College of Business",
+		"room": "373",
+		"bldg": "Sutliff Hall",
+		"cat": "college"
+	},
+	"poi_admin": {
+		"name": "Administration",
+		"room": "336",
+		"bldg": "Arts & Administration Building",
+		"cat": "division"
+	},
+	"poi_mcdowell": {
+		"name": "McDowell Institute",
+		"room": "216",
+		"bldg": "Navy Hall",
+		"cat": "institute"
+	},
+	"poi_zipd": {
+		"name": "Zeigler Institute for Professional Development",
+		"abbr": "ZIPD",
+		"room": "361",
+		"bldg": "Sutliff Hall",
+		"cat": "institute"
+	},
+	"poi_access": {
+		"name": "Access and Success",
+		"abbr": "ACT 101",
+		"room": "040",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_aod": {
+		"name": "Alcohol and Other Drugs Prevention and Intervention Center",
+		"abbr": "AOD",
+		"room": "236",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_learncomm": {
+		"name": "Learning Communities",
+		"room": "201",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_dean": {
+		"name": "Dean of Students",
+		"room": "150",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_reg": {
+		"name": "Registrar's Office",
+		"room": "125",
+		"bldg": "Arts & Administration Building",
+		"cat": "office"
+	},
+	"poi_bill": {
+		"name": "Student Billing",
+		"room": "236",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_wellbeing": {
+		"name": "Student Well-Being and Health Promotion",
+		"room": "236",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_triosup": {
+		"name": "TRIO Student Support Services",
+		"room": "268",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_trioupb": {
+		"name": "TRIO Upward Bound",
+		"room": "258",
+		"bldg": "Warren Student Services Center",
+		"cat": "office"
+	},
+	"poi_starbucks": {
+		"name": "Starbucks",
+		"room": "",
+		"bldg": "Andruss Library",
+		"cat": "dining"
+	},
+	"poi_card": {
+		"name": "University Card Center",
+		"room": "203",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	},
+	"poi_digfor": {
+		"name": "Center for Digital Forensics and Cybersecurity Studies",
+		"room": "217",
+		"bldg": "Ben Franklin Hall",
+		"cat": "center"
+	},
+	"poi_cats": {
+		"name": "Commonwealth Academic Technology Support Center",
+		"abbr": "CATS",
+		"room": "365",
+		"bldg": "Arts & Administration Building",
+		"cat": "center"
+	},
+	"poi_counsel": {
+		"name": "Counseling Center",
+		"room": "240",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	},
+	"poi_fye": {
+		"name": "First Year Experience",
+		"abbr": "FYE",
+		"room": "214",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	},
+	"poi_sales": {
+		"name": "Professional Sales Center",
+		"room": "360",
+		"bldg": "Sutliff Hall",
+		"cat": "center"
+	},
+	"poi_psceu": {
+		"name": "Pennsylvania State Employees Credit Union",
+		"abbr": "PSECU",
+		"room": "",
+		"bldg": "Warren Student Services Center",
+		"cat": "banking"
+	},
+	"poi_speech": {
+		"name": "Speech, Language, and Hearing Clinic",
+		"room": "3F",
+		"bldg": "Centennial Hall",
+		"cat": "center"
+	},
+	"poi_stusucc": {
+		"name": "Student Success Center",
+		"room": "109",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	},
+	"poi_write": {
+		"name": "University Learning and Writing Centers",
+		"room": "311",
+		"bldg": "Andruss Library",
+		"cat": "center"
+	},
+	"poi_wales": {
+		"name": "Writing and Literary Engagement Studio",
+		"abbr": "WALES",
+		"room": "",
+		"bldg": "Bakeless Center for Humanities",
+		"cat": "center"
+	},
+	"poi_disable": {
+		"name": "University Disability Center",
+		"room": "043",
+		"bldg": "Warren Student Services Center",
+		"cat": "center"
+	}
+}
