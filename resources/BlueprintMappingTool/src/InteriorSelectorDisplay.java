@@ -85,7 +85,7 @@ public class InteriorSelectorDisplay extends Application
 '/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Student Services/GR FL.png'
  */
     // adjust the below booleans if you are marking either of the referenced blueprints
-    static final boolean AM_MARKING_SSC_BASEMENT = true;
+    static final boolean AM_MARKING_SSC_BASEMENT = false;
     static final boolean AM_MARKING_HARTLINE_BASEMENT = false;
 
     @Override

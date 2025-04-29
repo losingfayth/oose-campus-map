@@ -2,6 +2,7 @@ package edu.commonwealthu.bloomap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 public class CSV {
 
     // Keys are the names of the headers of the CSV, values are their datatypes represented as Strings.
+    // This is implemented as a LinkedHashMap, which maintains insertion order. This fact is used in the write() method.
     private final Map<String, String> headers;
 
     // A row is a Map from the header names to the value of the entry for that column in the row.
@@ -57,6 +59,7 @@ public class CSV {
 
     /**
      * Returns the number of rows in this CSV.
+     * Does not include the header row.
      */
     public int size() {
         return rows.size();
@@ -77,6 +80,13 @@ public class CSV {
     }
 
     /**
+     * Removes the row at the specified index from this CSV.
+     */
+    public void remove(int i) {
+        rows.remove(i);
+    }
+
+    /**
      * Returns a string that specifies the type of data that entries in the specified column are.
      *
      * @return "string", "boolean", "double", or "int"
@@ -87,11 +97,50 @@ public class CSV {
     }
 
     /**
+     * Sorts a CSV by applying the natural ordering on a specific column.
+     * For example, if a CSV has an "id" header with integer-valued entries, specifying "id" as the argument to this
+     * method will sort the CSV by id in ascending order.
+     */
+    @SuppressWarnings("unchecked")
+    public void sort(String columnName) {
+        // If the specified column isn't in this CSV, throw an exception
+        if (!containsColumn(columnName)) {
+            throw new RuntimeException("Specified header does not exist in this CSV: " + columnName);
+        }
+
+        rows.sort(Comparator.comparing(row -> (Comparable<Object>) row.get(columnName), Comparator.naturalOrder()));
+    }
+
+    /**
+     * Writes this CSV to the specified file.
+     */
+    public void write(File outFile) {
+        try (PrintWriter writer = new PrintWriter(outFile)) {
+            // Writes the header line
+            writer.print(String.join(",", headers.keySet()));
+
+            // Writes each row using the order of the headers. It's necessary to use the order of the headers rather
+            // than just iterating over the keys for the entries in each row because the headers (a LinkedHashMap)
+            // maintain insertion order--not the keys in each row.
+            for (Map<String, Object> row : rows) {
+                List<String> entries = new ArrayList<>();
+                for (String header : headers.keySet()) {
+                    Object entry = row.get(header);
+                    entries.add(entry.toString());
+                }
+                writer.print("\n" + String.join(",", entries));
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Unable to write CSV to file: " + outFile.getAbsolutePath(), e);
+        }
+    }
+
+    /**
      * Reads a CSV at the specified file into memory.
      * The first row of the CSV must be its headers.
      */
-    private void parse(File file) {
-        try (Scanner scanner = new Scanner(file)) {
+    private void parse(File inFile) {
+        try (Scanner scanner = new Scanner(inFile)) {
             String[] headerArray = scanner.nextLine().split(",");
 
             List<List<String>> rawData = new ArrayList<>();
@@ -118,7 +167,7 @@ public class CSV {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("CSV file not found: " + file.getAbsolutePath(), e);
+            throw new RuntimeException("CSV file not found: " + inFile.getAbsolutePath(), e);
         }
     }
 
