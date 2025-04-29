@@ -8,6 +8,7 @@ import {
 	StatusBar,
 	Pressable,
 	Text,
+	Switch,
 } from "react-native";
 import { Link, router } from "expo-router";
 import * as Location from "expo-location";
@@ -46,6 +47,8 @@ export default function Start() {
 	const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
 	const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
 	const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+
+	const [accessiblePathMode, setAccessiblePathMode] = useState(false);
 
 	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
 		if (!building) return;
@@ -327,6 +330,14 @@ export default function Start() {
 						console.log("Selected TO room:", matched.name, "| ID:", matched.id);
 					}
 				}}
+			/>
+
+
+			<Switch
+				trackColor={{false: '#FFFFFF', true: '#000000'}}
+				thumbColor={accessiblePathMode ? '#FFFF00' : '#0000FF'}
+				onValueChange= {() => {setAccessiblePathMode(previousState => !previousState)}}
+				value={accessiblePathMode}
 			/>
 		</View>
 	);
