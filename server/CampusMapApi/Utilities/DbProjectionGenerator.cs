@@ -15,7 +15,7 @@ namespace CampusMapApi.Utilities
 			try {
 
 				var dropQuery = @"
-					CALL gds.graph.drop('$graph', false);
+					CALL gds.graph.drop($graph, false);
 					";
 
 				var graphType = accessible ? "stairlessCampusGraph" : "campusGraph";
