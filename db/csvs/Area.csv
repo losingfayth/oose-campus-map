@@ -1,11 +1,11 @@
-id,name,abbreviation
-1,Ben Franklin Hall,BFH
-2,Navy Hall,NH
-3,Bakeless Center for Humanities,BCH
-4,Centennial Hall,CH
-5,Sutliff Hall,SH
-6,Warren Student Services Center,SSC
-7,Andruss Library,LIB
-8,Arts & Administration Building,A&A
-9,Hartline Science Center,HSC
-10,Outside,O
+id,name,abbreviation,numFloors,lowestFloor
+0,Arts & Administration Building,A&A,4,0
+1,Bakeless Center for Humanities,BCH,4,0
+2,Ben Franklin Hall,BFH,3,0
+3,Centennial Hall,CH,3,1
+4,Hartline Science Center,HSC,4,-1
+5,Andruss Library,LIB,4,1
+6,Navy Hall,NH,3,0
+7,Sutliff Hall,SH,3,1
+8,Warren Student Services Center,SSC,3,0
+9,Outside,O,1,0
