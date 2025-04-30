@@ -32,7 +32,7 @@ namespace CampusMapApi.Utilities
 							// Exclude nodes with specific name
 							filters: {
 								exclude: [
-								{ property: 'name', value: 'NameToExclude' }
+								{ property: 'isAccessible', value: false }
 								]
 							}
 						}
