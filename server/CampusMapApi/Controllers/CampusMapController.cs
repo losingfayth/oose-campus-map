@@ -44,7 +44,7 @@ public class CampusMapController(
 
 		int start = request.Start; // get starting node id
 		int end = request.End; // get End node id
-		var graphType = request.Accessible ? "stairlessCampusGraph" : "campusGraph";
+		var graphType = request.Accessible ? "accessibleCampusGraph" : "campusGraph";
 
 
 		try {

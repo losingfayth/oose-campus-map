@@ -25,18 +25,10 @@ namespace CampusMapApi.Utilities
 
 				var projectQuery = @"
 					CALL gds.graph.project(
-					$graph, {
+					campusGraph, {
 						Location: {
 						properties: ['latitude', 'longitude']
-
-						" + (accessible ? 
-						@",
-							filters: { 
-								exclude: [ 
-									{ property: 'accessible', value: false } ]
-								}" : ""
-						) +
-						@"}
+						}
 					} , {
 						CONNECTED_TO: {
 						type: 'CONNECTED_TO',
@@ -44,8 +36,22 @@ namespace CampusMapApi.Utilities
 						}
 					})";
 
+				await neo4j.ExecuteWriteQueryAsync(projectQuery);
 
-				await neo4j.ExecuteWriteQueryAsync(projectQuery, new { graph = graphType });
+				if (accessible)
+				{
+					var accessibleFilterQuery = @"
+						CALL gds.beta.graph.subgraph(
+							accessibleCampusGraph,
+							campusGraph,
+							'n.accessible <> false',
+							'*'
+						)
+						YIELD graphName AS filteredGraph
+					";
+
+					await neo4j.ExecuteWriteQueryAsync(accessibleFilterQuery);
+				}				
 
 				return true;
 
