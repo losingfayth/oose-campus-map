@@ -18,15 +18,23 @@ namespace CampusMapApi.Utilities
 					CALL gds.graph.drop($graph, false);
 					";
 
-				//var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
+				var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
 
-				await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "campusGraph"} );
+				if (accessible)
+				{
+					await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "accessibleCampusGraph" } );
 
-				var projectQuery = @"
+					var projectAccessibleQuery = @"
 					CALL gds.graph.project(
-					'campusGraph', {
+					'accessibleCampusGraph', {
 						Location: {
-						properties: ['latitude', 'longitude']
+							properties: ['latitude', 'longitude'],
+							// Exclude nodes with specific name
+							filters: {
+								exclude: [
+								{ property: 'name', value: 'NameToExclude' }
+								]
+							}
 						}
 					} , {
 						CONNECTED_TO: {
@@ -35,24 +43,27 @@ namespace CampusMapApi.Utilities
 						}
 					})";
 
-				await neo4j.ExecuteWriteQueryAsync(projectQuery);
-
-				if (accessible)
+					await neo4j.ExecuteWriteQueryAsync(projectAccessibleQuery);
+				}
+				else
 				{
-					await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "accessibleCampusGraph" } );
+					await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "campusGraph"} );
 
-					var accessibleFilterQuery = @"
-						CALL gds.beta.graph.subgraph(
-							'accessibleCampusGraph',
-							'campusGraph',
-							'n.accessible <> false',
-							'*'
-						)
-						YIELD graphName AS accessibleCampusGraph
-					";
+					var projectStandardQuery = @"
+					CALL gds.graph.project(
+					'campusGraph', {
+						Location: {
+							properties: ['latitude', 'longitude']
+						}
+					} , {
+						CONNECTED_TO: {
+						type: 'CONNECTED_TO',
+						properties: 'distance'
+						}
+					})";
 
-					await neo4j.ExecuteWriteQueryAsync(accessibleFilterQuery);
-				}				
+					await neo4j.ExecuteWriteQueryAsync(projectStandardQuery);
+				}			
 
 				return true;
 
