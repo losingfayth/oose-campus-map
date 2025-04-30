@@ -30,10 +30,11 @@ namespace CampusMapApi.Utilities
 						properties: ['latitude', 'longitude']
 
 						" + (accessible ? 
-						@"filters: { 
-							exclude: [ 
-								{ property: 'accessible', value: false } ]
-							}" : ""
+						@",
+							filters: { 
+								exclude: [ 
+									{ property: 'accessible', value: false } ]
+								}" : ""
 						) +
 						@"}
 					} , {
