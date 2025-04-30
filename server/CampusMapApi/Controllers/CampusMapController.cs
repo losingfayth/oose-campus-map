@@ -303,30 +303,55 @@ public class CampusMapController(
 		return Ok(pois);
 	}
 
-	[HttpGet("GetFloors")]
+	[HttpPost("GetFloors")]
 	public async Task<IActionResult> GetFloors([FromBody] BuildingRequest request)
 	{
 		var building = request.Building;
 
-		// query to get every room in a building from database
+		// query to get the number of floors and lowest floor 
+		// given a building in the database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
 			RETURN a.lowestFloor AS lowestFloor, a.numFloor AS numFlor
 		";
 
-		FloorDto floors;
+		FloorDto floors = new FloorDto();
 
 		try {
-			// run the building query
+			// run the floor retrieval query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
 			results.ForEach(record => {
-				// list to hold locations
-				floors = new FloorDto() 
-				{
-					LowestFloor = record["lowestFloor"],
-					NumFloor = record["numFloor"]
-				};
+				floors.LowestFloor = record["lowestFloor"];
+				floors.NumFloor = record["numFloor"];
+			});
+		}
+		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+
+		return Ok(floors);
+	}
+
+	[HttpPost("GetNearestNode")]
+	public async Task<IActionResult> GetNearestNode([FromBody] BuildingRequest request)
+	{
+		var building = request.Building;
+
+		// query to get the number of floors and lowest floor 
+		// given a building in the database
+		var query = @"
+			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+			RETURN a.lowestFloor AS lowestFloor, a.numFloor AS numFlor
+		";
+
+		FloorDto floors = new FloorDto();
+
+		try {
+			// run the floor retrieval query
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+
+			results.ForEach(record => {
+				floors.LowestFloor = int.Parse(record["lowestFloor"]);
+				floors.NumFloor = int.Parse(record["numFloor"]);
 			});
 		}
 		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
