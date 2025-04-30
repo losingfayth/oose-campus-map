@@ -133,6 +133,7 @@ public class CampusMapController(
 				var floor = record["floor"].ToString() ?? "";
 				var id = record["id"].ToString() ?? "";
 				var area = record["building"].ToString() ?? "";
+				var name = record["locationName"].ToString() ?? null;
 
 				var floorFloat = float.Parse(floor);
 				// check if this is the first pass-through the records. if so, initialize
@@ -159,7 +160,8 @@ public class CampusMapController(
 						Longitude = float.Parse(longitude),
 						Floor = float.Parse(floor),
 						Building = area,
-						Id = id
+						Id = id,
+						Name = name
 					});
 				}
 
