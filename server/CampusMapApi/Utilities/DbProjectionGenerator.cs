@@ -28,7 +28,14 @@ namespace CampusMapApi.Utilities
 					$graph, {
 						Location: {
 						properties: ['latitude', 'longitude']
-						}
+
+						" + (accessible ? 
+						@"filters: { 
+							exclude: [ 
+								{ property: 'accessible', value: false } ]
+							}" : ""
+						) +
+						@"}
 					} , {
 						CONNECTED_TO: {
 						type: 'CONNECTED_TO',
