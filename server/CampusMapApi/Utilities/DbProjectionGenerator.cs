@@ -18,14 +18,14 @@ namespace CampusMapApi.Utilities
 					CALL gds.graph.drop($graph, false);
 					";
 
-				var graphType = accessible ? "stairlessCampusGraph" : "campusGraph";
+				var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
 
 				await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = graphType } );
 
 
 				var projectQuery = @"
 					CALL gds.graph.project(
-					campusGraph, {
+					'campusGraph', {
 						Location: {
 						properties: ['latitude', 'longitude']
 						}
@@ -42,8 +42,8 @@ namespace CampusMapApi.Utilities
 				{
 					var accessibleFilterQuery = @"
 						CALL gds.beta.graph.subgraph(
-							accessibleCampusGraph,
-							campusGraph,
+							'accessibleCampusGraph',
+							'campusGraph',
 							'n.accessible <> false',
 							'*'
 						)
