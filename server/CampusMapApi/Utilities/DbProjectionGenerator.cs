@@ -18,10 +18,9 @@ namespace CampusMapApi.Utilities
 					CALL gds.graph.drop($graph, false);
 					";
 
-				var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
+				//var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
 
-				await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = graphType } );
-
+				await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "campusGraph"} );
 
 				var projectQuery = @"
 					CALL gds.graph.project(
@@ -40,6 +39,8 @@ namespace CampusMapApi.Utilities
 
 				if (accessible)
 				{
+					await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "accessibleCampusGraph" } );
+
 					var accessibleFilterQuery = @"
 						CALL gds.beta.graph.subgraph(
 							'accessibleCampusGraph',
