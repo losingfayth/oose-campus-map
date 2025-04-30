@@ -48,7 +48,7 @@ namespace CampusMapApi.Utilities
 							'n.accessible <> false',
 							'*'
 						)
-						YIELD graphName AS filteredGraph
+						YIELD graphName AS accessibleCampusGraph
 					";
 
 					await neo4j.ExecuteWriteQueryAsync(accessibleFilterQuery);
