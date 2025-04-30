@@ -109,7 +109,8 @@ public class CampusMapController(
 					n.longitude AS longitude,
 					n.floor AS floor,
 					n.id AS id,
-					a.name AS building
+					a.name AS building,
+					n.name AS locationName
 				";
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
