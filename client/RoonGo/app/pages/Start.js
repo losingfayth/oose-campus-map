@@ -14,6 +14,7 @@ import { Link, router } from "expo-router";
 import * as Location from "expo-location";
 import SearchBar from "../../components/SearchBar";
 import { points } from "../../utils/Points";
+import ImageButton from "../../components/ImageButton"
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
@@ -333,12 +334,11 @@ export default function Start() {
 				}}
 			/>
 
-
-			<Switch
-				trackColor={{false: '#FFFFFF', true: '#000000'}}
-				thumbColor={accessiblePathMode ? '#FFFF00' : '#0000FF'}
-				onValueChange= {() => {setAccessiblePathMode(previousState => !previousState)}}
-				value={accessiblePathMode}
+			<ImageButton
+				selected={ accessiblePathMode }
+				onPress={() => setAccessiblePathMode(!accessiblePathMode)}
+				imagePath={require("../../assets/handicap_accessible_icon.jpg")}
+				customStyles={{ top: "38%", left: "17%" }}
 			/>
 		</View>
 	);
