@@ -227,7 +227,7 @@ export default function Start() {
 
 								console.log("Room ID array:", roomIdArray);
 
-								var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
+								var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
 								console.log(pathData);
 

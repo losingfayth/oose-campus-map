@@ -48,35 +48,6 @@ public class CampusMapController(
 
 
 		try {
-			/*
-			// drop existing graph projection
-			var dropProjection = @"
-			CALL gds.graph.drop('campusGraph', false);";
-
-			//await session.RunAsync(dropProjection);
-
-			await _neo4j.ExecuteWriteQueryAsync(dropProjection);
-
-			// create new graph projection
-			var createProjection = @"
-			CALL gds.graph.project(
-				'campusGraph', {
-					Location: {
-						properties: ['latitude', 'longitude']
-					}
-				} , {
-					CONNECTED_TO: {
-					type: 'CONNECTED_TO',
-					properties: 'distance'
-					}
-				})";
-
-
-			// run prjection creation query
-			//await session.RunAsync(createProjection);
-
-			await _neo4j.ExecuteWriteQueryAsync(createProjection);
-			*/
 
 			await DbProjectionGenerator.GenerateProjection(_neo4j, request.Accessible);
 
