@@ -225,7 +225,8 @@ export default function Start() {
 								const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
 								// const roomIdArray = [22, 1078];
 
-								console.log("Room ID array:", roomIdArray);
+								console.log("Room ID array: ", roomIdArray);
+								console.log("Accessible Path Mode: ", accessiblePathMode);
 
 								var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
