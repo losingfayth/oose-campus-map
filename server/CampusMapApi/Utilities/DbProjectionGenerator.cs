@@ -24,26 +24,17 @@ namespace CampusMapApi.Utilities
 				{
 					await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "accessibleCampusGraph" } );
 
-					var projectAccessibleQuery = @"
-					CALL gds.graph.project(
-					'accessibleCampusGraph', {
-						Location: {
-							properties: ['latitude', 'longitude'],
-							// Exclude nodes with specific name
-							filters: {
-								exclude: [
-								{ property: 'isAccessible', value: false }
-								]
-							}
-						}
-					} , {
-						CONNECTED_TO: {
-						type: 'CONNECTED_TO',
-						properties: 'distance'
-						}
-					})";
+					var filterAccessibleQuery = @"
+						CALL gds.graph.filter(
+							'accessibleCampusGraph',
+							'campusGraph',
+							'n.isAccessible = 1',
+							'*'
+						)
+						YIELD graphName, fromGraphName, nodeCount, relationshipCount
+					";
 
-					await neo4j.ExecuteWriteQueryAsync(projectAccessibleQuery);
+					await neo4j.ExecuteWriteQueryAsync(filterAccessibleQuery);
 				}
 				else
 				{
@@ -53,7 +44,7 @@ namespace CampusMapApi.Utilities
 					CALL gds.graph.project(
 					'campusGraph', {
 						Location: {
-							properties: ['latitude', 'longitude']
+							properties: ['latitude', 'longitude', 'isAccessible']
 						}
 					} , {
 						CONNECTED_TO: {
