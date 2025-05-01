@@ -303,14 +303,6 @@ public class CampusMapController(
 		return Ok(pois);
 	}
 
-	[HttpGet("RepopulatePois")]
-	public async Task<IActionResult> RepopulatePois()
-	{
-		await DbPopulator.RepopulatePois(_neo4j);
-
-		return Ok();
-	}
-
 	// DTO for request body
 	public class BuildingRequest
 	{
