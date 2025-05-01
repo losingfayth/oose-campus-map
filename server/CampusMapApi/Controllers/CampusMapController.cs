@@ -160,8 +160,7 @@ public class CampusMapController(
 						Longitude = float.Parse(longitude),
 						Floor = float.Parse(floor),
 						Building = area,
-						Id = id,
-						Name = name
+						Id = id
 					});
 				}
 
@@ -302,6 +301,14 @@ public class CampusMapController(
 		});
 
 		return Ok(pois);
+	}
+
+	[HttpGet("RepopulatePois")]
+	public async Task<IActionResult> RepopulatePois()
+	{
+		await DbPopulator.RepopulatePois(_neo4j);
+
+		return Ok();
 	}
 
 	// DTO for request body

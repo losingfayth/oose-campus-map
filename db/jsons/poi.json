@@ -6,19 +6,19 @@
 		"cat": "dining"
 	},
 	"poi_ascjsw": {
-		"name": "Anthropology, Sociology, Criminal Justice, and Social Work",
+		"name": "Department of Anthropology, Sociology, Criminal Justice, and Social Work",
 		"room": "27",
 		"bldg": "Warren Student Services Center",
 		"cat": "academic"
 	},
 	"poi_biohealth": {
-		"name": "Biological and Health Sciences",
+		"name": "Department of Biological and Health Sciences",
 		"room": "117",
 		"bldg": "Hartline Science Center",
 		"cat": "academic"
 	},
 	"poi_biztech": {
-		"name": "Business, Innovation, and Technology",
+		"name": "Department of Business, Innovation, and Technology",
 		"room": "360",
 		"bldg": "Sutliff Hall",
 		"cat": "academic"
@@ -30,26 +30,26 @@
 		"cat": "academic"
 	},
 	"poi_lang": {
-		"name": "Languages, Literatures, and Writing",
+		"name": "Department of Languages, Literatures, and Writing",
 		"room": "115",
 		"bldg": "Bakeless Center for Humanities",
 		"cat": "academic"
 	},
 	"poi_mgmt": {
-		"name": "Management",
+		"name": "Department of Management",
 		"room": "358",
 		"bldg": "Sutliff Hall",
 		"cat": "academic"
 	},
 	"poi_mads": {
-		"name": "Mathematics, Computer Science, and Digital Forensics",
+		"name": "Department of Mathematics, Computer Science, and Digital Forensics",
 		"abbr": "MADS",
 		"room": "215",
 		"bldg": "Ben Franklin Hall",
 		"cat": "academic"
 	},
 	"poi_physed": {
-		"name": "Physical and Environmental Sciences: Biochemistry, Chemistry, Engineering, Geography, Geology, and Physics",
+		"name": "Department of Physical and Environmental Sciences: Biochemistry, Chemistry, Engineering, Geography, Geology, and Physics",
 		"room": "218",
 		"bldg": "Hartline Science Center",
 		"cat": "academic"

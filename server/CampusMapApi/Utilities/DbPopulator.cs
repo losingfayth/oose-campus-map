@@ -74,5 +74,48 @@ namespace CampusMapApi.Utilities
 
 			return true;
 		}
+
+		public async static Task<bool> RepopulatePois(Neo4jService neo4j)
+		{
+			string fp = "../../db/jsons/poi.json";
+
+			string json = File.ReadAllText(fp);
+
+			var options = new JsonSerializerOptions
+			{
+				PropertyNameCaseInsensitive = true,
+				Converters = { new JsonStringEnumConverter() }
+			};
+
+			var pois = JsonSerializer.Deserialize<Dictionary<string, PointOfInterest>>(json, options);
+
+			var query = @"
+				MATCH (poi:PointOfInterest) WHERE poi.name = $name
+				MATCH (bldg:Area) WHERE bldg.name = $building
+				MATCH (loc:Location) WHERE loc.name = 'Room ' + $room AND (loc)-[:IS_IN]->(bldg)
+				CREATE (poi)-[:LOCATED_AT]->(loc)
+			";
+
+			if (pois != null)
+			{
+				foreach (KeyValuePair<string, PointOfInterest> poi in pois)
+				{ 
+
+					if (poi.Value.Room != "")
+					{
+						var results = await neo4j.ExecuteWriteQueryAsync(
+							query,
+							new Dictionary<string, object> {
+								{ "name", poi.Value.Name },
+								{ "room", poi.Value.Room ?? "" },
+								{ "building", poi.Value.Building ?? "" }
+							}
+						);
+					}
+				}
+			}
+
+			return true;
+		}
 	}
 }
