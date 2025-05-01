@@ -92,7 +92,7 @@ namespace CampusMapApi.Utilities
 			var query = @"
 				MATCH (poi:PointOfInterest) WHERE poi.name = $name
 				MATCH (bldg:Area) WHERE bldg.name = $building
-				MATCH (loc:Location) WHERE loc.name = 'Room ' + $room AND (loc)-[:IS_IN]->(bldg)
+				MATCH (loc:Location) WHERE loc.name = $room AND (loc)-[:IS_IN]->(bldg)
 				CREATE (poi)-[:LOCATED_AT]->(loc)
 			";
 
