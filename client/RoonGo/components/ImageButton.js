@@ -23,8 +23,6 @@ const styles = StyleSheet.create({
 		// Add other styling for your button container
 	},
 	image: {
-		width: 60,
-		height: 60,
 		borderRadius: 10
 		// Add other styling for your image
 	}
