@@ -324,7 +324,7 @@ public class CampusMapController(
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
 			results.ForEach(record => {
-				lowestFloor = record["lowestFloor"].ToString;
+				floors.LowestFloor = record["lowestFloor"].As<int>;
 				numFloor = record["numFloor"].ToString;
 			});
 
