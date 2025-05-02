@@ -8,6 +8,7 @@ const SearchBar = ({
   customStyles,
   showIcon = true,
   searchFilterData,
+  defaultFilterData = [],
   searchFilterStyles,
   placeholderText = "Search",
   onTypingChange, // New prop to notify App.js when typing starts or stops
@@ -15,7 +16,6 @@ const SearchBar = ({
 }) => {
   const [input, setInput] = useState("");
   const [showList, setShowList] = useState(false); // Control visibility of FlatList
-
   return (
     <SafeAreaView
       style={StyleSheet.flatten([styles.container, customStyles])}
@@ -26,7 +26,10 @@ const SearchBar = ({
       )}
       <TextInput
         value={input}
-
+        onFocus={() => {
+          setShowList(true); // show list when focused
+          onTypingChange && onTypingChange(input.length > 0);
+        }}
         onChangeText={(text) => {
           console.log(text);
           setInput(text);
@@ -41,21 +44,31 @@ const SearchBar = ({
         placeholder={placeholderText}
         clearButtonMode="always"
       />
-      {showList && (
-        <SearchFilter
-          data={searchFilterData}
-          input={input}
-          setInput={(text) => {
-            setInput(text);
-            onSelect(text);
-            console.log("Text---->", text);
-            setShowList(false); // Hide list when an item is selected
-            onTypingChange && onTypingChange(false); // Notify parent that typing has stopped
-          }}
-          customStyles={searchFilterStyles}
-        //onSelect={handleSelect} // Pass handleSelect to SearchFilter
-        />
-      )}
+      {showList &&
+        (input.length > 0 ||
+          (input.length === 0 && defaultFilterData.length > 0)) && (
+          <SearchFilter
+            /**
+             * Display no search filter if defaultFilterData is empty. If
+             * defaultFilterData isn't empty display defaultFilterData
+             */
+            data={
+              input.length === 0 // if user hasn't typed
+                ? defaultFilterData.length === 0 // then if default filter is empty
+                  ? []
+                  : defaultFilterData
+                : searchFilterData
+            }
+            input={input}
+            setInput={(text) => {
+              setInput(text);
+              onSelect(text);
+              setShowList(false);
+              onTypingChange && onTypingChange(false);
+            }}
+            customStyles={searchFilterStyles}
+          />
+        )}
     </SafeAreaView>
   );
 };

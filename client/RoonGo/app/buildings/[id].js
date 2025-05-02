@@ -38,7 +38,6 @@ import PathControls from "../../components/PathControls.js";
  *  @author Ethan Broskoskie
  */
 
-
 function mapPointsToPixels(points, coordinateMap) {
   return points.map((point) => {
     const mapped = coordinateMap.convert(point.latitude, point.longitude);
@@ -46,9 +45,7 @@ function mapPointsToPixels(points, coordinateMap) {
   });
 }
 
-
 export default function Building() {
-
   // from here---------------------------------------------------------------------------------
   const router = useRouter();
 
@@ -57,13 +54,10 @@ export default function Building() {
   const locs = JSON.parse(categories || "[]"); // Convert back to an array
   const currIndex = parseInt(currLoc);
 
-
   const getImageUri = (building) => {
     return Image.resolveAssetSource(blueprintImageData[building].image).uri;
   };
   const uri = getImageUri(locs[currIndex]);
-
-  // console.log("Building - path: " + path);
 
   // console.log(normalizedPoints);
 
@@ -74,18 +68,14 @@ export default function Building() {
   async function getBuildingTest() {
     buildings = await getBuildings();
 
-    var buildingNames = buildings.map(area => area.name);
+    var buildingNames = buildings.map((area) => area.name);
     console.log("NAMES: " + buildingNames);
     console.log("length: " + buildingNames.length);
     // var rooms = await getRooms(buildings[0]);
     // let n = new LocationNode(rooms[0]);
     // console.log("ID building: " + n.getID());
-
   }
   // getBuildingTest();
-
-
-
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
@@ -104,7 +94,7 @@ export default function Building() {
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
-    console.log("Returning null")
+    console.log("Returning null");
     return null;
   }
 
@@ -125,14 +115,14 @@ export default function Building() {
   // must move as one big block ---------------------------------------------------------------
 
   let imageReferencePoints = blueprintImageData[locs[currIndex]].reference;
-  let m = new CoordinateMap(
-    CoordinateMap.fromReference(imageReferencePoints),
-    [
-      0, 0,
-      size.width, 0,
-      0, size.height
-    ]
-  );
+  let m = new CoordinateMap(CoordinateMap.fromReference(imageReferencePoints), [
+    0,
+    0,
+    size.width,
+    0,
+    0,
+    size.height,
+  ]);
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
   const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
@@ -194,7 +184,6 @@ export default function Building() {
           currIndex={currIndex}
           maxLocs={maxLocs}
         />
-
       </GestureHandlerRootView>
     );
   } else {

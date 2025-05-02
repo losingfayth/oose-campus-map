@@ -2,6 +2,8 @@ package edu.commonwealthu.bloomap;
 
 import org.neo4j.driver.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
  * associated with it.
  */
 public class DBRepopulator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         final String dbUri = "neo4j+ssc://apibloomap.xyz:7687";
         final String dbUser = System.getenv("DB_USER");
         final String dbPass = System.getenv("DB_PASSWORD");
@@ -210,6 +212,7 @@ public class DBRepopulator {
         assert locations.containsColumn("areaId") && locations.getColumnType("areaId").equals("int");
         assert locations.containsColumn("name") && locations.getColumnType("name").equals("string");
         assert locations.containsColumn("isValidDestination") && locations.getColumnType("isValidDestination").equals("boolean");
+        assert locations.containsColumn("isAccessible") && locations.getColumnType("isAccessible").equals("boolean");
     }
 
     /**
@@ -228,5 +231,7 @@ public class DBRepopulator {
         assert areas.containsColumn("id") && areas.getColumnType("id").equals("int");
         assert areas.containsColumn("name") && areas.getColumnType("id").equals("string");
         assert areas.containsColumn("abbreviation") && areas.getColumnType("abbreviation").equals("string");
+        assert areas.containsColumn("numFloors") && areas.getColumnType("numFloors").equals("int");
+        assert areas.containsColumn("lowestFloor") && areas.getColumnType("lowestFloor").equals("int");
     }
 }
