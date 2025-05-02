@@ -90,7 +90,7 @@ export async function findPath(currLoc, destination) {
 }
 
 export async function getPois() {
-	
+
 	try {
 		// use fetch to make an http request to server at get-location endpoint
 		const response = await fetch(
