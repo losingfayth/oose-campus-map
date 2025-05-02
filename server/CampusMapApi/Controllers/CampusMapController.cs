@@ -327,9 +327,6 @@ public class CampusMapController(
 				floors.LowestFloor = record["lowestFloor"].As<int>();
 				floors.NumFloor = record["numFloor"].As<int>();
 			});
-
-			floors.LowestFloor = int.Parse(lowestFloor);
-			floors.NumFloor = int.Parse(numFloor);
 		}
 		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
 
