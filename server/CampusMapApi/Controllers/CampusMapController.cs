@@ -18,8 +18,9 @@ namespace CampusMapApi.Controllers;
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController(
-	ILogger<CampusMapController> logger, 
-	Neo4jService neo4jService) : ControllerBase {
+	ILogger<CampusMapController> logger,
+	Neo4jService neo4jService) : ControllerBase
+{
 
 	private readonly Neo4jService _neo4j = neo4jService;
 
@@ -56,7 +57,8 @@ public class CampusMapController(
 		await using var session = _driver.AsyncSession();
 
 
-		try {
+		try
+		{
 			// drop existing graph projection
 			var dropProjection = @"
 			CALL gds.graph.drop('campusGraph', false);";
@@ -119,7 +121,7 @@ public class CampusMapController(
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
 			//var result = await session.RunAsync(query, new { start, End });
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end } );
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end });
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
@@ -144,9 +146,9 @@ public class CampusMapController(
 
 				// check if the area and floor of the current node matches those of the
 				// prvious one. if not, increment the index of path
-				if (firstPass 
-					|| currArea != area 
-					|| (currFloor != floorFloat 
+				if (firstPass
+					|| currArea != area
+					|| (currFloor != floorFloat
 						&& Math.Abs(currFloor - floorFloat) > .5))
 				{
 					path.Add([]);
@@ -156,16 +158,16 @@ public class CampusMapController(
 					firstPass = false;
 				}
 
-					// add a new node at the correct index
-					path[i].Add(new PathNodeDto
-					{
-						Latitude = float.Parse(latitude),
-						Longitude = float.Parse(longitude),
-						Floor = float.Parse(floor),
-						Building = area,
-						Id = id
-					});
-				}
+				// add a new node at the correct index
+				path[i].Add(new PathNodeDto
+				{
+					Latitude = float.Parse(latitude),
+					Longitude = float.Parse(longitude),
+					Floor = float.Parse(floor),
+					Building = area,
+					Id = id
+				});
+			}
 
 			// check if a path was found and return it if it was
 			if (path.Count > 0) return Ok(new { message = "Path found!", path });
@@ -174,11 +176,11 @@ public class CampusMapController(
 		}
 		catch (Exception e)
 		{
-			Console.WriteLine($"Error: { e.Message }");
+			Console.WriteLine($"Error: {e.Message}");
 			return StatusCode(500, new { error = e.Message });
 		}
 	}
-	
+
 	/// <summary>
 	/// Queries database for all nodes and returns a list of building names.
 	/// http GET api endpoint accessible at GET /api/CampusMap/GetBuildings
@@ -203,7 +205,8 @@ public class CampusMapController(
 
 		var buildings = new List<BuildingDto>(); // list of locations being queried
 
-		try {
+		try
+		{
 			// run the query on the database at store result set						
 			var results = await _neo4j.ExecuteReadQueryAsync(query);
 
@@ -250,11 +253,13 @@ public class CampusMapController(
 		// list to hold locations
 		var rooms = new List<RoomDto>();
 
-		try {
+		try
+		{
 			// run the building query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
-			results.ForEach(record => {
+			results.ForEach(record =>
+			{
 				RoomDto room = new()
 				{
 					Building = record["building"].As<string>(),
@@ -265,7 +270,7 @@ public class CampusMapController(
 				rooms.Add(room);
 			});
 		}
-		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
 
 		return Ok(rooms);
 	}
@@ -289,7 +294,8 @@ public class CampusMapController(
 
 		List<PointOfInterest> pois = [];
 
-		results.ForEach(record => {
+		results.ForEach(record =>
+		{
 			PointOfInterest poi = new()
 			{
 				Name = record["name"].As<string>(),
