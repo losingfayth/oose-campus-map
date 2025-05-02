@@ -334,6 +334,42 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	[HttpPost("GetNearestNode")]
+	public async Task<IActionResult> GetNearestNode([FromBody] CurrentNode request)
+	{
+		string building = request.Building;
+		int floors = request.Floors;
+		float latitude = request.Latitude;
+		float longitude = request.Longitude;
+
+		// query to get every room in a building from database
+		var query = @"
+			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+			RETURN a.name AS building, l.name AS name, l.id AS id
+		";
+
+		// list to hold locations
+		var rooms = new List<RoomDto>();
+
+		try {
+			// run the building query
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+
+			results.ForEach(record => {
+				RoomDto room = new()
+				{
+					Building = record["building"].As<string>(),
+					Name = record["name"].As<string>(),
+					Id = record["id"].As<string>()
+				};
+
+				rooms.Add(room);
+			});
+		}
+		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+
+		return Ok(rooms);
+	}
 	
 
 	// DTO for request body
@@ -347,6 +383,15 @@ public class CampusMapController(
 		public int Start { get; set; }
 		public int End { get; set; }
 	}
+
+	public class CurrentNode
+	{
+		public string Building { get; set; }
+		public int Floors { get; set; }
+		public float Latitude { get; set; }
+		public float Longitude { get; set; }
+	}
+
 }
 
 
