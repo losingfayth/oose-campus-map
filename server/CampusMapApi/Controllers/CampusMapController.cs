@@ -38,7 +38,6 @@ public class CampusMapController(
 	/// <returns>A list of location nodes</returns>
 	/// <exception cref="InvalidOperationException"></exception>
 	[HttpPost("FindPath")]
-
 	public async Task<IActionResult> FindPath([FromBody] PathRequest request)
 	{
 
@@ -222,7 +221,6 @@ public class CampusMapController(
 		return Ok(buildings);
 	}
 
-
 	/// <summary>
 	/// Queries database for all rooms withing a building and returns a
 	/// list of location objects.
@@ -235,7 +233,6 @@ public class CampusMapController(
 	/// <param name="BuildingRequest">The building the rooms are in</param>
 	/// <returns>A list of location objects</returns>
 	[HttpPost("GetRooms")]
-
 	public async Task<IActionResult> GetRooms([FromBody] BuildingRequest request)
 	{
 		var building = request.Building;
@@ -305,6 +302,37 @@ public class CampusMapController(
 
 		return Ok(pois);
 	}
+
+	[HttpPost("GetFloors")]
+	public async Task<IActionResult> GetFloors([FromBody] BuildingRequest request)
+	{
+		var building = request.Building;
+
+		// query to get the number of floors and lowest floor 
+		// given a building in the database
+		var query = @"
+			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+			RETURN a.lowestFloor AS lowestFloor, a.numFloor AS numFlor
+		";
+
+		FloorDto floors = new FloorDto();
+		var lowestFloor = "";
+		var numFloor = "";
+
+		try {
+			// run the floor retrieval query
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+
+			results.ForEach(record => {
+				floors.LowestFloor = record["lowestFloor"].As<int>();
+				floors.NumFloor = record["numFloor"].As<int>();
+			});
+		}
+		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+
+		return Ok(floors);
+	}
+
 
 	// DTO for request body
 	public class BuildingRequest
