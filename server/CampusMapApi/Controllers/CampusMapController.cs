@@ -191,6 +191,7 @@ public class CampusMapController(
 	/// </summary>
 	/// <returns>A list of Building objects</returns>
 	[HttpGet("GetBuildings")]
+	
 	public async Task<IActionResult> GetBuildings()
 	{
 		// query to retrieve all nodes' building and room number attributes
@@ -312,12 +313,12 @@ public class CampusMapController(
 		// given a building in the database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
-			RETURN a.lowestFloor AS lowestFloor, a.numFloor AS numFlor
+			RETURN a.lowestFloor AS lowestFloor, a.numFloors AS numFloors
 		";
 
 		FloorDto floors = new FloorDto();
 		var lowestFloor = "";
-		var numFloor = "";
+		var numFloors = "";
 
 		try {
 			// run the floor retrieval query
@@ -325,7 +326,7 @@ public class CampusMapController(
 
 			results.ForEach(record => {
 				floors.LowestFloor = record["lowestFloor"].As<int>();
-				floors.NumFloor = record["numFloor"].As<int>();
+				floors.NumFloors = record["numFloors"].As<int>();
 			});
 		}
 		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
@@ -333,6 +334,7 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	
 
 	// DTO for request body
 	public class BuildingRequest
