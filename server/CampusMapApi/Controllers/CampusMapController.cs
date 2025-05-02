@@ -316,21 +316,27 @@ public class CampusMapController(
 		";
 
 		FloorDto floors = new FloorDto();
+		var lowestFloor;
+		var numFloor;
 
 		try {
 			// run the floor retrieval query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
 			results.ForEach(record => {
-				floors.LowestFloor = record["lowestFloor"];
-				floors.NumFloor = record["numFloor"];
+				lowestFloor = record["lowestFloor"].ToString ?? "";
+				numFloor = record["numFloor"].ToString ?? "";
 			});
+
+			floors.LowestFloor = int.Parse(lowestFloor);
+			floors.NumFloor = int.Parse(numFloor);
 		}
 		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
 
 		return Ok(floors);
 	}
 
+/*
 	[HttpPost("GetNearestNode")]
 	public async Task<IActionResult> GetNearestNode([FromBody] BuildingRequest request)
 	{
@@ -363,6 +369,7 @@ public class CampusMapController(
 
 		return Ok(floors);
 	}
+	*/
 
 	// DTO for request body
 	public class BuildingRequest
