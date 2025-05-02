@@ -63,11 +63,12 @@ export async function getRooms(building) {
 Makes an Http POST request to server endpoint FindPath. Sends the user's current location and desired destination.
 Returns 
 */
-export async function findPath(currLoc, destination) {
+export async function findPath(currLoc, destination, accessible = false) {
 	console.log("Running FindPath()");
 	var request = {
 		"start": currLoc,
 		"end": destination,
+		"accessible": accessible
 	}
 	try {
 

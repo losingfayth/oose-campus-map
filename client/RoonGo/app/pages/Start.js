@@ -2,17 +2,19 @@ import React, { useEffect, useState, useCallback } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
-  StyleSheet,
-  View,
-  Image,
-  StatusBar,
-  Pressable,
-  Text,
+	StyleSheet,
+	View,
+	Image,
+	StatusBar,
+	Pressable,
+	Text,
+	Switch,
 } from "react-native";
 import { Link, router } from "expo-router";
 import * as Location from "expo-location";
 import SearchBar from "../../components/SearchBar";
 import { points } from "../../utils/Points";
+import ImageButton from "../../components/ImageButton"
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
@@ -47,10 +49,12 @@ export default function Start() {
   const [buildingSearchOptions, setBuildingSearchOptions] = useState([]);
   const [pointsOfInterest, setPointsOfInterest] = useState([]);
 
-  const [filteredRoomNumbers, setFilteredStartRoomNumbers] = useState([]);
-  const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
-  const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
-  const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+	const [filteredRoomNumbers, setFilteredStartRoomNumbers] = useState([]);
+	const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
+	const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
+	const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+
+	const [accessiblePathMode, setAccessiblePathMode] = useState(false);
 
   const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
     if (!building) return;
@@ -234,9 +238,10 @@ export default function Start() {
                 const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
                 // const roomIdArray = [22, 1078];
 
-                console.log("Room ID array:", roomIdArray);
+								console.log("Room ID array: ", roomIdArray);
+								console.log("Accessible Path Mode: ", accessiblePathMode);
 
-                var pathData = await findPath(roomIdArray[0], roomIdArray[1]);
+								var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
                 console.log(pathData);
 
@@ -319,32 +324,40 @@ export default function Start() {
         onSelect={(building) => handleBuildingOptionSelect(building, false)}
       />
 
-      {/* "To" Room Search Bar */}
-      <SearchBar
-        customStyles={{
-          top: "16%",
-          width: "31%",
-          left: "64%",
-          borderColor: "black",
-        }}
-        showIcon={false}
-        searchFilterData={filteredEndRoomNumbers.map((r) => r.name)} // only names in dropdown
-        searchFilterStyles={{ width: "100%" }}
-        placeholderText="Room #"
-        onSelect={(selectedName) => {
-          // Find the full room object from the selected name
-          const matched = filteredEndRoomNumbers.find(
-            (room) => room.name === selectedName
-          );
-          if (matched) {
-            setSelectedEndRoom(matched.name); // save destination room name
-            setSelectedEndRoomId(matched.id); // save its ID
-            console.log("Selected TO room:", matched.name, "| ID:", matched.id);
-          }
-        }}
-      />
-    </View>
-  );
+			{/* "To" Room Search Bar */}
+			<SearchBar
+				customStyles={{
+					top: "16%",
+					width: "31%",
+					left: "64%",
+					borderColor: "black",
+
+				}}
+				showIcon={false}
+				searchFilterData={filteredEndRoomNumbers.map((r) => r.name)} // only names in dropdown
+				searchFilterStyles={{ width: "100%", }}
+				placeholderText="Room #"
+				onSelect={(selectedName) => {
+					// Find the full room object from the selected name
+					const matched = filteredEndRoomNumbers.find(
+						(room) => room.name === selectedName
+					);
+					if (matched) {
+						setSelectedEndRoom(matched.name); // save destination room name
+						setSelectedEndRoomId(matched.id); // save its ID
+						console.log("Selected TO room:", matched.name, "| ID:", matched.id);
+					}
+				}}
+			/>
+
+			<ImageButton
+				selected={ accessiblePathMode }
+				onPress={() => setAccessiblePathMode(!accessiblePathMode)}
+				imagePath={require("../../assets/handicap_accessible_icon.jpg")}
+				customStyles={{ top: "38%", left: "27%", height: 60, width: 60 }}
+			/>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
