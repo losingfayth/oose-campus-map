@@ -325,16 +325,18 @@ public class CampusMapController(
 		var lowestFloor = "";
 		var numFloor = "";
 
-		try {
+		try
+		{
 			// run the floor retrieval query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
-			results.ForEach(record => {
+			results.ForEach(record =>
+			{
 				floors.LowestFloor = record["lowestFloor"].As<int>();
 				floors.NumFloor = record["numFloor"].As<int>();
 			});
 		}
-		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
 
 		return Ok(floors);
 	}
