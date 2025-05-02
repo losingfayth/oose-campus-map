@@ -316,8 +316,8 @@ public class CampusMapController(
 		";
 
 		FloorDto floors = new FloorDto();
-		var lowestFloor;
-		var numFloor;
+		var lowestFloor = "";
+		var numFloor = "";
 
 		try {
 			// run the floor retrieval query
