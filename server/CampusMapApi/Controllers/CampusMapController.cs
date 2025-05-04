@@ -26,6 +26,69 @@ public class CampusMapController(
 
 	private readonly ILogger<CampusMapController> _logger = logger;
 
+	[HttpPost("GetClosestLocation")]
+	public async Task<IActionResult> GetClosestLocation([FromBody] LocationRequest request)
+	{
+
+
+
+		var building = request.Building; // get building name
+		var floor = request.Floor; // get floor number
+		var latitude = request.Latitude; // get latitude
+		var longitude = request.Longitude; // get longitude
+
+		// query to get every room in a building from database
+		var query = @"
+			MATCH (a:Area {name: $building}) <-[:IS_IN] - (l:Location)
+			WHERE l.floor = $floor
+			RETURN l.latitude as lat, l.longitude as lng, l.id as id
+		";
+
+
+
+
+		// list to hold locations
+		var rooms = new List<PathNodeDto>();
+		int closestId = -1;
+		int currId = 0;
+		float minDistance = 10000;
+		float currDistance;
+		try
+		{
+			// run the building query
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+
+			results.ForEach(record =>
+			{
+				PathNodeDto n = new()
+				{
+					Latitude = record["lat"].As<float>(),
+					Longitude = record["lng"].As<float>(),
+					Id = record["id"].As<string>()
+				};
+
+				currDistance = (float)Math.Sqrt((n.Latitude - latitude) * (n.Latitude - latitude) + (n.Longitude - longitude) * (n.Longitude - longitude));
+				if (currDistance < minDistance)
+				{
+					minDistance = currDistance;
+					closestId = currId;
+				}
+
+				rooms.Add(n);
+				currId++;
+			});
+
+			return Ok(rooms[closestId]);
+
+		}
+		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
+
+		return Ok(rooms);
+
+
+	}
+
+
 	/// <summary>
 	/// Queries the database for the shortest path between two points using 
 	/// A* GDS plugin
@@ -318,7 +381,7 @@ public class CampusMapController(
 		// given a building in the database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
-			RETURN a.lowestFloor AS lowestFloor, a.numFloor AS numFlor
+			RETURN a.lowestFloor AS lowestFloor, a.numFloors AS numFlor
 		";
 
 		FloorDto floors = new FloorDto();
@@ -352,6 +415,14 @@ public class CampusMapController(
 	{
 		public int Start { get; set; }
 		public int End { get; set; }
+	}
+
+	public class LocationRequest
+	{
+		public string Building { get; set; } = string.Empty;
+		public string Floor { get; set; } = string.Empty;
+		public float Latitude { get; set; }
+		public float Longitude { get; set; }
 	}
 }
 

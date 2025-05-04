@@ -13,10 +13,11 @@ import { Link, router } from "expo-router";
 import * as Location from "expo-location";
 import SearchBar from "../../components/SearchBar";
 import { points } from "../../utils/Points";
+import { insideBuilding } from "../../utils/insideBuilding.js";
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
-import { getBuildings, getRooms, findPath, getPois } from "../../utils/api_functions";
+import { getBuildings, getRooms, findPath, getPois, getNumFloors, getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
 export default function Start() {
@@ -46,52 +47,137 @@ export default function Start() {
 	const [selectedStartRoomId, setSelectedStartRoomId] = useState(null);
 	const [filteredEndRoomNumbers, setFilteredEndRoomNumbers] = useState([]);
 	const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
+	const [currentLocationArea, setCurrentLocationArea] = useState(null);
 
 	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
-		if (!building) return;
-
-		//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
-
-		let poi = pointsOfInterest.find((p) => ("\u2605 " + p.name) == building);
-
-		if (poi == null) {
-			if (isStart) {
-				setSelectedStartBuilding(building); // save destination building
-				setSelectedStartRoom(null);
-				setSelectedStartRoomId(null);
-			}
-			else {
-				setSelectedEndBuilding(building);
-				setSelectedEndRoom(null);
-				setSelectedEndRoomId(null);
+		if (!building) {
+			console.log("Not building");
+			return;
+		}
+		console.log("!!!building: " + building);
+		if (building == "Current Location") {
+			console.log("Current Location");
+			console.log(location);
+			var GCS = {
+				latitude: location.latitude,
+				longitude: location.longitude,
 			}
 
-			getRooms(building).then((rooms) => {
+			var testGCS = {
+				latitude: 41.0078998985986,
+				longitude: -76.44737043862342,
+			}
+			let area = insideBuilding(testGCS);
+			setCurrentLocationArea(area);
+			console.log("Area: ", area);
+
+			// async function fetchNumFloors(buildingName) {
+			// 	console.log("Fetching building search options...");
+			// 	try {
+			// 		let numFloor = (await getNumFloors(buildingName));
+			// 		// console.log(
+			// 		// 	"Buildings: ",
+			// 		// 	bldgs.map((b) => b.name),
+			// 		// 	"Points of Interest: ",
+			// 		// 	pois.map((p) => p.name)
+			// 		// )
+
+			// 		console.log("Buildings", buildingName);
+			// 		console.log("Num Floors Inside function: ", numFloor);
+			// 		// setBuildingSearchOptions(bldgs.map(building => building.name)
+			// 		// 	.concat(pois.map(poi => "\u2605 " + poi.name)).concat("Current Location"));
+			// 		// setPointsOfInterest(pois);
+
+			// 	} catch (e) { console.error("Error fetching building search options: ", e) }
+			// }
+
+			// let numFloors = await fetchNumFloors(area);
+			// console.log("Num Floors:outside function ", numFloors);
+			getNumFloors(area).then((floorInformation) => {
+				console.log("Num Floors: ", floorInformation);
+				// setSelectedStartBuilding(area);
+				var floors = [];
+				let floor = "Floor ";
+				for (let i = floorInformation.lowestFloor; i < floorInformation.lowestFloor + floorInformation.numFloors; i++) {
+					if (i == -1) {
+						floors.push(floor + "Basement");
+					} else if (i == 0) {
+						floors.push(floor + "Ground");
+					}
+					else {
+						floors.push(floor + i);
+					}
+				}
+				setBuildingSearchOptions(floors);
+
+				// setBuildingSearchOptions(bldgs.map(building => building.name)
+				// 	.concat(pois.map(poi => "\u2605 " + poi.name)).concat("Current Location"));
+				// setPointsOfInterest(pois);
+			})
+
+
+		} else if (building.includes("Floor")) {
+			let b = currentLocationArea;
+			console.log("??? " + b + " " + building);
+
+			let id = getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
+				{
+					"building": b,
+					"floor": building,
+				},
+				{
+					"latitude": location.latitude,
+					"longitude": location.longitude,
+				});
+
+		}
+
+		else {
+			//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
+
+
+			let poi = pointsOfInterest.find((p) => ("\u2605 " + p.name) == building);
+
+			if (poi == null) {
+				if (isStart) {
+					setSelectedStartBuilding(building); // save destination building
+					setSelectedStartRoom(null);
+					setSelectedStartRoomId(null);
+				}
+				else {
+					setSelectedEndBuilding(building);
+					setSelectedEndRoom(null);
+					setSelectedEndRoomId(null);
+				}
+
+				getRooms(building).then((rooms) => {
 					if (isStart) setFilteredStartRoomNumbers(rooms
 						.filter((room) => room.name.toLowerCase()))
 					else setFilteredEndRoomNumbers(rooms
 						.filter((room) => room.name.toLowerCase()))
 				})
-				.catch((error) => {
-					console.error(
-						"Error fetching rooms for building:",
-						building,
-						error
-					);
-				});
-		}
-		else {
-			if (isStart) {
-				setSelectedStartBuilding(poi.bldg)
-				setSelectedStartRoom(poi.room)
-				setSelectedStartRoomId(poi.locId)
+					.catch((error) => {
+						console.error(
+							"Error fetching rooms for building:",
+							building,
+							error
+						);
+					});
 			}
 			else {
-				setSelectedEndBuilding(poi.bldg)
-				setSelectedEndRoom(poi.room)
-				setSelectedEndRoomId(poi.locId)
+				if (isStart) {
+					setSelectedStartBuilding(poi.bldg)
+					setSelectedStartRoom(poi.room)
+					setSelectedStartRoomId(poi.locId)
+				}
+				else {
+					setSelectedEndBuilding(poi.bldg)
+					setSelectedEndRoom(poi.room)
+					setSelectedEndRoomId(poi.locId)
+				}
 			}
 		}
+
 	})
 
 	// set up a useEffect to request permissions, fetch user location, and track location
@@ -153,16 +239,23 @@ export default function Start() {
 	// Get buildings when the program starts
 	useEffect(() => {
 		async function fetchBuildingSearchOptions() {
+			console.log("Fetching building search options...");
 			try {
-				let bldgs = (await getBuildings()).sort();
-				let pois = (await getPois()).sort();
+				let bldgs = (await getBuildings());
+				let pois = (await getPois());
+				// console.log(
+				// 	"Buildings: ",
+				// 	bldgs.map((b) => b.name),
+				// 	"Points of Interest: ",
+				// 	pois.map((p) => p.name)
+				// )
 
+				console.log("Buildings AHA: ", bldgs);
 				setBuildingSearchOptions(bldgs.map(building => building.name)
-					.concat(pois.map(poi => "\u2605 " + poi.name)));
+					.concat(pois.map(poi => "\u2605 " + poi.name)).concat("Current Location"));
 				setPointsOfInterest(pois);
-				
-			} catch (e) 
-				{ console.error("Error fetching building search options: ", e) }
+
+			} catch (e) { console.error("Error fetching building search options: ", e) }
 		}
 
 		fetchBuildingSearchOptions();
@@ -228,7 +321,7 @@ export default function Start() {
 
 								console.log(pathData);
 
-								if (pathData.message == "No Path Found!") 
+								if (pathData.message == "No Path Found!")
 									throw new Error(pathData.message);
 
 								processedPath = new ProcessedPath(pathData.path);
@@ -300,7 +393,7 @@ export default function Start() {
 				searchFilterData={buildingSearchOptions} // same list of buildings
 				customStyles={{ top: "16%", left: "5%", width: "60%" }}
 				placeholderText="To"
-				onSelect={ (building) => handleBuildingOptionSelect(building, false)}
+				onSelect={(building) => handleBuildingOptionSelect(building, false)}
 			/>
 
 			{/* "To" Room Search Bar */}
