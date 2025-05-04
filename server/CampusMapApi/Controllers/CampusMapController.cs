@@ -107,47 +107,12 @@ public class CampusMapController(
 
 		int start = request.Start; // get starting node id
 		int end = request.End; // get End node id
-
-		// initial db connection
-		var uri = "neo4j+s://apibloomap.xyz:7687";
-		var username = Environment.GetEnvironmentVariable("DB_USER")
-			?? throw new InvalidOperationException("DB_USER is not set");
-		var password = Environment.GetEnvironmentVariable("DB_PASSWORD")
-			?? throw new InvalidOperationException("DB_PASSWORD is not set");
-		IDriver _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
-
-		await using var session = _driver.AsyncSession();
+		var graphType = request.Accessible ? "accessibleCampusGraph" : "campusGraph";
 
 
-		try
-		{
-			// drop existing graph projection
-			var dropProjection = @"
-			CALL gds.graph.drop('campusGraph', false);";
+		try {
 
-			//await session.RunAsync(dropProjection);
-
-			await _neo4j.ExecuteWriteQueryAsync(dropProjection);
-
-			// create new graph projection
-			var createProjection = @"
-			CALL gds.graph.project(
-				'campusGraph', {
-					Location: {
-						properties: ['latitude', 'longitude']
-					}
-				} , {
-					CONNECTED_TO: {
-					type: 'CONNECTED_TO',
-					properties: 'distance'
-					}
-				})";
-
-
-			// run prjection creation query
-			//await session.RunAsync(createProjection);
-
-			await _neo4j.ExecuteWriteQueryAsync(createProjection);
+			await DbProjectionGenerator.GenerateProjection(_neo4j, request.Accessible);
 
 			// query to use A* algorithm on database
 			var query = @"
@@ -159,7 +124,7 @@ public class CampusMapController(
 
 				CALL {
 					WITH startId, endId
-					CALL gds.shortestPath.astar.stream('campusGraph', {
+					CALL gds.shortestPath.astar.stream($graph, {
 						sourceNode: startId,
 						targetNode: endId,
 						relationshipWeightProperty: 'distance',
@@ -178,12 +143,13 @@ public class CampusMapController(
 					n.longitude AS longitude,
 					n.floor AS floor,
 					n.id AS id,
-					a.name AS building
+					a.name AS building,
+					n.name AS locationName
 				";
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
 			//var result = await session.RunAsync(query, new { start, End });
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end });
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType } );
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
@@ -201,6 +167,7 @@ public class CampusMapController(
 				var floor = record["floor"].ToString() ?? "";
 				var id = record["id"].ToString() ?? "";
 				var area = record["building"].ToString() ?? "";
+				var name = record["locationName"].ToString() ?? null;
 
 				var floorFloat = float.Parse(floor);
 				// check if this is the first pass-through the records. if so, initialize
@@ -256,6 +223,7 @@ public class CampusMapController(
 	/// </summary>
 	/// <returns>A list of Building objects</returns>
 	[HttpGet("GetBuildings")]
+	
 	public async Task<IActionResult> GetBuildings()
 	{
 		// query to retrieve all nodes' building and room number attributes
@@ -381,12 +349,12 @@ public class CampusMapController(
 		// given a building in the database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
-			RETURN a.lowestFloor AS lowestFloor, a.numFloors AS numFlor
+			RETURN a.lowestFloor AS lowestFloor, a.numFloors AS numFloors
 		";
 
 		FloorDto floors = new FloorDto();
 		var lowestFloor = "";
-		var numFloor = "";
+		var numFloors = "";
 
 		try
 		{
@@ -396,7 +364,7 @@ public class CampusMapController(
 			results.ForEach(record =>
 			{
 				floors.LowestFloor = record["lowestFloor"].As<int>();
-				floors.NumFloor = record["numFloor"].As<int>();
+				floors.NumFloors = record["numFloors"].As<int>();
 			});
 		}
 		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
@@ -404,6 +372,7 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	
 
 	// DTO for request body
 	public class BuildingRequest
@@ -415,14 +384,7 @@ public class CampusMapController(
 	{
 		public int Start { get; set; }
 		public int End { get; set; }
-	}
-
-	public class LocationRequest
-	{
-		public string Building { get; set; } = string.Empty;
-		public string Floor { get; set; } = string.Empty;
-		public float Latitude { get; set; }
-		public float Longitude { get; set; }
+		public bool Accessible { get; set; }
 	}
 }
 

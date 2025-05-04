@@ -1,4 +1,4 @@
-package com.fdq16476.testmap
+package com.fdq16476.RoonGo
 
 import android.app.Application
 import android.content.res.Configuration
