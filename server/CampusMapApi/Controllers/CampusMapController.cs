@@ -42,7 +42,7 @@ public class CampusMapController(
 		// query to get every room in a building from database
 		var query = @"
 			MATCH (a:Area {name: $building}) <-[:IS_IN] - (l:Location)
-			WHERE l.floor = $floor
+			WHERE l.floor = 1
 			RETURN l.latitude as lat, l.longitude as lng, l.id as id
 		";
 
