@@ -56,7 +56,9 @@ export default function Start() {
 	const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
 
 	const [accessiblePathMode, setAccessiblePathMode] = useState(false);
+
 	const [currentLocationArea, setCurrentLocationArea] = useState(null);
+	const [currentLocationChosen, setCurrentLocationChosen] = useState(false);
 
 	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
 		if (!building) {
@@ -67,6 +69,7 @@ export default function Start() {
 		if (building == "Current Location") {
 			console.log("Current Location");
 			console.log(location);
+
 			var GCS = {
 				latitude: location.latitude,
 				longitude: location.longitude,
@@ -76,32 +79,11 @@ export default function Start() {
 				latitude: 41.0078998985986,
 				longitude: -76.44737043862342,
 			}
+
 			let area = insideBuilding(testGCS);
 			setCurrentLocationArea(area);
 			console.log("Area: ", area);
 
-			// async function fetchNumFloors(buildingName) {
-			// 	console.log("Fetching building search options...");
-			// 	try {
-			// 		let numFloor = (await getNumFloors(buildingName));
-			// 		// console.log(
-			// 		// 	"Buildings: ",
-			// 		// 	bldgs.map((b) => b.name),
-			// 		// 	"Points of Interest: ",
-			// 		// 	pois.map((p) => p.name)
-			// 		// )
-
-			// 		console.log("Buildings", buildingName);
-			// 		console.log("Num Floors Inside function: ", numFloor);
-			// 		// setBuildingSearchOptions(bldgs.map(building => building.name)
-			// 		// 	.concat(pois.map(poi => "\u2605 " + poi.name)).concat("Current Location"));
-			// 		// setPointsOfInterest(pois);
-
-			// 	} catch (e) { console.error("Error fetching building search options: ", e) }
-			// }
-
-			// let numFloors = await fetchNumFloors(area);
-			// console.log("Num Floors:outside function ", numFloors);
 			getNumFloors(area).then((floorInformation) => {
 				console.log("Num Floors: ", floorInformation);
 				// setSelectedStartBuilding(area);
@@ -117,11 +99,9 @@ export default function Start() {
 						floors.push(floor + i);
 					}
 				}
-				setBuildingSearchOptions(floors);
+				setFilteredStartRoomNumbers(floors);
 
-				// setBuildingSearchOptions(bldgs.map(building => building.name)
-				// 	.concat(pois.map(poi => "\u2605 " + poi.name)).concat("Current Location"));
-				// setPointsOfInterest(pois);
+
 			})
 
 
@@ -129,7 +109,7 @@ export default function Start() {
 			let b = currentLocationArea;
 			console.log("??? " + b + " " + building);
 
-			let id = getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
+			getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
 				{
 					"building": b,
 					"floor": building,
@@ -137,7 +117,11 @@ export default function Start() {
 				{
 					"latitude": location.latitude,
 					"longitude": location.longitude,
-				});
+				}).then(id => {
+					console.log("You're near " + id + " !")
+					setSelectedStartRoomId(id);
+				})
+
 
 		}
 
@@ -171,6 +155,7 @@ export default function Start() {
 
 					getRooms(building)
 						.then((rooms) => {
+							console.log("RoomsL: " + rooms.length);
 							if (isStart)
 								setFilteredStartRoomNumbers(
 									rooms.filter((room) => room.name.toLowerCase())
@@ -381,7 +366,7 @@ export default function Start() {
 			{/* "From" Building Search Bar */}
 			<SearchBar
 				searchFilterData={buildingSearchOptions} // options for buildings
-				defaultFilterData={["🏫 Special Building 1", "🏫 Special Building 2"]} // add default "from" options here
+				defaultFilterData={["Current Location", "🏫 Special Building 2"]} // add default "from" options here
 				customStyles={{ left: "5%", width: "60%", zIndex: 2 }}
 				placeholderText="From"
 				onTypingChange={setIsBuildingTyping} // updates typing state if needed

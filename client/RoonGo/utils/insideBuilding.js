@@ -32,8 +32,8 @@ export function insideBuilding(GCS) {
         }
     }
 
-    console.log("Starting to check buildingsssss");
-    console.log("Building to Reference Points: ", buildingToReferencePoints["BF"].topLeft.latitude);
+    // console.log("Starting to check buildingsssss");
+    // console.log("Building to Reference Points: ", buildingToReferencePoints["BF"].topLeft.latitude);
     // Iterate through each building and check if the point is inside
     // the building's reference points
     for (const [key, value] of Object.entries(buildingToReferencePoints)) {
