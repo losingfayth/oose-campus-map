@@ -110,7 +110,8 @@ public class CampusMapController(
 		var graphType = request.Accessible ? "accessibleCampusGraph" : "campusGraph";
 
 
-		try {
+		try
+		{
 
 			await DbProjectionGenerator.GenerateProjection(_neo4j, request.Accessible);
 
@@ -149,7 +150,7 @@ public class CampusMapController(
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
 			//var result = await session.RunAsync(query, new { start, End });
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType } );
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType });
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
@@ -223,7 +224,7 @@ public class CampusMapController(
 	/// </summary>
 	/// <returns>A list of Building objects</returns>
 	[HttpGet("GetBuildings")]
-	
+
 	public async Task<IActionResult> GetBuildings()
 	{
 		// query to retrieve all nodes' building and room number attributes
@@ -372,7 +373,7 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
-	
+
 
 	// DTO for request body
 	public class BuildingRequest
@@ -385,6 +386,15 @@ public class CampusMapController(
 		public int Start { get; set; }
 		public int End { get; set; }
 		public bool Accessible { get; set; }
+	}
+
+	public class LocationRequest
+	{
+		public string Building { get; set; } = string.Empty;
+		public int Floor { get; set; }
+
+		public float Latitude { get; set; }
+		public float Longitude { get; set; }
 	}
 }
 
