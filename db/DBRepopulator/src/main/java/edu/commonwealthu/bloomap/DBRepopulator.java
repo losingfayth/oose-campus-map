@@ -75,6 +75,10 @@ public class DBRepopulator {
                             "Creating stair IS_TYPE relationships...");
                     executeLabeledAndTimed(() -> createBathroomIsType(tx, bathroomIsType),
                             "Creating bathroom IS_TYPE relationships...");
+
+                    executeLabeledAndTimed(() -> removeForeignKeys(tx),
+                            "Removing areaId and locationCategoryId from Location nodes...");
+
                     return null;
                 });
             }
@@ -198,12 +202,12 @@ public class DBRepopulator {
             Map<String, Object> row = connectedTo.getRow(i);
 
             List<String> relProps = row.keySet().stream()
-                    .filter(k -> !k.equals("startId") && !k.equals("endId"))
+                    .filter(k -> !k.equals("locationId1") && !k.equals("locationId2"))
                     .map(k -> k + ": $" + k)
                     .collect(Collectors.toList());
             String relPropsString = relProps.isEmpty() ? "" : " {" + String.join(", ", relProps) + "}";
 
-            String query = "MATCH (a:Location {id: $startId}), (b:Location {id: $endId}) " +
+            String query = "MATCH (a:Location {id: $locationId1}), (b:Location {id: $locationId2}) " +
                     "CREATE (a)-[:CONNECTED_TO" + relPropsString + "]->(b), " +
                     "(b)-[:CONNECTED_TO" + relPropsString + "]->(a)";
             tx.run(query, row);
@@ -266,6 +270,15 @@ public class DBRepopulator {
                     "CREATE (l)-[:IS_TYPE]->(t)";
             tx.run(query, row);
         }
+    }
+
+    /**
+     * Removes the areaId and locationCategoryId attributes from each Location node, as they are only needed to assign
+     * the IS_IN and IN_CATEGORY relationships. (There is no need to ever query these fields because the same thing is
+     * reflected in the relationships.)
+     */
+    private static void removeForeignKeys(TransactionContext tx) {
+        tx.run("MATCH (l:Location) REMOVE l.areaId, l.locationCategoryId");
     }
 
     /**
