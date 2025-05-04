@@ -3,6 +3,7 @@ package edu.commonwealthu.bloomap;
 import org.neo4j.driver.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,19 @@ public class DBRepopulator {
         final CSV stairIsType = new CSV(stairIsTypeFile);
         final CSV bathroomIsType = new CSV(bathroomIsTypeFile);
 
-        runTests(location, connectedTo, area, locationCategory, stairType, bathroomType, stairIsType, bathroomIsType);
+        File newLocationFile = new File("../csvs/Location2.csv");
+        try (PrintWriter printWriter = new PrintWriter(newLocationFile)) {
+            Scanner scanner = new Scanner(locationFile);
+            printWriter.print(scanner.nextLine());
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] lineArray = line.split(",");
+                int locationCategoryId = getLocationCategoryId(Integer.parseInt(lineArray[0]), lineArray[6]);
+                printWriter.println(line + "," + locationCategoryId);
+            }
+        }
+
+//        runTests(location, connectedTo, area, locationCategory, stairType, bathroomType, stairIsType, bathroomIsType);
 
 //        long startTime;
 //        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
@@ -87,6 +100,25 @@ public class DBRepopulator {
 //        long endTime = System.nanoTime();
 //        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
 //        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
+    }
+
+    private static int getLocationCategoryId(int id, String name) {
+        switch (id) {
+            case 67: case 68: case 231: case 232: case 233: case 401: case 402: case 557: case 558: case 559: case 617:
+            case 618: case 736: case 737: case 738: case 739: case 832: case 833: case 834: case 835: case 914:
+            case 915: case 916: case 917: case 956: case 957: case 1013: case 1017: case 1091: case 1099: case 1248:
+            case 1250: case 1284: case 1285: case 1382: case 1386: case 1476: case 1477: case 1550: case 1565: case 1566:
+            case 1758: case 1759: case 1779: case 1780: case 2001: case 1951: case 1952: case 2116: case 2117: case 2144:
+            case 2220: case 2221: case 2227: case 2228: case 2393: case 2394: case 2417: case 2418: case 2459: case 2460:
+            case 2536: case 2537: case 2603: case 2611: case 2651: case 2659: case 2711: case 2718: case 2811: case 2833:
+            case 2984: case 2993: case 3069: case 3073: case 3074: case 3081: case 3104: case 3241: case 3242: case 3361:
+            case 3376: case 3389: return 3;
+        }
+
+        if (name.equals("s") || name.equals("S")) return 1;
+        if (name.equals("el")) return 2;
+        if (name.equals("p") || name.equals("en") || id > 4000) return 5;
+        return 4;
     }
 
     /**
