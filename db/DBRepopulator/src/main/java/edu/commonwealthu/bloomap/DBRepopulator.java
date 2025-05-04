@@ -29,40 +29,64 @@ public class DBRepopulator {
         final File locationFile = new File("../csvs/Location.csv");
         final File connectedToFile = new File("../csvs/CONNECTED_TO.csv");
         final File areaFile = new File("../csvs/Area.csv");
-        final CSV locations = new CSV(locationFile);
-        final CSV connections = new CSV(connectedToFile);
-        final CSV areas = new CSV(areaFile);
+        final File locationCategoryFile = new File("../csvs/LocationCategory.csv");
+        final File stairTypeFile = new File("../csvs/StairType.csv");
+        final File bathroomTypeFile = new File("../csvs/BathroomType.csv");
+        final File bathroomIsTypeFile = new File("../csvs/BATHROOM_IS_TYPE.csv");
+        final File stairIsTypeFile = new File("../csvs/STAIR_IS_TYPE.csv");
 
-        runTests(locations, connections, areas);
+        final CSV location = new CSV(locationFile);
+        final CSV connectedTo = new CSV(connectedToFile);
+        final CSV area = new CSV(areaFile);
+        final CSV locationCategory = new CSV(locationCategoryFile);
+        final CSV stairType = new CSV(stairTypeFile);
+        final CSV bathroomType = new CSV(bathroomTypeFile);
+        final CSV stairIsType = new CSV(stairIsTypeFile);
+        final CSV bathroomIsType = new CSV(bathroomIsTypeFile);
 
-        long startTime;
-        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
-            driver.verifyConnectivity();
-            System.out.println("Connected to database as user " + dbUser + ".\n" +
-                    "Beginning repopulation...\n");
-            try (Session session = driver.session()) {
-                startTime = System.nanoTime();
+        runTests(location, connectedTo, area, locationCategory, stairType, bathroomType, stairIsType, bathroomIsType);
 
-                session.executeWrite(tx -> {
-                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
-                    executeLabeledAndTimed(() -> insertLocations(tx, locations), "Inserting Location nodes...");
-                    executeLabeledAndTimed(() -> insertAreas(tx, areas), "Inserting Area nodes...");
-                    executeLabeledAndTimed(() -> createConnectedTo(tx, connections),
-                            "Creating CONNECTED_TO relationships...");
-                    executeLabeledAndTimed(() -> createIsIn(tx, locations), "Creating IS_IN relationships...");
-                    return null;
-                });
-            }
-        } catch (Exception e) {
-            System.err.println("An error prevented database repopulation. The database remains unmodified.\n" +
-                    "See the error below:");
-            e.printStackTrace();
-            return;
-        }
-
-        long endTime = System.nanoTime();
-        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
-        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
+//        long startTime;
+//        try (Driver driver = GraphDatabase.driver(dbUri, AuthTokens.basic(dbUser, dbPass))) {
+//            driver.verifyConnectivity();
+//            System.out.println("Connected to database as user " + dbUser + ".\n" +
+//                    "Beginning repopulation...\n");
+//            try (Session session = driver.session()) {
+//                startTime = System.nanoTime();
+//
+//                session.executeWrite(tx -> {
+//                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
+//
+//                    executeLabeledAndTimed(() -> insertLocations(tx, location), "Inserting Location nodes...");
+//                    executeLabeledAndTimed(() -> insertAreas(tx, area), "Inserting Area nodes...");
+//                    executeLabeledAndTimed(() -> insertLocationCategories(tx, locationCategory),
+//                            "Inserting LocationCategory nodes...");
+//                    executeLabeledAndTimed(() -> insertStairTypes(tx, stairType), "Inserting StairType nodes...");
+//                    executeLabeledAndTimed(() -> insertBathroomTypes(tx, bathroomType),
+//                            "Inserting BathroomType nodes...");
+//
+//                    executeLabeledAndTimed(() -> createConnectedTo(tx, connectedTo),
+//                            "Creating CONNECTED_TO relationships...");
+//                    executeLabeledAndTimed(() -> createIsIn(tx, location), "Creating IS_IN relationships...");
+//                    executeLabeledAndTimed(() -> createInCategory(tx, location),
+//                            "Creating IN_CATEGORY relationships...");
+//                    executeLabeledAndTimed(() -> createStairIsType(tx, stairIsType),
+//                            "Creating stair IS_TYPE relationships...");
+//                    executeLabeledAndTimed(() -> createBathroomIsType(tx, bathroomIsType),
+//                            "Creating bathroom IS_TYPE relationships...");
+//                    return null;
+//                });
+//            }
+//        } catch (Exception e) {
+//            System.err.println("An error prevented database repopulation. The database remains unmodified.\n" +
+//                    "See the error below:");
+//            e.printStackTrace();
+//            return;
+//        }
+//
+//        long endTime = System.nanoTime();
+//        double durationSeconds = (endTime - startTime) / 1_000_000_000.;
+//        System.out.printf("Database successfully repopulated in %.2f seconds.%n", durationSeconds);
     }
 
     /**
@@ -84,22 +108,22 @@ public class DBRepopulator {
     }
 
     /**
-     * Removes all Location and Area nodes in the database.
+     * Removes all Location, Area, LocationCategory, StairType, and BathroomType nodes in the database.
      */
     private static void nuke(TransactionContext tx) {
-        tx.run("MATCH (n) WHERE n:Location OR n:Area DETACH DELETE n");
+        tx.run("MATCH (n) WHERE n:Location OR n:Area OR n:LocationCategory OR n:StairType OR n:BathroomType DETACH DELETE n");
     }
 
-    /**
-     * Uses the locations CSV to populate the database with Location nodes.
-     */
-    private static void insertLocations(TransactionContext tx, CSV locations) {
-        if (locations.isEmpty()) {
-            throw new RuntimeException("No Locations found.");
-        }
+    // I am aware that the next 6 methods can be collapsed into one and that it would take like 3 minutes to do so.
+    // I just want to get this working before all else.
+    // -Brandon 5/4/25 12:39AM
 
-        for (int i = 0; i < locations.size(); i++) {
-            Map<String, Object> row = locations.getRow(i);
+    /**
+     * Uses the Location CSV to populate the database with Location nodes.
+     */
+    private static void insertLocations(TransactionContext tx, CSV location) {
+        for (int i = 0; i < location.size(); i++) {
+            Map<String, Object> row = location.getRow(i);
             String props = row.keySet().stream()
                     .map(key -> key + ": $" + key)
                     .collect(Collectors.joining(", "));
@@ -109,15 +133,11 @@ public class DBRepopulator {
     }
 
     /**
-     * Uses the areas CSV to populate the database with Area nodes.
+     * Uses the Area CSV to populate the database with Area nodes.
      */
-    private static void insertAreas(TransactionContext tx, CSV areas) {
-        if (areas.isEmpty()) {
-            throw new RuntimeException("No Areas found.");
-        }
-
-        for (int i = 0; i < areas.size(); i++) {
-            Map<String, Object> row = areas.getRow(i);
+    private static void insertAreas(TransactionContext tx, CSV area) {
+        for (int i = 0; i < area.size(); i++) {
+            Map<String, Object> row = area.getRow(i);
             String props = row.keySet().stream()
                     .map(key -> key + ": $" + key)
                     .collect(Collectors.joining(", "));
@@ -127,24 +147,52 @@ public class DBRepopulator {
     }
 
     /**
-     * Uses the connectedTo CSV to populate the database with CONNECTED_TO relations between Location nodes.
-     * This method assumes that the connectedTo CSV has headers startId and endId, whose entries contain integer type
-     * values referring to the Location nodes that should have the relation.
+     * Uses the StairType CSV to populate the database with StairType nodes.
+     */
+    private static void insertStairTypes(TransactionContext tx, CSV stairType) {
+        for (int i = 0; i < stairType.size(); i++) {
+            Map<String, Object> row = stairType.getRow(i);
+            String props = row.keySet().stream()
+                    .map(key -> key + ": $" + key)
+                    .collect(Collectors.joining(", "));
+            String query = "CREATE (:StairType {" + props + "})";
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * Uses the BathroomType CSV to populate the database with BathroomType nodes.
+     */
+    private static void insertBathroomTypes(TransactionContext tx, CSV bathroomType) {
+        for (int i = 0; i < bathroomType.size(); i++) {
+            Map<String, Object> row = bathroomType.getRow(i);
+            String props = row.keySet().stream()
+                    .map(key -> key + ": $" + key)
+                    .collect(Collectors.joining(", "));
+            String query = "CREATE (:BathroomType {" + props + "})";
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * uses the LocationCategory CSV to populate the database with LocationCategory nodes.
+     */
+    private static void insertLocationCategories(TransactionContext tx, CSV locationCategory) {
+        for (int i = 0; i < locationCategory.size(); i++) {
+            Map<String, Object> row = locationCategory.getRow(i);
+            String props = row.keySet().stream()
+                    .map(key -> key + ": $" + key)
+                    .collect(Collectors.joining(", "));
+            String query = "CREATE (:LocationCategory {" + props + "})";
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * Uses the CONNECTED_TO CSV to populate the database with CONNECTED_TO relations between Location nodes.
      * The relation is symmetric; if Location node a is CONNECTED_TO Location node b, then b is also CONNECTED_TO a.
      */
     private static void createConnectedTo(TransactionContext tx, CSV connectedTo) {
-        if (connectedTo.isEmpty()) {
-            throw new RuntimeException("No CONNECTED_TO relations found.");
-        }
-
-        if (!connectedTo.containsColumn("startId") || !connectedTo.containsColumn("endId")) {
-            throw new RuntimeException("CONNECTED_TO.csv missing startId or endId columns.");
-        }
-        if (!connectedTo.getColumnType("startId").equals("int")
-                || !connectedTo.getColumnType("endId").equals("int")) {
-            throw new RuntimeException("CONNECTED_TO.csv data malformed; ensure startId and endId are all integers.");
-        }
-
         for (int i = 0; i < connectedTo.size(); i++) {
             Map<String, Object> row = connectedTo.getRow(i);
 
@@ -163,20 +211,10 @@ public class DBRepopulator {
 
     /**
      * Populates the database with IS_IN relations between Location and Area nodes.
-     * This method assumes that Locations have an areaId, whose entries contain integer type values referring to the
-     * Areas that should have the relation.
      */
-    private static void createIsIn(TransactionContext tx, CSV locations) {
-        if (!locations.containsColumn("areaId")) {
-            throw new RuntimeException("Locations do not contain buildingId.");
-        }
-
-        if (!locations.getColumnType("areaId").equals("int")) {
-            throw new RuntimeException("Locations.csv data malformed; ensure areaIds are integers.");
-        }
-
-        for (int i = 0; i < locations.size(); i++) {
-            Map<String, Object> row = locations.getRow(i);
+    private static void createIsIn(TransactionContext tx, CSV location) {
+        for (int i = 0; i < location.size(); i++) {
+            Map<String, Object> row = location.getRow(i);
 
             String query = """
                         MATCH (l:Location {id: $id}), (a:Area {id: $areaId})
@@ -188,14 +226,61 @@ public class DBRepopulator {
     }
 
     /**
+     * Populates the database with IN_CATEGORY relations between Location and LocationCategory nodes.
+     */
+    private static void createInCategory(TransactionContext tx, CSV location) {
+        for (int i = 0; i < location.size(); i++) {
+            Map<String, Object> row = location.getRow(i);
+
+            String query = """
+                        MATCH (l:Location {id: $id}), (c:LocationCategory {id: locationCategoryId})
+                        CREATE (l)-[:IN_CATEGORY]->(c)
+                    """;
+
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * Populates the database with IS_TYPE relations between Location nodes that are IN_CATEGORY Stair and the
+     * StairType nodes.
+     */
+    private static void createStairIsType(TransactionContext tx, CSV stairIsType) {
+        for (int i = 0; i < stairIsType.size(); i++) {
+            Map<String, Object> row = stairIsType.getRow(i);
+            String query = "MATCH (l:Location {id: $locationId}), (t:StairType {id: $stairTypeId}) " +
+                    "CREATE (l)-[:IS_TYPE]->(t)";
+            tx.run(query, row);
+        }
+    }
+
+    /**
+     * Populates the database with IS_TYPE relations between Location nodes that are IN_CATEGORY Bathroom and the
+     * BathroomType nodes.
+     */
+    private static void createBathroomIsType(TransactionContext tx, CSV bathroomIsType) {
+        for (int i = 0; i < bathroomIsType.size(); i++) {
+            Map<String, Object> row = bathroomIsType.getRow(i);
+            String query = "MATCH (l:Location {id: $locationId}), (t:BathroomType {id: $bathroomTypeId}) " +
+                    "CREATE (l)-[:IS_TYPE]->(t)";
+            tx.run(query, row);
+        }
+    }
+
+    /**
      * Runs all tests specified.
      */
-    private static void runTests(CSV locations, CSV connections, CSV areas) {
-        // Ensures the headers for each CSV are in the correct format (e.g., Location.csv has booleans for entries in
-        // the isValidDestination column)
-        locationsHeaderTypeTest(locations);
-        connectionsHeaderTypeTest(connections);
-        areasHeaderTypeTest(areas);
+    private static void runTests(CSV location, CSV connectedTo, CSV area, CSV locationCategory, CSV stairType, CSV bathroomType, CSV stairIsType, CSV bathroomIsType) {
+        // Ensures the headers for each CSV are in the correct format (e.g., Location.csv has doubles for entries in
+        // the latitude column)
+        locationsHeaderTypeTest(location);
+        connectedToHeaderTypeTest(connectedTo);
+        areaHeaderTypeTest(area);
+        locationCategoryHeaderTypeTest(locationCategory);
+        stairTypeHeaderTypeTest(stairType);
+        bathroomTypeHeaderTypeTest(bathroomType);
+        stairIsTypeHeaderTypeTest(stairIsType);
+        bathroomIsTypeHeaderTypeTest(bathroomIsType);
 
         // Will write more later if time permits
     }
@@ -203,34 +288,75 @@ public class DBRepopulator {
     /**
      * Test cases for ensuring Location.csv headers are in the correct format.
      */
-    private static void locationsHeaderTypeTest(CSV locations) {
-        assert locations.containsColumn("id") && locations.getColumnType("id").equals("int");
-        assert locations.containsColumn("latitude") && locations.getColumnType("latitude").equals("double");
-        assert locations.containsColumn("longitude") && locations.getColumnType("longitude").equals("double");
-        assert locations.containsColumn("floor") && locations.getColumnType("floor").equals("double");
-        assert locations.containsColumn("areaId") && locations.getColumnType("areaId").equals("int");
-        assert locations.containsColumn("name") && locations.getColumnType("name").equals("string");
-        assert locations.containsColumn("isValidDestination") && locations.getColumnType("isValidDestination").equals("boolean");
-        assert locations.containsColumn("isAccessible") && locations.getColumnType("isAccessible").equals("boolean");
+    private static void locationsHeaderTypeTest(CSV location) {
+        assert location.containsColumn("id") && location.getColumnType("id").equals("int");
+        assert location.containsColumn("latitude") && location.getColumnType("latitude").equals("double");
+        assert location.containsColumn("longitude") && location.getColumnType("longitude").equals("double");
+        assert location.containsColumn("floor") && location.getColumnType("floor").equals("double");
+        assert location.containsColumn("areaId") && location.getColumnType("areaId").equals("int");
+        assert location.containsColumn("name") && location.getColumnType("name").equals("string");
+        assert location.containsColumn("isValidDestination") && location.getColumnType("isValidDestination").equals("int");
+        assert location.containsColumn("isAccessible") && location.getColumnType("isAccessible").equals("int");
+        assert location.containsColumn("categoryId") && location.getColumnType("categoryId").equals("int");
     }
 
     /**
      * Test cases for ensuring CONNECTED_TO.csv headers are in the correct format.
      */
-    private static void connectionsHeaderTypeTest(CSV connections) {
-        assert connections.containsColumn("startId") && connections.getColumnType("startId").equals("int");
-        assert connections.containsColumn("endId") && connections.getColumnType("endId").equals("int");
-        assert connections.containsColumn("distance") && connections.getColumnType("distance").equals("double");
+    private static void connectedToHeaderTypeTest(CSV connectedTo) {
+        assert connectedTo.containsColumn("locationId1") && connectedTo.getColumnType("locationId1").equals("int");
+        assert connectedTo.containsColumn("locationId2") && connectedTo.getColumnType("locationId2").equals("int");
+        assert connectedTo.containsColumn("distance") && connectedTo.getColumnType("distance").equals("double");
     }
 
     /**
      * Test cases for ensuring Area.csv headers are in the correct format.
      */
-    private static void areasHeaderTypeTest(CSV areas) {
-        assert areas.containsColumn("id") && areas.getColumnType("id").equals("int");
-        assert areas.containsColumn("name") && areas.getColumnType("id").equals("string");
-        assert areas.containsColumn("abbreviation") && areas.getColumnType("abbreviation").equals("string");
-        assert areas.containsColumn("numFloors") && areas.getColumnType("numFloors").equals("int");
-        assert areas.containsColumn("lowestFloor") && areas.getColumnType("lowestFloor").equals("int");
+    private static void areaHeaderTypeTest(CSV stairType) {
+        assert stairType.containsColumn("id") && stairType.getColumnType("id").equals("int");
+        assert stairType.containsColumn("name") && stairType.getColumnType("name").equals("string");
+        assert stairType.containsColumn("abbreviation") && stairType.getColumnType("abbreviation").equals("string");
+        assert stairType.containsColumn("numFloors") && stairType.getColumnType("numFloors").equals("int");
+        assert stairType.containsColumn("lowestFloor") && stairType.getColumnType("lowestFloor").equals("int");
+    }
+
+    /**
+     * Test cases for ensuring LocationCategory.csv headers are in the correct format.
+     */
+    private static void locationCategoryHeaderTypeTest(CSV locationCategory) {
+        assert locationCategory.containsColumn("id") && locationCategory.getColumnType("id").equals("int");
+        assert locationCategory.containsColumn("name") && locationCategory.getColumnType("name").equals("string");
+    }
+
+    /**
+     * Test cases for ensuring StairType.csv headers are in the correct format.
+     */
+    private static void stairTypeHeaderTypeTest(CSV stairType) {
+        assert stairType.containsColumn("id") && stairType.getColumnType("id").equals("int");
+        assert stairType.containsColumn("name") && stairType.getColumnType("name").equals("string");
+    }
+
+    /**
+     * Test cases for ensuring BathroomType.csv headers are in the correct format.
+     */
+    private static void bathroomTypeHeaderTypeTest(CSV bathroomType) {
+        assert bathroomType.containsColumn("id") && bathroomType.getColumnType("id").equals("int");
+        assert bathroomType.containsColumn("name") && bathroomType.getColumnType("name").equals("string");
+    }
+
+    /**
+     * Test cases for ensuring STAIR_IS_TYPE.csv headers are in the correct format.
+     */
+    private static void stairIsTypeHeaderTypeTest(CSV stairIsType) {
+        assert stairIsType.containsColumn("locationId") && stairIsType.getColumnType("locationId").equals("int");
+        assert stairIsType.containsColumn("stairTypeId") && stairIsType.getColumnType("stairTypeId").equals("int");
+    }
+
+    /**
+     * Test cases for ensuring BATHROOM_IS_TYPE.csv headers are in the correct format.
+     */
+    private static void bathroomIsTypeHeaderTypeTest(CSV bathroomIsType) {
+        assert bathroomIsType.containsColumn("locationId") && bathroomIsType.getColumnType("locationId").equals("int");
+        assert bathroomIsType.containsColumn("bathroomTypeId") && bathroomIsType.getColumnType("bathroomTypeId").equals("int");
     }
 }
