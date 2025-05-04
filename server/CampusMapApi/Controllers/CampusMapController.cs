@@ -50,7 +50,7 @@ public class CampusMapController(
 
 
 		// list to hold locations
-		var rooms = new List<PathNodeDto>();
+		var rooms = new List<LocationDto>();
 		int closestId = -1;
 		int currId = 0;
 		float minDistance = 10000;
@@ -62,7 +62,7 @@ public class CampusMapController(
 
 			results.ForEach(record =>
 			{
-				PathNodeDto n = new()
+				LocationDto n = new()
 				{
 					Latitude = record["lat"].As<float>(),
 					Longitude = record["lng"].As<float>(),
@@ -80,7 +80,7 @@ public class CampusMapController(
 				currId++;
 			});
 
-			PathNodeDto closest = rooms[closestId];
+			LocationDto closest = rooms[closestId];
 			Console.WriteLine("Done: Closest: " + closest);
 			return Ok(rooms);
 
