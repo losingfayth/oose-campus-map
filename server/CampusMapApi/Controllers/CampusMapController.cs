@@ -37,6 +37,8 @@ public class CampusMapController(
 		var latitude = request.Latitude; // get latitude
 		var longitude = request.Longitude; // get longitude
 
+		Console.WriteLine("Entering function: " + building + ", " + floor + ", " + latitude + ", " + longitude);
+
 		// query to get every room in a building from database
 		var query = @"
 			MATCH (a:Area {name: $building}) <-[:IS_IN] - (l:Location)
@@ -79,6 +81,7 @@ public class CampusMapController(
 			});
 
 			PathNodeDto closest = rooms[closestId];
+			Console.WriteLine("Done: Closest: " + closest);
 			return Ok(rooms);
 
 		}
