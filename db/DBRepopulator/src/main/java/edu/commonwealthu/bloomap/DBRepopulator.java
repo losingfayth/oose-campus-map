@@ -236,7 +236,7 @@ public class DBRepopulator {
             Map<String, Object> row = location.getRow(i);
 
             String query = """
-                        MATCH (l:Location {id: $id}), (c:LocationCategory {id: locationCategoryId})
+                        MATCH (l:Location {id: $id}), (c:LocationCategory {id: $locationCategoryId})
                         CREATE (l)-[:IN_CATEGORY]->(c)
                     """;
 
