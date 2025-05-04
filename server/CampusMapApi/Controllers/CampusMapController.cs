@@ -54,7 +54,7 @@ public class CampusMapController(
 			var query = @"
 				MATCH (startNode:Location {id: $start})
 				MATCH (endNode:Location {id: $end})
-				WHERE endNode.isValidDestination = true
+				WHERE endNode.isValidDestination = 1
 
 				WITH id(startNode) AS startId, id(endNode) AS endId
 
