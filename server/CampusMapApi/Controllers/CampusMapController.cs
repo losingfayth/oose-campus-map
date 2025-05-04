@@ -79,12 +79,15 @@ public class CampusMapController(
 			});
 
 			PathNodeDto closest = rooms[closestId];
-			return Ok(new { message = "Path found!", closest });
+			return Ok(rooms);
 
 		}
-		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
+		catch (Exception e)
+		{
+			Console.WriteLine($"Error: {e.Message}");
+			return StatusCode(500, new { error = e.Message });
+		}
 
-		return Ok(rooms);
 
 
 	}
