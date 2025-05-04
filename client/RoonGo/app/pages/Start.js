@@ -27,6 +27,8 @@ import {
 } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
+const fromRoomDefaultPlaceHolderText = "Room #";
+
 export default function Start() {
 	const [location, setLocation] = useState(null);
 	const [subscription, setTracker] = useState(null);
@@ -59,6 +61,7 @@ export default function Start() {
 
 	const [currentLocationArea, setCurrentLocationArea] = useState(null);
 	const [currentLocationChosen, setCurrentLocationChosen] = useState(false);
+	const [fromPlaceHolderText, setFromPlaceHolderText] = useState(fromRoomDefaultPlaceHolderText);
 
 	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
 		if (!building) {
@@ -81,8 +84,12 @@ export default function Start() {
 			}
 
 			let area = insideBuilding(testGCS);
-			setCurrentLocationArea(area);
 			console.log("Area: ", area);
+
+			setCurrentLocationArea(area);
+			setCurrentLocationChosen(true);
+			setSelectedStartBuilding(area);
+			setFromPlaceHolderText("Select Floor")
 
 			getNumFloors(area).then((floorInformation) => {
 				console.log("Num Floors: ", floorInformation);
@@ -99,35 +106,27 @@ export default function Start() {
 						floors.push(floor + i);
 					}
 				}
-				setFilteredStartRoomNumbers(floors);
+				var floorType = (floor) => {
+					return {
+						name: floor
+					}
+				}
+
+				let floorObjects = [];
+				floors.forEach((floor) => {
+					floorObjects.push(floorType(floor));
+				})
+				setFilteredStartRoomNumbers(floorObjects);
 
 
 			})
-
-
-		} else if (building.includes("Floor")) {
-			let b = currentLocationArea;
-			console.log("??? " + b + " " + building);
-
-			getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
-				{
-					"building": b,
-					"floor": building,
-				},
-				{
-					"latitude": location.latitude,
-					"longitude": location.longitude,
-				}).then(id => {
-					console.log("You're near " + id + " !")
-					setSelectedStartRoomId(id);
-				})
 
 
 		}
 
 		else {
 			//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
-
+			setFromPlaceHolderText(fromRoomDefaultPlaceHolderText);
 
 			let poi = pointsOfInterest.find((p) => "\u2605 " + p.name == building);
 
@@ -155,7 +154,8 @@ export default function Start() {
 
 					getRooms(building)
 						.then((rooms) => {
-							console.log("RoomsL: " + rooms.length);
+							// rooms = rooms.filter((room) => room.name);
+							// console.log(rooms);
 							if (isStart)
 								setFilteredStartRoomNumbers(
 									rooms.filter((room) => room.name.toLowerCase())
@@ -384,18 +384,44 @@ export default function Start() {
 				showIcon={false}
 				searchFilterData={filteredRoomNumbers.map((r) => r.name)} // show only room names in dropdown
 				searchFilterStyles={{ width: "100%" }}
-				placeholderText="Room #"
+				placeholderText={fromPlaceHolderText}
 				onTypingChange={setIsRoomTyping}
 				onSelect={(selectedName) => {
-					// Find the full room object matching the selected name
-					const matched = filteredRoomNumbers.find(
-						(room) => room.name === selectedName
-					);
-					if (matched) {
-						setSelectedStartRoom(matched.name); // save room name
-						setSelectedStartRoomId(matched.id); // save room id
-						console.log("Selected room:", matched.name, "| ID:", matched.id);
+					if (currentLocationChosen) {
+						let b = currentLocationArea;
+						let floorLabel = selectedName[selectedName.length - 1];
+						let floor;
+						if (floorLabel == 'b') {
+							floor = -1;
+						} else if (floorLabel == 'g') {
+							floor = 0;
+						} else {
+							floor = floorLabel;
+						}
+
+						getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
+							{
+								"building": b,
+								"floor": floor,
+							},
+							{
+								"latitude": location.latitude,
+								"longitude": location.longitude,
+							}).then(id => {
+								setSelectedStartRoomId(id);
+							})
+					} else {
+						// Find the full room object matching the selected name
+						const matched = filteredRoomNumbers.find(
+							(room) => room.name === selectedName
+						);
+						if (matched) {
+							setSelectedStartRoom(matched.name); // save room name
+							setSelectedStartRoomId(matched.id); // save room id
+							console.log("Selected room:", matched.name, "| ID:", matched.id);
+						}
 					}
+
 				}}
 			/>
 

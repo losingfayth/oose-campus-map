@@ -86,7 +86,6 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
-		console.log("rooms: " + data);
 		return data;
 
 		// throw error if fetch is unsuccessful
