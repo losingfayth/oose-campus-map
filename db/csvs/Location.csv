@@ -1,4 +1,4 @@
-id,locationCode,latitude,longitude,floor,areaId,name,isValidDestination,isAccessible
+id,locationCode,latitude,longitude,floor,areaId,name,isValidDestination,isAccessible,categoryId
 63,87H52H53+33W,41.00773144039877,-76.44728125677946,0,0,002,1,1
 64,87H52H53+439,41.00779418829083,-76.44727577681331,0,0,003,1,1
 65,87H52H53+433,41.00775719913016,-76.44733668139993,0,0,006,1,1
