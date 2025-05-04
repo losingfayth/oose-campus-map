@@ -54,7 +54,7 @@ public class DBRepopulator {
                 startTime = System.nanoTime();
 
                 session.executeWrite(tx -> {
-                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Location and Area nodes...");
+                    executeLabeledAndTimed(() -> nuke(tx), "Removing all Nodes...");
 
                     executeLabeledAndTimed(() -> insertLocations(tx, location), "Inserting Location nodes...");
                     executeLabeledAndTimed(() -> insertAreas(tx, area), "Inserting Area nodes...");
