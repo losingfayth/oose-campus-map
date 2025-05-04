@@ -302,6 +302,8 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	/*
+
 	[HttpPost("PopulateDb")]
 	public async Task<IActionResult> PopulateDb()
 	{
@@ -309,7 +311,7 @@ public class CampusMapController(
 
 		return Ok();
 	}
-	
+*/	
 
 	// DTO for request body
 	public class BuildingRequest
