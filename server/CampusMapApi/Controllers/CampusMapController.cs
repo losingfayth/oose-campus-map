@@ -302,6 +302,13 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	[HttpPost("PopulateDb")]
+	public async Task<IActionResult> PopulateDb()
+	{
+		await DbPopulator.RepopulatePois(_neo4j);
+
+		return Ok();
+	}
 	
 
 	// DTO for request body
