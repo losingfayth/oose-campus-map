@@ -42,8 +42,8 @@ public class CampusMapController(
 		// query to get every room in a building from database
 		var query = @"
 			MATCH (a:Area {name: $building}) <-[:IS_IN] - (l:Location)
-			WHERE l.floor = " + floor +
-			"RETURN l.latitude as lat, l.longitude as lng, l.id as id"
+			WHERE l.floor = 1
+			RETURN l.latitude as lat, l.longitude as lng, l.id as id"
 		;
 
 
@@ -82,7 +82,7 @@ public class CampusMapController(
 
 			LocationDto closest = rooms[closestId];
 			Console.WriteLine("Done: Closest: " + closest.Id);
-			return Ok(closest.Id);
+			return Ok(closest);
 
 		}
 		catch (Exception e)
