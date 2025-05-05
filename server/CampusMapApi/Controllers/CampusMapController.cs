@@ -337,24 +337,21 @@ public class CampusMapController(
 			+ (gender == 'M' || gender == 'N' ? mTypeQuery : @"")
 			+ @")
 			MATCH (source:Location {id: $startId})
-			CALL {
-				WITH source, bathrooms
-				CALL gds.shortestPath.dijkstra.stream(
+			CALL gds.shortestPath.dijkstra.stream(
 				'campusGraph',
 				{
 					sourceNode: source,
 					targetNode: bathrooms,
 					relationshipWeightProperty: 'distance'
 				}
-				)
-				YIELD targetNode, totalCost, path
-				RETURN targetNode as id, totalCost as distance, path as path
-				ORDER BY totalCost ASC
-				LIMIT 1
-			}
+			)
+			YIELD totalCost, nodeIds
+			WITH totalCost, nodeIds
+			ORDER BY totalCost ASC
+			LIMIT 1
 
-			UNWIND path as nodes
-			MATCH (n)
+			UNWIND nodeIds as nodeId
+			MATCH (n) WHERE id(n) = nodeId
 			OPTIONAL MATCH (n)-[:IS_IN]->(a:Area)
 			RETURN
 				n.latitude AS latitude,
