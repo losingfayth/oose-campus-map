@@ -306,10 +306,7 @@ export default function Start() {
 					// Check if all necessary values are set
 					if (
 						true
-						// selectedStartBuilding !== null &&
-						// selectedStartRoom !== null &&
-						// selectedEndBuilding !== null &&
-						// selectedEndRoom !== null
+
 					) {
 						console.log("Not null");
 
