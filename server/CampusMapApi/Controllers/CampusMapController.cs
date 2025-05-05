@@ -365,11 +365,54 @@ public class CampusMapController(
 		try {
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
 
-			return Ok(results);
-		}
-		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+			var path = new List<List<PathNodeDto>>();
 
-		return Ok();
+			bool firstPass = true;
+			string currArea = "";
+			float currFloor = 0;
+			int i = -1;
+
+			foreach (var record in results)
+			{
+				var latitude = record["latitude"].ToString() ?? "";
+				var longitude = record["longitude"].ToString() ?? "";
+				var floor = record["floor"].ToString() ?? "";
+				var id = record["id"].ToString() ?? "";
+				var area = record["building"].ToString() ?? "";
+				var name = record["locationName"].ToString() ?? null;
+
+				var floorFloat = float.Parse(floor);
+
+								if (firstPass 
+					|| currArea != area 
+					|| (currFloor != floorFloat 
+						&& Math.Abs(currFloor - floorFloat) > .5))
+				{
+					path.Add([]);
+					i++;
+					currArea = area;
+					currFloor = floorFloat;
+					firstPass = false;
+				}
+
+				path[i].Add(new PathNodeDto
+				{
+					Latitude = float.Parse(latitude),
+					Longitude = float.Parse(longitude),
+					Floor = float.Parse(floor),
+					Building = area,
+					Id = id
+				});
+			}
+
+			if (path.Count > 0) return Ok(new { message = "Path found!", path });
+			else return Ok(new { message = "No Path Found!" });
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"Error: { e.Message }");
+			return StatusCode(500, new { error = e.Message });
+		}
 	}
 
 	/*
