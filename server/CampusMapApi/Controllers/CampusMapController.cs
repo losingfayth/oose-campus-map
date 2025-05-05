@@ -319,7 +319,7 @@ public class CampusMapController(
 		";
 
 		var mGenderQuery = @"
-			MATCH (mGender:BathroomType {name: 'Men})
+			MATCH (mGender:BathroomType {name: 'Men'})
 		";
 		var mTypeQuery = @"
 			OR (bathrooms)-[:IS_TYPE]->(mGender)
@@ -352,8 +352,6 @@ public class CampusMapController(
 		";
 
 		try {
-			Console.WriteLine(query);
-
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
 
 			return Ok(results[0]);
