@@ -78,12 +78,12 @@ export default function Start() {
 				longitude: location.longitude,
 			}
 
-			var testGCS = {
-				latitude: 41.0078998985986,
-				longitude: -76.44737043862342,
-			}
+			// var testGCS = {
+			// 	latitude: 41.0078998985986,
+			// 	longitude: -76.44737043862342,
+			// }
 
-			let area = insideBuilding(testGCS);
+			let area = insideBuilding(GCS);
 			console.log("Area: ", area);
 
 			setCurrentLocationArea(area);
