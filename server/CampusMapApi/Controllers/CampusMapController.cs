@@ -302,7 +302,7 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
-	[HttpGet("GetNearestBathroom")]
+	[HttpPost("GetNearestBathroom")]
 	public async Task<IActionResult> GetNearestBathroom([FromBody] BathroomRequest request)
 	{
 		char gender = Char.ToUpper(request.Gender);
