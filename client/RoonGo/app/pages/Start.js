@@ -354,7 +354,7 @@ export default function Start() {
 				selected={ accessiblePathMode }
 				onPress={() => setAccessiblePathMode(!accessiblePathMode)}
 				imagePath={require("../../assets/handicap_accessible_icon.jpg")}
-				customStyles={{ top: "38%", left: "27%", height: 60, width: 60 }}
+				customStyles={{ position: "absolute", bottom: 22, right: 22, height: 70, width: 70 }}
 			/>
 		</View>
 	);
