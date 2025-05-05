@@ -18,12 +18,83 @@ namespace CampusMapApi.Controllers;
 [ApiController] // marks this class as a web API controller
 [Route("api/[controller]")] // define URL route for controller
 public class CampusMapController(
-	ILogger<CampusMapController> logger, 
-	Neo4jService neo4jService) : ControllerBase {
+	ILogger<CampusMapController> logger,
+	Neo4jService neo4jService) : ControllerBase
+{
 
 	private readonly Neo4jService _neo4j = neo4jService;
 
 	private readonly ILogger<CampusMapController> _logger = logger;
+
+	[HttpPost("GetClosestLocation")]
+	public async Task<IActionResult> GetClosestLocation([FromBody] LocationRequest request)
+	{
+
+
+
+		var building = request.Building; // get building name
+		string floor = request.Floor.ToString(); // get floor number
+		var latitude = request.Latitude; // get latitude
+		var longitude = request.Longitude; // get longitude
+
+		Console.WriteLine("Entering function: " + building + ", " + floor + ", " + latitude + ", " + longitude);
+
+		// query to get every room in a building from database
+		var query = @"
+			MATCH (a:Area {name: $building}) <-[:IS_IN] - (l:Location)
+			WHERE l.floor = " + floor +
+			" RETURN l.latitude as lat, l.longitude as lng, l.id as id"
+		;
+
+
+
+
+		// list to hold locations
+		var rooms = new List<LocationDto>();
+		int closestId = -1;
+		int currId = 0;
+		float minDistance = 10000;
+		float currDistance;
+		try
+		{
+			// run the building query
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
+
+			results.ForEach(record =>
+			{
+				LocationDto n = new()
+				{
+					Latitude = record["lat"].As<float>(),
+					Longitude = record["lng"].As<float>(),
+					Id = record["id"].As<string>()
+				};
+
+				currDistance = (float)Math.Sqrt((n.Latitude - latitude) * (n.Latitude - latitude) + (n.Longitude - longitude) * (n.Longitude - longitude));
+				if (currDistance < minDistance)
+				{
+					minDistance = currDistance;
+					closestId = currId;
+				}
+
+				rooms.Add(n);
+				currId++;
+			});
+
+			LocationDto closest = rooms[closestId];
+			Console.WriteLine("Done: Closest: " + closest.Id);
+			return Ok(closest.Id);
+
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"Error: {e.Message}");
+			return StatusCode(500, new { error = e.Message });
+		}
+
+
+
+	}
+
 
 	/// <summary>
 	/// Queries the database for the shortest path between two points using 
@@ -46,7 +117,8 @@ public class CampusMapController(
 		var graphType = request.Accessible ? "accessibleCampusGraph" : "campusGraph";
 
 
-		try {
+		try
+		{
 
 			await DbProjectionGenerator.GenerateProjection(_neo4j, request.Accessible);
 
@@ -85,7 +157,7 @@ public class CampusMapController(
 
 			// run the above query on the database with the provided starting and ending ids, then put it into a list
 			//var result = await session.RunAsync(query, new { start, End });
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType } );
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType });
 
 			var path = new List<List<PathNodeDto>>(); // list of lists for node data
 			bool firstPass = true; // flags if it is first pass-through records
@@ -111,9 +183,9 @@ public class CampusMapController(
 
 				// check if the area and floor of the current node matches those of the
 				// prvious one. if not, increment the index of path
-				if (firstPass 
-					|| currArea != area 
-					|| (currFloor != floorFloat 
+				if (firstPass
+					|| currArea != area
+					|| (currFloor != floorFloat
 						&& Math.Abs(currFloor - floorFloat) > .5))
 				{
 					path.Add([]);
@@ -123,16 +195,16 @@ public class CampusMapController(
 					firstPass = false;
 				}
 
-					// add a new node at the correct index
-					path[i].Add(new PathNodeDto
-					{
-						Latitude = float.Parse(latitude),
-						Longitude = float.Parse(longitude),
-						Floor = float.Parse(floor),
-						Building = area,
-						Id = id
-					});
-				}
+				// add a new node at the correct index
+				path[i].Add(new PathNodeDto
+				{
+					Latitude = float.Parse(latitude),
+					Longitude = float.Parse(longitude),
+					Floor = float.Parse(floor),
+					Building = area,
+					Id = id
+				});
+			}
 
 			// check if a path was found and return it if it was
 			if (path.Count > 0) return Ok(new { message = "Path found!", path });
@@ -141,11 +213,11 @@ public class CampusMapController(
 		}
 		catch (Exception e)
 		{
-			Console.WriteLine($"Error: { e.Message }");
+			Console.WriteLine($"Error: {e.Message}");
 			return StatusCode(500, new { error = e.Message });
 		}
 	}
-	
+
 	/// <summary>
 	/// Queries database for all nodes and returns a list of building names.
 	/// http GET api endpoint accessible at GET /api/CampusMap/GetBuildings
@@ -159,7 +231,7 @@ public class CampusMapController(
 	/// </summary>
 	/// <returns>A list of Building objects</returns>
 	[HttpGet("GetBuildings")]
-	
+
 	public async Task<IActionResult> GetBuildings()
 	{
 		// query to retrieve all nodes' building and room number attributes
@@ -171,7 +243,8 @@ public class CampusMapController(
 
 		var buildings = new List<BuildingDto>(); // list of locations being queried
 
-		try {
+		try
+		{
 			// run the query on the database at store result set						
 			var results = await _neo4j.ExecuteReadQueryAsync(query);
 
@@ -210,17 +283,20 @@ public class CampusMapController(
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
 			WHERE l.isValidDestination = 1
+			WHERE l.isValidDestination = 1
 			RETURN a.name AS building, l.name AS name, l.id AS id
 		";
 
 		// list to hold locations
 		var rooms = new List<RoomDto>();
 
-		try {
+		try
+		{
 			// run the building query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
-			results.ForEach(record => {
+			results.ForEach(record =>
+			{
 				RoomDto room = new()
 				{
 					Building = record["building"].As<string>(),
@@ -231,7 +307,7 @@ public class CampusMapController(
 				rooms.Add(room);
 			});
 		}
-		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
 
 		return Ok(rooms);
 	}
@@ -255,7 +331,8 @@ public class CampusMapController(
 
 		List<PointOfInterest> pois = [];
 
-		results.ForEach(record => {
+		results.ForEach(record =>
+		{
 			PointOfInterest poi = new()
 			{
 				Name = record["name"].As<string>(),
@@ -288,30 +365,23 @@ public class CampusMapController(
 		var lowestFloor = "";
 		var numFloors = "";
 
-		try {
+		try
+		{
 			// run the floor retrieval query
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { building });
 
-			results.ForEach(record => {
+			results.ForEach(record =>
+			{
 				floors.LowestFloor = record["lowestFloor"].As<int>();
 				floors.NumFloors = record["numFloors"].As<int>();
 			});
 		}
-		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
+		catch (Exception e) { Console.WriteLine($"Error: {e.Message}"); }
 
 		return Ok(floors);
 	}
 
-	/*
 
-	[HttpPost("PopulateDb")]
-	public async Task<IActionResult> PopulateDb()
-	{
-		await DbPopulator.RepopulatePois(_neo4j);
-
-		return Ok();
-	}
-*/	
 
 	// DTO for request body
 	public class BuildingRequest
@@ -324,6 +394,15 @@ public class CampusMapController(
 		public int Start { get; set; }
 		public int End { get; set; }
 		public bool Accessible { get; set; }
+	}
+
+	public class LocationRequest
+	{
+		public string Building { get; set; } = string.Empty;
+		public int Floor { get; set; }
+
+		public float Latitude { get; set; }
+		public float Longitude { get; set; }
 	}
 }
 

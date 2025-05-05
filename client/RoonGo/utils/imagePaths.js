@@ -185,6 +185,16 @@ function getBuildingAbbreviation(buildingName) {
   return buildingToAbbreviationMap.get(buildingName);
 }
 
+function getBuildingName(abbreviation) {
+  for (const [key, value] of buildingToAbbreviationMap.entries()) {
+    if (value === abbreviation) {
+      return key;
+    }
+  }
+  return null;
+}
+// function getBuildingName(abbreviation) {
+
 
 
 // const blueprintNames = [
@@ -263,4 +273,6 @@ export default blueprintImageData;
 export {
   getImageData,
   getBuildingAbbreviation,
+  getBuildingName,
+  buildingToReferencePoints,
 };
