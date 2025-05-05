@@ -305,7 +305,58 @@ public class CampusMapController(
 	[HttpGet("GetNearestBathroom")]
 	public async Task<IActionResult> GetNearestBathroom([FromBody] BathroomRequest request)
 	{
-		
+		char gender = Char.ToUpper(request.Gender);
+
+		var aGenderQuery = @"
+			MATCH (aGender:BathroomType {name: 'All'})
+		";
+
+		var fGenderQuery = @"
+			MATCH (fGender:BathroomType {name: 'Women'})
+		";
+		var fTypeQuery = @"
+			OR (bathrooms)-[:IS_TYPE]->(fGender)
+		";
+
+		var mGenderQuery = @"
+			MATCH (mGender:BathroomType {name: 'Men})
+		";
+		var mTypeQuery = @"
+			OR (bathrooms)-[:IS_TYPE]->(mGender)
+		";
+
+		var query = @"
+			MATCH (cat:LocationCategory {name: 'Bathroom'})"
+			+ aGenderQuery
+			+ (gender == 'F' || gender == 'N' ? fGenderQuery : @"")
+			+ (gender == 'M' || gender == 'N' ? mGenderQuery : @"")
+			+ @"MATCH (bathrooms:Location)
+				WHERE (bathrooms)-[:IN_CATEGORY]->(cat)
+				AND ((bathrooms)-[:IS_TYPE]->(aGender)"
+			+ (gender == 'F' || gender == 'N' ? fTypeQuery : @"")
+			+ (gender == 'M' || gender == 'N' ? mTypeQuery : @"")
+			+ @")
+			MATCH (source:Location {id: $startId})
+			CALL gds.shortestPath.dijkstra.stream(
+				'campusGraph',
+				{
+					sourceNode: source,
+					targetNode: bathrooms,
+					relationshipWeightProperty: 'distance'
+				}
+			)
+			YIELD targetNode, totalCost, path
+			RETURN targetNode as id, totalCost as distance, path as path
+			ORDER BY totalCost ASC
+			LIMIT 1
+		";
+
+		try {
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
+
+			return Ok(results[0]);
+		}
+		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
 
 		return Ok();
 	}
