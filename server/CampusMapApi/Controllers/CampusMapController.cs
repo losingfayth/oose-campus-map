@@ -337,24 +337,38 @@ public class CampusMapController(
 			+ (gender == 'M' || gender == 'N' ? mTypeQuery : @"")
 			+ @")
 			MATCH (source:Location {id: $startId})
-			CALL gds.shortestPath.dijkstra.stream(
+			CALL {
+				WITH source, bathrooms
+				CALL gds.shortestPath.dijkstra.stream(
 				'campusGraph',
 				{
 					sourceNode: source,
 					targetNode: bathrooms,
 					relationshipWeightProperty: 'distance'
 				}
-			)
-			YIELD targetNode, totalCost, path
-			RETURN targetNode as id, totalCost as distance, path as path
-			ORDER BY totalCost ASC
-			LIMIT 1
+				)
+				YIELD targetNode, totalCost, path
+				RETURN targetNode as id, totalCost as distance, path as path
+				ORDER BY totalCost ASC
+				LIMIT 1
+			}
+
+			UNWIND path as nodes
+			MATCH (n)
+			OPTIONAL MATCH (n)-[:IS_IN]->(a:Area)
+			RETURN
+				n.latitude AS latitude,
+				n.longitude AS longitude,
+				n.floor AS floor,
+				n.id AS id,
+				a.name AS building,
+				n.name AS locationName
 		";
 
 		try {
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
 
-			return Ok(results[0]);
+			return Ok(results);
 		}
 		catch (Exception e) { Console.WriteLine($"Error: { e.Message }"); }
 
