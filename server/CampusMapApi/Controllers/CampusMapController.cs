@@ -302,6 +302,14 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	[HttpGet("GetNearestBathroom")]
+	public async Task<IActionResult> GetNearestBathroom([FromBody] BathroomRequest request)
+	{
+		
+
+		return Ok();
+	}
+
 	/*
 
 	[HttpPost("PopulateDb")]
@@ -324,6 +332,12 @@ public class CampusMapController(
 		public int Start { get; set; }
 		public int End { get; set; }
 		public bool Accessible { get; set; }
+	}
+
+	public class BathroomRequest
+	{
+		public int Start { get; set; }
+		public char Gender { get; set; } = 'N';
 	}
 }
 
