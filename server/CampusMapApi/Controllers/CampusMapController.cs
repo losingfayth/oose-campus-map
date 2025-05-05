@@ -126,7 +126,7 @@ public class CampusMapController(
 			var query = @"
 				MATCH (startNode:Location {id: $start})
 				MATCH (endNode:Location {id: $end})
-				WHERE endNode.isValidDestination = true
+				WHERE endNode.isValidDestination = 1
 
 				WITH id(startNode) AS startId, id(endNode) AS endId
 
@@ -282,6 +282,7 @@ public class CampusMapController(
 		// query to get every room in a building from database
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
+			WHERE l.isValidDestination = 1
 			WHERE l.isValidDestination = 1
 			RETURN a.name AS building, l.name AS name, l.id AS id
 		";

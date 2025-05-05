@@ -11,7 +11,8 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 
 
 const PathControls = (
-    { locs,
+    { 
+		locs,
         parsedPoints,
         currIndex,
         maxLocs,
