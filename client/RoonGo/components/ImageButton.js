@@ -1,14 +1,14 @@
 import React from 'react';
 import { Pressable, Image, StyleSheet } from 'react-native';
 
-const ImageButton = ({ onPress, imagePath, selected, customStyles }) => {
+const ImageButton = ({ onPress, imagePath, selected, customStyles, label, disabled }) => {
 	return (
-		<Pressable onPress={onPress} style={[styles.button, customStyles]}>
+		<Pressable onPress={onPress} style={[styles.button, customStyles]} disabled = {disabled}>
 			<Image
 				source={imagePath}
 				style={[
 					styles.image,
-					{ opacity: selected ? 1 : 0.5 },
+					{ opacity: selected ? 1 : (disabled ? 0.1 : 0.6) },
 					customStyles
 				]}
 			/>
@@ -18,12 +18,11 @@ const ImageButton = ({ onPress, imagePath, selected, customStyles }) => {
 
 const styles = StyleSheet.create({
 	button: {
-		padding: 10,
 		borderRadius: 10
 		// Add other styling for your button container
 	},
 	image: {
-		borderRadius: 10
+		borderRadius: 10,
 		// Add other styling for your image
 	}
 });

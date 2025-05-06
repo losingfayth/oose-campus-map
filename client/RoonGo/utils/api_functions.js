@@ -106,3 +106,29 @@ export async function getPois() {
 	} catch (error) { console.error("Error running get: ", error); }
 
 }
+
+export async function getNearestBathroom(currLoc, gender) {
+	
+	try {
+		var request = {
+			"start": currLoc,
+			"gender": gender
+		}
+
+		const response = await fetch(
+			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/GetNearestBathroom",
+			{
+				method: "POST", // http POST request
+				headers: { "Content-Type": "application/json" }, // sending data as json
+				body: JSON.stringify({ request }), // convert js to json before sending
+			}
+		);
+
+		const data = await response.json();
+
+		return data;
+
+		// throw error if fetch is unsuccessful
+	} catch (error) { console.error("Error running get: ", error); }
+
+}
