@@ -1,6 +1,42 @@
 // functions to make calls to server
 
-const PORT = "5163";
+const PORT = "5159";
+
+export async function getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(buildingInfo, userLocation) {
+	console.log("Running getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates()");
+	console.log("Building Info: ", buildingInfo.building, buildingInfo.floor);
+	console.log("User Location: ", userLocation.latitude, userLocation.longitude);
+
+	var request = {
+		"building": buildingInfo.building,
+		"floor": buildingInfo.floor,
+		"latitude": userLocation.latitude,
+		"longitude": userLocation.longitude
+	};
+
+	try {
+		// use fetch to make an http request to server at get-location endpoint
+		const response = await fetch(
+			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/GetClosestLocation",
+			{
+				method: "POST", // http POST request
+				headers: { "Content-Type": "application/json" }, // sending data as json
+				body: JSON.stringify(request), // convert js to json before sending
+			}
+		);
+
+		const data = await response.json();
+
+		return data;
+
+		// throw error if fetch is unsuccessful
+	} catch (error) {
+		console.error("Error fetching location: ", error);
+	}
+	// return null if error occurs
+	return null;
+
+}
 
 /* 
 Makes an Http GET request to server endpoint GetBuildings.
@@ -50,7 +86,6 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
-
 		return data;
 
 		// throw error if fetch is unsuccessful
@@ -91,7 +126,7 @@ export async function findPath(currLoc, destination, accessible = false) {
 }
 
 export async function getPois() {
-	
+
 	try {
 		// use fetch to make an http request to server at get-location endpoint
 		const response = await fetch(

@@ -37,6 +37,7 @@ public class CSV {
     /**
      * Returns a deep copy of the headers of this CSV.
      */
+    @SuppressWarnings("unused")
     public Map<String, String> getHeaders() {
         return new LinkedHashMap<>(headers);
     }
@@ -44,6 +45,7 @@ public class CSV {
     /**
      * Returns a deep copy of the rows of this CSV.
      */
+    @SuppressWarnings("unused")
     public List<Map<String, Object>> getRows() {
         return rows.stream()
                 .map(HashMap::new)
@@ -75,6 +77,7 @@ public class CSV {
     /**
      * Returns true if this CSV has no rows.
      */
+    @SuppressWarnings("unused")
     public boolean isEmpty() {
         return rows.isEmpty();
     }
@@ -82,6 +85,7 @@ public class CSV {
     /**
      * Removes the row at the specified index from this CSV.
      */
+    @SuppressWarnings("unused")
     public void remove(int i) {
         rows.remove(i);
     }
@@ -101,7 +105,7 @@ public class CSV {
      * For example, if a CSV has an "id" header with integer-valued entries, specifying "id" as the argument to this
      * method will sort the CSV by id in ascending order.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unused"})
     public void sort(String columnName) {
         // If the specified column isn't in this CSV, throw an exception
         if (!containsColumn(columnName)) {
@@ -114,6 +118,7 @@ public class CSV {
     /**
      * Writes this CSV to the specified file.
      */
+    @SuppressWarnings("unused")
     public void write(File outFile) {
         try (PrintWriter writer = new PrintWriter(outFile)) {
             // Writes the header line

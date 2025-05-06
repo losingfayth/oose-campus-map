@@ -16,19 +16,32 @@ import SearchBar from "../../components/SearchBar";
 import { points } from "../../utils/Points";
 import ImageButton from "../../components/ImageButton"
 import PopupDialog from "../../components/PopupDialog"
+import { insideBuilding } from "../../utils/insideBuilding.js";
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
 import {
-	getBuildings,
-	getRooms,
-	findPath,
-	getPois,
-	getNearestBathroom
+  getBuildings,
+  getRooms,
+  findPath,
+  getPois,
+  getNearestBathroom,
+  getNumFloors,
+  getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates
 } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
+const fromRoomDefaultPlaceHolderText = "Room #";
+
 export default function Start() {
+	const [location, setLocation] = useState(null);
+	const [subscription, setTracker] = useState(null);
+	const [region, setRegion] = useState({
+		latitude: 41.007799728334525,
+		longitude: -76.44851515601727,
+		latitudeDelta: 0.00922,
+		longitudeDelta: 0.00421,
+	});
 	const [location, setLocation] = useState(null);
 	const [subscription, setTracker] = useState(null);
 	const [region, setRegion] = useState({
@@ -41,13 +54,23 @@ export default function Start() {
 	const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
 	const [isBuildingTyping, setIsBuildingTyping] = useState(false);
 	const [isRoomTyping, setIsRoomTyping] = useState(false);
+	const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
+	const [isBuildingTyping, setIsBuildingTyping] = useState(false);
+	const [isRoomTyping, setIsRoomTyping] = useState(false);
 
 	// State to store selected from and room values
 	const [selectedStartBuilding, setSelectedStartBuilding] = useState(null);
 	const [selectedStartRoom, setSelectedStartRoom] = useState(null);
 	const [selectedEndBuilding, setSelectedEndBuilding] = useState(null);
 	const [selectedEndRoom, setSelectedEndRoom] = useState(null);
+	// State to store selected from and room values
+	const [selectedStartBuilding, setSelectedStartBuilding] = useState(null);
+	const [selectedStartRoom, setSelectedStartRoom] = useState(null);
+	const [selectedEndBuilding, setSelectedEndBuilding] = useState(null);
+	const [selectedEndRoom, setSelectedEndRoom] = useState(null);
 
+	const [buildingSearchOptions, setBuildingSearchOptions] = useState([]);
+	const [pointsOfInterest, setPointsOfInterest] = useState([]);
 	const [buildingSearchOptions, setBuildingSearchOptions] = useState([]);
 	const [pointsOfInterest, setPointsOfInterest] = useState([]);
 
@@ -59,10 +82,74 @@ export default function Start() {
 	const [accessiblePathMode, setAccessiblePathMode] = useState(false);
 	const [bathroomPopupVisible, setBathroomPopupVisible] = useState(false);
 
-	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
-		if (!building) return;
+	const [currentLocationArea, setCurrentLocationArea] = useState(null);
+	const [currentLocationChosen, setCurrentLocationChosen] = useState(false);
+	const [fromPlaceHolderText, setFromPlaceHolderText] = useState(fromRoomDefaultPlaceHolderText);
 
-		//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
+	const handleBuildingOptionSelect = useCallback(async (building, isStart) => {
+		if (!building) {
+			console.log("Not building");
+			return;
+		}
+		console.log("!!!building: " + building);
+		if (building == "Current Location") {
+			console.log("Current Location");
+			console.log(location);
+
+			var GCS = {
+				latitude: location.latitude,
+				longitude: location.longitude,
+			}
+
+			// var testGCS = {
+			// 	latitude: 41.0078998985986,
+			// 	longitude: -76.44737043862342,
+			// }
+
+			let area = insideBuilding(GCS);
+			console.log("Area: ", area);
+
+			setCurrentLocationArea(area);
+			setCurrentLocationChosen(true);
+			setSelectedStartBuilding(area);
+			setFromPlaceHolderText("Select Floor")
+
+			getNumFloors(area).then((floorInformation) => {
+				console.log("Num Floors: ", floorInformation);
+				// setSelectedStartBuilding(area);
+				var floors = [];
+				let floor = "Floor ";
+				for (let i = floorInformation.lowestFloor; i < floorInformation.lowestFloor + floorInformation.numFloors; i++) {
+					if (i == -1) {
+						floors.push(floor + "Basement");
+					} else if (i == 0) {
+						floors.push(floor + "Ground");
+					}
+					else {
+						floors.push(floor + i);
+					}
+				}
+				var floorType = (floor) => {
+					return {
+						name: floor
+					}
+				}
+
+				let floorObjects = [];
+				floors.forEach((floor) => {
+					floorObjects.push(floorType(floor));
+				})
+				setFilteredStartRoomNumbers(floorObjects);
+
+
+			})
+
+
+		}
+
+		else {
+			//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
+			setFromPlaceHolderText(fromRoomDefaultPlaceHolderText);
 
 		let poi = pointsOfInterest.find((p) => "\u2605 " + p.name == building);
 
@@ -314,7 +401,7 @@ export default function Start() {
 			{/* "From" Building Search Bar */}
 			<SearchBar
 				searchFilterData={buildingSearchOptions} // options for buildings
-				defaultFilterData={["🏫 Special Building 1", "🏫 Special Building 2"]} // add default "from" options here
+				defaultFilterData={["Current Location", "🏫 Special Building 2"]} // add default "from" options here
 				customStyles={{ left: "5%", width: "60%", zIndex: 2 }}
 				placeholderText="From"
 				onTypingChange={setIsBuildingTyping} // updates typing state if needed
@@ -332,21 +419,54 @@ export default function Start() {
 				showIcon={false}
 				searchFilterData={filteredRoomNumbers.map((r) => r.name)} // show only room names in dropdown
 				searchFilterStyles={{ width: "100%" }}
-				placeholderText="Room #"
+				placeholderText={fromPlaceHolderText}
 				onTypingChange={setIsRoomTyping}
 				onSelect={(selectedName) => {
-					// Find the full room object matching the selected name
-					const matched = filteredRoomNumbers.find(
-						(room) => room.name === selectedName
-					);
-					if (matched) {
-						setSelectedStartRoom(matched.name); // save room name
-						setSelectedStartRoomId(matched.id); // save room id
-						console.log("Selected room:", matched.name, "| ID:", matched.id);
+					if (currentLocationChosen) {
+						let b = currentLocationArea;
+						let floorLabel = selectedName[selectedName.length - 1];
+						let floor;
+						if (floorLabel == 'b') {
+							floor = -1;
+						} else if (floorLabel == 'g') {
+							floor = 0;
+						} else {
+							floor = floorLabel;
+						}
+
+						getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(
+							{
+								"building": b,
+								"floor": floor,
+							},
+							{
+								"latitude": location.latitude,
+								"longitude": location.longitude,
+							}).then(id => {
+								setSelectedStartRoomId(id);
+							})
+					} else {
+						// Find the full room object matching the selected name
+						const matched = filteredRoomNumbers.find(
+							(room) => room.name === selectedName
+						);
+						if (matched) {
+							setSelectedStartRoom(matched.name); // save room name
+							setSelectedStartRoomId(matched.id); // save room id
+							console.log("Selected room:", matched.name, "| ID:", matched.id);
+						}
 					}
+
 				}}
 			/>
 
+			{/* "To" Building Search Bar */}
+			<SearchBar
+				searchFilterData={buildingSearchOptions} // same list of buildings
+				customStyles={{ top: "16%", left: "5%", width: "60%" }}
+				placeholderText="To"
+				onSelect={(building) => handleBuildingOptionSelect(building, false)}
+			/>
 			{/* "To" Building Search Bar */}
 			<SearchBar
 				searchFilterData={buildingSearchOptions} // same list of buildings
@@ -418,7 +538,7 @@ export default function Start() {
 			}/>
 
 			<ImageButton
-				selected={ accessiblePathMode }
+				selected={accessiblePathMode}
 				onPress={() => setAccessiblePathMode(!accessiblePathMode)}
 				imagePath={require("../../assets/handicap_accessible_icon.jpg")}
 				customStyles={styles.accessibleButton}
