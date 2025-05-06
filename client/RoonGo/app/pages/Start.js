@@ -42,18 +42,7 @@ export default function Start() {
 		latitudeDelta: 0.00922,
 		longitudeDelta: 0.00421,
 	});
-	const [location, setLocation] = useState(null);
-	const [subscription, setTracker] = useState(null);
-	const [region, setRegion] = useState({
-		latitude: 41.007799728334525,
-		longitude: -76.44851515601727,
-		latitudeDelta: 0.00922,
-		longitudeDelta: 0.00421,
-	});
 
-	const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
-	const [isBuildingTyping, setIsBuildingTyping] = useState(false);
-	const [isRoomTyping, setIsRoomTyping] = useState(false);
 	const [isRegionSet, setIsRegionSet] = useState(false); // New state to track if the region has been set
 	const [isBuildingTyping, setIsBuildingTyping] = useState(false);
 	const [isRoomTyping, setIsRoomTyping] = useState(false);
@@ -63,14 +52,7 @@ export default function Start() {
 	const [selectedStartRoom, setSelectedStartRoom] = useState(null);
 	const [selectedEndBuilding, setSelectedEndBuilding] = useState(null);
 	const [selectedEndRoom, setSelectedEndRoom] = useState(null);
-	// State to store selected from and room values
-	const [selectedStartBuilding, setSelectedStartBuilding] = useState(null);
-	const [selectedStartRoom, setSelectedStartRoom] = useState(null);
-	const [selectedEndBuilding, setSelectedEndBuilding] = useState(null);
-	const [selectedEndRoom, setSelectedEndRoom] = useState(null);
 
-	const [buildingSearchOptions, setBuildingSearchOptions] = useState([]);
-	const [pointsOfInterest, setPointsOfInterest] = useState([]);
 	const [buildingSearchOptions, setBuildingSearchOptions] = useState([]);
 	const [pointsOfInterest, setPointsOfInterest] = useState([]);
 
@@ -91,7 +73,9 @@ export default function Start() {
 			console.log("Not building");
 			return;
 		}
+
 		console.log("!!!building: " + building);
+
 		if (building == "Current Location") {
 			console.log("Current Location");
 			console.log(location);
@@ -140,29 +124,25 @@ export default function Start() {
 					floorObjects.push(floorType(floor));
 				})
 				setFilteredStartRoomNumbers(floorObjects);
-
-
 			})
-
-
 		}
 
 		else {
 			//let poiId = pointsOfInterest.findIndex((p) => ("\u2605 " + p.name) == building)
 			setFromPlaceHolderText(fromRoomDefaultPlaceHolderText);
 
-		let poi = pointsOfInterest.find((p) => "\u2605 " + p.name == building);
+			let poi = pointsOfInterest.find((p) => "\u2605 " + p.name == building);
 
-		if (poi == null) {
-			if (isStart) {
-				setSelectedStartBuilding(building); // save destination building
-				setSelectedStartRoom(null);
-				setSelectedStartRoomId(null);
-			} else {
-				setSelectedEndBuilding(building);
-				setSelectedEndRoom(null);
-				setSelectedEndRoomId(null);
-			}
+			if (poi == null) {
+				if (isStart) {
+					setSelectedStartBuilding(building); // save destination building
+					setSelectedStartRoom(null);
+					setSelectedStartRoomId(null);
+				} else {
+					setSelectedEndBuilding(building);
+					setSelectedEndRoom(null);
+					setSelectedEndRoomId(null);
+				}
 
 			getRooms(building)
 				.then((rooms) => {
@@ -178,18 +158,19 @@ export default function Start() {
 				.catch((error) => {
 					console.error("Error fetching rooms for building:", building, error);
 				});
-		} else {
-			if (isStart) {
-				setSelectedStartBuilding(poi.bldg);
-				setSelectedStartRoom(poi.room);
-				setSelectedStartRoomId(poi.locId);
 			} else {
-				setSelectedEndBuilding(poi.bldg);
-				setSelectedEndRoom(poi.room);
-				setSelectedEndRoomId(poi.locId);
-			}
+				if (isStart) {
+					setSelectedStartBuilding(poi.bldg);
+					setSelectedStartRoom(poi.room);
+					setSelectedStartRoomId(poi.locId);
+				} else {
+					setSelectedEndBuilding(poi.bldg);
+					setSelectedEndRoom(poi.room);
+					setSelectedEndRoomId(poi.locId);
+				}
+				
 		}
-	});
+	}});
 
 	const displayPath = useCallback(async (pathData) => {
 	var processedPath;

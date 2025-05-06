@@ -1,6 +1,6 @@
 // functions to make calls to server
 
-const PORT = "5159";
+const PORT = "5163";
 
 export async function getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(buildingInfo, userLocation) {
 	console.log("Running getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates()");
@@ -71,6 +71,7 @@ building, display name, isValidDestination
 */
 export async function getRooms(building) {
 	console.log("Running getRooms()");
+	console.log(building);
 	try {
 		// use fetch to make an http request to server at GetLocation endpoint
 		// use fetch to make an http request to server at FindPath endpoint
@@ -86,6 +87,7 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
+		console.log(data);
 		return data;
 
 		// throw error if fetch is unsuccessful
