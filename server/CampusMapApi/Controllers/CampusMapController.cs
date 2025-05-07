@@ -203,7 +203,9 @@ public class CampusMapController(
 			}
 
 
-
+			// check if a path was found and return it if it was
+			if (path.Count > 0) return Ok(new { message = "Path found!", path });
+			else return Ok(new { message = "No Path Found!" });
 
 
 
@@ -256,9 +258,9 @@ public class CampusMapController(
 		// 		});
 		// 	}
 
-		// 	// check if a path was found and return it if it was
-		// 	if (path.Count > 0) return Ok(new { message = "Path found!", path });
-		// 	else return Ok(new { message = "No Path Found!" });
+		// // check if a path was found and return it if it was
+		// if (path.Count > 0) return Ok(new { message = "Path found!", path });
+		// else return Ok(new { message = "No Path Found!" });
 
 		// }
 		catch (Exception e)
