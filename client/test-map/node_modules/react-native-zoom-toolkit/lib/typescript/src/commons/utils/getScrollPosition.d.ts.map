@@ -1,0 +1,1 @@
+{"version":3,"file":"getScrollPosition.d.ts","sourceRoot":"","sources":["../../../../../src/commons/utils/getScrollPosition.ts"],"names":[],"mappings":"AAAA,KAAK,aAAa,GAAG;IACnB,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,MAAM,CAAC;IACjB,GAAG,EAAE,MAAM,CAAC;CACb,CAAC;AAEF,eAAO,MAAM,iBAAiB,YAAa,aAAa,KAAG,MAK1D,CAAC"}

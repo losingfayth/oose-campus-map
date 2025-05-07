@@ -1,0 +1,1 @@
+{"version":3,"names":["React","GalleryContext","createContext"],"sourceRoot":"../../../../src","sources":["components/gallery/context.ts"],"mappings":"AAAA,OAAOA,KAAK,MAAM,OAAO;AAkBzB,OAAO,MAAMC,cAAc,gBAAGD,KAAK,CAACE,aAAa,CAC/C,CAAC,CACH,CAAC","ignoreList":[]}

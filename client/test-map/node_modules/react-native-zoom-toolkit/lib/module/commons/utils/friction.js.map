@@ -1,0 +1,1 @@
+{"version":3,"names":["friction","overScrollFraction","Math","pow"],"sourceRoot":"../../../../src","sources":["commons/utils/friction.ts"],"mappings":"AAAA,OAAO,MAAMA,QAAQ,GAAIC,kBAA0B,IAAK;EACtD,SAAS;;EACT,OAAO,CAAC,GAAGC,IAAI,CAACC,GAAG,CAAC,CAAC,GAAGF,kBAAkB,EAAE,CAAC,CAAC;AAChD,CAAC","ignoreList":[]}

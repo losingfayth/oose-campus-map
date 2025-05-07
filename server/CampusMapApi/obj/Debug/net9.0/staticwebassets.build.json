@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "GXrd1xR2jrj129knoXOrgqv9RL9fWMC92SyG0W6uMGg=",
+  "Source": "CampusMapApi",
+  "BasePath": "_content/CampusMapApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
