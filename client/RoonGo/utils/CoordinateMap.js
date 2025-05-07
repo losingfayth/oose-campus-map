@@ -48,8 +48,8 @@
 class CoordinateMap {
 
     constructor(domainArray, rangeArray) {
-        this.domain = this.CoordinateSystem(Point(domainArray[0], domainArray[1]), Point(domainArray[2], domainArray[3]), Point(domainArray[4], domainArray[5]));
-        this.range = this.CoordinateSystem(Point(rangeArray[0], rangeArray[1]), Point(rangeArray[2], rangeArray[3]), Point(rangeArray[4], rangeArray[5]));
+        this.domain = CoordinateSystem(Point(domainArray[0], domainArray[1]), Point(domainArray[2], domainArray[3]), Point(domainArray[4], domainArray[5]));
+        this.range = CoordinateSystem(Point(rangeArray[0], rangeArray[1]), Point(rangeArray[2], rangeArray[3]), Point(rangeArray[4], rangeArray[5]));
     }
 
     static fromReference(reference) {

@@ -30,6 +30,9 @@ const buildingToReferencePoints = {
   "CEH": ReferencePoints([41.008130, -76.446546, 41.008381, -76.445977, 41.007551, -76.446109]),
   "AL": ReferencePoints([41.009192, -76.445625, 41.009515, -76.444912, 41.008828, -76.445337]),
   "A&A": ReferencePoints([41.007940, -76.447597, 41.008159, -76.447243, 41.007620, -76.447317]),
+
+  "SSC0": ReferencePoints([41.007807, -76.448380, 41.008093, -76.447748, 41.007448, -76.448098]),
+
   "OUT": ReferencePoints([1, -1, 1, -1, 1, -1]),
 }
 
@@ -160,7 +163,7 @@ const blueprintImageData = {
   },
   "SSC-0": {
     image: require("../assets/build_images/Student Services/GR FL.png"),
-    reference: buildingToReferencePoints["SSC"],
+    reference: buildingToReferencePoints["SSC0"],
   },
   "SUT-1": {
     image: require("../assets/build_images/Sutliff Hall/SH-1ST FL.png"),
@@ -193,59 +196,7 @@ function getBuildingName(abbreviation) {
   }
   return null;
 }
-// function getBuildingName(abbreviation) {
 
-
-
-// const blueprintNames = [
-//   "OUT",
-//   "BFB-G",
-//   "BFB-1",
-//   "BFB-2",
-//   "NAVY-G",
-//   "NAVY-1",
-//   "NAVY-2",
-//   "NAVY-A",
-// ];
-// var ImageReferences = [];
-
-// const getImageReferences = function () {
-//   if (ImageReferences == null || ImageReferences.length == 0) {
-//     ImageReferences = loadImageReferences();
-//   }
-//   return ImageReferences;
-// };
-
-// const getImageReference = function (building) {
-//   ImageReferences = getImageReferences();
-
-//   for (let i = 0; i < ImageReferences.length; i++) {
-//     if (ImageReferences[i].building == building) {
-//       return ImageReferences[i];
-//     }
-//   }
-//   console.log("Unable to find reference points for building " + building);
-// };
-
-// function loadImageReferences() {
-//   let arr = [];
-//   for (let i = 0; i < blueprintNames.length; i++) {
-//     arr.push(
-//       ImageReference(blueprintNames[i], ReferencePoints(buildingCorners[i]))
-//     );
-//   }
-
-//   return arr;
-// }
-
-
-
-// function ImageReference(building, referencePoints) {
-//   return {
-//     building: building,
-//     referencePoints: referencePoints,
-//   };
-// }
 
 function GmcCoordinate(latitude, longitude) {
   return {

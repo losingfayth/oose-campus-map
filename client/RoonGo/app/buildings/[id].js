@@ -64,18 +64,7 @@ export default function Building() {
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
 
-  var buildings;
-  async function getBuildingTest() {
-    buildings = await getBuildings();
 
-    var buildingNames = buildings.map((area) => area.name);
-    console.log("NAMES: " + buildingNames);
-    console.log("length: " + buildingNames.length);
-    // var rooms = await getRooms(buildings[0]);
-    // let n = new LocationNode(rooms[0]);
-    // console.log("ID building: " + n.getID());
-  }
-  // getBuildingTest();
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
