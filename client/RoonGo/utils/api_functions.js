@@ -71,6 +71,7 @@ building, display name, isValidDestination
 */
 export async function getRooms(building) {
 	console.log("Running getRooms()");
+	console.log(building);
 	try {
 		// use fetch to make an http request to server at GetLocation endpoint
 		// use fetch to make an http request to server at FindPath endpoint
@@ -86,6 +87,7 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
+		console.log(data);
 		return data;
 
 		// throw error if fetch is unsuccessful
@@ -142,21 +144,21 @@ export async function getPois() {
 
 }
 
-export async function getNumFloors(building) {
-	var request = {
-		"building": building,
-	};
-
+export async function getNearestBathroom(currLoc, gender) {
+	
 	try {
-		// use fetch to make an http request to server at FindPath endpoint
+		var request = {
+			"start": currLoc,
+			"gender": gender
+		}
+
 		const response = await fetch(
-			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/GetFloors",
+			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/GetNearestBathroom",
 			{
 				method: "POST", // http POST request
 				headers: { "Content-Type": "application/json" }, // sending data as json
-				body: JSON.stringify(request), // convert js to json before sending
+				body: JSON.stringify({ request }), // convert js to json before sending
 			}
-
 		);
 
 		const data = await response.json();
@@ -165,4 +167,5 @@ export async function getNumFloors(building) {
 
 		// throw error if fetch is unsuccessful
 	} catch (error) { console.error("Error running get: ", error); }
+
 }

@@ -381,7 +381,129 @@ public class CampusMapController(
 		return Ok(floors);
 	}
 
+	[HttpPost("GetNearestBathroom")]
+	public async Task<IActionResult> GetNearestBathroom([FromBody] BathroomRequest request)
+	{
+		char gender = Char.ToUpper(request.Gender);
 
+		var aGenderQuery = @"
+			MATCH (aGender:BathroomType {name: 'All'})
+		";
+
+		var fGenderQuery = @"
+			MATCH (fGender:BathroomType {name: 'Women'})
+		";
+		var fTypeQuery = @"
+			OR (bathrooms)-[:IS_TYPE]->(fGender)
+		";
+
+		var mGenderQuery = @"
+			MATCH (mGender:BathroomType {name: 'Men'})
+		";
+		var mTypeQuery = @"
+			OR (bathrooms)-[:IS_TYPE]->(mGender)
+		";
+
+		var query = @"
+			MATCH (cat:LocationCategory {name: 'Bathroom'})"
+			+ aGenderQuery
+			+ (gender == 'F' || gender == 'N' ? fGenderQuery : @"")
+			+ (gender == 'M' || gender == 'N' ? mGenderQuery : @"")
+			+ @"MATCH (bathrooms:Location)
+				WHERE (bathrooms)-[:IN_CATEGORY]->(cat)
+				AND ((bathrooms)-[:IS_TYPE]->(aGender)"
+			+ (gender == 'F' || gender == 'N' ? fTypeQuery : @"")
+			+ (gender == 'M' || gender == 'N' ? mTypeQuery : @"")
+			+ @")
+			MATCH (source:Location {id: $startId})
+			CALL gds.shortestPath.dijkstra.stream(
+				'campusGraph',
+				{
+					sourceNode: source,
+					targetNode: bathrooms,
+					relationshipWeightProperty: 'distance'
+				}
+			)
+			YIELD totalCost, nodeIds
+			WITH totalCost, nodeIds
+			ORDER BY totalCost ASC
+			LIMIT 1
+
+			UNWIND nodeIds as nodeId
+			MATCH (n) WHERE id(n) = nodeId
+			OPTIONAL MATCH (n)-[:IS_IN]->(a:Area)
+			RETURN
+				n.latitude AS latitude,
+				n.longitude AS longitude,
+				n.floor AS floor,
+				n.id AS id,
+				a.name AS building,
+				n.name AS locationName
+		";
+
+		try {
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
+
+			var path = new List<List<PathNodeDto>>();
+
+			bool firstPass = true;
+			string currArea = "";
+			float currFloor = 0;
+			int i = -1;
+
+			foreach (var record in results)
+			{
+				var latitude = record["latitude"].ToString() ?? "";
+				var longitude = record["longitude"].ToString() ?? "";
+				var floor = record["floor"].ToString() ?? "";
+				var id = record["id"].ToString() ?? "";
+				var area = record["building"].ToString() ?? "";
+				var name = record["locationName"].ToString() ?? null;
+
+				var floorFloat = float.Parse(floor);
+
+								if (firstPass 
+					|| currArea != area 
+					|| (currFloor != floorFloat 
+						&& Math.Abs(currFloor - floorFloat) > .5))
+				{
+					path.Add([]);
+					i++;
+					currArea = area;
+					currFloor = floorFloat;
+					firstPass = false;
+				}
+
+				path[i].Add(new PathNodeDto
+				{
+					Latitude = float.Parse(latitude),
+					Longitude = float.Parse(longitude),
+					Floor = float.Parse(floor),
+					Building = area,
+					Id = id
+				});
+			}
+
+			if (path.Count > 0) return Ok(new { message = "Path found!", path });
+			else return Ok(new { message = "No Path Found!" });
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"Error: { e.Message }");
+			return StatusCode(500, new { error = e.Message });
+		}
+	}
+
+	/*
+
+	[HttpPost("PopulateDb")]
+	public async Task<IActionResult> PopulateDb()
+	{
+		await DbPopulator.RepopulatePois(_neo4j);
+
+		return Ok();
+	}
+*/	
 
 	// DTO for request body
 	public class BuildingRequest
@@ -394,6 +516,12 @@ public class CampusMapController(
 		public int Start { get; set; }
 		public int End { get; set; }
 		public bool Accessible { get; set; }
+	}
+
+	public class BathroomRequest
+	{
+		public int Start { get; set; }
+		public char Gender { get; set; } = 'N';
 	}
 
 	public class LocationRequest
