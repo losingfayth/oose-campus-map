@@ -225,6 +225,7 @@ export default function Start() {
 			// Get initial location
 			let currentLocation = await Location.getCurrentPositionAsync({}).then((location) => {
 				console.log("initial Location: " + location.coords);
+				
 				setLocation(currentLocation.coords);
 			})
 
