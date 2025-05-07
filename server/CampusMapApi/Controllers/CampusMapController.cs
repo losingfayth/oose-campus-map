@@ -193,7 +193,7 @@ public class CampusMapController(
 					}
 					peek = results[i];
 					double peekFloor = Math.Floor(double.Parse(peek["floor"].ToString() ?? ""));
-					string peekArea = record["area"].ToString() ?? "";
+					string peekArea = record["building"].ToString() ?? "";
 					if (peekFloor != subpathFloor || !peekArea.Equals(subpathArea))
 					{
 						path.Add(subPath);
