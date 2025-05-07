@@ -50,7 +50,7 @@ export function insideBuilding(GCS) {
     }
 
     console.log("Outside");
-    return "Outside";
+    return "OUT";
 
 
 }

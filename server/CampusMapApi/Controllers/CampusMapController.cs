@@ -283,7 +283,6 @@ public class CampusMapController(
 		var query = @"
 			MATCH (a:Area {name: $building})<-[:IS_IN]-(l:Location)
 			WHERE l.isValidDestination = 1
-			WHERE l.isValidDestination = 1
 			RETURN a.name AS building, l.name AS name, l.id AS id
 		";
 
@@ -441,8 +440,9 @@ public class CampusMapController(
 				n.name AS locationName
 		";
 
-		try {
-			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId =  request.Start});
+		try
+		{
+			var results = await _neo4j.ExecuteReadQueryAsync(query, new { startId = request.Start });
 
 			var path = new List<List<PathNodeDto>>();
 
@@ -462,10 +462,10 @@ public class CampusMapController(
 
 				var floorFloat = float.Parse(floor);
 
-								if (firstPass 
-					|| currArea != area 
-					|| (currFloor != floorFloat 
-						&& Math.Abs(currFloor - floorFloat) > .5))
+				if (firstPass
+	|| currArea != area
+	|| (currFloor != floorFloat
+		&& Math.Abs(currFloor - floorFloat) > .5))
 				{
 					path.Add([]);
 					i++;
@@ -489,7 +489,7 @@ public class CampusMapController(
 		}
 		catch (Exception e)
 		{
-			Console.WriteLine($"Error: { e.Message }");
+			Console.WriteLine($"Error: {e.Message}");
 			return StatusCode(500, new { error = e.Message });
 		}
 	}
@@ -503,7 +503,7 @@ public class CampusMapController(
 
 		return Ok();
 	}
-*/	
+*/
 
 	// DTO for request body
 	public class BuildingRequest

@@ -31,6 +31,9 @@ const buildingToReferencePoints = {
   "AL": ReferencePoints([41.009192, -76.445625, 41.009515, -76.444912, 41.008828, -76.445337]),
   "A&A": ReferencePoints([41.007940, -76.447597, 41.008159, -76.447243, 41.007620, -76.447317]),
   "OUT": ReferencePoints([1, -1, 1, -1, 1, -1]),
+
+  "HSCB": ReferencePoints([41.007008, -76.447876, 41.008041, -76.447937, 41.006436, -76.447439]),
+  "SSC0": ReferencePoints([41.007391, -76.448126, 41.007807, -76.448440, 41.007685, -76.447432]),
 }
 
 const blueprintImageData = {
@@ -136,7 +139,7 @@ const blueprintImageData = {
   },
   "HSC--1": {
     image: require("../assets/build_images/Hartline Science Center/HSC-B.png"),
-    reference: buildingToReferencePoints["HSC"],
+    reference: buildingToReferencePoints["HSCB"],
   },
   "HSC-1": {
     image: require("../assets/build_images/Hartline Science Center/HSC-1.png"),
@@ -160,7 +163,7 @@ const blueprintImageData = {
   },
   "SSC-0": {
     image: require("../assets/build_images/Student Services/GR FL.png"),
-    reference: buildingToReferencePoints["SSC"],
+    reference: buildingToReferencePoints["SSC0"],
   },
   "SUT-1": {
     image: require("../assets/build_images/Sutliff Hall/SH-1ST FL.png"),

@@ -87,7 +87,7 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
-		console.log(data);
+		console.log("data returned: " + data);
 		return data;
 
 		// throw error if fetch is unsuccessful
@@ -145,7 +145,7 @@ export async function getPois() {
 }
 
 export async function getNearestBathroom(currLoc, gender) {
-	
+
 	try {
 		var request = {
 			"start": currLoc,

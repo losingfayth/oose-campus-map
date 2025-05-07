@@ -9,10 +9,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import mapping.CoordinateSystem;
+import mapping.Map;
 import mapping.Point;
-import mapping.*;
 
-import java.io.*;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,7 +72,7 @@ import java.util.Scanner;
     Press and hold CTRL to pan. When node is toggled on, click on a previously placed node to delete it.    When edge is toggled on, press and hold "r" to choose a root; press and hold "d" while clicking a node    to delete all edges attached to that node.
  */
 
-public class InteriorSelectorDoubleMapDisplay extends Application
+public class InteriorSelectorDoubleMapDisplay2 extends Application
 {
 
 
@@ -92,8 +93,20 @@ public class InteriorSelectorDoubleMapDisplay extends Application
     public void start(Stage stage) throws Exception
     {
 
+        /*
+/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/RoonGo/assets/build_images/Hartline Science Center/HSC-B.png
+L
+41.007221720928500, -76.4478231795478
+41.00679247336780,	-76.44751576193510
+41.00734724476120,	-76.44753523646000
+         */
+
 /*
-    '/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/RoonGo/assets/build_images/Student Services/GR FL.png'
+    /Users/dakotahkurtz/Documents/GitHub/oose-campus-map/client/RoonGo/assets/build_images/Student Services/GR FL.png
+    41.00784033731810, -76.44816750707600
+    41.007995915820600,	-76.44782945943290
+    41.007543992343700,	-76.44793275821900
+
 */
 
 
