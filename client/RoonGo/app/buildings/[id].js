@@ -59,23 +59,9 @@ export default function Building() {
   };
   const uri = getImageUri(locs[currIndex]);
 
-  // console.log(normalizedPoints);
 
   const { width, height } = useWindowDimensions();
   const { isFetching, resolution } = useImageResolution({ uri });
-
-  var buildings;
-  async function getBuildingTest() {
-    buildings = await getBuildings();
-
-    var buildingNames = buildings.map((area) => area.name);
-    console.log("NAMES: " + buildingNames);
-    console.log("length: " + buildingNames.length);
-    // var rooms = await getRooms(buildings[0]);
-    // let n = new LocationNode(rooms[0]);
-    // console.log("ID building: " + n.getID());
-  }
-  // getBuildingTest();
 
   useEffect(() => {
     if (locs[currIndex] === "OUT") {
@@ -94,10 +80,13 @@ export default function Building() {
   // check whether the resolution of the image is still
   // being fetched or if it's undefined
   if (isFetching || resolution === undefined) {
-    console.log("Returning null");
+    console.log("Returning null for image resolution");
     return null;
   }
 
+  var printReferencePoints = (p) => {
+    console.log("ReferencePoints: topLeft ", p.topLeft.latitude + ", " + p.topLeft.longitude);
+  }
   /**
    * Once the image resolution is fetched and available, this line
    * calculates the appropriate size for the image based on the device's
@@ -115,6 +104,8 @@ export default function Building() {
   // must move as one big block ---------------------------------------------------------------
 
   let imageReferencePoints = blueprintImageData[locs[currIndex]].reference;
+  printReferencePoints(imageReferencePoints);
+
   let m = new CoordinateMap(CoordinateMap.fromReference(imageReferencePoints), [
     0,
     0,

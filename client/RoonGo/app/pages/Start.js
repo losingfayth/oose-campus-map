@@ -21,13 +21,13 @@ import { insideBuilding } from "../../utils/insideBuilding.js";
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
 import {
-  getBuildings,
-  getRooms,
-  findPath,
-  getPois,
-  getNearestBathroom,
-  getNumFloors,
-  getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates
+	getBuildings,
+	getRooms,
+	findPath,
+	getPois,
+	getNearestBathroom,
+	getNumFloors,
+	getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates
 } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
@@ -144,20 +144,20 @@ export default function Start() {
 					setSelectedEndRoomId(null);
 				}
 
-			getRooms(building)
-				.then((rooms) => {
-					if (isStart)
-						setFilteredStartRoomNumbers(
-							rooms.filter((room) => room.name.toLowerCase())
-						);
-					else
-						setFilteredEndRoomNumbers(
-							rooms.filter((room) => room.name.toLowerCase())
-						);
-				})
-				.catch((error) => {
-					console.error("Error fetching rooms for building:", building, error);
-				});
+				getRooms(building)
+					.then((rooms) => {
+						if (isStart)
+							setFilteredStartRoomNumbers(
+								rooms.filter((room) => room.name.toLowerCase())
+							);
+						else
+							setFilteredEndRoomNumbers(
+								rooms.filter((room) => room.name.toLowerCase())
+							);
+					})
+					.catch((error) => {
+						console.error("Error fetching rooms for building:", building, error);
+					});
 			} else {
 				if (isStart) {
 					setSelectedStartBuilding(poi.bldg);
@@ -168,47 +168,55 @@ export default function Start() {
 					setSelectedEndRoom(poi.room);
 					setSelectedEndRoomId(poi.locId);
 				}
-				
+
+			}
 		}
-	}});
+	});
 
 	const displayPath = useCallback(async (pathData) => {
-	var processedPath;
+		var processedPath;
 
-	console.log(pathData);
+		//console.log(pathData);
 
-	if (pathData.message == "No Path Found!")
-		throw new Error(pathData.message);
+		if (pathData.message == "No Path Found!")
+			throw new Error(pathData.message);
 
-	processedPath = new ProcessedPath(pathData.path);
+		processedPath = new ProcessedPath(pathData.path);
+		console.log("ProcessedPath: " + processedPath.subPaths.length)
+		//console.log(processedPath.getStringRepresentation());
 
-	console.log(processedPath.getStringRepresentation());
+		var blueprintNames = processedPath.getBlueprintNames();
+		var points = processedPath.getPoints();
 
-	var blueprintNames = processedPath.getBlueprintNames();
-	var points = processedPath.getPoints();
+		// for (let i = 0; i < processedPath.subPaths.length; i++) {
 
-	router.push({
-		pathname: `/buildings/${blueprintNames[0]}`,
-		params: {
-		categories: JSON.stringify(blueprintNames),
-		coords: JSON.stringify(points),
-		currLoc: 0,
-		maxLocs: blueprintNames.length - 1,
-		},
-	});
+		// 	for (let j = 0; j < processedPath.subPaths[i].locations.length; j++) {
+		// 		console.log("path: " + processedPath.subPaths[i].locations[j].latitude + ", " + processedPath.subPaths[i].locations[j].longitude)
+		// 	}
+		// }
+
+		router.push({
+			pathname: `/buildings/${blueprintNames[0]}`,
+			params: {
+				categories: JSON.stringify(blueprintNames),
+				coords: JSON.stringify(points),
+				currLoc: 0,
+				maxLocs: blueprintNames.length - 1,
+			},
+		});
 	});
 
 	const findBathroom = useCallback(async (currLoc, gender) => {
-	try {
-		console.log("Current Location: ", currLoc);
+		try {
+			console.log("Current Location: ", currLoc);
 
-		setBathroomPopupVisible(false);
-		var pathData = await getNearestBathroom(currLoc, gender);
+			setBathroomPopupVisible(false);
+			var pathData = await getNearestBathroom(currLoc, gender);
 
-		console.log(pathData);
+			console.log(pathData);
 
-		await displayPath(pathData);
-	} catch (e) { console.error("Error fetching path:", e); }
+			await displayPath(pathData);
+		} catch (e) { console.error("Error fetching path:", e); }
 	});
 
 	// set up a useEffect to request permissions, fetch user location, and track location
@@ -325,7 +333,7 @@ export default function Start() {
 					</Marker>
 				)}
 			</MapView>
-			
+
 			<View style={styles.searchButtonContainer}>
 				<ImageButton
 					selected={selectedStartRoomId != null}
@@ -376,7 +384,7 @@ export default function Start() {
 					<Text style={styles.buttonText}>Search</Text>
 				</Pressable>
 			</View>
-			
+
 
 			{/* Search bar with first being for building and second for room number */}
 			{/* "From" Building Search Bar */}
@@ -489,34 +497,34 @@ export default function Start() {
 					<View style={styles.popupContainer}>
 						<View style={styles.popupRow}>
 							<ImageButton
-								selected={ true }
-								onPress={() => {findBathroom(selectedStartRoomId, "F")}}
+								selected={true}
+								onPress={() => { findBathroom(selectedStartRoomId, "F") }}
 								imagePath={require("../../assets/woman_gender_symbol_white.png")}
 								customStyles={styles.bathroomButton}
 							/>
 							<ImageButton
-								selected={ true }
-								onPress={() => {findBathroom(selectedStartRoomId, "A")}}
+								selected={true}
+								onPress={() => { findBathroom(selectedStartRoomId, "A") }}
 								imagePath={require("../../assets/third_gender_symbol_white.png")}
 								customStyles={styles.bathroomButton}
 							/>
 						</View>
 						<View style={styles.popupRow}>
 							<ImageButton
-								selected={ true }
-								onPress={() => {findBathroom(selectedStartRoomId, "N")}}
+								selected={true}
+								onPress={() => { findBathroom(selectedStartRoomId, "N") }}
 								imagePath={require("../../assets/all_gender_symbol_white.png")}
 								customStyles={styles.bathroomButton}
 							/>
 							<ImageButton
-								selected={ true }
-								onPress={() => {findBathroom(selectedStartRoomId, "M")}}
+								selected={true}
+								onPress={() => { findBathroom(selectedStartRoomId, "M") }}
 								imagePath={require("../../assets/man_gender_symbol_white.png")}
 								customStyles={styles.bathroomButton}
 							/>
 						</View>
 					</View>
-			}/>
+				} />
 
 			<ImageButton
 				selected={accessiblePathMode}
@@ -594,5 +602,6 @@ const styles = StyleSheet.create({
 		bottom: "5%",
 		right: "5%",
 		height: 70,
-		width: 70 }
+		width: 70
+	}
 });
