@@ -181,7 +181,7 @@ public class CampusMapController(
 						Latitude = float.Parse(record["latitude"].ToString() ?? ""),
 						Longitude = float.Parse(record["longitude"].ToString() ?? ""),
 						Floor = float.Parse(record["floor"].ToString() ?? ""),
-						Building = record["area"].ToString() ?? "",
+						Building = record["building"].ToString() ?? "",
 						Id = record["id"].ToString() ?? "",
 					});
 
