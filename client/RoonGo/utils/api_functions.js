@@ -1,6 +1,6 @@
 // functions to make calls to server
 
-const PORT = "5159";
+const PORT = "5162";
 
 export async function getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(buildingInfo, userLocation) {
 	console.log("Running getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates()");

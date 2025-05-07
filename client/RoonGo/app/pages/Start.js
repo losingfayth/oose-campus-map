@@ -196,18 +196,22 @@ export default function Start() {
 			}
 
 			// Get initial location
-			let currentLocation = await Location.getCurrentPositionAsync({});
-			setLocation(currentLocation.coords);
+			let currentLocation = await Location.getCurrentPositionAsync({}).then((location) => {
+				console.log("initial Location: " + location.coords);
+				setLocation(currentLocation.coords);
+			})
+
 
 			// Start watching position updates
 			const newTracker = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.High,
+
 					timeInterval: 10, // time in milliseconds
 					distanceInterval: 1, // update after this many meters moved
 				},
 				(location_update) => {
-					//console.log('Updated location:', location_update.coords);
+					console.log('Updated location:', location_update.coords);
 					setLocation(location_update.coords);
 				}
 			);
