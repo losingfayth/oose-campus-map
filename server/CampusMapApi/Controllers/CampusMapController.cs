@@ -159,62 +159,115 @@ public class CampusMapController(
 			//var result = await session.RunAsync(query, new { start, End });
 			var results = await _neo4j.ExecuteReadQueryAsync(query, new { start, end, graph = graphType });
 
-			var path = new List<List<PathNodeDto>>(); // list of lists for node data
-			bool firstPass = true; // flags if it is first pass-through records
-			string currArea = ""; // tracking variable to store current area nodes are in
-			float currFloor = 0; // tracking variable to store current floor nodes are in
-			int i = -1; // iterator var
+			var path = new List<List<PathNodeDto>>();
 
-			// iterate over the list of nodes, getting each lat and long value and adding
-			// it to the path List<>
-			foreach (var record in results)
+			int i = 0;
+
+			while (i < results.Count)
 			{
-				// initialize records from node
-				var latitude = record["latitude"].ToString() ?? "";
-				var longitude = record["longitude"].ToString() ?? "";
-				var floor = record["floor"].ToString() ?? "";
-				var id = record["id"].ToString() ?? "";
-				var area = record["building"].ToString() ?? "";
-				var name = record["locationName"].ToString() ?? null;
+				var startingRecord = results[i];
+				var subpathFloor = Math.Floor(double.Parse(startingRecord["floor"].ToString() ?? ""));
+				var subpathArea = startingRecord["building"].ToString() ?? "";
 
-				var floorFloat = float.Parse(floor);
-				// check if this is the first pass-through the records. if so, initialize
-				// what area and building we are starting in
+				List<PathNodeDto> subPath = [];
+				var peek = results[i];
+				var record = results[i];
 
-				// check if the area and floor of the current node matches those of the
-				// prvious one. if not, increment the index of path
-				if (firstPass
-					|| currArea != area
-					|| (currFloor != floorFloat
-						&& Math.Abs(currFloor - floorFloat) > .5))
+				do
 				{
-					path.Add([]);
+					record = results[i];
+					subPath.Add(new PathNodeDto
+					{
+						Latitude = float.Parse(record["latitude"].ToString() ?? ""),
+						Longitude = float.Parse(record["longitude"].ToString() ?? ""),
+						Floor = float.Parse(record["floor"].ToString() ?? ""),
+						Building = record["area"].ToString() ?? "",
+						Id = record["id"].ToString() ?? "",
+					});
+
 					i++;
-					currArea = area;
-					currFloor = floorFloat;
-					firstPass = false;
-				}
-
-				// add a new node at the correct index
-				path[i].Add(new PathNodeDto
-				{
-					Latitude = float.Parse(latitude),
-					Longitude = float.Parse(longitude),
-					Floor = float.Parse(floor),
-					Building = area,
-					Id = id
-				});
+					if (i >= results.Count)
+					{
+						path.Add(subPath);
+						break;
+					}
+					peek = results[i];
+					double peekFloor = Math.Floor(double.Parse(peek["floor"].ToString() ?? ""));
+					string peekArea = record["area"].ToString() ?? "";
+					if (peekFloor != subpathFloor || !peekArea.Equals(subpathArea))
+					{
+						path.Add(subPath);
+						break;
+					}
+				} while (true);
 			}
 
-			// check if a path was found and return it if it was
-			if (path.Count > 0) return Ok(new { message = "Path found!", path });
-			else return Ok(new { message = "No Path Found!" });
+
+
+
+
 
 		}
+
+		// 		var path = new List<List<PathNodeDto>>(); // list of lists for node data
+		// 	bool firstPass = true; // flags if it is first pass-through records
+		// 	string currArea = ""; // tracking variable to store current area nodes are in
+		// 	float currFloor = 0; // tracking variable to store current floor nodes are in
+		// 	int i = -1; // iterator var
+
+		// 	// iterate over the list of nodes, getting each lat and long value and adding
+		// 	// it to the path List<>
+		// 	foreach (var record in results)
+		// 	{
+		// 		// initialize records from node
+		// 		var latitude = record["latitude"].ToString() ?? "";
+		// 		var longitude = record["longitude"].ToString() ?? "";
+		// 		var floor = record["floor"].ToString() ?? "";
+		// 		var id = record["id"].ToString() ?? "";
+		// 		var area = record["building"].ToString() ?? "";
+		// 		var name = record["locationName"].ToString() ?? null;
+
+		// 		var floorFloat = float.Parse(floor);
+		// 		// check if this is the first pass-through the records. if so, initialize
+		// 		// what area and building we are starting in
+
+		// 		// check if the area and floor of the current node matches those of the
+		// 		// prvious one. if not, increment the index of path
+		// 		if (firstPass
+		// 			|| currArea != area
+		// 			|| (currFloor != floorFloat
+		// 				&& Math.Abs(currFloor - floorFloat) > .5))
+		// 		{
+		// 			path.Add([]);
+		// 			i++;
+		// 			currArea = area;
+		// 			currFloor = floorFloat;
+		// 			firstPass = false;
+		// 		}
+
+		// 		// add a new node at the correct index
+		// 		path[i].Add(new PathNodeDto
+		// 		{
+		// 			Latitude = float.Parse(latitude),
+		// 			Longitude = float.Parse(longitude),
+		// 			Floor = float.Parse(floor),
+		// 			Building = area,
+		// 			Id = id
+		// 		});
+		// 	}
+
+		// 	// check if a path was found and return it if it was
+		// 	if (path.Count > 0) return Ok(new { message = "Path found!", path });
+		// 	else return Ok(new { message = "No Path Found!" });
+
+		// }
 		catch (Exception e)
 		{
 			Console.WriteLine($"Error: {e.Message}");
-			return StatusCode(500, new { error = e.Message });
+			return StatusCode(500, new
+			{
+				error = e.Message
+			});
 		}
 	}
 
@@ -503,7 +556,7 @@ public class CampusMapController(
 
 		return Ok();
 	}
-*/
+	*/
 
 	// DTO for request body
 	public class BuildingRequest

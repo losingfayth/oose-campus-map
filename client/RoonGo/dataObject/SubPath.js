@@ -5,9 +5,12 @@ class SubPath {
     constructor(path) {
         this.locations = [];
         this.currIndex = 0;
+        console.log(" subpath creation")
 
         path.forEach((point) => {
-            this.locations.push(new LocationNode(point));
+            let ln = new LocationNode(point);
+            this.locations.push(ln);
+            console.log("Pushing new locationNode: " + ln.getLatitude() + ", " + ln.getLongitude())
             // console.log(`    Latitude: ${point.latitude}`);
             // console.log(`    Longitude: ${point.longitude}`);
             // console.log(`    Floor: ${point.floor}`);

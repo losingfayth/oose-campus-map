@@ -33,7 +33,7 @@ const buildingToReferencePoints = {
   "OUT": ReferencePoints([1, -1, 1, -1, 1, -1]),
 
   "HSCB": ReferencePoints([41.007008, -76.447876, 41.008041, -76.447937, 41.006436, -76.447439]),
-  "SSC0": ReferencePoints([41.007391, -76.448126, 41.007807, -76.448440, 41.007685, -76.447432]),
+  "SSC0": ReferencePoints([41.007807, -76.448440, 41.007391, -76.448126, 41.007685, -76.447432]),
 }
 
 const blueprintImageData = {

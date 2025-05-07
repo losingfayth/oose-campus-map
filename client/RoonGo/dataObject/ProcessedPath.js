@@ -22,7 +22,12 @@ class ProcessedPath {
         this.blueprintNames = [];
         this.points = [];
 
+        let spi = 0;
+
+
+
         pathData.forEach((segment) => {
+            console.log("Creating subpath: ")
             let subPath = new SubPath(segment);
             this.subPaths.push(subPath);
 

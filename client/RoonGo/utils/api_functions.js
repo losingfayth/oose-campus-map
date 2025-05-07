@@ -1,6 +1,6 @@
 // functions to make calls to server
 
-const PORT = "5159";
+const PORT = "5162";
 
 export async function getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates(buildingInfo, userLocation) {
 	console.log("Running getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates()");
@@ -87,7 +87,6 @@ export async function getRooms(building) {
 		//console.log("Raw response:", response); // check the full response object
 		const data = await response.json();
 		//console.log("Parsed JSON:", data);
-		console.log("data returned: " + data);
 		return data;
 
 		// throw error if fetch is unsuccessful
