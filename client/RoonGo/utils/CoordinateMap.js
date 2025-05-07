@@ -83,11 +83,6 @@ class CoordinateMap {
         return Point(v1.x + v2.x, v1.y + v2.y);
     }
 
-
-
-
-
-
 }
 
 function CoordinateSystem(origin, topRight, bottomLeft) {

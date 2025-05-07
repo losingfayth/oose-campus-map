@@ -15,15 +15,19 @@ import * as Location from "expo-location";
 import SearchBar from "../../components/SearchBar";
 import { points } from "../../utils/Points";
 import ImageButton from "../../components/ImageButton"
+import PopupDialog from "../../components/PopupDialog"
 import { insideBuilding } from "../../utils/insideBuilding.js";
 
 import { loadImageReferences } from "../../utils/imagePaths.js";
 
 import {
-	getBuildings,
-	getRooms,
-	findPath,
-	getPois, getNumFloors, getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates,
+  getBuildings,
+  getRooms,
+  findPath,
+  getPois,
+  getNearestBathroom,
+  getNumFloors,
+  getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordinates
 } from "../../utils/api_functions";
 import ProcessedPath from "../../dataObject/ProcessedPath.js";
 
@@ -58,6 +62,7 @@ export default function Start() {
 	const [selectedEndRoomId, setSelectedEndRoomId] = useState(null);
 
 	const [accessiblePathMode, setAccessiblePathMode] = useState(false);
+	const [bathroomPopupVisible, setBathroomPopupVisible] = useState(false);
 
 	const [currentLocationArea, setCurrentLocationArea] = useState(null);
 	const [currentLocationChosen, setCurrentLocationChosen] = useState(false);
@@ -68,7 +73,9 @@ export default function Start() {
 			console.log("Not building");
 			return;
 		}
+
 		console.log("!!!building: " + building);
+
 		if (building == "Current Location") {
 			console.log("Current Location");
 			console.log(location);
@@ -117,11 +124,7 @@ export default function Start() {
 					floorObjects.push(floorType(floor));
 				})
 				setFilteredStartRoomNumbers(floorObjects);
-
-
 			})
-
-
 		}
 
 		else {
@@ -135,54 +138,78 @@ export default function Start() {
 					setSelectedStartBuilding(building); // save destination building
 					setSelectedStartRoom(null);
 					setSelectedStartRoomId(null);
-				}
-				else {
+				} else {
 					setSelectedEndBuilding(building);
 					setSelectedEndRoom(null);
 					setSelectedEndRoomId(null);
 				}
-				if (poi == null) {
-					if (isStart) {
-						setSelectedStartBuilding(building); // save destination building
-						setSelectedStartRoom(null);
-						setSelectedStartRoomId(null);
-					} else {
-						setSelectedEndBuilding(building);
-						setSelectedEndRoom(null);
-						setSelectedEndRoomId(null);
-					}
 
-					getRooms(building)
-						.then((rooms) => {
-							// rooms = rooms.filter((room) => room.name);
-							// console.log(rooms);
-							if (isStart)
-								setFilteredStartRoomNumbers(
-									rooms.filter((room) => room.name.toLowerCase())
-								);
-							else
-								setFilteredEndRoomNumbers(
-									rooms.filter((room) => room.name.toLowerCase())
-								);
-						})
-						.catch((error) => {
-							console.error("Error fetching rooms for building:", building, error);
-						});
+			getRooms(building)
+				.then((rooms) => {
+					if (isStart)
+						setFilteredStartRoomNumbers(
+							rooms.filter((room) => room.name.toLowerCase())
+						);
+					else
+						setFilteredEndRoomNumbers(
+							rooms.filter((room) => room.name.toLowerCase())
+						);
+				})
+				.catch((error) => {
+					console.error("Error fetching rooms for building:", building, error);
+				});
+			} else {
+				if (isStart) {
+					setSelectedStartBuilding(poi.bldg);
+					setSelectedStartRoom(poi.room);
+					setSelectedStartRoomId(poi.locId);
 				} else {
-					if (isStart) {
-						setSelectedStartBuilding(poi.bldg);
-						setSelectedStartRoom(poi.room);
-						setSelectedStartRoomId(poi.locId);
-					} else {
-						setSelectedEndBuilding(poi.bldg);
-						setSelectedEndRoom(poi.room);
-						setSelectedEndRoomId(poi.locId);
-					}
+					setSelectedEndBuilding(poi.bldg);
+					setSelectedEndRoom(poi.room);
+					setSelectedEndRoomId(poi.locId);
 				}
-			}
+				
 		}
+	}});
+
+	const displayPath = useCallback(async (pathData) => {
+	var processedPath;
+
+	console.log(pathData);
+
+	if (pathData.message == "No Path Found!")
+		throw new Error(pathData.message);
+
+	processedPath = new ProcessedPath(pathData.path);
+
+	console.log(processedPath.getStringRepresentation());
+
+	var blueprintNames = processedPath.getBlueprintNames();
+	var points = processedPath.getPoints();
+
+	router.push({
+		pathname: `/buildings/${blueprintNames[0]}`,
+		params: {
+		categories: JSON.stringify(blueprintNames),
+		coords: JSON.stringify(points),
+		currLoc: 0,
+		maxLocs: blueprintNames.length - 1,
+		},
+	});
 	});
 
+	const findBathroom = useCallback(async (currLoc, gender) => {
+	try {
+		console.log("Current Location: ", currLoc);
+
+		setBathroomPopupVisible(false);
+		var pathData = await getNearestBathroom(currLoc, gender);
+
+		console.log(pathData);
+
+		await displayPath(pathData);
+	} catch (e) { console.error("Error fetching path:", e); }
+	});
 
 	// set up a useEffect to request permissions, fetch user location, and track location
 	useEffect(() => {
@@ -302,66 +329,58 @@ export default function Start() {
 					</Marker>
 				)}
 			</MapView>
+			
+			<View style={styles.searchButtonContainer}>
+				<ImageButton
+					selected={selectedStartRoomId != null}
+					onPress={() => setBathroomPopupVisible(true)}
+					imagePath={require("../../assets/bathroom_sign.png")}
+					customStyles={{ height: 44, width: 44 }}
+					disabled={selectedStartRoomId == null}
+				/>
+				{/* Search Button */}
+				<Pressable
+					style={styles.button}
+					onPress={() => {
+						// Check if all necessary values are set
+						if (
+							true
+							// selectedStartBuilding !== null &&
+							// selectedStartRoom !== null &&
+							// selectedEndBuilding !== null &&
+							// selectedEndRoom !== null
+						) {
+							console.log("Not null");
 
-			{/* Search Button */}
-			<Pressable
-				style={styles.button}
-				onPress={() => {
-					// Check if all necessary values are set
-					if (
-						true
+							async function getPath() {
+								try {
+									// Create array of room IDs: [fromRoomId, toRoomId]
+									const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
+									// const roomIdArray = [22, 1078];
 
-					) {
-						console.log("Not null");
+									console.log("Room ID array: ", roomIdArray);
+									console.log("Accessible Path Mode: ", accessiblePathMode);
 
-						var processedPath;
+									var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
-						async function getPath() {
-							try {
-								// Create array of room IDs: [fromRoomId, toRoomId]
-								const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-								// const roomIdArray = [22, 1078];
+									console.log(pathData);
 
-								console.log("Room ID array: ", roomIdArray);
-								console.log("Accessible Path Mode: ", accessiblePathMode);
-
-								var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
-
-								console.log(pathData);
-
-								if (pathData.message == "No Path Found!")
-									throw new Error(pathData.message);
-
-								processedPath = new ProcessedPath(pathData.path);
-
-								console.log(processedPath.getStringRepresentation());
-
-								var blueprintNames = processedPath.getBlueprintNames();
-								// console.log(blueprintNames);
-								var points = processedPath.getPoints();
-
-								router.push({
-									pathname: `/buildings/${blueprintNames[0]}`,
-									params: {
-										categories: JSON.stringify(blueprintNames),
-										coords: JSON.stringify(points),
-										currLoc: 0,
-										maxLocs: blueprintNames.length - 1,
-									},
-								});
-							} catch (e) {
-								console.error("Error fetching path:", e);
+									await displayPath(pathData);
+								} catch (e) {
+									console.error("Error fetching path:", e);
+								}
 							}
-						}
 
-						getPath();
-					} else {
-						console.log("One or more values are null");
-					}
-				}}
-			>
-				<Text style={styles.buttonText}>Search</Text>
-			</Pressable>
+							getPath();
+						} else {
+							console.log("One or more values are null");
+						}
+					}}
+				>
+					<Text style={styles.buttonText}>Search</Text>
+				</Pressable>
+			</View>
+			
 
 			{/* Search bar with first being for building and second for room number */}
 			{/* "From" Building Search Bar */}
@@ -433,6 +452,13 @@ export default function Start() {
 				placeholderText="To"
 				onSelect={(building) => handleBuildingOptionSelect(building, false)}
 			/>
+			{/* "To" Building Search Bar */}
+			<SearchBar
+				searchFilterData={buildingSearchOptions} // same list of buildings
+				customStyles={{ top: "16%", left: "5%", width: "60%" }}
+				placeholderText="To"
+				onSelect={(building) => handleBuildingOptionSelect(building, false)}
+			/>
 
 			{/* "To" Room Search Bar */}
 			<SearchBar
@@ -460,11 +486,47 @@ export default function Start() {
 				}}
 			/>
 
+			<PopupDialog
+				visible={bathroomPopupVisible}
+				onClose={() => setBathroomPopupVisible(false)}
+				content={
+					<View style={styles.popupContainer}>
+						<View style={styles.popupRow}>
+							<ImageButton
+								selected={ true }
+								onPress={() => {findBathroom(selectedStartRoomId, "F")}}
+								imagePath={require("../../assets/woman_gender_symbol_white.png")}
+								customStyles={styles.bathroomButton}
+							/>
+							<ImageButton
+								selected={ true }
+								onPress={() => {findBathroom(selectedStartRoomId, "A")}}
+								imagePath={require("../../assets/third_gender_symbol_white.png")}
+								customStyles={styles.bathroomButton}
+							/>
+						</View>
+						<View style={styles.popupRow}>
+							<ImageButton
+								selected={ true }
+								onPress={() => {findBathroom(selectedStartRoomId, "N")}}
+								imagePath={require("../../assets/all_gender_symbol_white.png")}
+								customStyles={styles.bathroomButton}
+							/>
+							<ImageButton
+								selected={ true }
+								onPress={() => {findBathroom(selectedStartRoomId, "M")}}
+								imagePath={require("../../assets/man_gender_symbol_white.png")}
+								customStyles={styles.bathroomButton}
+							/>
+						</View>
+					</View>
+			}/>
+
 			<ImageButton
 				selected={accessiblePathMode}
 				onPress={() => setAccessiblePathMode(!accessiblePathMode)}
 				imagePath={require("../../assets/handicap_accessible_icon.jpg")}
-				customStyles={{ position: "absolute", bottom: 22, right: 22, height: 70, width: 70 }}
+				customStyles={styles.accessibleButton}
 			/>
 		</View>
 	);
@@ -475,6 +537,16 @@ const styles = StyleSheet.create({
 		...StyleSheet.absoluteFillObject,
 		justifyContent: "center",
 		alignItems: "center",
+	},
+	popupContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 'auto'
+	},
+	popupRow: {
+		flexDirection: 'row',
+		gap: 16,
+		padding: 16
 	},
 	map: {
 		...StyleSheet.absoluteFillObject,
@@ -494,9 +566,6 @@ const styles = StyleSheet.create({
 		color: "#333",
 	},
 	button: {
-		position: "absolute",
-		top: "24%",
-		right: "5%",
 		backgroundColor: "white",
 		paddingVertical: 10,
 		paddingHorizontal: 10,
@@ -512,4 +581,22 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginLeft: 10,
 	},
+	searchButtonContainer: {
+		flexDirection: 'row',
+		gap: 10,
+		position: 'absolute',
+		right: '5%',
+		top: '24%'
+	},
+	bathroomButton: {
+		height: 60,
+		width: 60,
+		backgroundColor: '#005084'
+	},
+	accessibleButton: {
+		position: "absolute",
+		bottom: "5%",
+		right: "5%",
+		height: 70,
+		width: 70 }
 });
