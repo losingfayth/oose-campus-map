@@ -77,8 +77,13 @@ export default function Start() {
 		console.log("!!!building: " + building);
 
 		if (building == "Current Location") {
+			var testGCS = { // right outside BF115
+				latitude: 41.007028854263300,
+				longitude: -76.44842994858740,
+			}
+
 			console.log("Current Location");
-			console.log(location);
+			console.log(testGCS.latitude + ", " + testGCS.longitude);
 
 			var GCS = {
 				latitude: location.latitude,
@@ -86,7 +91,7 @@ export default function Start() {
 			}
 
 
-			let area = insideBuilding(GCS);
+			let area = insideBuilding(testGCS);
 			console.log("Area: ", area);
 
 			setCurrentLocationArea(area);
