@@ -18,24 +18,6 @@ namespace CampusMapApi.Utilities
 					CALL gds.graph.drop($graph, false);
 					";
 
-				await neo4j.ExecuteWriteQueryAsync(dropQuery, new { graph = "campusGraph"} );
-
-				var projectStandardQuery = @"
-				CALL gds.graph.project(
-				'campusGraph', {
-					Location: {
-						properties: ['latitude', 'longitude', 'isAccessible']
-					}
-				} , {
-					CONNECTED_TO: {
-					type: 'CONNECTED_TO',
-					properties: 'distance'
-					}
-				})";
-
-				await neo4j.ExecuteWriteQueryAsync(projectStandardQuery);
-
-
 				var graphType = accessible ? "accessibleCampusGraph" : "campusGraph";
 
 				if (accessible)
