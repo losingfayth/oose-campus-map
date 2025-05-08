@@ -38,6 +38,35 @@ export async function getClosedLocationIdFromBuildingNameFloorNumberAndGCSCoordi
 
 }
 
+export async function getNumFloors(area) {
+	console.log("Running getNumFloors on : " + area);
+	var request = {
+		building: area,
+	}
+
+	try {
+		// use fetch to make an http request to server at get-location endpoint
+		const response = await fetch(
+			"https://apibloomap.xyz:" + PORT + "/api/CampusMap/GetFloors",
+			{
+				method: "POST", // http POST request
+				headers: { "Content-Type": "application/json" }, // sending data as json
+				body: JSON.stringify(request), // convert js to json before sending
+			}
+		);
+
+		const data = await response.json();
+
+		return data;
+
+		// throw error if fetch is unsuccessful
+	} catch (error) {
+		console.error("Error fetching location: ", error);
+	}
+	// return null if error occurs
+	return null;
+}
+
 /* 
 Makes an Http GET request to server endpoint GetBuildings.
 Returns a list of nodes representing all buidling locations stored in database. Each node

@@ -45,6 +45,7 @@ export function insideBuilding(GCS) {
         var wrtOrigin = subtract(at, coordinateSystem.origin);
         var m = multiply(coordinateSystem.inverseMatrix, wrtOrigin);
         if (m.x >= 0 && m.x <= 1 && m.y >= 0 && m.y <= 1) {
+            console.log("key: " + key);
             return getBuildingName(key);
         }
     }
