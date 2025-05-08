@@ -30,8 +30,6 @@ public class CampusMapController(
 	public async Task<IActionResult> GetClosestLocation([FromBody] LocationRequest request)
 	{
 
-
-
 		var building = request.Building; // get building name
 		string floor = request.Floor.ToString(); // get floor number
 		var latitude = request.Latitude; // get latitude
@@ -45,9 +43,6 @@ public class CampusMapController(
 			WHERE l.floor = " + floor +
 			" RETURN l.latitude as lat, l.longitude as lng, l.id as id"
 		;
-
-
-
 
 		// list to hold locations
 		var rooms = new List<LocationDto>();
