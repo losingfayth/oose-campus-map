@@ -85,10 +85,6 @@ export default function Start() {
 				longitude: location.longitude,
 			}
 
-			// var testGCS = {
-			// 	latitude: 41.0078998985986,
-			// 	longitude: -76.44737043862342,
-			// }
 
 			let area = insideBuilding(GCS);
 			console.log("Area: ", area);
@@ -100,7 +96,6 @@ export default function Start() {
 
 			getNumFloors(area).then((floorInformation) => {
 				console.log("Num Floors: ", floorInformation);
-				// setSelectedStartBuilding(area);
 				var floors = [];
 				let floor = "Floor ";
 				for (let i = floorInformation.lowestFloor; i < floorInformation.lowestFloor + floorInformation.numFloors; i++) {
@@ -188,12 +183,7 @@ export default function Start() {
 		var blueprintNames = processedPath.getBlueprintNames();
 		var points = processedPath.getPoints();
 
-		// for (let i = 0; i < processedPath.subPaths.length; i++) {
 
-		// 	for (let j = 0; j < processedPath.subPaths[i].locations.length; j++) {
-		// 		console.log("path: " + processedPath.subPaths[i].locations[j].latitude + ", " + processedPath.subPaths[i].locations[j].longitude)
-		// 	}
-		// }
 
 		router.push({
 			pathname: `/buildings/${blueprintNames[0]}`,
@@ -360,14 +350,12 @@ export default function Start() {
 								try {
 									// Create array of room IDs: [fromRoomId, toRoomId]
 									const roomIdArray = [selectedStartRoomId, selectedEndRoomId];
-									// const roomIdArray = [22, 1078];
 
 									console.log("Room ID array: ", roomIdArray);
 									console.log("Accessible Path Mode: ", accessiblePathMode);
 
 									var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
-									console.log(pathData);
 
 									await displayPath(pathData);
 								} catch (e) {

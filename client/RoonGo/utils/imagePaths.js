@@ -32,8 +32,8 @@ const buildingToReferencePoints = {
   "A&A": ReferencePoints([41.007940, -76.447597, 41.008159, -76.447243, 41.007620, -76.447317]),
   "OUT": ReferencePoints([1, -1, 1, -1, 1, -1]),
 
-  "HSCB": ReferencePoints([41.007008, -76.447876, 41.008041, -76.447937, 41.006436, -76.447439]),
-  "SSC0": ReferencePoints([41.007807, -76.448440, 41.007391, -76.448126, 41.007685, -76.447432]),
+  "HSCB": ReferencePoints([41.007260, -76.448028, 41.0074625, -76.44751563, 41.006691, -76.447596]),
+  "SSC0": ReferencePoints([41.007807, -76.448098, 41.008093, -76.447748, 41.007448, -76.448380]),
 }
 
 const blueprintImageData = {
@@ -163,7 +163,7 @@ const blueprintImageData = {
   },
   "SSC-0": {
     image: require("../assets/build_images/Student Services/GR FL.png"),
-    reference: buildingToReferencePoints["SSC0"],
+    reference: buildingToReferencePoints["SSC"],
   },
   "SUT-1": {
     image: require("../assets/build_images/Sutliff Hall/SH-1ST FL.png"),
@@ -196,59 +196,7 @@ function getBuildingName(abbreviation) {
   }
   return null;
 }
-// function getBuildingName(abbreviation) {
 
-
-
-// const blueprintNames = [
-//   "OUT",
-//   "BFB-G",
-//   "BFB-1",
-//   "BFB-2",
-//   "NAVY-G",
-//   "NAVY-1",
-//   "NAVY-2",
-//   "NAVY-A",
-// ];
-// var ImageReferences = [];
-
-// const getImageReferences = function () {
-//   if (ImageReferences == null || ImageReferences.length == 0) {
-//     ImageReferences = loadImageReferences();
-//   }
-//   return ImageReferences;
-// };
-
-// const getImageReference = function (building) {
-//   ImageReferences = getImageReferences();
-
-//   for (let i = 0; i < ImageReferences.length; i++) {
-//     if (ImageReferences[i].building == building) {
-//       return ImageReferences[i];
-//     }
-//   }
-//   console.log("Unable to find reference points for building " + building);
-// };
-
-// function loadImageReferences() {
-//   let arr = [];
-//   for (let i = 0; i < blueprintNames.length; i++) {
-//     arr.push(
-//       ImageReference(blueprintNames[i], ReferencePoints(buildingCorners[i]))
-//     );
-//   }
-
-//   return arr;
-// }
-
-
-
-// function ImageReference(building, referencePoints) {
-//   return {
-//     building: building,
-//     referencePoints: referencePoints,
-//   };
-// }
 
 function GmcCoordinate(latitude, longitude) {
   return {

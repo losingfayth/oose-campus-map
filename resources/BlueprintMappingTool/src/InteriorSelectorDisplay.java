@@ -82,8 +82,14 @@ public class InteriorSelectorDisplay extends Application
     CoordinateSystem imageCoordinateSystem;
     CoordinateSystem realWorldCoordinates;
 /*
-'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/blueprintCropped_png/Student Services/GR FL.png'
+'/Users/dakotahkurtz/Documents/GitHub/oose-campus-map/resources/Floor Plan Networks/pngCropped/SSC/SSC 0.png'
+L
+41.007807, -76.448440
+41.007391, -76.448126
+41.007685, -76.447432
  */
+    // 41.007474, -76.447888
+    //41.00795761323910	-76.44736922196730
     // adjust the below booleans if you are marking either of the referenced blueprints
     static final boolean AM_MARKING_SSC_BASEMENT = false;
     static final boolean AM_MARKING_HARTLINE_BASEMENT = false;

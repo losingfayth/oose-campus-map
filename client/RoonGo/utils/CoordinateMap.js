@@ -48,6 +48,8 @@
 class CoordinateMap {
 
     constructor(domainArray, rangeArray) {
+       // console.log("Domain: tl: " + domainArray[0] + ", " + domainArray[1] + " | tR: " + domainArray[2] + ", " + domainArray[3] + ", bl: " + domainArray[4] + ", " + domainArray[5])
+       // console.log("R: " + rangeArray[0] + ", " + rangeArray[1] + " | " + rangeArray[2] + ", " + rangeArray[3] + " | " + rangeArray[4] + ", " + rangeArray[5])
         this.domain = CoordinateSystem(Point(domainArray[0], domainArray[1]), Point(domainArray[2], domainArray[3]), Point(domainArray[4], domainArray[5]));
         this.range = CoordinateSystem(Point(rangeArray[0], rangeArray[1]), Point(rangeArray[2], rangeArray[3]), Point(rangeArray[4], rangeArray[5]));
     }
