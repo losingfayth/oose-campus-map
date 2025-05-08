@@ -21,7 +21,7 @@ buildingNames.forEach((pair) => {
 });
 
 const buildingToReferencePoints = {
-  "BF": ReferencePoints([41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069]),
+  "BFB": ReferencePoints([41.006674, -76.44827, 41.007064, -76.44857, 41.006764, -76.448069]),
   "HSC": ReferencePoints([41.007292, -76.448117, 41.007633, -76.447336, 41.006672, -76.447640]),
   "SSC": ReferencePoints([41.007807, -76.448380, 41.008093, -76.447748, 41.007448, -76.448098]),
   "BCH": ReferencePoints([41.008415, -76.448675, 41.008679, -76.448106, 41.007995, -76.448338]),
@@ -43,15 +43,15 @@ const blueprintImageData = {
   },
   "BFB-0": {
     image: require("../assets/build_images/Ben Franklin/BFB-GR.png"),
-    reference: buildingToReferencePoints["BF"],
+    reference: buildingToReferencePoints["BFB"],
   },
   "BFB-1": {
     image: require("../assets/build_images/Ben Franklin/BFB-1.png"),
-    reference: buildingToReferencePoints["BF"],
+    reference: buildingToReferencePoints["BFB"],
   },
   "BFB-2": {
     image: require("../assets/build_images/Ben Franklin/BFB-2.png"),
-    reference: buildingToReferencePoints["BF"],
+    reference: buildingToReferencePoints["BFB"],
   },
   "NAVY-3": {
     image: require("../assets/build_images/Navy Hall/ATTIC.png"),
