@@ -77,8 +77,13 @@ export default function Start() {
 		console.log("!!!building: " + building);
 
 		if (building == "Current Location") {
+			var testGCS = { // right outside BF115
+				latitude: 41.00703583558270,
+				longitude: -76.44841417064840
+			}
+
 			console.log("Current Location");
-			console.log(location);
+			console.log(testGCS.latitude + ", " + testGCS.longitude);
 
 			var GCS = {
 				latitude: location.latitude,
@@ -86,7 +91,7 @@ export default function Start() {
 			}
 
 
-			let area = insideBuilding(GCS);
+			let area = insideBuilding(testGCS);
 			console.log("Area: ", area);
 
 			setCurrentLocationArea(area);
@@ -117,9 +122,13 @@ export default function Start() {
 				let floorObjects = [];
 				floors.forEach((floor) => {
 					floorObjects.push(floorType(floor));
-				})
+					console.log("floor: " + floorType(floor).name)
+				});
+
 				setFilteredStartRoomNumbers(floorObjects);
 			})
+
+			getNumFloors();
 		}
 
 		else {
@@ -353,7 +362,7 @@ export default function Start() {
 
 									console.log("Room ID array: ", roomIdArray);
 									console.log("Accessible Path Mode: ", accessiblePathMode);
-
+									console.log(roomIdArray[0] + ", " + roomIdArray[1])
 									var pathData = await findPath(roomIdArray[0], roomIdArray[1], accessiblePathMode);
 
 
@@ -378,7 +387,7 @@ export default function Start() {
 			{/* "From" Building Search Bar */}
 			<SearchBar
 				searchFilterData={buildingSearchOptions} // options for buildings
-				defaultFilterData={["Current Location", "🏫 Special Building 2"]} // add default "from" options here
+				defaultFilterData={["Current Location"]} // add default "from" options here
 				customStyles={{ left: "5%", width: "60%", zIndex: 2 }}
 				placeholderText="From"
 				onTypingChange={setIsBuildingTyping} // updates typing state if needed
