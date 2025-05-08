@@ -41,6 +41,7 @@ import PathControls from "../../components/PathControls.js";
 function mapPointsToPixels(points, coordinateMap) {
   return points.map((point) => {
     const mapped = coordinateMap.convert(point.latitude, point.longitude);
+    //console.log(point.latitude + ", " + point.longitude + " -> " + mapped.x + ", " + mapped.y)
     return { x: mapped.x, y: mapped.y };
   });
 }
@@ -84,9 +85,6 @@ export default function Building() {
     return null;
   }
 
-  var printReferencePoints = (p) => {
-    console.log("ReferencePoints: topLeft ", p.topLeft.latitude + ", " + p.topLeft.longitude);
-  }
   /**
    * Once the image resolution is fetched and available, this line
    * calculates the appropriate size for the image based on the device's
@@ -104,7 +102,8 @@ export default function Building() {
   // must move as one big block ---------------------------------------------------------------
 
   let imageReferencePoints = blueprintImageData[locs[currIndex]].reference;
-  printReferencePoints(imageReferencePoints);
+  console.log("B: " + locs[currIndex])
+
 
   let m = new CoordinateMap(CoordinateMap.fromReference(imageReferencePoints), [
     0,
@@ -114,6 +113,10 @@ export default function Building() {
     0,
     size.height,
   ]);
+
+
+  // let testOut = m.convert(testPoint.latitude, testPoint.longitude);
+  // console.log("testOut: " + testOut.x + ", " + testOut.y);
 
   const pixelPoints = mapPointsToPixels(parsedPoints[currIndex], m);
   const normalizedPoints = PointNormalizer.normalizePoints(pixelPoints, size);
