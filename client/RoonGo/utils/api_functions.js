@@ -185,11 +185,13 @@ export async function getNearestBathroom(currLoc, gender) {
 			{
 				method: "POST", // http POST request
 				headers: { "Content-Type": "application/json" }, // sending data as json
-				body: JSON.stringify({ request }), // convert js to json before sending
+				body: JSON.stringify(request), // convert js to json before sending
 			}
 		);
 
+		
 		const data = await response.json();
+		console.log(data.path)
 
 		return data;
 

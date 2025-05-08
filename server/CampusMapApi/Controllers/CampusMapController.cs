@@ -30,8 +30,6 @@ public class CampusMapController(
 	public async Task<IActionResult> GetClosestLocation([FromBody] LocationRequest request)
 	{
 
-
-
 		var building = request.Building; // get building name
 		string floor = request.Floor.ToString(); // get floor number
 		var latitude = request.Latitude; // get latitude
@@ -45,9 +43,6 @@ public class CampusMapController(
 			WHERE l.floor = " + floor +
 			" RETURN l.latitude as lat, l.longitude as lng, l.id as id"
 		;
-
-
-
 
 		// list to hold locations
 		var rooms = new List<LocationDto>();
@@ -119,7 +114,6 @@ public class CampusMapController(
 
 		try
 		{
-
 			await DbProjectionGenerator.GenerateProjection(_neo4j, request.Accessible);
 
 			// query to use A* algorithm on database
@@ -210,59 +204,6 @@ public class CampusMapController(
 
 
 		}
-
-		// 		var path = new List<List<PathNodeDto>>(); // list of lists for node data
-		// 	bool firstPass = true; // flags if it is first pass-through records
-		// 	string currArea = ""; // tracking variable to store current area nodes are in
-		// 	float currFloor = 0; // tracking variable to store current floor nodes are in
-		// 	int i = -1; // iterator var
-
-		// 	// iterate over the list of nodes, getting each lat and long value and adding
-		// 	// it to the path List<>
-		// 	foreach (var record in results)
-		// 	{
-		// 		// initialize records from node
-		// 		var latitude = record["latitude"].ToString() ?? "";
-		// 		var longitude = record["longitude"].ToString() ?? "";
-		// 		var floor = record["floor"].ToString() ?? "";
-		// 		var id = record["id"].ToString() ?? "";
-		// 		var area = record["building"].ToString() ?? "";
-		// 		var name = record["locationName"].ToString() ?? null;
-
-		// 		var floorFloat = float.Parse(floor);
-		// 		// check if this is the first pass-through the records. if so, initialize
-		// 		// what area and building we are starting in
-
-		// 		// check if the area and floor of the current node matches those of the
-		// 		// prvious one. if not, increment the index of path
-		// 		if (firstPass
-		// 			|| currArea != area
-		// 			|| (currFloor != floorFloat
-		// 				&& Math.Abs(currFloor - floorFloat) > .5))
-		// 		{
-		// 			path.Add([]);
-		// 			i++;
-		// 			currArea = area;
-		// 			currFloor = floorFloat;
-		// 			firstPass = false;
-		// 		}
-
-		// 		// add a new node at the correct index
-		// 		path[i].Add(new PathNodeDto
-		// 		{
-		// 			Latitude = float.Parse(latitude),
-		// 			Longitude = float.Parse(longitude),
-		// 			Floor = float.Parse(floor),
-		// 			Building = area,
-		// 			Id = id
-		// 		});
-		// 	}
-
-		// // check if a path was found and return it if it was
-		// if (path.Count > 0) return Ok(new { message = "Path found!", path });
-		// else return Ok(new { message = "No Path Found!" });
-
-		// }
 		catch (Exception e)
 		{
 			Console.WriteLine($"Error: {e.Message}");
