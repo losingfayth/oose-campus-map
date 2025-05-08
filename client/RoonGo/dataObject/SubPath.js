@@ -10,7 +10,7 @@ class SubPath {
         path.forEach((point) => {
             let ln = new LocationNode(point);
             this.locations.push(ln);
-            console.log("Pushing new locationNode: " + ln.getLatitude() + ", " + ln.getLongitude())
+            //console.log("Pushing new locationNode: " + ln.getLatitude() + ", " + ln.getLongitude())
             // console.log(`    Latitude: ${point.latitude}`);
             // console.log(`    Longitude: ${point.longitude}`);
             // console.log(`    Floor: ${point.floor}`);
@@ -26,10 +26,12 @@ class SubPath {
     }
 
     getBuildingName() {
+		console.log(this.building)
         return this.building;
     }
 
     getFloor() {
+		console.log(this.floor)
         return this.floor;
     }
 

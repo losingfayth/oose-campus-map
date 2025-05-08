@@ -171,8 +171,6 @@ export default function Start() {
 	const displayPath = useCallback(async (pathData) => {
 		var processedPath;
 
-		//console.log(pathData);
-
 		if (pathData.message == "No Path Found!")
 			throw new Error(pathData.message);
 
@@ -182,8 +180,6 @@ export default function Start() {
 
 		var blueprintNames = processedPath.getBlueprintNames();
 		var points = processedPath.getPoints();
-
-
 
 		router.push({
 			pathname: `/buildings/${blueprintNames[0]}`,
@@ -198,12 +194,9 @@ export default function Start() {
 
 	const findBathroom = useCallback(async (currLoc, gender) => {
 		try {
-			console.log("Current Location: ", currLoc);
 
 			setBathroomPopupVisible(false);
 			var pathData = await getNearestBathroom(currLoc, gender);
-
-			console.log(pathData);
 
 			await displayPath(pathData);
 		} catch (e) { console.error("Error fetching path:", e); }

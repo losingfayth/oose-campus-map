@@ -24,8 +24,6 @@ class ProcessedPath {
 
         let spi = 0;
 
-
-
         pathData.forEach((segment) => {
             console.log("Creating subpath: ")
             let subPath = new SubPath(segment);
